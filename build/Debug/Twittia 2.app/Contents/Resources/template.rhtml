@@ -1,0 +1,144 @@
+<% unless @messages.nil? %>
+	<ol class="<%= @type %>">
+	<% if @type == :messages or @type == :usertimeline or @type == :replies or @type == :direct %>
+		<% @messages.each do |message| %>
+			<li class="<% "favorited" if message[:favorited] %>">
+				<div class="image" style="background-image: url(<%= message[:user][:profile_image_url] %>);">
+					<a href="twittia://usertimeline/<%= message[:user][:screen_name] %>"
+						title="show tweets from @<%= message[:user][:screen_name] %>"
+						ondblclick="window.location.href='http://twitter.com/<%= message[:user][:screen_name] %>'; return false;"></a>
+				</div>
+				<div class="data">
+					<% unless message[:twitpic_url].nil? %>
+						<p class="twitpic" style="background-image: url(http://twitpic.com/show/mini/<%= message[:twitpic_id] %>);">
+							<a href='<%= message[:twitpic_url] %>' title='open in browser: <%= message[:twitpic_url]%>'></a>
+						</p>
+					<% end %>
+					<h1>
+						<a href="twittia://reply/<%= message[:user][:screen_name] %>/<%= message[:id] %>"
+							title="reply to @<%= message[:user][:screen_name] %>">
+							<%= message[:user][:name] %>
+						</a>
+						<a class="direct-message" href="twittia://direct/<%= message[:user][:screen_name] %>"
+							title="direct message to @<%= message[:user][:screen_name] %>">(d)</a>
+						<% if message[:in_reply_to_user].length > 0 and  message[:in_reply_to_status_id].length > 0 %>
+							<span class="reply">in reply to
+								<a href="http://twitter.com/<%= message[:in_reply_to_user] %>/status/<%= message[:in_reply_to_status_id] %>"
+									title="open original in browser">
+									@<%= message[:in_reply_to_user] %>
+								</a>
+							</span>
+						<% end %>
+					</h1>
+					<p class="message"><%= message[:text].twitter_links %></p>
+					<p class="date">
+						<a
+						 href="http://twitter.com/<%= message[:user][:screen_name] %>/status/<%= message[:id] %>"
+						 title="<%= Time.parse(message[:created_at]).strftime("%A, %d. %B %Y, %H:%M") %> (open in browser)">
+							<%= message[:created_at].time_ago_in_words %> ago
+						</a>
+						from <%= message[:source] %>
+						<% if @myusername == message[:user][:screen_name] %>
+							<a class="delete" href="twittia://delete/<%= message[:id] %>">⌫</a>
+						<% end %>
+					</p>
+				</div>
+			</li>
+		<% end %>
+	<% elsif @type == :searchresults %>
+		<% @messages.each do |message| %>
+			<li>
+				<div class="image" style="background-image: url(<%= message[:profile_image_url] %>)">
+					<a href="twittia://usertimeline/<%= message[:from_user] %>"
+						title="show tweets from @<%= message[:from_user] %>"
+						ondblclick="window.location.href='http://twitter.com/<%= message[:from_user] %>'; return false;"></a>
+				</div>
+				<div class="data">
+					<% unless message[:twitpic_url].nil? %>
+						<p class="twitpic" style="background-image: url(http://twitpic.com/show/mini/<%= message[:twitpic_id] %>);">
+							<a href='<%= message[:twitpic_url] %>' title='open in browser: <%= message[:twitpic_url]%>'></a>
+						</p>
+					<% end %>
+					<h1>
+						<a href="twittia://reply/<%= message[:from_user] %>/<%= message[:id] %>" title="reply to @<%= message[:from_user] %>">
+							<%= message[:from_user] %> 
+						</a>
+					</h1>
+					<p class="message"><%= message[:text].twitter_links %></p>
+					<p class="date">
+						<a href="http://twitter.com/<%= message[:from_user] %>/status/<%= message[:id] %>"
+							title="<%= Time.parse(message[:created_at]).strftime("%A, %d. %B %Y, %H:%M") %> (open in browser)">
+							<%= message[:created_at].time_ago_in_words %> ago
+						</a>
+						<% if @myusername == message[:from_user] %>
+							<a class="delete" href="twittia://delete/<%= message[:id] %>">⌫</a>
+						<% end %>
+					</p>
+				</div>
+			</li>
+		<% end %>
+	<% end %>
+	</ol>
+<% end %>
+<% if @type == :error %>
+	<div class="error">
+		<h1><%= @headline %></h1>
+		<p><%= @message %></p>
+	</div>
+<% end %>
+<%
+=begin
+
+You can find the information within the @messages array and you can loop
+with help of
+
+@messages.each do |message|
+	# here comes your code
+end
+
+If @type is :messages
+
+message = [
+	:created_at,
+	:id,
+	:text,
+	:source,
+	:truncated,
+	:favorited,
+	:user = {
+		:id,
+		:name,
+		:screen_name,
+		:location,
+		:description,
+		:profile_image_url,
+		:url,
+		:protected,
+		:followers_count
+	},
+	:in_reply_to_user_id,
+	:in_reply_to_status_id,
+	:in_reply_to_user,
+]
+
+If @type if :searchresults
+
+message = [
+	:text,
+	:to_user_id,
+	:from_user,
+	:id,
+	:from_user_id,
+	:iso_language_code,
+	:profile_image_url,
+	:created_at
+]
+
+Twittia actions:
+
+usertimeline username
+reply username id
+
+=end
+
+%>
