@@ -6,6 +6,10 @@ care for. Therefore it is _small_ (84 KB) and _fast_.
 _Keep it simple, stupid!_ Is the mantra, therefore there will not by much more
 functionality as it is now. But you're welcome to fork and extend it.
 
+[Download Twittia](http://github.com/downloads/jeena/Twittia/Twittia.app.zip)
+
+It works on Mac OS 10.5 and higher.
+
 ![Twittia screenshot](http://github.com/downloads/jeena/Twittia/Screenshot.png)
 
 = FAQ:s
