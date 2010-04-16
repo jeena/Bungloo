@@ -10,7 +10,7 @@ functionality as it is now. But you're welcome to fork and extend it.
 
 It works on Mac OS 10.5 and higher.
 
-![Twittia screenshot](http://github.com/downloads/jeena/Twittia/Screenshot.png)
+![Twittia screenshot](http://github.com/downloads/jeena/Twittia/Screen-shot.png)
 
 = FAQ:s
 
