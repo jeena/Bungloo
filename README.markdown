@@ -1,4 +1,5 @@
-= Twittia
+Twittia
+=======
 
 Twittia is a slim Twitter client for OS X written in mostly JavaScript.
 It doesn't implement much of Twitters functionality, only the things *I*
@@ -12,7 +13,8 @@ It works on Mac OS 10.5 and higher.
 
 ![Twittia screenshot](http://github.com/downloads/jeena/Twittia/Screen-shot.png)
 
-= FAQ:s
+FAQ:s
+-----
 
 1. The global hotkey for a new Tweet is: `Ctrl Alt Cmd t`
 
