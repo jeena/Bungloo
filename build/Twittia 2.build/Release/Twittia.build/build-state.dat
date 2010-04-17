@@ -1,1014 +1,0 @@
-TTwittia
-v7
-r0
-t293149718.389754
-cCheck dependencies
-cProcessInfoPlistFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Info.plist" Twittia_2-Info.plist
-cCpResource build/Release/Twittia.app/Contents/Resources/English.lproj/Credits.rtf English.lproj/Credits.rtf
-cCopyStringsFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
-cCompileXIB "/Users/jeena/Projects/Twittia 2/English.lproj/MyDocument.xib"
-cCompileXIB "/Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib"
-cCpResource build/Release/Twittia.app/Contents/Resources/even-bg.png even-bg.png
-cCpResource build/Release/Twittia.app/Contents/Resources/index.html index.html
-cCpResource build/Release/Twittia.app/Contents/Resources/odd-bg.png odd-bg.png
-cCpResource build/Release/Twittia.app/Contents/Resources/default.css default.css
-cCpResource build/Release/Twittia.app/Contents/Resources/sprite-icons.png sprite-icons.png
-cProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal x86_64 objective-c com.apple.compilers.gcc.4_2
-cProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-cProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal ppc objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/MyDocument.o" "/Users/jeena/Projects/Twittia 2/MyDocument.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/main.o" "/Users/jeena/Projects/Twittia 2/main.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Controller.o" "/Users/jeena/Projects/Twittia 2/Controller.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/ViewDelegate.o" "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-cLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia" normal x86_64
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/MyDocument.o" "/Users/jeena/Projects/Twittia 2/MyDocument.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/main.o" "/Users/jeena/Projects/Twittia 2/main.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Controller.o" "/Users/jeena/Projects/Twittia 2/Controller.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/ViewDelegate.o" "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia" normal i386
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/MyDocument.o" "/Users/jeena/Projects/Twittia 2/MyDocument.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/main.o" "/Users/jeena/Projects/Twittia 2/main.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Controller.o" "/Users/jeena/Projects/Twittia 2/Controller.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/ViewDelegate.o" "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-cLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia" normal ppc
-cCreateUniversalBinary "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia" normal "x86_64 i386 ppc"
-cGenerateDSYMFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app.dSYM" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia"
-cTouch "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app"
-
-N/Developer/SDKs/MacOSX10.5.sdk
-c000000004B6C200B00000000000000EE
-t1265377291
-s238
-
-N/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/Carbon.framework/Carbon
-c000000004A0CC10E00000000000049C0
-t1242349838
-s18880
-
-N/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/Carbon.framework/Headers/Carbon.h
-c000000004864BE3E00000000000005D7
-t1214561854
-s1495
-
-N/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
-c0000000040C4AA6800000000000001E5
-t1086630504
-s485
-
-N/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/WebKit.framework/Headers/WebKit.h
-c000000004864C63A0000000000000957
-t1214563898
-s2391
-
-N/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/WebKit.framework/WebKit
-c000000004A0CC1230000000000062738
-t1242349859
-s403256
-
-N/Developer/SDKs/MacOSX10.6.sdk
-c000000004B6C201D00000000000000EE
-t1265377309
-s238
-
-N/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
-c0000000040C4AA6800000000000001E5
-t1086630504
-s485
-
-N/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/WebKit.framework/Headers/WebKit.h
-c000000004A6E9EEC0000000000000957
-t1248763628
-s2391
-
-N/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/WebKit.framework/WebKit
-c000000004ABBF0EF00000000000789DC
-t1253830895
-s494044
-
-N/System/Library/Frameworks/Cocoa.framework/Cocoa
-c000000004A1F2D63000000000000A5E0
-t1243557219
-s42464
-
-N/Users/jeena/Projects/Twittia 2/Controller.h
-c000000004BC8D94F00000000000002CB
-t1271454031
-s715
-i<Cocoa/Cocoa.h>
-i<Webkit/Webkit.h>
-i"StatusView.h"
-i"ViewDelegate.h"
-i<Carbon/Carbon.h>
-
-N/Users/jeena/Projects/Twittia 2/Controller.m
-c000000004BC8D9530000000000000B74
-t1271454035
-s2932
-i"Controller.h"
-i"MyDocument.h"
-
-N/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.h
-c000000004BC8C46F00000000000009A4
-t1271448687
-s2468
-i<Cocoa/Cocoa.h>
-
-N/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m
-c000000004BC8C47E0000000000001F19
-t1271448702
-s7961
-i"DDHotKeyCenter.h"
-i<Carbon/Carbon.h>
-
-N/Users/jeena/Projects/Twittia 2/English.lproj/Credits.rtf
-c000000004BC79FC200000000000001B4
-t1271373762
-s436
-
-N/Users/jeena/Projects/Twittia 2/English.lproj/InfoPlist.strings
-c000000004BC7A6CA000000000000002D
-t1271375562
-s45
-
-N/Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib
-c000000004BC8E34E000000000001D729
-t1271456590
-s120617
-
-N/Users/jeena/Projects/Twittia 2/English.lproj/MyDocument.xib
-c000000004BC859C60000000000008F23
-t1271421382
-s36643
-
-N/Users/jeena/Projects/Twittia 2/MyDocument.h
-c000000004BC8D9560000000000000215
-t1271454038
-s533
-i<Cocoa/Cocoa.h>
-
-N/Users/jeena/Projects/Twittia 2/MyDocument.m
-c000000004BC8D9560000000000000D38
-t1271454038
-s3384
-i"MyDocument.h"
-
-N/Users/jeena/Projects/Twittia 2/StatusView.h
-c000000004BC8D95600000000000000F2
-t1271454038
-s242
-i<Cocoa/Cocoa.h>
-i<WebKit/WebKit.h>
-
-N/Users/jeena/Projects/Twittia 2/Twittia_2_Prefix.pch
-c000000004BC79FC20000000000000095
-t1271373762
-s149
-i<Cocoa/Cocoa.h>
-
-N/Users/jeena/Projects/Twittia 2/ViewDelegate.h
-c000000004BC8D9560000000000000140
-t1271454038
-s320
-i<Cocoa/Cocoa.h>
-i<WebKit/WebKit.h>
-i"StatusView.h"
-
-N/Users/jeena/Projects/Twittia 2/ViewDelegate.m
-c000000004BC8D956000000000000044A
-t1271454038
-s1098
-i"ViewDelegate.h"
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app
-t1271445633
-s102
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app.dSYM
-t1271445309
-s102
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Info.plist
-t1271445633
-s1311
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/MacOS/Twittia 2
-t1271445309
-s91852
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/PkgInfo
-t1271445633
-s8
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/English.lproj/Credits.rtf
-t1271445308
-s436
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/English.lproj/InfoPlist.strings
-t1271445308
-s92
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/English.lproj/MainMenu.nib
-t1271445309
-s35706
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/English.lproj/MyDocument.nib
-t1271445308
-s3865
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/default.css
-t1271445308
-s2854
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/even-bg.png
-t1271445308
-s171
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/index.html
-t1271445308
-s89381
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/odd-bg.png
-t1271445308
-s166
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/sprite-icons.png
-t1271445308
-s11868
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/template.rhtml
-t1271445308
-s4581
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app
-t1271456918
-s102
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app.dSYM
-t1271456084
-s102
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Info.plist
-t1271452280
-s1309
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia
-t1271456084
-s79416
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/PkgInfo
-t1271452280
-s8
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/Credits.rtf
-t1271452280
-s436
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings
-t1271452280
-s92
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/MainMenu.nib
-t1271456918
-s21330
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/MyDocument.nib
-t1271452280
-s3865
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/default.css
-t1271452324
-s2854
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/even-bg.png
-t1271452280
-s171
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/index.html
-t1271452280
-s89373
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/odd-bg.png
-t1271452280
-s166
-
-N/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/sprite-icons.png
-t1271452280
-s11868
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Controller.o
-t1271456078
-s25368
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/DDHotKeyCenter.o
-t1271449254
-s37072
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/MyDocument.o
-t1271456078
-s22564
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia
-t1271456079
-s22676
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia 2
-t1271443844
-s26664
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia 2.LinkFileList
-c000000004BC8473100000000000001B0
-t1271416625
-s432
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia.LinkFileList
-c000000004BC8C83A00000000000001B0
-t1271449658
-s432
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/ViewDelegate.o
-t1271456079
-s16636
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/main.o
-t1271456078
-s4836
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Controller.o
-t1271456083
-s26568
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/DDHotKeyCenter.o
-t1271449258
-s38376
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/MyDocument.o
-t1271456083
-s23448
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia
-t1271456084
-s22072
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia 2
-t1271443845
-s26316
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia 2.LinkFileList
-c000000004BC8473100000000000001AC
-t1271416625
-s428
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia.LinkFileList
-c000000004BC8C83A00000000000001AC
-t1271449658
-s428
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/ViewDelegate.o
-t1271456084
-s17332
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/main.o
-t1271456083
-s4868
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Controller.o
-t1271456073
-s34796
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/DDHotKeyCenter.o
-t1271449252
-s55436
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/MyDocument.o
-t1271456072
-s29880
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia
-t1271456077
-s25792
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia 2
-t1271443828
-s29256
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia 2.LinkFileList
-c000000004BC8473100000000000001B8
-t1271416625
-s440
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia.LinkFileList
-c000000004BC8C83A00000000000001B8
-t1271449658
-s440
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/ViewDelegate.o
-t1271456072
-s20824
-
-N/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/main.o
-t1271456072
-s5040
-
-N/Users/jeena/Projects/Twittia 2/default.css
-c000000004BC8D29F0000000000000B26
-t1271452319
-s2854
-
-N/Users/jeena/Projects/Twittia 2/even-bg.png
-c00000000497E53C100000000000000AB
-t1233015745
-s171
-
-N/Users/jeena/Projects/Twittia 2/index.html
-c000000004BC8CE990000000000015D1D
-t1271451289
-s89373
-
-N/Users/jeena/Projects/Twittia 2/main.m
-c000000004BC8D95600000000000000EF
-t1271454038
-s239
-i<Cocoa/Cocoa.h>
-
-N/Users/jeena/Projects/Twittia 2/odd-bg.png
-c00000000497E549F00000000000000A6
-t1233015967
-s166
-
-N/Users/jeena/Projects/Twittia 2/sprite-icons.png
-c000000004BC8526D0000000000002E5C
-t1271419501
-s11868
-
-N/Users/jeena/Projects/Twittia 2/template.rhtml
-c0000000049FE062000000000000011E5
-t1241384480
-s4581
-
-N/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bchemvmepctyobgpzowgcitygwsy/Twittia_2_Prefix.pch.gch
-t1271382891
-s52868880
-
-N/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch.gch
-t1271446783
-s50057456
-
-N/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch.gch
-t1271446778
-s49901872
-
-N/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dowwsxkfrirlsagytpgqazexolnn/Twittia_2_Prefix.pch.gch
-t1271382895
-s52737616
-
-N/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-drbeinufpwbrbngsdjidfffzctnp/Twittia_2_Prefix.pch.gch
-t1271382891
-s55502640
-
-N/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch.gch
-t1271446780
-s52826544
-
-NTwittia_2-Info.plist
-c000000004BC8B86C00000000000005A7
-t1271445612
-s1447
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies293149717#293149717#0(0"0(0#1#0"4300885448#0"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Controller.o" "/Users/jeena/Projects/Twittia 2/Controller.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s293148878.469652
-e293148878.980249
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Controller.o
-x/Users/jeena/Projects/Twittia 2/Controller.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/jeena/Projects/Twittia 2/Controller.m293148878#293148878#0(0"0(0#0#44"/Users/jeena/Projects/Twittia 2/Controller.m4300885448#1455"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/i386" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/Controller.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Controller.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/DDHotKeyCenter.o" "/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s293142052.987202
-e293142054.322707
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/DDHotKeyCenter.o
-x/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m293142052#293142054#0(0"0(0#0#48"/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m4300885448#1463"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/i386" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/DDHotKeyCenter.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/MyDocument.o" "/Users/jeena/Projects/Twittia 2/MyDocument.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s293148872.858634
-e293148878.924801
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/MyDocument.o
-x/Users/jeena/Projects/Twittia 2/MyDocument.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/jeena/Projects/Twittia 2/MyDocument.m293148872#293148878#0(0"0(0#0#44"/Users/jeena/Projects/Twittia 2/MyDocument.m4300885448#1455"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/i386" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/MyDocument.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/MyDocument.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/ViewDelegate.o" "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s293148878.924974
-e293148879.188573
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/ViewDelegate.o
-x/Users/jeena/Projects/Twittia 2/ViewDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-o/Users/jeena/Projects/Twittia 2/ViewDelegate.m: In function '-[ViewDelegate webView:addMessageToConsole:]':
-o/Users/jeena/Projects/Twittia 2/ViewDelegate.m:24: warning: local declaration of 'webView' hides instance variable
-lSLF07#2@54"Compile /Users/jeena/Projects/Twittia 2/ViewDelegate.m293148878#293148879#0(223"/Users/jeena/Projects/Twittia 2/ViewDelegate.m: In function '-[ViewDelegate webView:addMessageToConsole:]':/Users/jeena/Projects/Twittia 2/ViewDelegate.m:24: warning: local declaration of 'webView' hides instance variable1(22@54"Local declaration of 'webView' hides instance variable293148879#108#115#0(6@46"/Users/jeena/Projects/Twittia 2/ViewDelegate.m293146838#24#0#24#0#0"0(0#0#46"/Users/jeena/Projects/Twittia 2/ViewDelegate.m4300885448#1459"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/i386" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/ViewDelegate.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/main.o" "/Users/jeena/Projects/Twittia 2/main.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s293148877.042347
-e293148878.469542
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/main.o
-x/Users/jeena/Projects/Twittia 2/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@46"Compile /Users/jeena/Projects/Twittia 2/main.m293148877#293148878#0(0"0(0#0#38"/Users/jeena/Projects/Twittia 2/main.m4300885448#1443"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/i386" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/main.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/main.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Controller.o" "/Users/jeena/Projects/Twittia 2/Controller.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s293148883.388261
-e293148883.995531
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Controller.o
-x/Users/jeena/Projects/Twittia 2/Controller.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/jeena/Projects/Twittia 2/Controller.m293148883#293148883#0(0"0(0#0#44"/Users/jeena/Projects/Twittia 2/Controller.m4300885448#1449"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/ppc" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/Controller.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Controller.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/DDHotKeyCenter.o" "/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s293142057.209129
-e293142058.040313
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/DDHotKeyCenter.o
-x/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m293142057#293142058#0(0"0(0#0#48"/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m4300885448#1457"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/ppc" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/DDHotKeyCenter.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/MyDocument.o" "/Users/jeena/Projects/Twittia 2/MyDocument.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s293148878.980361
-e293148883.832327
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/MyDocument.o
-x/Users/jeena/Projects/Twittia 2/MyDocument.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/jeena/Projects/Twittia 2/MyDocument.m293148878#293148883#0(0"0(0#0#44"/Users/jeena/Projects/Twittia 2/MyDocument.m4300885448#1449"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/ppc" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/MyDocument.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/MyDocument.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/ViewDelegate.o" "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s293148883.832436
-e293148884.071727
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/ViewDelegate.o
-x/Users/jeena/Projects/Twittia 2/ViewDelegate.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-o/Users/jeena/Projects/Twittia 2/ViewDelegate.m: In function '-[ViewDelegate webView:addMessageToConsole:]':
-o/Users/jeena/Projects/Twittia 2/ViewDelegate.m:24: warning: local declaration of 'webView' hides instance variable
-lSLF07#2@54"Compile /Users/jeena/Projects/Twittia 2/ViewDelegate.m293148883#293148884#0(223"/Users/jeena/Projects/Twittia 2/ViewDelegate.m: In function '-[ViewDelegate webView:addMessageToConsole:]':/Users/jeena/Projects/Twittia 2/ViewDelegate.m:24: warning: local declaration of 'webView' hides instance variable1(22@54"Local declaration of 'webView' hides instance variable293148883#108#115#0(6@46"/Users/jeena/Projects/Twittia 2/ViewDelegate.m293146838#24#0#24#0#0"0(0#0#46"/Users/jeena/Projects/Twittia 2/ViewDelegate.m4300885448#1453"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/ppc" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/ViewDelegate.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/main.o" "/Users/jeena/Projects/Twittia 2/main.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s293148879.894964
-e293148883.388079
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/main.o
-x/Users/jeena/Projects/Twittia 2/main.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@46"Compile /Users/jeena/Projects/Twittia 2/main.m293148879#293148883#0(0"0(0#0#38"/Users/jeena/Projects/Twittia 2/main.m4300885448#1437"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/ppc" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/main.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/main.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Controller.o" "/Users/jeena/Projects/Twittia 2/Controller.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-s293148872.589588
-e293148873.068844
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Controller.o
-x/Users/jeena/Projects/Twittia 2/Controller.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/jeena/Projects/Twittia 2/Controller.m293148872#293148873#0(0"0(0#0#44"/Users/jeena/Projects/Twittia 2/Controller.m4300885448#1461"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/x86_64" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/Controller.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Controller.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/DDHotKeyCenter.o" "/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-s293142048.994456
-e293142052.865810
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/DDHotKeyCenter.o
-x/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m293142048#293142052#0(0"0(0#0#48"/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m4300885448#1469"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/x86_64" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/DDHotKeyCenter.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/DDHotKeyCenter.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/MyDocument.o" "/Users/jeena/Projects/Twittia 2/MyDocument.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-s293148872.172062
-e293148872.626170
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/MyDocument.o
-x/Users/jeena/Projects/Twittia 2/MyDocument.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/jeena/Projects/Twittia 2/MyDocument.m293148872#293148872#0(0"0(0#0#44"/Users/jeena/Projects/Twittia 2/MyDocument.m7939128661845044224#1461"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/x86_64" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/MyDocument.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/MyDocument.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/ViewDelegate.o" "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-s293148872.626278
-e293148872.858452
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/ViewDelegate.o
-x/Users/jeena/Projects/Twittia 2/ViewDelegate.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-o/Users/jeena/Projects/Twittia 2/ViewDelegate.m: In function '-[ViewDelegate webView:addMessageToConsole:]':
-o/Users/jeena/Projects/Twittia 2/ViewDelegate.m:24: warning: local declaration of 'webView' hides instance variable
-lSLF07#2@54"Compile /Users/jeena/Projects/Twittia 2/ViewDelegate.m293148872#293148872#0(223"/Users/jeena/Projects/Twittia 2/ViewDelegate.m: In function '-[ViewDelegate webView:addMessageToConsole:]':/Users/jeena/Projects/Twittia 2/ViewDelegate.m:24: warning: local declaration of 'webView' hides instance variable1(22@54"Local declaration of 'webView' hides instance variable293148872#108#115#0(6@46"/Users/jeena/Projects/Twittia 2/ViewDelegate.m293146838#24#0#24#0#0"0(0#0#46"/Users/jeena/Projects/Twittia 2/ViewDelegate.m4300885448#1465"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/x86_64" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/ViewDelegate.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/ViewDelegate.o"0#
-
-CCompileC "build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/main.o" "/Users/jeena/Projects/Twittia 2/main.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-s293148872.173103
-e293148872.589478
-r1
-xCompileC
-xbuild/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/main.o
-x/Users/jeena/Projects/Twittia 2/main.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@46"Compile /Users/jeena/Projects/Twittia 2/main.m293148872#293148872#0(0"0(0#0#38"/Users/jeena/Projects/Twittia 2/main.m4300885448#1449"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/x86_64" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -include /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch -c "/Users/jeena/Projects/Twittia 2/main.m" -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/main.o"0#
-
-CCompileXIB "/Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib"
-s293149717.990869
-e293149718.384951
-r1
-xCompileXIB
-x/Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib
-o/* com.apple.ibtool.document.warnings */
-o/Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib:535: warning: This window's content rectangle does not lie entirely on the screen with the menu bar and may not be completely visible for all screen resolutions and configurations.
-lSLF07#2@37"CompileXIB English.lproj/MainMenu.xib293149717#293149718#0(281"/* com.apple.ibtool.document.warnings *//Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib:535: warning: This window's content rectangle does not lie entirely on the screen with the menu bar and may not be completely visible for all screen resolutions and configurations.1(22@166"This window's content rectangle does not lie entirely on the screen with the menu bar and may not be completely visible for all screen resolutions and configurations.293149718#18446744073709551615#0#0(6@58"/Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib293149390#535#0#535#0#0"0(0#0#58"/Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib4300885448#314"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/MainMenu.nib" "/Users/jeena/Projects/Twittia 2/English.lproj/MainMenu.xib"0#
-
-CCompileXIB "/Users/jeena/Projects/Twittia 2/English.lproj/MyDocument.xib"
-s293145080.544520
-e293145080.855043
-r1
-xCompileXIB
-x/Users/jeena/Projects/Twittia 2/English.lproj/MyDocument.xib
-lSLF07#2@39"CompileXIB English.lproj/MyDocument.xib293145080#293145080#0(0"0(0#0#60"/Users/jeena/Projects/Twittia 2/English.lproj/MyDocument.xib4300885448#318"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/MyDocument.nib" "/Users/jeena/Projects/Twittia 2/English.lproj/MyDocument.xib"0#
-
-CCopyStringsFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
-s293138108.293927
-e293138108.789506
-r1
-xCopyStringsFile
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/English.lproj/InfoPlist.strings
-xEnglish.lproj/InfoPlist.strings
-lSLF07#2@36"Copy English.lproj/InfoPlist.strings293138108#293138108#0(0"0(0#0#63"/Users/jeena/Projects/Twittia 2/English.lproj/InfoPlist.strings4300885448#359"    cd "/Users/jeena/Projects/Twittia 2"    setenv ICONV /usr/bin/iconv    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding UTF-16 English.lproj/InfoPlist.strings --outdir "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/English.lproj"0#
-
-CCopyStringsFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
-s293145080.538764
-e293145080.595899
-r1
-xCopyStringsFile
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings
-xEnglish.lproj/InfoPlist.strings
-lSLF07#2@36"Copy English.lproj/InfoPlist.strings293145080#293145080#0(0"0(0#0#63"/Users/jeena/Projects/Twittia 2/English.lproj/InfoPlist.strings4300885448#357"    cd "/Users/jeena/Projects/Twittia 2"    setenv ICONV /usr/bin/iconv    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding UTF-16 English.lproj/InfoPlist.strings --outdir "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj"0#
-
-CCpResource "build/Release/Twittia 2.app/Contents/Resources/English.lproj/Credits.rtf" English.lproj/Credits.rtf
-s293138108.292874
-e293138108.300180
-r1
-xCpResource
-xbuild/Release/Twittia 2.app/Contents/Resources/English.lproj/Credits.rtf
-xEnglish.lproj/Credits.rtf
-lSLF07#2@30"Copy English.lproj/Credits.rtf293138108#293138108#0(0"0(0#0#57"/Users/jeena/Projects/Twittia 2/English.lproj/Credits.rtf4300885448#365"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/English.lproj/Credits.rtf" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources/English.lproj"0#
-
-CCpResource "build/Release/Twittia 2.app/Contents/Resources/default.css" default.css
-s293138108.962327
-e293138108.971935
-r1
-xCpResource
-xbuild/Release/Twittia 2.app/Contents/Resources/default.css
-xdefault.css
-lSLF07#2@16"Copy default.css293138108#293138108#0(0"0(0#0#43"/Users/jeena/Projects/Twittia 2/default.css4300885448#337"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/default.css" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources"0#
-
-CCpResource "build/Release/Twittia 2.app/Contents/Resources/even-bg.png" even-bg.png
-s293138108.954819
-e293138108.968756
-r1
-xCpResource
-xbuild/Release/Twittia 2.app/Contents/Resources/even-bg.png
-xeven-bg.png
-lSLF07#2@16"Copy even-bg.png293138108#293138108#0(0"0(0#0#43"/Users/jeena/Projects/Twittia 2/even-bg.png4300885448#337"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/even-bg.png" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources"0#
-
-CCpResource "build/Release/Twittia 2.app/Contents/Resources/index.html" index.html
-s293138108.956892
-e293138108.968917
-r1
-xCpResource
-xbuild/Release/Twittia 2.app/Contents/Resources/index.html
-xindex.html
-lSLF07#2@15"Copy index.html293138108#293138108#0(0"0(0#0#42"/Users/jeena/Projects/Twittia 2/index.html4300885448#336"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/index.html" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources"0#
-
-CCpResource "build/Release/Twittia 2.app/Contents/Resources/odd-bg.png" odd-bg.png
-s293138108.958629
-e293138108.969026
-r1
-xCpResource
-xbuild/Release/Twittia 2.app/Contents/Resources/odd-bg.png
-xodd-bg.png
-lSLF07#2@15"Copy odd-bg.png293138108#293138108#0(0"0(0#0#42"/Users/jeena/Projects/Twittia 2/odd-bg.png4300885448#336"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/odd-bg.png" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources"0#
-
-CCpResource "build/Release/Twittia 2.app/Contents/Resources/sprite-icons.png" sprite-icons.png
-s293138108.967662
-e293138108.975722
-r1
-xCpResource
-xbuild/Release/Twittia 2.app/Contents/Resources/sprite-icons.png
-xsprite-icons.png
-lSLF07#2@21"Copy sprite-icons.png293138108#293138108#0(0"0(0#0#48"/Users/jeena/Projects/Twittia 2/sprite-icons.png4300885448#342"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/sprite-icons.png" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources"0#
-
-CCpResource "build/Release/Twittia 2.app/Contents/Resources/template.rhtml" template.rhtml
-s293138108.965798
-e293138108.974892
-r1
-xCpResource
-xbuild/Release/Twittia 2.app/Contents/Resources/template.rhtml
-xtemplate.rhtml
-lSLF07#2@19"Copy template.rhtml293138108#293138108#0(0"0(0#0#46"/Users/jeena/Projects/Twittia 2/template.rhtml4300885448#340"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/template.rhtml" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Resources"0#
-
-CCpResource build/Release/Twittia.app/Contents/Resources/English.lproj/Credits.rtf English.lproj/Credits.rtf
-s293145080.536774
-e293145080.544417
-r1
-xCpResource
-xbuild/Release/Twittia.app/Contents/Resources/English.lproj/Credits.rtf
-xEnglish.lproj/Credits.rtf
-lSLF07#2@30"Copy English.lproj/Credits.rtf293145080#293145080#0(0"0(0#0#57"/Users/jeena/Projects/Twittia 2/English.lproj/Credits.rtf4300885448#363"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/English.lproj/Credits.rtf" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources/English.lproj"0#
-
-CCpResource build/Release/Twittia.app/Contents/Resources/default.css default.css
-s293145124.373340
-e293145124.395687
-r1
-xCpResource
-xbuild/Release/Twittia.app/Contents/Resources/default.css
-xdefault.css
-lSLF07#2@16"Copy default.css293145124#293145124#0(0"0(0#0#43"/Users/jeena/Projects/Twittia 2/default.css4300885448#335"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/default.css" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources"0#
-
-CCpResource build/Release/Twittia.app/Contents/Resources/even-bg.png even-bg.png
-s293145080.855136
-e293145080.871413
-r1
-xCpResource
-xbuild/Release/Twittia.app/Contents/Resources/even-bg.png
-xeven-bg.png
-lSLF07#2@16"Copy even-bg.png293145080#293145080#0(0"0(0#0#43"/Users/jeena/Projects/Twittia 2/even-bg.png4300885448#335"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/even-bg.png" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources"0#
-
-CCpResource build/Release/Twittia.app/Contents/Resources/index.html index.html
-s293145080.857002
-e293145080.871536
-r1
-xCpResource
-xbuild/Release/Twittia.app/Contents/Resources/index.html
-xindex.html
-lSLF07#2@15"Copy index.html293145080#293145080#0(0"0(0#0#42"/Users/jeena/Projects/Twittia 2/index.html4300885448#334"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/index.html" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources"0#
-
-CCpResource build/Release/Twittia.app/Contents/Resources/odd-bg.png odd-bg.png
-s293145080.862241
-e293145080.871642
-r1
-xCpResource
-xbuild/Release/Twittia.app/Contents/Resources/odd-bg.png
-xodd-bg.png
-lSLF07#2@15"Copy odd-bg.png293145080#293145080#0(0"0(0#0#42"/Users/jeena/Projects/Twittia 2/odd-bg.png4300885448#334"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/odd-bg.png" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources"0#
-
-CCpResource build/Release/Twittia.app/Contents/Resources/sprite-icons.png sprite-icons.png
-s293145080.869350
-e293145080.876122
-r1
-xCpResource
-xbuild/Release/Twittia.app/Contents/Resources/sprite-icons.png
-xsprite-icons.png
-lSLF07#2@21"Copy sprite-icons.png293145080#293145080#0(0"0(0#0#48"/Users/jeena/Projects/Twittia 2/sprite-icons.png4300885448#340"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jeena/Projects/Twittia 2/sprite-icons.png" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Resources"0#
-
-CCreateUniversalBinary "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/MacOS/Twittia 2" normal "x86_64 i386 ppc"
-s293138109.296964
-e293138109.347052
-r1
-xCreateUniversalBinary
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/MacOS/Twittia 2
-xnormal
-xx86_64 i386 ppc
-lSLF07#2@101"CreateUniversalBinary "build/Release/Twittia 2.app/Contents/MacOS/Twittia 2" normal "x86_64 i386 ppc"293138109#293138109#0(0"0(0#0#47"/Users/jeena/Projects/Twittia 2/x86_64 i386 ppc4300885448#487"    cd "/Users/jeena/Projects/Twittia 2"    /usr/bin/lipo -create "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia 2" "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia 2" "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia 2" -output "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/MacOS/Twittia 2"0#
-
-CCreateUniversalBinary "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia" normal "x86_64 i386 ppc"
-s293148884.269542
-e293148884.274482
-r1
-xCreateUniversalBinary
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia
-xnormal
-xx86_64 i386 ppc
-lSLF07#2@95"CreateUniversalBinary build/Release/Twittia.app/Contents/MacOS/Twittia normal "x86_64 i386 ppc"293148884#293148884#0(0"0(0#0#47"/Users/jeena/Projects/Twittia 2/x86_64 i386 ppc4300885448#477"    cd "/Users/jeena/Projects/Twittia 2"    /usr/bin/lipo -create "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia" "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia" "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia" -output "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia"0#
-
-CGenerateDSYMFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app.dSYM" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/MacOS/Twittia 2"
-s293138109.347159
-e293138109.395097
-r1
-xGenerateDSYMFile
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app.dSYM
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/MacOS/Twittia 2
-lSLF07#2@106"GenerateDSYMFile "build/Release/Twittia 2.app.dSYM" "build/Release/Twittia 2.app/Contents/MacOS/Twittia 2"293138109#293138109#0(0"0(0#0#84"/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/MacOS/Twittia 24300885448#230"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/usr/bin/dsymutil "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/MacOS/Twittia 2" -o "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app.dSYM"0#
-
-CGenerateDSYMFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app.dSYM" "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia"
-s293148884.274588
-e293148884.296866
-r1
-xGenerateDSYMFile
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app.dSYM
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia
-lSLF07#2@96"GenerateDSYMFile build/Release/Twittia.app.dSYM build/Release/Twittia.app/Contents/MacOS/Twittia293148884#293148884#0(0"0(0#0#80"/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia4300885448#224"    cd "/Users/jeena/Projects/Twittia 2"    /Developer/usr/bin/dsymutil "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/MacOS/Twittia" -o "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app.dSYM"0#
-
-CLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia 2" normal i386
-s293136643.844623
-e293136644.835817
-r1
-xLd
-x/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia 2
-xnormal
-xi386
-lSLF07#2@110"Link /Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia 2293136643#293136644#0(0"0(0#0#0"4300885448#568"    cd "/Users/jeena/Projects/Twittia 2"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/SDKs/MacOSX10.6.sdk "-L/Users/jeena/Projects/Twittia 2/build/Release" "-F/Users/jeena/Projects/Twittia 2/build/Release" -filelist "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia 2.LinkFileList" -mmacosx-version-min=10.6 -framework Cocoa -framework WebKit -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia 2"0#
-
-CLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia" normal i386
-s293148879.188671
-e293148879.894856
-r1
-xLd
-x/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia
-xnormal
-xi386
-lSLF07#2@108"Link /Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia293148879#293148879#0(0"0(0#0#0"4300885448#582"    cd "/Users/jeena/Projects/Twittia 2"    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/SDKs/MacOSX10.5.sdk "-L/Users/jeena/Projects/Twittia 2/build/Release" "-F/Users/jeena/Projects/Twittia 2/build/Release" -filelist "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia.LinkFileList" -mmacosx-version-min=10.5 -framework Cocoa -framework WebKit -framework Carbon -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/i386/Twittia"0#
-
-CLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia 2" normal ppc
-s293136645.066509
-e293136645.425822
-r1
-xLd
-x/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia 2
-xnormal
-xppc
-lSLF07#2@109"Link /Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia 2293136645#293136645#0(0"0(0#0#0"4300885448#565"    cd "/Users/jeena/Projects/Twittia 2"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/gcc-4.2 -arch ppc -isysroot /Developer/SDKs/MacOSX10.6.sdk "-L/Users/jeena/Projects/Twittia 2/build/Release" "-F/Users/jeena/Projects/Twittia 2/build/Release" -filelist "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia 2.LinkFileList" -mmacosx-version-min=10.6 -framework Cocoa -framework WebKit -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia 2"0#
-
-CLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia" normal ppc
-s293148884.071824
-e293148884.269445
-r1
-xLd
-x/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia
-xnormal
-xppc
-lSLF07#2@107"Link /Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia293148884#293148884#0(0"0(0#0#0"4300885448#579"    cd "/Users/jeena/Projects/Twittia 2"    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/gcc-4.2 -arch ppc -isysroot /Developer/SDKs/MacOSX10.5.sdk "-L/Users/jeena/Projects/Twittia 2/build/Release" "-F/Users/jeena/Projects/Twittia 2/build/Release" -filelist "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia.LinkFileList" -mmacosx-version-min=10.5 -framework Cocoa -framework WebKit -framework Carbon -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/ppc/Twittia"0#
-
-CLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia 2" normal x86_64
-s293136624.244271
-e293136628.119943
-r1
-xLd
-x/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia 2
-xnormal
-xx86_64
-lSLF07#2@112"Link /Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia 2293136624#293136628#0(0"0(0#0#0"4300885448#574"    cd "/Users/jeena/Projects/Twittia 2"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk "-L/Users/jeena/Projects/Twittia 2/build/Release" "-F/Users/jeena/Projects/Twittia 2/build/Release" -filelist "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia 2.LinkFileList" -mmacosx-version-min=10.6 -framework Cocoa -framework WebKit -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia 2"0#
-
-CLd "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia" normal x86_64
-s293148873.068942
-e293148877.042142
-r1
-xLd
-x/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia
-xnormal
-xx86_64
-lSLF07#2@110"Link /Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia293148873#293148877#0(0"0(0#0#0"4300885448#588"    cd "/Users/jeena/Projects/Twittia 2"    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk "-L/Users/jeena/Projects/Twittia 2/build/Release" "-F/Users/jeena/Projects/Twittia 2/build/Release" -filelist "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia.LinkFileList" -mmacosx-version-min=10.5 -framework Cocoa -framework WebKit -framework Carbon -o "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Objects-normal/x86_64/Twittia"0#
-
-CProcessInfoPlistFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Info.plist" Twittia_2-Info.plist
-s293138433.601525
-e293138433.607831
-r1
-xProcessInfoPlistFile
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Info.plist
-xTwittia_2-Info.plist
-lSLF07#2@28"Process Twittia_2-Info.plist293138433#293138433#0(0"0(0#0#52"/Users/jeena/Projects/Twittia 2/Twittia_2-Info.plist4300885448#305"    cd "/Users/jeena/Projects/Twittia 2"    builtin-infoPlistUtility Twittia_2-Info.plist -genpkginfo "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/PkgInfo" -expandbuildsettings -platform macosx -o "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app/Contents/Info.plist"0#
-
-CProcessInfoPlistFile "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Info.plist" Twittia_2-Info.plist
-s293145080.524811
-e293145080.536666
-r1
-xProcessInfoPlistFile
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Info.plist
-xTwittia_2-Info.plist
-lSLF07#2@28"Process Twittia_2-Info.plist293145080#293145080#0(0"0(0#0#52"/Users/jeena/Projects/Twittia 2/Twittia_2-Info.plist4300885448#301"    cd "/Users/jeena/Projects/Twittia 2"    builtin-infoPlistUtility Twittia_2-Info.plist -genpkginfo "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/PkgInfo" -expandbuildsettings -platform macosx -o "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app/Contents/Info.plist"0#
-
-CProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bchemvmepctyobgpzowgcitygwsy/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal x86_64 objective-c com.apple.compilers.gcc.4_2
-r0
-
-CProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal ppc objective-c com.apple.compilers.gcc.4_2
-s293139578.715638
-e293139583.300853
-r1
-xProcessPCH
-x/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch.gch
-xTwittia_2_Prefix.pch
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile Twittia_2_Prefix.pch293139578#293139583#0(0"0(0#0#52"/Users/jeena/Projects/Twittia 2/Twittia_2_Prefix.pch4300885448#1349"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c-header -arch ppc -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/ppc" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -c "/Users/jeena/Projects/Twittia 2/Twittia_2_Prefix.pch" -o /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-bwlskdsrddxroqfhxhalcpuymusg/Twittia_2_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal x86_64 objective-c com.apple.compilers.gcc.4_2
-s293139560.191094
-e293139578.715350
-r1
-xProcessPCH
-x/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch.gch
-xTwittia_2_Prefix.pch
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile Twittia_2_Prefix.pch293139560#293139578#0(0"0(0#0#52"/Users/jeena/Projects/Twittia 2/Twittia_2_Prefix.pch4300885448#1358"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c-header -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/x86_64" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -c "/Users/jeena/Projects/Twittia 2/Twittia_2_Prefix.pch" -o /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ckouznmtrpernlamspyirtbbhfbo/Twittia_2_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dowwsxkfrirlsagytpgqazexolnn/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal ppc objective-c com.apple.compilers.gcc.4_2
-r0
-
-CProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-drbeinufpwbrbngsdjidfffzctnp/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-r0
-
-CProcessPCH /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch.gch Twittia_2_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-s293139560.192428
-e293139580.822342
-r1
-xProcessPCH
-x/var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch.gch
-xTwittia_2_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile Twittia_2_Prefix.pch293139560#293139580#0(0"0(0#0#52"/Users/jeena/Projects/Twittia 2/Twittia_2_Prefix.pch4300885448#1354"    cd "/Users/jeena/Projects/Twittia 2"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-generated-files.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-own-target-headers.hmap" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-all-target-headers.hmap" -iquote "/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/Twittia-project-headers.hmap" "-F/Users/jeena/Projects/Twittia 2/build/Release" "-I/Users/jeena/Projects/Twittia 2/build/Release/include" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources/i386" "-I/Users/jeena/Projects/Twittia 2/build/Twittia 2.build/Release/Twittia.build/DerivedSources" -c "/Users/jeena/Projects/Twittia 2/Twittia_2_Prefix.pch" -o /var/folders/zD/zDRcSKAkH4qw4uzdwEpSCE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-ecdjmfuxwbqynqesgplbgvjgeguc/Twittia_2_Prefix.pch.gch0#
-
-CTouch "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app"
-s293138433.610795
-e293138433.643175
-r1
-xTouch
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app
-lSLF07#2@65"Touch /Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app293138433#293138433#0(0"0(0#0#0"4300885448#125"    cd "/Users/jeena/Projects/Twittia 2"    /usr/bin/touch -c "/Users/jeena/Projects/Twittia 2/build/Release/Twittia 2.app"0#
-
-CTouch "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app"
-s293149718.386808
-e293149718.389710
-r1
-xTouch
-x/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app
-lSLF07#2@63"Touch /Users/jeena/Projects/Twittia 2/build/Release/Twittia.app293149718#293149718#0(0"0(0#0#0"4300885448#123"    cd "/Users/jeena/Projects/Twittia 2"    /usr/bin/touch -c "/Users/jeena/Projects/Twittia 2/build/Release/Twittia.app"0#
-

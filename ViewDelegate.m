@@ -21,7 +21,8 @@
 }
 
 
-- (void)webView:(WebView *)webView addMessageToConsole:(NSDictionary *)message;{ (void)webView;
+- (void)webView:(WebView *)_webView addMessageToConsole:(NSDictionary *)message;{
+
 	if (![message isKindOfClass:[NSDictionary class]]) return;
 	
 	NSLog(@"js: %@:%@: %@",
