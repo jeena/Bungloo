@@ -44,6 +44,9 @@
 		   selector:@selector(sendTweet:) 
 			   name:@"sendTweet"
 			 object:nil];
+	
+	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];// 1
+	[appleEventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
 - (void)initWebView {
@@ -77,16 +80,19 @@
 	[newTweet inReplyTo:userName statusId:statusId];
 }
 
-- (IBAction)sendTweet:(id)sender {
-	
-	NSString *encodedString = [[[sender object] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	
-	[webView stringByEvaluatingJavaScriptFromString:
-	 [NSString stringWithFormat:@"twittia_instance.sendNewTweet(\"%@\", \"%@\")",
-	  [encodedString stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""],
-	  [[sender object] objectAtIndex:1]
-	  ]];
+
+- (void)openNewTweetWindowWithString:(NSString *)aString {
+	[NSApp activateIgnoringOtherApps:YES]; 
+	MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+	[newTweet withString:aString];
 }
+
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
+	NSString *text = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+	[self openNewTweetWindowWithString:[text substringFromIndex:8]];
+}
+
 
 /* CARBON */
 

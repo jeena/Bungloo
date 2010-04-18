@@ -22,5 +22,6 @@
 
 - (IBAction)sendTweet:(NSControl *)control;
 - (void)inReplyTo:(NSString *)userName statusId:(NSString *)statusId;
+- (void)withString:(NSString *)aString;
 
 @end

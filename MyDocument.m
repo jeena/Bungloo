@@ -80,6 +80,12 @@
 	[inReplyTostatusId retain];
 }
 
+- (void)withString:(NSString *)aString {
+	[textField setStringValue:aString];
+	NSRange range = {[[textField stringValue] length] , 0};
+	[[textField currentEditor] setSelectedRange:range];	
+}
+
 
 #pragma mark Keyboard delegate methods
 

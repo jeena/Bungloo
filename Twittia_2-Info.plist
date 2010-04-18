@@ -40,9 +40,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>2.0.1</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0</string>
+	<string>2.0.1</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>NSMainNibFile</key>
@@ -53,5 +53,18 @@
 	<string>Twittia.help</string>
 	<key>CFBundleHelpBookName</key>
 	<string>net.jeena.apps.twittia.help</string>
+	<key>SUFeedURL</key>
+	<string>http://github.com/downloads/jeena/Twittia/Appcast.xml</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>twittia</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
