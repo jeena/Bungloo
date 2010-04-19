@@ -24,6 +24,7 @@
 
 - (void)initWebView;
 - (void)openNewTweetWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId;
+- (NSString *)pluginURL;
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
 
 @end

@@ -45,7 +45,7 @@
 			   name:@"sendTweet"
 			 object:nil];
 	
-	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];// 1
+	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
 	[appleEventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
@@ -53,7 +53,7 @@
 	NSString *path = [[NSBundle mainBundle] resourcePath];
 	NSURL *url = [NSURL fileURLWithPath:path];
 	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index.html", path] encoding:NSUTF8StringEncoding error:nil];
-	[[webView mainFrame] loadHTMLString:index_string baseURL:url];
+	[[webView mainFrame] loadHTMLString:index_string baseURL:url];			
 	
 	viewDelegate = [[ViewDelegate alloc] initWithWebView:webView];
 	[webView setFrameLoadDelegate:viewDelegate];
@@ -66,6 +66,7 @@
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
 	return NO;
 }
+
 
 #pragma mark Notifications
 
@@ -91,6 +92,23 @@
 {
 	NSString *text = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
 	[self openNewTweetWindowWithString:[text substringFromIndex:8]];
+}
+
+- (IBAction)sendTweet:(id)sender {
+	NSString *encodedString = [[[sender object] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	[webView stringByEvaluatingJavaScriptFromString:
+	 [NSString stringWithFormat:@"twittia_instance.sendNewTweet(\"%@\", \"%@\")",
+	  [encodedString stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""],
+	  [[sender object] objectAtIndex:1]]];
+}
+
+- (NSString *)pluginURL {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *pathToPlugin = [@"~/Library/Application Support/Twittia/Plugin.js" stringByExpandingTildeInPath];
+	if([fileManager fileExistsAtPath:pathToPlugin]) {
+		return [NSString stringWithFormat:@"%@", [NSURL fileURLWithPath:pathToPlugin]];
+	}
+	return nil;
 }
 
 

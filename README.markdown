@@ -26,6 +26,9 @@ FAQ:s
 
 4. Yes there is a twittia: url scheme, try it out:
    [twittia:Twittia is the shit](http://twittia.istheshit.net/)
+   
+5. Yes, there is a JavaScript-plugin-API. Create this file:
+   ~/Library/Application Support/Twittia/Plugin.js
 
 
 Nice to know

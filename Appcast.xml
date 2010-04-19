@@ -11,12 +11,12 @@
 				<sparkle:releaseNotesLink>
 					http://github.com/downloads/jeena/Twittia/ReleaseNotes.html
 				</sparkle:releaseNotesLink>
-	      <pubDate>Wed, 19 Apr 2010 02:00:00 +0000</pubDate>
-	      <enclosure	url="http://github.com/downloads/jeena/Twittia/Twittia.zip"
+	      <pubDate>Wed, 19 Apr 2010 0:30:00 +0000</pubDate>
+	      <enclosure	url="http://github.com/downloads/jeena/Twittia/Twittia.app.zip"
 										sparkle:version="2.0.2"
-										length="486608"
+										length="490687"
 										type="application/octet-stream"
-										sparkle:dsaSignature="MCwCFC6RsmU3oU+QvFvFar2EarAhxsq1AhRFXyHYUgKToJUQTv4JVwoJWQZkhw==" />
+										sparkle:dsaSignature="MC4CFQCt/VPAkzibXLQRI9W6Zx/NZ6yKWwIVALAz3/n9uMD1v9XtVpORobhmPUtr" />
       </item>
    </channel>
 </rss>
