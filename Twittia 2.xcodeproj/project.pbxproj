@@ -11,6 +11,8 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		1F198FC8117BC4AB0049BEA7 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 1F198FC7117BC4AB0049BEA7 /* README.markdown */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
+		1F1990E0117BD2250049BEA7 /* Appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1F1990DF117BD2250049BEA7 /* Appcast.xml */; };
+		1F1990E2117BD2650049BEA7 /* ReleaseNotes.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */; };
 		1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F705EA5117889FA00C85707 /* sprite-icons.png */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
@@ -51,6 +53,8 @@
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1F198FC7117BC4AB0049BEA7 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		1F1990DF117BD2250049BEA7 /* Appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Appcast.xml; sourceTree = "<group>"; };
+		1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseNotes.html; sourceTree = "<group>"; };
 		1F705EA5117889FA00C85707 /* sprite-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprite-icons.png"; sourceTree = "<group>"; };
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		1FE2FC92117A818D000504B0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F1990DF117BD2250049BEA7 /* Appcast.xml */,
 				1F198FC7117BC4AB0049BEA7 /* README.markdown */,
 				1FE2FCA6117A8952000504B0 /* dsa_pub.pem */,
 				1FFA36C71177D861006C8562 /* WebKit */,
@@ -180,6 +185,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* MyDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -248,6 +254,8 @@
 				1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */,
 				1FE2FCA7117A8952000504B0 /* dsa_pub.pem in Resources */,
 				1F198FC8117BC4AB0049BEA7 /* README.markdown in Resources */,
+				1F1990E0117BD2250049BEA7 /* Appcast.xml in Resources */,
+				1F1990E2117BD2650049BEA7 /* ReleaseNotes.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

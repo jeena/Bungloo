@@ -6,18 +6,14 @@
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
       <item>
-        <title>Version 2.0.1 (A rewrite in JavaScript)</title>
+        <title>Version 2.0.2 (Added twittia: url scheme)</title>
 				<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
-				<sparkle:releaseNotesLink><![CDATA[
-					<h1>Twittia 2.0.1</h1>
-					<p>This is a complete rewrite, I cut 80% of the functionality and
-						now it only has functionality which I care for.</p>
-					<p>This is also the first version I try to distribute Sparcle, so
-						it is updated automagicly in the feature.</p>
-				]]></sparkle:releaseNotesLink>
-	      <pubDate>Wed, 18 Apr 2010 03:00:00 +0000</pubDate>
-	      <enclosure	url="http://github.com/downloads/jeena/Twittia/Twittia-2.0.1.zip"
-										sparkle:version="2.0.1"
+				<sparkle:releaseNotesLink>
+					http://github.com/downloads/jeena/Twittia/ReleaseNotes.html
+				</sparkle:releaseNotesLink>
+	      <pubDate>Wed, 19 Apr 2010 02:00:00 +0000</pubDate>
+	      <enclosure	url="http://github.com/downloads/jeena/Twittia/Twittia.zip"
+										sparkle:version="2.0.2"
 										length="486608"
 										type="application/octet-stream"
 										sparkle:dsaSignature="MCwCFC6RsmU3oU+QvFvFar2EarAhxsq1AhRFXyHYUgKToJUQTv4JVwoJWQZkhw==" />

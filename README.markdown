@@ -3,9 +3,10 @@ Twittia
 
 Twittia is a slim Twitter client for OS X written in mostly JavaScript.
 It doesn't implement much of Twitters functionality, only the things **I**
-care for. Therefore it is **small** (84 KB) and **fast** and looks good
-by doing so. _"Keep it simple, stupid!"_ Is the mantra, therefore there will not by much more
-functionality as it is now. But you're welcome to fork and extend it.
+care for. Therefore it is **small** and **fast** and looks good
+by doing so. _"Keep it simple, stupid!"_ Is the mantra, therefore there
+will not by much more functionality as it is now. But you're welcome to
+fork and extend it.
 
 [Download Twittia 2](http://github.com/downloads/jeena/Twittia/Twittia.app.zip)
 
@@ -22,6 +23,9 @@ FAQ:s
    search for the item "api.twitter.com" and remove or change it.
 
 3. No, there is no icon yet.
+
+4. Yes there is a twittia: url scheme, try it out:
+   [twittia:Twittia is the shit](http://twittia.istheshit.net/)
 
 
 Nice to know
