@@ -9,10 +9,10 @@
         <title>Version 2.0.2 (Added twittia: url scheme)</title>
 				<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 				<sparkle:releaseNotesLink>
-					http://github.com/downloads/jeena/Twittia/ReleaseNotes.html
+					http://jeenaparadies.net/twittia/ReleaseNotes.html
 				</sparkle:releaseNotesLink>
 	      <pubDate>Wed, 19 Apr 2010 0:30:00 +0000</pubDate>
-	      <enclosure	url="http://github.com/downloads/jeena/Twittia/Twittia.app.zip"
+	      <enclosure	url="http://jeenaparadies.net/twittia/Twittia.app.zip"
 										sparkle:version="2.0.2"
 										length="490687"
 										type="application/octet-stream"

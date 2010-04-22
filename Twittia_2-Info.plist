@@ -54,7 +54,7 @@
 	<key>CFBundleHelpBookName</key>
 	<string>net.jeena.apps.twittia.help</string>
 	<key>SUFeedURL</key>
-	<string>http://github.com/downloads/jeena/Twittia/Appcast.xml</string>
+	<string>http://jeenaparadies.net/twittia/Appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>CFBundleURLTypes</key>

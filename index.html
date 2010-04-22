@@ -59,7 +59,7 @@ Twittia.prototype.getItem = function(status) {
 		retweeted.appendChild(retweeted_icon);
 		var retweeted_by = document.createElement("a");
 		retweeted_by.innerText = original_status.user.screen_name + " ";
-		retweeted_by.href = "http://twitter.com/" + original_status.in_reply_to_screen_name;
+		retweeted_by.href = "http://twitter.com/" + original_status.user.screen_name;
 		retweeted.appendChild(document.createTextNode("@"));
 		retweeted.appendChild(retweeted_by);
 		template.in_reply.parentNode.parentNode.insertBefore(retweeted, template.in_reply.parent);
@@ -67,7 +67,7 @@ Twittia.prototype.getItem = function(status) {
 	
 	if(status.in_reply_to_screen_name != null) template.in_reply.innerText = status.in_reply_to_screen_name;
 	else template.in_reply.parentNode.className = "hidden";
-	template.in_reply.href = "http://twitter.com/" + status.in_reply_to_screen_name;
+	template.in_reply.href = "http://twitter.com/" + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id;
 
 	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text));
 	
@@ -744,8 +744,10 @@ $(document).ready(function() {
 <body>
 <ol id="body" class="messages"></ol>
 <script type="text/javascript">
-var twittia_instance = new Twittia();
-loadPlugin(controller.pluginURL());
+$(document).ready(function() {
+	var twittia_instance = new Twittia();
+	loadPlugin(controller.pluginURL());
+});
 </script>
 </body>
 </html>
