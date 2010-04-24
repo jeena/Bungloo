@@ -53,6 +53,7 @@
 	NSString *path = [[NSBundle mainBundle] resourcePath];
 	NSURL *url = [NSURL fileURLWithPath:path];
 	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index.html", path] encoding:NSUTF8StringEncoding error:nil];
+	NSLog(@"%@", url);
 	[[webView mainFrame] loadHTMLString:index_string baseURL:url];			
 	
 	viewDelegate = [[ViewDelegate alloc] initWithWebView:webView];
