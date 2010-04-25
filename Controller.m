@@ -12,10 +12,10 @@
 
 @implementation Controller
 
-@synthesize webView, viewDelegate;
+@synthesize timelineView, mentionsView, viewDelegate;
 
 - (void)awakeFromNib {
-	[self initWebView];
+	[self initWebViews];
 
 	
 	/* CARBON from http://github.com/Xjs/drama-button/blob/carbon/Drama_ButtonAppDelegate.m */
@@ -49,19 +49,27 @@
 	[appleEventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
-- (void)initWebView {
+- (void)initWebViews {
+
 	NSString *path = [[NSBundle mainBundle] resourcePath];
 	NSURL *url = [NSURL fileURLWithPath:path];
 	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index.html", path] encoding:NSUTF8StringEncoding error:nil];
-	NSLog(@"%@", url);
-	[[webView mainFrame] loadHTMLString:index_string baseURL:url];			
 	
-	viewDelegate = [[ViewDelegate alloc] initWithWebView:webView];
-	[webView setFrameLoadDelegate:viewDelegate];
-	[webView setPolicyDelegate:viewDelegate];
-	[webView setUIDelegate:viewDelegate];
-	
-    [[webView windowScriptObject] setValue:self forKey:@"controller"];
+	viewDelegate = [[ViewDelegate alloc] init];
+
+	viewDelegate.timelineView = timelineView;
+	[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
+	[timelineView setFrameLoadDelegate:viewDelegate];
+	[timelineView setPolicyDelegate:viewDelegate];
+	[timelineView setUIDelegate:viewDelegate];
+    [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
+
+	viewDelegate.mentionsView = mentionsView;
+	[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
+	[mentionsView setFrameLoadDelegate:viewDelegate];
+	[mentionsView setPolicyDelegate:viewDelegate];
+	[mentionsView setUIDelegate:viewDelegate];
+    [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
@@ -97,7 +105,7 @@
 
 - (IBAction)sendTweet:(id)sender {
 	NSString *encodedString = [[[sender object] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	[webView stringByEvaluatingJavaScriptFromString:
+	[timelineView stringByEvaluatingJavaScriptFromString:
 	 [NSString stringWithFormat:@"twittia_instance.sendNewTweet(\"%@\", \"%@\")",
 	  [encodedString stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""],
 	  [[sender object] objectAtIndex:1]]];

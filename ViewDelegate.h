@@ -8,12 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-#import "StatusView.h"
 
-@interface ViewDelegate : NSObject<StatusView> {
-	WebView *webView;
+@interface ViewDelegate : NSObject {
+	WebView *timelineView;
+	WebView *mentionsView;
 }
 
--(id)initWithWebView:(WebView *) webView;
+@property (nonatomic, assign) WebView *timelineView;
+@property (nonatomic, assign) WebView *mentionsView;
 
 @end

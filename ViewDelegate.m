@@ -11,17 +11,9 @@
 
 @implementation ViewDelegate
 
--(id)initWithWebView:(WebView *) view {
-	
-    if ( self = [super init] ) {
-        webView = view;
-    }
-	
-    return self;
-}
+@synthesize timelineView, mentionsView;
 
-
-- (void)webView:(WebView *)_webView addMessageToConsole:(NSDictionary *)message;{
+- (void)webView:(WebView *)sender addMessageToConsole:(NSDictionary *)message;{
 
 	if (![message isKindOfClass:[NSDictionary class]]) return;
 	
@@ -39,6 +31,17 @@
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
 	[listener ignore];
     [[NSWorkspace sharedWorkspace] openURL:[request URL]];
+}
+
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+	NSString *action = @"home_timeline";
+
+	if (sender == mentionsView) {
+		action = @"mentions";
+	}
+
+	[sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:
+													@"setTimeout(function(){ twittia_instance = new Twittia('%@'); }, 1);", action]];
 }
 
 @end

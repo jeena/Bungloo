@@ -1,10 +1,15 @@
-function Twittia() {
+function Twittia(action, oauth_key, oauth_secret) {
 	this.body = document.getElementById("body");
 	this.max_length = 100;
 	this.since_id;
-	this.getNewData();
 	this.timeout = 2 * 60 * 1000;
+	this.action = action;
+	this.oauth_key = oauth_key;
+	this.oauth_secret = oauth_secret;
+	this.getNewData();
+	setTimeout(function() { loadPlugin(controller.pluginURL()) }, 1);
 }
+
 
 Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
 	if(status != null) {
@@ -161,7 +166,8 @@ Twittia.prototype.getTemplate = function() {
 
 Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 
-	var url = "http://api.twitter.com/1/statuses/home_timeline.json?count=100";
+	var url = "http://api.twitter.com/1/statuses/" + this.action + ".json"
+	url += "?count=" + this.max_length;
 	if(this.since_id) url += "&since_id=" + this.since_id;
 	var _this = this;
 
@@ -241,3 +247,5 @@ function loadPlugin(url) {
 	plugin.src = url;
 	document.getElementsByTagName("head")[0].appendChild(plugin);
 }
+
+var twittia_instance;
