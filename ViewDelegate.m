@@ -35,13 +35,15 @@
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
 	NSString *action = @"home_timeline";
+	NSString *delay = @"1";
 
 	if (sender == mentionsView) {
 		action = @"mentions";
+		delay = @"1000";
 	}
 
 	[sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:
-													@"setTimeout(function(){ twittia_instance = new Twittia('%@'); }, 1);", action]];
+													@"setTimeout(function(){ twittia_instance = new Twittia('%@'); }, %@);", action, delay]];
 }
 
 @end
