@@ -16,7 +16,6 @@
 
 - (void)awakeFromNib {
 	[self initWebViews];
-
 	
 	/* CARBON from http://github.com/Xjs/drama-button/blob/carbon/Drama_ButtonAppDelegate.m */
 	
@@ -46,7 +45,10 @@
 			 object:nil];
 	
 	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
-	[appleEventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+	[appleEventManager setEventHandler:self
+						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
+						 forEventClass:kInternetEventClass
+							andEventID:kAEGetURL];
 }
 
 - (void)initWebViews {
@@ -90,17 +92,16 @@
 	[newTweet inReplyTo:userName statusId:statusId];
 }
 
-
 - (void)openNewTweetWindowWithString:(NSString *)aString {
+	NSLog(@"testing");
 	[NSApp activateIgnoringOtherApps:YES]; 
 	MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 	[newTweet withString:aString];
 }
 
-- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
-{
-	NSString *text = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-	[self openNewTweetWindowWithString:[text substringFromIndex:8]];
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
+	NSString *text = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] substringFromIndex:8];
+	[self openNewTweetWindowWithString:[text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (IBAction)sendTweet:(id)sender {

@@ -11,6 +11,7 @@
 #import "ViewDelegate.h"
 #import <Carbon/Carbon.h>
 
+
 @interface Controller : NSObject {
 	IBOutlet WebView *timelineView;
 	IBOutlet WebView *mentionsView;
@@ -24,6 +25,7 @@
 - (void)initWebViews;
 - (void)openNewTweetWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId;
 - (NSString *)pluginURL;
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
 

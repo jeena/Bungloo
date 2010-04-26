@@ -10,9 +10,6 @@
 		1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
-		1F4673E31180F519006CC37C /* jQuery.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F4673E21180F519006CC37C /* jQuery.js */; };
-		1F4673E51180F590006CC37C /* jQuery-Plugins.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F4673E41180F590006CC37C /* jQuery-Plugins.js */; };
-		1F4673E71180F654006CC37C /* TwittiaCore.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */; };
 		1F4673FE1180F7EA006CC37C /* TwittiaCore.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */; };
 		1F4674081180F7EE006CC37C /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E21180F519006CC37C /* jQuery.js */; };
 		1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E41180F590006CC37C /* jQuery-Plugins.js */; };
@@ -249,16 +246,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */,
-				1F4674081180F7EE006CC37C /* jQuery.js in Resources */,
 				1F4673FE1180F7EA006CC37C /* TwittiaCore.js in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				1FFA36CD1177D861006C8562 /* even-bg.png in Resources */,
+				1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */,
 				1FFA36CE1177D861006C8562 /* index.html in Resources */,
 				1FFA36CF1177D861006C8562 /* odd-bg.png in Resources */,
+				1F4674081180F7EE006CC37C /* jQuery.js in Resources */,
 				1FFA36D01177D861006C8562 /* default.css in Resources */,
 				1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */,
 			);
@@ -275,9 +272,6 @@
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				1FFA36D71177D879006C8562 /* Controller.m in Sources */,
 				1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */,
-				1F4673E31180F519006CC37C /* jQuery.js in Sources */,
-				1F4673E51180F590006CC37C /* jQuery-Plugins.js in Sources */,
-				1F4673E71180F654006CC37C /* TwittiaCore.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

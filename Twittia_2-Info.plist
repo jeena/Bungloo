@@ -60,6 +60,8 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>net.jeena.apps.twittia.handler</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>twittia</string>
