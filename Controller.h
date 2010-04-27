@@ -12,7 +12,7 @@
 #import <Carbon/Carbon.h>
 
 
-@interface Controller : NSObject <NSWindowDelegate> {
+@interface Controller : NSObject {
 	IBOutlet WebView *timelineView;
 	IBOutlet NSWindow *timelineViewWindow;
 	IBOutlet WebView *mentionsView;

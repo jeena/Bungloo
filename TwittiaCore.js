@@ -10,11 +10,7 @@ function Twittia(action, oauth_key, oauth_secret) {
 	
 	this.body = document.createElement("ol");
 	this.body.className = this.action;
-	document.getElementsByTagName("body")[0].appendChild(this.body);
-	
-	setTimeout(function() { loadPlugin(controller.pluginURL()) }, 1);
 }
-
 
 Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
 	if(status != null) {
@@ -34,10 +30,11 @@ Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
 		var _this = this;
 		setTimeout(function() { _this.getNewData() }, this.timeout);
 	}
-	if(this.action == "mentions") {
+	if(this.action == "mentions" && this.is_not_init) {
 		this.unread_mentions += status.length;
 		controller.unreadMentions_(this.unread_mentions);
 	}
+	this.is_not_init = true;
 }
 
 Twittia.prototype.getItem = function(status) {

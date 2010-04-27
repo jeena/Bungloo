@@ -43,7 +43,9 @@
 	}
 
 	[sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:
-													@"setTimeout(function(){ twittia_instance = new Twittia('%@'); }, %@);", action, delay]];
+		@"setTimeout(function(){ twittia_instance = new Twittia('%@'); \
+								 document.getElementsByTagName('body')[0].appendChild(twittia_instance.body); \
+								 setTimeout(function() { loadPlugin(controller.pluginURL()) }, 1); }, %@);", action, delay]];
 }
 
 @end
