@@ -1,5 +1,4 @@
 function Twittia(action, oauth_key, oauth_secret) {
-	this.body = document.getElementById("body");
 	this.max_length = 100;
 	this.since_id;
 	this.timeout = 2 * 60 * 1000;
@@ -7,6 +6,12 @@ function Twittia(action, oauth_key, oauth_secret) {
 	this.oauth_key = oauth_key;
 	this.oauth_secret = oauth_secret;
 	this.getNewData();
+	this.unread_mentions = 0;
+	
+	this.body = document.createElement("ol");
+	this.body.className = this.action;
+	document.getElementsByTagName("body")[0].appendChild(this.body);
+	
 	setTimeout(function() { loadPlugin(controller.pluginURL()) }, 1);
 }
 
@@ -28,6 +33,10 @@ Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
 	if(!supress_new_with_timeout) {
 		var _this = this;
 		setTimeout(function() { _this.getNewData() }, this.timeout);
+	}
+	if(this.action == "mentions") {
+		this.unread_mentions += status.length;
+		controller.unreadMentions_(this.unread_mentions);
 	}
 }
 
@@ -62,7 +71,7 @@ Twittia.prototype.getItem = function(status) {
 		template.in_reply.parentNode.parentNode.insertBefore(retweeted, template.in_reply.parent);
 	}
 	
-	if(status.in_reply_to_screen_name != null) template.in_reply.innerText = status.in_reply_to_screen_name;
+	if(status.in_reply_to_status_id != null) template.in_reply.innerText = status.in_reply_to_screen_name;
 	else template.in_reply.parentNode.className = "hidden";
 	template.in_reply.href = "http://twitter.com/" + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id;
 

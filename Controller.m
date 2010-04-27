@@ -12,7 +12,7 @@
 
 @implementation Controller
 
-@synthesize timelineView, mentionsView, viewDelegate;
+@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, viewDelegate;
 
 - (void)awakeFromNib {
 	[self initWebViews];
@@ -43,7 +43,7 @@
 		   selector:@selector(sendTweet:) 
 			   name:@"sendTweet"
 			 object:nil];
-	
+
 	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
 	[appleEventManager setEventHandler:self
 						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
@@ -78,7 +78,6 @@
 	return NO;
 }
 
-
 #pragma mark Notifications
 
 - (IBAction)openNewTweetWindow:(id)sender {
@@ -93,7 +92,6 @@
 }
 
 - (void)openNewTweetWindowWithString:(NSString *)aString {
-	NSLog(@"testing");
 	[NSApp activateIgnoringOtherApps:YES]; 
 	MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 	[newTweet withString:aString];
@@ -119,6 +117,22 @@
 		return [NSString stringWithFormat:@"%@", [NSURL fileURLWithPath:pathToPlugin]];
 	}
 	return nil;
+}
+
+- (void)unreadMentions:(NSInteger)count {
+	if (![mentionsViewWindow isVisible] && count > 0) {
+		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia (@%i)", count]];
+	} else {
+		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia"]];
+		[mentionsView stringByEvaluatingJavaScriptFromString:@"twittia_instance.unread_mentions = 0;"];
+	}
+}
+
+// Mentions window has been visible
+- (void)windowDidUpdate:(NSNotification *)notification {
+	if ([notification object] == mentionsViewWindow) {
+		[self unreadMentions:0];		
+	}
 }
 
 

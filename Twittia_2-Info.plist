@@ -65,6 +65,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>twittia</string>
+				<string>twitter</string>
 			</array>
 		</dict>
 	</array>
