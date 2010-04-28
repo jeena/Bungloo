@@ -31,8 +31,6 @@
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)unreadMentions:(NSInteger)count;
-- (void)mentionsWindowDidExpose:(id)sender;
-
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
 

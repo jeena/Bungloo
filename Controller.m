@@ -129,10 +129,10 @@
 }
 
 // Mentions window has been visible
-- (void)windowDidUpdate:(NSNotification *)notification {
+- (void)windowDidBecomeKey:(NSNotification *)notification {
 	if ([notification object] == mentionsViewWindow) {
 		[self unreadMentions:0];		
-	}
+	}	
 }
 
 
