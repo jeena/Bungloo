@@ -17,6 +17,7 @@
 	IBOutlet NSWindow *timelineViewWindow;
 	IBOutlet WebView *mentionsView;
 	IBOutlet NSWindow *mentionsViewWindow;
+	IBOutlet NSMenuItem *globalHotkeyMenuItem;
 	ViewDelegate *viewDelegate;
 }
 
@@ -24,14 +25,17 @@
 @property (retain, nonatomic) IBOutlet NSWindow *timelineViewWindow;
 @property (retain, nonatomic) IBOutlet WebView *mentionsView;
 @property (retain, nonatomic) IBOutlet NSWindow *mentionsViewWindow;
+@property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
 
 - (void)initWebViews;
+- (void)initHotKeys;
 - (void)openNewTweetWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId;
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)unreadMentions:(NSInteger)count;
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
++ (NSString *)stringFromVirtualKeyCode:(NSInteger)code;
 
 @end
