@@ -10,6 +10,7 @@
 #import <Webkit/Webkit.h>
 #import "ViewDelegate.h"
 #import <Carbon/Carbon.h>
+#import "Constants.h"
 
 
 @interface Controller : NSObject {
@@ -36,6 +37,5 @@
 - (void)unreadMentions:(NSInteger)count;
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
-+ (NSString *)stringFromVirtualKeyCode:(NSInteger)code;
 
 @end

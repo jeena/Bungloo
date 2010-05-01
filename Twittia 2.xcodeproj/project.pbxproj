@@ -15,6 +15,7 @@
 		1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E41180F590006CC37C /* jQuery-Plugins.js */; };
 		1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F705EA5117889FA00C85707 /* sprite-icons.png */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
+		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
 		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FFA36CD1177D861006C8562 /* even-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFA36C81177D861006C8562 /* even-bg.png */; };
@@ -59,6 +60,8 @@
 		1F4673E61180F654006CC37C /* TwittiaCore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TwittiaCore.js; sourceTree = "<group>"; };
 		1F705EA5117889FA00C85707 /* sprite-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprite-icons.png"; sourceTree = "<group>"; };
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		1FE2FC92117A818D000504B0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1FE2FCA6117A8952000504B0 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		1FFA36C81177D861006C8562 /* even-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "even-bg.png"; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 				1FFA36D51177D879006C8562 /* ViewDelegate.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
+				1F77DB45118C5F1C007C7F1E /* Constants.h */,
+				1F77DB46118C5F1C007C7F1E /* Constants.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -272,6 +277,7 @@
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				1FFA36D71177D879006C8562 /* Controller.m in Sources */,
 				1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */,
+				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

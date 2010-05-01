@@ -7,12 +7,12 @@
 //
 
 #import "MyDocument.h"
+#import "Constants.h"
 
 @implementation MyDocument
 
 @synthesize textField, counter;
 
-#define TWEET_MAX_LENGTH 140
 
 - (id)init
 {

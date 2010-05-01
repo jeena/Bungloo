@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "Constants.h"
 
 @interface ViewDelegate : NSObject {
 	WebView *timelineView;
