@@ -10,6 +10,8 @@
 		1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
+		1F3642EF118C8C35008198EF /* oauth.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F3642ED118C8C35008198EF /* oauth.js */; };
+		1F3642F0118C8C35008198EF /* sha1.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F3642EE118C8C35008198EF /* sha1.js */; };
 		1F4673FE1180F7EA006CC37C /* TwittiaCore.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */; };
 		1F4674081180F7EE006CC37C /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E21180F519006CC37C /* jQuery.js */; };
 		1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E41180F590006CC37C /* jQuery-Plugins.js */; };
@@ -55,6 +57,8 @@
 		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		1F1990DF117BD2250049BEA7 /* Appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Appcast.xml; sourceTree = "<group>"; };
 		1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseNotes.html; sourceTree = "<group>"; };
+		1F3642ED118C8C35008198EF /* oauth.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = oauth.js; sourceTree = "<group>"; };
+		1F3642EE118C8C35008198EF /* sha1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sha1.js; sourceTree = "<group>"; };
 		1F4673E21180F519006CC37C /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
 		1F4673E41180F590006CC37C /* jQuery-Plugins.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jQuery-Plugins.js"; sourceTree = "<group>"; };
 		1F4673E61180F654006CC37C /* TwittiaCore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TwittiaCore.js; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 		1FFA36C71177D861006C8562 /* WebKit */ = {
 			isa = PBXGroup;
 			children = (
+				1F3642ED118C8C35008198EF /* oauth.js */,
+				1F3642EE118C8C35008198EF /* sha1.js */,
 				1F4673E61180F654006CC37C /* TwittiaCore.js */,
 				1FFA36C81177D861006C8562 /* even-bg.png */,
 				1F705EA5117889FA00C85707 /* sprite-icons.png */,
@@ -251,6 +257,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F3642EF118C8C35008198EF /* oauth.js in Resources */,
+				1F3642F0118C8C35008198EF /* sha1.js in Resources */,
 				1F4673FE1180F7EA006CC37C /* TwittiaCore.js in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
