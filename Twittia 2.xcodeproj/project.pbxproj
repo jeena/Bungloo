@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		1F122D49118E1DE100E83B77 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F122D48118E1DE100E83B77 /* Icon.icns */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
 		1F3642EF118C8C35008198EF /* oauth.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F3642ED118C8C35008198EF /* oauth.js */; };
 		1F3642F0118C8C35008198EF /* sha1.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F3642EE118C8C35008198EF /* sha1.js */; };
 		1F364398118CBC77008198EF /* OAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F364397118CBC77008198EF /* OAuth.m */; };
-		1F36440F118CC173008198EF /* OAuthConsumer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F36440E118CC173008198EF /* OAuthConsumer.framework */; };
+		1F36440F118CC173008198EF /* OAuthConsumer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F36440E118CC173008198EF /* OAuthConsumer.framework */; };
 		1F36465E118DA5A7008198EF /* OAToken+WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F36465D118DA5A7008198EF /* OAToken+WebView.m */; };
 		1F4673FE1180F7EA006CC37C /* TwittiaCore.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */; };
 		1F4674081180F7EE006CC37C /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E21180F519006CC37C /* jQuery.js */; };
@@ -21,6 +22,7 @@
 		1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F705EA5117889FA00C85707 /* sprite-icons.png */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
+		1FB074DD118DDAB60013A93C /* OAuthConsumer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F36440E118CC173008198EF /* OAuthConsumer.framework */; };
 		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FFA36CD1177D861006C8562 /* even-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFA36C81177D861006C8562 /* even-bg.png */; };
@@ -44,6 +46,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				1F36440F118CC173008198EF /* OAuthConsumer.framework in CopyFiles */,
 				1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +59,7 @@
 		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1F122D48118E1DE100E83B77 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		1F198FC7117BC4AB0049BEA7 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		1F1990DF117BD2250049BEA7 /* Appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Appcast.xml; sourceTree = "<group>"; };
@@ -101,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F36440F118CC173008198EF /* OAuthConsumer.framework in Frameworks */,
+				1FB074DD118DDAB60013A93C /* OAuthConsumer.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				1FFA37071177DAF4006C8562 /* WebKit.framework in Frameworks */,
 				1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */,
@@ -204,6 +208,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F122D48118E1DE100E83B77 /* Icon.icns */,
 				1F1990DF117BD2250049BEA7 /* Appcast.xml */,
 				1F198FC7117BC4AB0049BEA7 /* README.markdown */,
 				1FE2FCA6117A8952000504B0 /* dsa_pub.pem */,
@@ -285,6 +290,7 @@
 				1F4674081180F7EE006CC37C /* jQuery.js in Resources */,
 				1FFA36D01177D861006C8562 /* default.css in Resources */,
 				1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */,
+				1F122D49118E1DE100E83B77 /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

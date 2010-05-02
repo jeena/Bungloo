@@ -29,5 +29,7 @@
 - (id)init;
 - (void)requestAToken;
 - (IBAction)requestAccessTokenWithPIN:(id)sender;
+- (void)updateTweet:(NSString *)tweet inReplaToStatus:(NSString *)statusId;
+
 
 @end

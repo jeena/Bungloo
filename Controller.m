@@ -31,6 +31,10 @@
 		   selector:@selector(authentificationSucceded:) 
 			   name:@"authentificationSucceded"
 			 object:nil];
+	[nc addObserver:self 
+		   selector:@selector(getTweetUpdates:) 
+			   name:@"getTweetUpdates"
+			 object:nil];
 	
 	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
 	[appleEventManager setEventHandler:self
@@ -50,18 +54,21 @@
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger defaultsNewTweetKey = (NSInteger)[defaults integerForKey:@"newTweetKey"];
-	if ([NSNumber numberWithInt:defaultsNewTweetKey] != nil) {
+
+	if ([defaults objectForKey:@"newTweetKey"] != nil) {
 		newTweetKey = defaultsNewTweetKey;
 	} else {
 		[defaults setInteger:newTweetKey forKey:@"newTweetKey"];
 	}
 	
 	NSInteger defaultsNewTweetModifierKey = (NSInteger)[defaults integerForKey:@"newTweetModifierKey"];
-	if ([NSNumber numberWithInt:defaultsNewTweetModifierKey] != nil) {
+	if ([defaults objectForKey:@"newTweetModifierKey"] != nil) {
 		newTweetModifierKey = defaultsNewTweetModifierKey;
 	} else {
 		[defaults setInteger:newTweetModifierKey forKey:@"newTweetModifierKey"];
 	}
+	
+	[defaults synchronize];
 	
 	NSUInteger cocoaModifiers = 0;
 	if (newTweetModifierKey & shiftKey) cocoaModifiers = cocoaModifiers | NSShiftKeyMask;
@@ -115,6 +122,8 @@
 	[mentionsView setPolicyDelegate:viewDelegate];
 	[mentionsView setUIDelegate:viewDelegate];
     [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
+	
+	[logoLayer removeFromSuperview];
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
@@ -157,11 +166,16 @@
 }
 
 - (IBAction)sendTweet:(id)sender {
+	
+	[oauth updateTweet:[[sender object] objectAtIndex:0]
+	   inReplaToStatus:[[sender object] objectAtIndex:1]];
+	/*
 	NSString *encodedString = [[[sender object] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	[timelineView stringByEvaluatingJavaScriptFromString:
 	 [NSString stringWithFormat:@"twittia_instance.sendNewTweet(\"%@\", \"%@\")",
 	  [encodedString stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""],
 	  [[sender object] objectAtIndex:1]]];
+	*/
 }
 
 - (NSString *)pluginURL {
@@ -187,6 +201,11 @@
 	if ([notification object] == mentionsViewWindow) {
 		[self unreadMentions:0];		
 	}	
+}
+
+- (void)getTweetUpdates:(id)sender {
+	[timelineView stringByEvaluatingJavaScriptFromString:@"twittia_instance.getNewData(true)"];
+	[mentionsView stringByEvaluatingJavaScriptFromString:@"twittia_instance.getNewData(true)"];
 }
 
 

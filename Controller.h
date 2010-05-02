@@ -20,6 +20,7 @@
 	IBOutlet WebView *mentionsView;
 	IBOutlet NSWindow *mentionsViewWindow;
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
+	IBOutlet NSImageView *logoLayer;
 	ViewDelegate *viewDelegate;
 	OAuth *oauth;
 }
@@ -29,6 +30,7 @@
 @property (retain, nonatomic) IBOutlet WebView *mentionsView;
 @property (retain, nonatomic) IBOutlet NSWindow *mentionsViewWindow;
 @property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
+@property (retain, nonatomic) IBOutlet NSImageView *logoLayer;
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
 @property (retain, nonatomic) IBOutlet OAuth *oauth;
 

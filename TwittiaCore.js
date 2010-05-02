@@ -212,18 +212,19 @@ Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 	});
 }
 
+/*
 Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 	
 	var url = "http://api.twitter.com/1/statuses/update.json";
-	var data = "source=twittia&status=" + tweet;
+	var data = "source=twittia&status=" + OAuth.percentEncode(tweet);
 	if(in_reply_to_status_id != '') data += "&in_reply_to_status_id=" + in_reply_to_status_id
 		
 	var parameters = { source: "twittia", status: tweet };
-	if(in_reply_to_status_id != '') parameters.in_reply_to_status_id = in_reply_to_status_id
+	if(in_reply_to_status_id != '') parameters.in_reply_to_status_id = in_reply_to_status_id;
 		
 	var _this = this;
 	
-	var message = { method:"POST" , action:url, parameters: parameters };
+	var message = { method:"POST" , action:url, parameters:parameters };
 	
 	OAuth.completeRequest(message,
 						  { consumerKey   : controller.oauth.consumerToken.key
@@ -249,12 +250,25 @@ Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 		}
 	});
 }
+*/
 
 Twittia.prototype.retweet = function(status_id, item) {
 	var url = "http://api.twitter.com/1/statuses/retweet/" + status_id + ".json";
 	var _this = this;
+	
+	var message = { method:"POST" , action:url };
+	
+	OAuth.completeRequest(message,
+						  { consumerKey   : controller.oauth.consumerToken.key
+						  , consumerSecret: controller.oauth.consumerToken.secret
+						  , token         : controller.oauth.accessToken.key
+						  , tokenSecret   : controller.oauth.accessToken.secret
+						  });
 		
 	$.ajax({
+		beforeSend: function(xhr) {
+		   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+		},
 		url: url,
 		type: 'POST',
 		dataType: 'json',
