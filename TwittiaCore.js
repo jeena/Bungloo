@@ -1,3 +1,11 @@
+//
+//  TwittiaCore.js
+//  Twittia 2
+//
+//  Created by Jeena on 15.04.10.
+//  Licence: BSD (see attached LICENCE.txt file).
+//
+
 function Twittia(action) {
 	this.max_length = 100;
 	this.since_id;
