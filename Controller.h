@@ -11,6 +11,7 @@
 #import "ViewDelegate.h"
 #import <Carbon/Carbon.h>
 #import "Constants.h"
+#import "OAuth.h"
 
 
 @interface Controller : NSObject {
@@ -20,6 +21,7 @@
 	IBOutlet NSWindow *mentionsViewWindow;
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
 	ViewDelegate *viewDelegate;
+	OAuth *oauth;
 }
 
 @property (retain, nonatomic) IBOutlet WebView *timelineView;
@@ -28,7 +30,9 @@
 @property (retain, nonatomic) IBOutlet NSWindow *mentionsViewWindow;
 @property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
+@property (retain, nonatomic) IBOutlet OAuth *oauth;
 
+- (void)authentificationSucceded:(id)sender;
 - (void)initWebViews;
 - (void)initHotKeys;
 - (void)openNewTweetWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId;

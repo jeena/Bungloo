@@ -12,10 +12,10 @@
 
 @implementation Controller
 
-@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate;
+@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate, oauth;
 
 - (void)awakeFromNib {
-	[self initWebViews];
+	
 	[self initHotKeys];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -27,12 +27,20 @@
 		   selector:@selector(sendTweet:) 
 			   name:@"sendTweet"
 			 object:nil];
-
+	[nc addObserver:self 
+		   selector:@selector(authentificationSucceded:) 
+			   name:@"authentificationSucceded"
+			 object:nil];
+	
 	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
 	[appleEventManager setEventHandler:self
 						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
 						 forEventClass:kInternetEventClass
 							andEventID:kAEGetURL];
+	
+	if ([oauth accessToken]) {
+		[self initWebViews];
+	}
 }
 
 - (void)initHotKeys {
@@ -60,24 +68,9 @@
 	if (newTweetModifierKey & optionKey) cocoaModifiers = cocoaModifiers | NSAlternateKeyMask;
 	if (newTweetModifierKey & controlKey) cocoaModifiers = cocoaModifiers | NSControlKeyMask;
 	if (newTweetModifierKey & cmdKey) cocoaModifiers = cocoaModifiers | NSCommandKeyMask;
-
-	NSLog(@"%i", shiftKey);
-	NSInteger theNumber = cocoaModifiers;
-	NSMutableString *str = [NSMutableString string];
-	NSInteger numberCopy = theNumber; // so you won't change your original value
-	for(NSInteger i = 0; i < 32 ; i++) {
-		// Prepend "0" or "1", depending on the bit
-		[str insertString:((numberCopy & 1) ? @"1" : @"0") atIndex:0];
-		numberCopy >>= 1;
-	}
-	
-	// NSLog(@"Binary version: %@", str);
-	
-	NSLog(@"%c", kVK_ANSI_T);
 	
 	[globalHotkeyMenuItem setKeyEquivalent:[Constants stringFromVirtualKeyCode:newTweetKey]];
 	[globalHotkeyMenuItem setKeyEquivalentModifierMask:cocoaModifiers];
-	
 	
 	/* CARBON from http://github.com/Xjs/drama-button/blob/carbon/Drama_ButtonAppDelegate.m */
 	
@@ -95,6 +88,10 @@
 	RegisterEventHotKey(newTweetKey, newTweetModifierKey, g_HotKeyID, GetApplicationEventTarget(), 0, &g_HotKeyRef);
 	
 	/* end CARBON */
+}
+
+- (void)authentificationSucceded:(id)sender {
+	[self initWebViews];
 }
 
 - (void)initWebViews {
@@ -124,6 +121,11 @@
 	return NO;
 }
 
++ (BOOL)isKeyExcludedFromWebScript:(const char *)name {
+	return NO;
+}
+
+
 #pragma mark Notifications
 
 - (IBAction)openNewTweetWindow:(id)sender {
@@ -138,9 +140,15 @@
 }
 
 - (void)openNewTweetWindowWithString:(NSString *)aString {
-	[NSApp activateIgnoringOtherApps:YES]; 
-	MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
-	[newTweet withString:aString];
+	[NSApp activateIgnoringOtherApps:YES];
+	
+	if ([aString hasPrefix:@"//oauth_token/"]) {
+		// [oauth requestAccessToken:[aString substringFromIndex:14]];
+	} else {
+		MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+		[newTweet withString:aString];		
+	}
+	
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
