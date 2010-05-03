@@ -12,7 +12,7 @@
 
 @implementation Controller
 
-@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate, oauth;
+@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate, oauth, logoLayer;
 
 - (void)awakeFromNib {
 	
@@ -168,7 +168,7 @@
 - (IBAction)sendTweet:(id)sender {
 	
 	[oauth updateTweet:[[sender object] objectAtIndex:0]
-	   inReplaToStatus:[[sender object] objectAtIndex:1]];
+	   inReplaToStatus:[NSString stringWithFormat:@"%d", [[sender object] objectAtIndex:1]]];
 	/*
 	NSString *encodedString = [[[sender object] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	[timelineView stringByEvaluatingJavaScriptFromString:

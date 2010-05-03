@@ -138,8 +138,8 @@
 	//[self requestAccessTokenWithPIN:self];
 	//[twitterPINPanel makeKeyAndOrderFront:self];
 	
-	//NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", OAUTH_USER_AUTHORIZATION_URL, requestToken.key]];
-	//s[[NSWorkspace sharedWorkspace] openURL:url];	
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", OAUTH_USER_AUTHORIZATION_URL, requestToken.key]];
+	[[NSWorkspace sharedWorkspace] openURL:url];	
 }
 
 - (void)updateTweet:(NSString *)tweet inReplaToStatus:(NSString *)statusId {
