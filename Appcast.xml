@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
    <channel>
       <title>Twittia's Changelog</title>
-      <link>http://github.com/downloads/jeena/Twittia/Appcast.xml</link>
+      <link>http://wiki.github.com/jeena/twittia/</link>
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
       <item>
-        <title>Version 2.1.1 (Added Mentions)</title>
-		<sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
+        <title>Version 2.1.2</title>
+		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 		<sparkle:releaseNotesLink>http://jeenaparadies.net/twittia/ReleaseNotes.html</sparkle:releaseNotesLink>
-		<pubDate>Sun, 25 Apr 2010 18:00:00 +0000</pubDate>
-		<enclosure	url="http://jeenaparadies.net/twittia/Twittia.app.zip"
-					sparkle:version="2.1.1"
-					length="490811"
-					type="application/octet-stream"
-					sparkle:dsaSignature="MC0CFBhmqxktwcqIqFM2F/blXAIfBmHhAhUAq19o2TB8v7f7nU9i+KFC3VrsWc0=" />
+		<pubDate>Tue, 04 May 2010 09:55:26 +0200</pubDate>
+		<enclosure  url="http://jeenaparadies.net/twittia/Twittia.app.zip"
+                            sparkle:version="2.1.2"
+                            length="497867"
+                            type="application/octet-stream"
+                            sparkle:dsaSignature="MC0CFQCZ2OhXnrTxE5C8EHsDyXh1oWg6FQIUUyR4StYk8blK0kQaY6TBLXCeMCM=" />
       </item>
    </channel>
 </rss>

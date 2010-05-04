@@ -16,6 +16,7 @@
 		1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F705EA5117889FA00C85707 /* sprite-icons.png */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
+		1FD7D54D11900A980017A19C /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1FD7D54C11900A980017A19C /* Icon.icns */; };
 		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FFA36CD1177D861006C8562 /* even-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFA36C81177D861006C8562 /* even-bg.png */; };
@@ -62,6 +63,7 @@
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		1FD7D54C11900A980017A19C /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		1FE2FC92117A818D000504B0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1FE2FCA6117A8952000504B0 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		1FFA36C81177D861006C8562 /* even-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "even-bg.png"; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1FD7D54C11900A980017A19C /* Icon.icns */,
 				1F1990DF117BD2250049BEA7 /* Appcast.xml */,
 				1F198FC7117BC4AB0049BEA7 /* README.markdown */,
 				1FE2FCA6117A8952000504B0 /* dsa_pub.pem */,
@@ -263,6 +266,7 @@
 				1F4674081180F7EE006CC37C /* jQuery.js in Resources */,
 				1FFA36D01177D861006C8562 /* default.css in Resources */,
 				1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */,
+				1FD7D54D11900A980017A19C /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
