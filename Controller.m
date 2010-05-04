@@ -167,8 +167,13 @@
 
 - (IBAction)sendTweet:(id)sender {
 	
-	[oauth updateTweet:[[sender object] objectAtIndex:0]
-	   inReplaToStatus:[NSString stringWithFormat:@"%d", [[sender object] objectAtIndex:1]]];
+	NSString *replyToId;
+	if ([[[sender object] objectAtIndex:1] respondsToSelector:@selector(stringValue:)]) {
+		replyToId = [[[sender object] objectAtIndex:1] stringValue];
+	}
+	
+	[oauth updateTweet:[[sender object] objectAtIndex:0] inReplaToStatus:replyToId];
+	
 	/*
 	NSString *encodedString = [[[sender object] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	[timelineView stringByEvaluatingJavaScriptFromString:
