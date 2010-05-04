@@ -42,14 +42,14 @@
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger defaultsNewTweetKey = (NSInteger)[defaults integerForKey:@"newTweetKey"];
-	if ([NSNumber numberWithInt:defaultsNewTweetKey] != nil) {
+	if ([defaults objectForKey:@"newTweetKey"] != nil) {
 		newTweetKey = defaultsNewTweetKey;
 	} else {
 		[defaults setInteger:newTweetKey forKey:@"newTweetKey"];
 	}
 	
 	NSInteger defaultsNewTweetModifierKey = (NSInteger)[defaults integerForKey:@"newTweetModifierKey"];
-	if ([NSNumber numberWithInt:defaultsNewTweetModifierKey] != nil) {
+	if ([defaults objectForKey:@"newTweetModifierKey"] != nil) {
 		newTweetModifierKey = defaultsNewTweetModifierKey;
 	} else {
 		[defaults setInteger:newTweetModifierKey forKey:@"newTweetModifierKey"];
@@ -61,20 +61,6 @@
 	if (newTweetModifierKey & controlKey) cocoaModifiers = cocoaModifiers | NSControlKeyMask;
 	if (newTweetModifierKey & cmdKey) cocoaModifiers = cocoaModifiers | NSCommandKeyMask;
 
-	NSLog(@"%i", shiftKey);
-	NSInteger theNumber = cocoaModifiers;
-	NSMutableString *str = [NSMutableString string];
-	NSInteger numberCopy = theNumber; // so you won't change your original value
-	for(NSInteger i = 0; i < 32 ; i++) {
-		// Prepend "0" or "1", depending on the bit
-		[str insertString:((numberCopy & 1) ? @"1" : @"0") atIndex:0];
-		numberCopy >>= 1;
-	}
-	
-	// NSLog(@"Binary version: %@", str);
-	
-	NSLog(@"%c", kVK_ANSI_T);
-	
 	[globalHotkeyMenuItem setKeyEquivalent:[Constants stringFromVirtualKeyCode:newTweetKey]];
 	[globalHotkeyMenuItem setKeyEquivalentModifierMask:cocoaModifiers];
 	
