@@ -9,12 +9,12 @@
         <title>Version 2.1.2</title>
 		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 		<sparkle:releaseNotesLink>http://jeenaparadies.net/twittia/ReleaseNotes.html</sparkle:releaseNotesLink>
-		<pubDate>Tue, 04 May 2010 09:55:26 +0200</pubDate>
+		<pubDate>Tue, 04 May 2010 10:05:22 +0200</pubDate>
 		<enclosure  url="http://jeenaparadies.net/twittia/Twittia.app.zip"
                             sparkle:version="2.1.2"
-                            length="497867"
+                            length="741000"
                             type="application/octet-stream"
-                            sparkle:dsaSignature="MC0CFQCZ2OhXnrTxE5C8EHsDyXh1oWg6FQIUUyR4StYk8blK0kQaY6TBLXCeMCM=" />
+                            sparkle:dsaSignature="MCwCFHhJ3+WiTHveO/rVQWBBiRKs/pNCAhRjQo5mVURRV/DO/t8sfYfHWRKTew==" />
       </item>
    </channel>
 </rss>

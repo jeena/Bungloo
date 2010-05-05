@@ -35,6 +35,8 @@ XML
 
 File.open("#{PATH}/Appcast.xml", 'w') {|f| f.write(xml) }
 
-exit
+`scp ReleaseNotes.html jeena@jeenaparadies.net:~/jeenaparadies.net/htdocs/twittia/`
 `scp build/Release/Twittia.app.zip jeena@jeenaparadies.net:~/jeenaparadies.net/htdocs/twittia/`
 `scp Appcast.xml jeena@jeenaparadies.net:~/jeenaparadies.net/htdocs/twittia/`
+
+puts "Done."
