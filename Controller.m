@@ -195,8 +195,10 @@
 - (void)unreadMentions:(NSInteger)count {
 	if (![mentionsViewWindow isVisible] && count > 0) {
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia (@%i)", count]];
+		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
 	} else {
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia"]];
+		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"twittia_instance.unread_mentions = 0;"];
 	}
 }
