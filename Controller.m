@@ -167,8 +167,10 @@
 
 - (IBAction)sendTweet:(id)sender {
 	
+	
+	
 	NSString *replyToId;
-	if ([[[sender object] objectAtIndex:1] respondsToSelector:@selector(stringValue:)]) {
+	if (![[[sender object] objectAtIndex:1] isEqualTo:@""]) {
 		replyToId = [[[sender object] objectAtIndex:1] stringValue];
 	}
 	

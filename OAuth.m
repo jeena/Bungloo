@@ -89,10 +89,11 @@
 
 - (void)requestAccessTokenWithPIN:(id)sender {
 	
-	[twitterPINPanel resignKeyWindow];
-	[twitterPINPanel close];
+	NSLog(@"%@", [twitterPINField stringValue]);
 	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_verifier=%@", OAUTH_ACCESS_TOKEN_URL, [twitterPINField stringValue]]];
+	[twitterPINPanel resignKeyWindow];
+	[twitterPINPanel close];
 	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
 																   consumer:consumer
@@ -125,13 +126,7 @@
 	}
 }
 
-- (void)apiTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
-	if (ticket.didSucceed) {
-		NSString *responseBody = [[NSString alloc] initWithData:data
-													   encoding:NSUTF8StringEncoding];
-		NSLog(@"%@", responseBody);
-	}
-}
+
 
 - (void)accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
 	NSLog(@"ERROR a: %@", error);
