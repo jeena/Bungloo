@@ -16,7 +16,7 @@
 
 @implementation OAuth
 
-@synthesize accessToken, consumerToken, twitterPINField, twitterPINPanel;
+@synthesize accessToken, consumerToken;
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
 	return NO;
@@ -32,7 +32,6 @@
 		self.accessToken = [[OAToken alloc] initWithUserDefaultsUsingServiceProviderName:OAUTH_SERVICE_NAME prefix:APP_NAME];
 		consumer = [[OAConsumer alloc] initWithKey:OAUTH_CONSUMER_KEY secret:OAUTH_CONSUMER_SECRET];
 	}
-	
 	return self;
 }
 
@@ -74,10 +73,7 @@
 		NSString *responseBody = [[NSString alloc] initWithData:data
 													   encoding:NSUTF8StringEncoding];
 		requestToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
-		
-		// show PIN panel
-		[twitterPINPanel makeKeyAndOrderFront:self];
-		
+				
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", OAUTH_USER_AUTHORIZATION_URL, requestToken.key]];
 		[[NSWorkspace sharedWorkspace] openURL:url];
 	}
@@ -87,13 +83,10 @@
 	NSLog(@"ERROR: %@", error);
 }
 
-- (void)requestAccessTokenWithPIN:(id)sender {
-	
-	NSLog(@"%@", [twitterPINField stringValue]);
-	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_verifier=%@", OAUTH_ACCESS_TOKEN_URL, [twitterPINField stringValue]]];
-	[twitterPINPanel resignKeyWindow];
-	[twitterPINPanel close];
+- (void)requestAccessToken {
+	NSLog(@"test 2");
+		
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", OAUTH_ACCESS_TOKEN_URL]];
 	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
 																   consumer:consumer
@@ -102,6 +95,8 @@
 														  signatureProvider:nil]; // use the default method, HMAC-SHA1
 	
 	[request setHTTPMethod:@"POST"];
+	
+
 
 	OADataFetcher *fetcher = [[OADataFetcher alloc] init];
 	[fetcher fetchDataWithRequest:request
@@ -130,8 +125,7 @@
 
 - (void)accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
 	NSLog(@"ERROR a: %@", error);
-	//[self requestAccessTokenWithPIN:self];
-	//[twitterPINPanel makeKeyAndOrderFront:self];
+	// [self requestAccessToken];
 	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", OAUTH_USER_AUTHORIZATION_URL, requestToken.key]];
 	[[NSWorkspace sharedWorkspace] openURL:url];	

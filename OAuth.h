@@ -17,18 +17,14 @@
 	OAToken *accessToken;
 	OAToken *consumerToken;
 	OAConsumer *consumer;
-	IBOutlet NSTextField *twitterPINField;
-	IBOutlet NSPanel *twitterPINPanel;
 }
 
 @property (nonatomic, retain) OAToken *accessToken;
 @property (nonatomic, retain) OAToken *consumerToken;
-@property (nonatomic, retain) IBOutlet NSTextField *twitterPINField;
-@property (nonatomic, retain) IBOutlet NSPanel *twitterPINPanel;
 
 - (id)init;
 - (void)requestAToken;
-- (IBAction)requestAccessTokenWithPIN:(id)sender;
+- (void)requestAccessToken;
 - (void)updateTweet:(NSString *)tweet inReplaToStatus:(NSString *)statusId;
 
 

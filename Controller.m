@@ -151,8 +151,12 @@
 - (void)openNewTweetWindowWithString:(NSString *)aString {
 	[NSApp activateIgnoringOtherApps:YES];
 	
-	if ([aString hasPrefix:@"//oauth_token/"]) {
-		// [oauth requestAccessToken:[aString substringFromIndex:14]];
+	NSRange range = [aString rangeOfString:@"oauth_token"];
+	
+	if (range.length > 0) {
+		NSLog(@"test 3 %@", oauth);
+
+		[oauth requestAccessToken];
 	} else {
 		MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
