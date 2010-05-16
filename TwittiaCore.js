@@ -1,10 +1,16 @@
-function Twittia(action, oauth_key, oauth_secret) {
+//
+//  TwittiaCore.js
+//  Twittia 2
+//
+//  Created by Jeena on 15.04.10.
+//  Licence: BSD (see attached LICENCE.txt file).
+//
+
+function Twittia(action) {
 	this.max_length = 100;
 	this.since_id;
 	this.timeout = 2 * 60 * 1000;
 	this.action = action;
-	this.oauth_key = oauth_key;
-	this.oauth_secret = oauth_secret;
 	this.getNewData();
 	this.unread_mentions = 0;
 	
@@ -170,35 +176,67 @@ Twittia.prototype.getTemplate = function() {
 	return jQuery.extend(true, {}, this.template);
 }
 
+
 Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 
 	var url = "http://api.twitter.com/1/statuses/" + this.action + ".json"
-	url += "?count=" + this.max_length;
-	if(this.since_id) url += "&since_id=" + this.since_id;
+	var parameters = {count: this.max_length}
+	if(this.since_id) parameters.since_id = this.since_id
+	var url2 = "?count=" + this.max_length;
+	if(this.since_id) url2 += "&since_id=" + this.since_id;
 	var _this = this;
+	
+	var message = { method:"GET" , action:url, parameters: parameters };
+	
+	OAuth.completeRequest(message,
+						  { consumerKey   : controller.oauth.consumerToken.key
+						  , consumerSecret: controller.oauth.consumerToken.secret
+						  , token         : controller.oauth.accessToken.key
+						  , tokenSecret   : controller.oauth.accessToken.secret
+						  });
 
-	$.ajax({
-		url: url,
-		dataType: 'json',
-		success: function(data) {
-			_this.newStatus(data, supress_new_with_timeout);
-		},
-		error:function (xhr, ajaxOptions, thrownError){
-			alert(xhr.status);
-			alert(thrownError);
-			setTimeout(function() { _this.getNewData(supress_new_with_timeout) }, this.timeout);
-		}
+	$.ajax(
+		   {	beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+				},
+				url: url + url2,
+				dataType: 'json',
+				success: function(data) {
+				_this.newStatus(data, supress_new_with_timeout);
+		   },
+		   error:function (xhr, ajaxOptions, thrownError){
+				alert(xhr.status);
+				alert(thrownError);
+				setTimeout(function() { _this.getNewData(supress_new_with_timeout) }, this.timeout);
+		   }
 	});
 }
 
+/*
 Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 	
 	var url = "http://api.twitter.com/1/statuses/update.json";
-	var _this = this;
-	var data = "source=twittia&status=" + tweet;
+	var data = "source=twittia&status=" + OAuth.percentEncode(tweet);
 	if(in_reply_to_status_id != '') data += "&in_reply_to_status_id=" + in_reply_to_status_id
 		
+	var parameters = { source: "twittia", status: tweet };
+	if(in_reply_to_status_id != '') parameters.in_reply_to_status_id = in_reply_to_status_id;
+		
+	var _this = this;
+	
+	var message = { method:"POST" , action:url, parameters:parameters };
+	
+	OAuth.completeRequest(message,
+						  { consumerKey   : controller.oauth.consumerToken.key
+						  , consumerSecret: controller.oauth.consumerToken.secret
+						  , token         : controller.oauth.accessToken.key
+						  , tokenSecret   : controller.oauth.accessToken.secret
+						  });	
+		
 	$.ajax({
+		beforeSend: function(xhr) {
+		   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+		},
 		url: url,
 		type: 'POST',
 		data: data,
@@ -212,12 +250,25 @@ Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 		}
 	});
 }
+*/
 
 Twittia.prototype.retweet = function(status_id, item) {
 	var url = "http://api.twitter.com/1/statuses/retweet/" + status_id + ".json";
 	var _this = this;
+	
+	var message = { method:"POST" , action:url };
+	
+	OAuth.completeRequest(message,
+						  { consumerKey   : controller.oauth.consumerToken.key
+						  , consumerSecret: controller.oauth.consumerToken.secret
+						  , token         : controller.oauth.accessToken.key
+						  , tokenSecret   : controller.oauth.accessToken.secret
+						  });
 		
 	$.ajax({
+		beforeSend: function(xhr) {
+		   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+		},
 		url: url,
 		type: 'POST',
 		dataType: 'json',
@@ -229,6 +280,29 @@ Twittia.prototype.retweet = function(status_id, item) {
 			alert(thrownError);				
 		}
 	});
+}
+
+Twittia.prototype.authorizationHeader = function(method, url, params) {	
+	if(params == undefined)
+	    params = '';
+    if(method == undefined)
+	    method = 'GET';    
+    var timestamp = OAuth.timestamp();
+    var nonce = OAuth.nonce(11);
+    var accessor = { consumerSecret: controller.oauth.consumerToken.secret, tokenSecret: controller.oauth.accessToken.secret };
+
+    var message = {method: method, action: url, parameters: OAuth.decodeForm(params)};
+    message.parameters.push(['oauth_consumer_key',controller.oauth.consumerToken.key]);
+    message.parameters.push(['oauth_nonce',nonce]);
+    message.parameters.push(['oauth_signature_method','HMAC-SHA1']);
+    message.parameters.push(['oauth_timestamp',timestamp]);
+	message.parameters.push(['oauth_token', controller.oauth.accessToken.key]);
+    message.parameters.push(['oauth_version','1.0']);
+    message.parameters.sort()
+    
+	OAuth.SignatureMethod.sign(message, accessor);
+	
+    return OAuth.getAuthorizationHeader("", message.parameters);
 }
 
 function replaceURLWithHTMLLinks(text) {
@@ -253,5 +327,6 @@ function loadPlugin(url) {
 	plugin.src = url;
 	document.getElementsByTagName("head")[0].appendChild(plugin);
 }
+
 
 var twittia_instance;

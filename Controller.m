@@ -12,10 +12,10 @@
 
 @implementation Controller
 
-@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate;
+@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate, oauth, logoLayer;
 
 - (void)awakeFromNib {
-	[self initWebViews];
+	
 	[self initHotKeys];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -27,12 +27,24 @@
 		   selector:@selector(sendTweet:) 
 			   name:@"sendTweet"
 			 object:nil];
-
+	[nc addObserver:self 
+		   selector:@selector(authentificationSucceded:) 
+			   name:@"authentificationSucceded"
+			 object:nil];
+	[nc addObserver:self 
+		   selector:@selector(getTweetUpdates:) 
+			   name:@"getTweetUpdates"
+			 object:nil];
+	
 	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
 	[appleEventManager setEventHandler:self
 						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
 						 forEventClass:kInternetEventClass
 							andEventID:kAEGetURL];
+	
+	if ([oauth accessToken]) {
+		[self initWebViews];
+	}
 }
 
 - (void)initHotKeys {
@@ -42,6 +54,7 @@
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger defaultsNewTweetKey = (NSInteger)[defaults integerForKey:@"newTweetKey"];
+
 	if ([defaults objectForKey:@"newTweetKey"] != nil) {
 		newTweetKey = defaultsNewTweetKey;
 	} else {
@@ -55,6 +68,8 @@
 		[defaults setInteger:newTweetModifierKey forKey:@"newTweetModifierKey"];
 	}
 	
+	[defaults synchronize];
+	
 	NSUInteger cocoaModifiers = 0;
 	if (newTweetModifierKey & shiftKey) cocoaModifiers = cocoaModifiers | NSShiftKeyMask;
 	if (newTweetModifierKey & optionKey) cocoaModifiers = cocoaModifiers | NSAlternateKeyMask;
@@ -63,7 +78,6 @@
 
 	[globalHotkeyMenuItem setKeyEquivalent:[Constants stringFromVirtualKeyCode:newTweetKey]];
 	[globalHotkeyMenuItem setKeyEquivalentModifierMask:cocoaModifiers];
-	
 	
 	/* CARBON from http://github.com/Xjs/drama-button/blob/carbon/Drama_ButtonAppDelegate.m */
 	
@@ -81,6 +95,10 @@
 	RegisterEventHotKey(newTweetKey, newTweetModifierKey, g_HotKeyID, GetApplicationEventTarget(), 0, &g_HotKeyRef);
 	
 	/* end CARBON */
+}
+
+- (void)authentificationSucceded:(id)sender {
+	[self initWebViews];
 }
 
 - (void)initWebViews {
@@ -104,11 +122,18 @@
 	[mentionsView setPolicyDelegate:viewDelegate];
 	[mentionsView setUIDelegate:viewDelegate];
     [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
+	
+	[logoLayer removeFromSuperview];
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
 	return NO;
 }
+
++ (BOOL)isKeyExcludedFromWebScript:(const char *)name {
+	return NO;
+}
+
 
 #pragma mark Notifications
 
@@ -124,9 +149,19 @@
 }
 
 - (void)openNewTweetWindowWithString:(NSString *)aString {
-	[NSApp activateIgnoringOtherApps:YES]; 
-	MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
-	[newTweet withString:aString];
+	[NSApp activateIgnoringOtherApps:YES];
+	
+	NSRange range = [aString rangeOfString:@"oauth_token"];
+	
+	if (range.length > 0) {
+		NSLog(@"test 3 %@", oauth);
+
+		[oauth requestAccessToken];
+	} else {
+		MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+		[newTweet withString:aString];		
+	}
+	
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
@@ -135,11 +170,14 @@
 }
 
 - (IBAction)sendTweet:(id)sender {
-	NSString *encodedString = [[[sender object] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	[timelineView stringByEvaluatingJavaScriptFromString:
-	 [NSString stringWithFormat:@"twittia_instance.sendNewTweet(\"%@\", \"%@\")",
-	  [encodedString stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""],
-	  [[sender object] objectAtIndex:1]]];
+	
+	NSString *replyToId;
+	if (![[[sender object] objectAtIndex:1] isEqualTo:@""]) {
+		replyToId = [[[sender object] objectAtIndex:1] stringValue];
+	}
+	
+	[oauth updateTweet:[[sender object] objectAtIndex:0] inReplaToStatus:replyToId];
+	
 }
 
 - (NSString *)pluginURL {
@@ -154,8 +192,10 @@
 - (void)unreadMentions:(NSInteger)count {
 	if (![mentionsViewWindow isVisible] && count > 0) {
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia (@%i)", count]];
+		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
 	} else {
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia"]];
+		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"twittia_instance.unread_mentions = 0;"];
 	}
 }
@@ -165,6 +205,11 @@
 	if ([notification object] == mentionsViewWindow) {
 		[self unreadMentions:0];		
 	}	
+}
+
+- (void)getTweetUpdates:(id)sender {
+	[timelineView stringByEvaluatingJavaScriptFromString:@"twittia_instance.getNewData(true)"];
+	[mentionsView stringByEvaluatingJavaScriptFromString:@"twittia_instance.getNewData(true)"];
 }
 
 
