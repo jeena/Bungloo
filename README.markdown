@@ -19,15 +19,10 @@ FAQ:s
 
 1. The global hotkey for a new Tweet is: `Ctrl Alt Cmd t`
 
-2. To change the username you have to open upp Keychain Access.app,
-   search for the item "api.twitter.com" and remove or change it.
-
-3. No, there is no icon yet.
-
-4. Yes there is a twittia: url scheme.
+2. Yes there is a twittia: url scheme.
    
-5. Yes, there is a JavaScript-plugin-API. Create this file:
-   ~/Library/Application Support/Twittia/Plugin.js
+3. Yes, there is a JavaScript-plugin-API. Create this file:
+   `~/Library/Application Support/Twittia/Plugin.js`
 
 
 Nice to know
