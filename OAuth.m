@@ -84,7 +84,6 @@
 }
 
 - (void)requestAccessToken {
-	NSLog(@"test 2");
 		
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", OAUTH_ACCESS_TOKEN_URL]];
 	
@@ -146,7 +145,7 @@
 	NSMutableArray *params = [NSMutableArray arrayWithObjects:source, status, nil];
 	
 	if (statusId) {
-		OARequestParameter *reply = [[OARequestParameter alloc] initWithName:@"in_reply_to_status_id" value:statusId];
+		OARequestParameter *reply = [[OARequestParameter alloc] initWithName:@"in_reply_to_status_id" value:[NSString stringWithString:statusId]];
 		[params addObject:reply];
 	}
 	
