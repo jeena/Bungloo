@@ -90,7 +90,7 @@
 						<object class="NSTextField" id="184011745">
 							<reference key="NSNextResponder" ref="568628114"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{244, 2}, {38, 17}}</string>
+							<string key="NSFrame">{{257, 2}, {38, 17}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="894039108">

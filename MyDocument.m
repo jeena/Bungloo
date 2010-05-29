@@ -87,7 +87,13 @@
 }
 
 -(void)controlTextDidChange:(NSNotification *)aNotification {
-	[counter setIntValue: 140 - [[textField stringValue] length]];
+	NSInteger c =  140 - [[textField stringValue] length];
+	[counter setIntValue:c];
+	if(c < 0) {
+		[counter setTextColor:[NSColor redColor]];
+	} else {
+		[counter setTextColor:[NSColor controlTextColor]];	
+	}
 }
 
 
