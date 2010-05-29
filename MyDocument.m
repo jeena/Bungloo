@@ -86,6 +86,10 @@
 	[[textField currentEditor] setSelectedRange:range];	
 }
 
+-(void)controlTextDidChange:(NSNotification *)aNotification {
+	[counter setIntValue: 140 - [[textField stringValue] length]];
+}
+
 
 #pragma mark Keyboard delegate methods
 
