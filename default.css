@@ -22,7 +22,7 @@ ol {
 
 li, .error {
 	clear: both;
-	padding: 8px;
+	padding: 8px 16px 8px 8px;
 	background: #eee;
 	border-top: 1px solid #fefefe;
 	border-bottom: 1px solid #c9c9c9;
