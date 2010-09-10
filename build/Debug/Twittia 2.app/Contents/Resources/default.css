@@ -1,0 +1,203 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Lucida Grande", Tahoma, sans-serif;
+	font-size: 11px;
+	background: #dedede;
+}
+
+a {
+	text-decoration: none;
+	color: #00317a;
+}
+
+ol {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+li, .error {
+	clear: both;
+	padding: 8px 16px 8px 8px;
+	background: #eee;
+	border-top: 1px solid #fefefe;
+	border-bottom: 1px solid #c9c9c9;
+	position: relative;
+}
+
+.hidden {
+	display: none;
+}
+
+.error h1 {
+	color: red;
+}
+
+li:first-child {
+	border-top: 0;
+}
+
+li:nth-child(odd), .error {
+	background: url(odd-bg.png) repeat-x bottom #fafafa;
+}
+
+li:nth-child(even) {
+	background: url(even-bg.png) repeat-x bottom #f2f2f2;
+}
+
+li:hover {
+	background: #dedede;
+}
+
+li:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+h1 {
+	font-size: 1em;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	margin-right: -8px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+h1.favorited:after {
+	content: "*";
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+.image, .twitpic {
+	float: left;
+	margin-left: 2px;
+	width: 48px;
+	height: 48px;
+	background: top left no-repeat;
+	background-clip: content-box;
+	border: 0px solid #f00;
+	-webkit-border-radius: 8px;
+}
+
+.image a {
+	display: block;
+	width: 48px;
+	height: 48px;
+}
+
+.twitpic {
+	float: right;
+	width: 75px;
+	height: 75px;
+}
+
+.twitpic a {
+	display: block;
+	width: 75px;
+	height: 75px;
+}
+
+.delete {
+	font-weight: normal;
+	color: #555;
+	font-size: 1.2em;
+}
+
+.direct-message {
+	color: #555;
+}
+
+.retweeted span {
+	height: 11px;
+	width: 15px;
+	background: url(sprite-icons.png) no-repeat -192px -1px;
+	display: inline-block;
+	margin: 0 3px 0 4px; 
+}
+
+.data {
+	margin-left: 62px;
+}
+
+.message {
+	overflow: hidden;
+}
+
+.reply, .direct-message {
+	display: none;
+	font-weight: normal;
+}
+
+.reply a {
+	font-weight: bold;
+}
+
+li:hover .reply, li:hover .direct-message {
+	display: inline;
+}
+
+
+li .date {
+	position: absolute;
+	top: -1.8em;
+	right: 10px;
+	display: none;
+	padding: 0.3em 0.9em;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-webkit-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.1);
+	border: 1px solid white;
+	border-bottom: 0;
+	background: #ddd;
+	font-size: 0.9em;
+}
+
+li:hover .date {
+	display: block;
+}
+
+
+li:first-child:hover .date {
+	top: auto;
+	bottom: -1.8em;
+	z-index: 2;
+	-webkit-border-top-left-radius: 0;
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-bottom-left-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+	border: 1px solid #b9b9b9;
+	border-top: 0;
+}
+
+.reply_to, .retweet {
+	width: 15px;
+	height: 12px;
+	position: absolute;
+	top: 2px;
+	right: 0;
+	background: url(sprite-icons.png) no-repeat -16px 0;
+	display: none;
+}
+
+li:hover .reply_to, li:hover .retweet {
+	display: block;
+}
+
+.retweet {
+	top: 15px;
+	background-position: -192px 0;
+}
