@@ -56,7 +56,7 @@ Twittia.prototype.getItem = function(status) {
 	template.reply_to.onclick = function() { replyTo(status.user.screen_name, status.id); return false; }
 	template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id, template.item); return false; }
 	
-	template.image.style.backgroundImage = "url(" + status.user.profile_image_url + ")";
+	template.image.src = status.user.profile_image_url;
 	template.username.innerText = status.user.screen_name;
 	template.username.href = "http://twitter.com/" + status.user.screen_name
 	
@@ -116,7 +116,7 @@ Twittia.prototype.getTemplate = function() {
 	item.appendChild(retweet);
 	
 	
-	var image = document.createElement("div");
+	var image = document.createElement("img");
 	image.className = "image";
 	item.appendChild(image);
 	

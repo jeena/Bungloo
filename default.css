@@ -86,8 +86,6 @@ p {
 	margin-left: 2px;
 	width: 48px;
 	height: 48px;
-	background: top left no-repeat;
-	background-clip: content-box;
 	border: 0px solid #f00;
 	-webkit-border-radius: 8px;
 }
