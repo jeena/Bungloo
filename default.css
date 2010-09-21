@@ -186,7 +186,7 @@ li:first-child:hover .date {
 	height: 12px;
 	position: absolute;
 	top: 2px;
-	right: 0;
+	right: 2px;
 	background: url(sprite-icons.png) no-repeat -16px 0;
 	display: none;
 }
