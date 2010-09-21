@@ -312,8 +312,8 @@ function replaceURLWithHTMLLinks(text) {
 }
 
 function replaceTwitterLinks(text) {
-	var username = /(^|\s)(@)(\w*)/ig;
-	var hash = /(^|\s)(#)(\w*)/ig;
+	var username = /(^|\s)(@)(\w+)/ig;
+	var hash = /(^|\s)(#)(\w+)/ig;
 	text = text.replace(username, "$1$2<a href='http://twitter.com/$3'>$3</a>");
 	return text.replace(hash, "$1$2<a href='http://search.twitter.com/search?q=%23$3'>$3</a>");
 }
