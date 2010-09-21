@@ -118,7 +118,8 @@ Twittia.prototype.getTemplate = function() {
 	
 	var image = document.createElement("img");
 	image.className = "image";
-	item.appendChild(image);
+  image.onmousedown = function(e) { e.preventDefault(); };
+  item.appendChild(image);
 	
 	var image_username = a.cloneNode();
 	image.appendChild(image_username);
