@@ -22,6 +22,7 @@
 		1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F705EA5117889FA00C85707 /* sprite-icons.png */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
+		1F98DC9E124BFFD7004289ED /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F98DC9D124BFFD7004289ED /* pin.png */; };
 		1FB074DD118DDAB60013A93C /* OAuthConsumer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F36440E118CC173008198EF /* OAuthConsumer.framework */; };
 		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
@@ -78,6 +79,7 @@
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		1F98DC9D124BFFD7004289ED /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		1FE2FC92117A818D000504B0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1FE2FCA6117A8952000504B0 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		1FFA36C81177D861006C8562 /* even-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "even-bg.png"; sourceTree = "<group>"; };
@@ -97,7 +99,7 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Twittia_2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Twittia_2-Info.plist"; sourceTree = "<group>"; };
-		8D15AC370486D014006FF6A4 /* Twittia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twittia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D15AC370486D014006FF6A4 /* Twittia 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twittia 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,7 +145,7 @@
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D15AC370486D014006FF6A4 /* Twittia.app */,
+				8D15AC370486D014006FF6A4 /* Twittia 2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,6 +157,7 @@
 				1F3642EE118C8C35008198EF /* sha1.js */,
 				1F4673E61180F654006CC37C /* TwittiaCore.js */,
 				1FFA36C81177D861006C8562 /* even-bg.png */,
+				1F98DC9D124BFFD7004289ED /* pin.png */,
 				1F705EA5117889FA00C85707 /* sprite-icons.png */,
 				1FFA36C91177D861006C8562 /* index.html */,
 				1FFA36CA1177D861006C8562 /* odd-bg.png */,
@@ -251,7 +254,7 @@
 			name = Twittia;
 			productInstallPath = "$(HOME)/Applications";
 			productName = "Twittia 2";
-			productReference = 8D15AC370486D014006FF6A4 /* Twittia.app */;
+			productReference = 8D15AC370486D014006FF6A4 /* Twittia 2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -261,7 +264,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Twittia 2" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Twittia 2 */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -291,6 +301,7 @@
 				1FFA36D01177D861006C8562 /* default.css in Resources */,
 				1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */,
 				1F122D49118E1DE100E83B77 /* Icon.icns in Resources */,
+				1F98DC9E124BFFD7004289ED /* pin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
