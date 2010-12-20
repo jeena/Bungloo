@@ -46,7 +46,9 @@ Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
 Twittia.prototype.getItem = function(status) {
 	var _this = this;
 	this.since_id = status.id;
-
+	
+	alert(status.id + " " status.id_str);
+	
 	if(status.retweeted_status != null) {
 		var original_status = status;
 		var status = status.retweeted_status;
@@ -202,6 +204,8 @@ Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 	var url = "http://api.twitter.com/1/statuses/" + this.action + ".json"
 	var parameters = {count: this.max_length}
 	if(this.since_id) parameters.since_id = this.since_id
+
+	
 	var url2 = "?count=" + this.max_length;
 	if(this.since_id) url2 += "&since_id=" + this.since_id;
 	var _this = this;
@@ -222,14 +226,15 @@ Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 				url: url + url2,
 				dataType: 'json',
 				success: function(data) {
-				_this.newStatus(data, supress_new_with_timeout);
-		   },
-		   error:function (xhr, ajaxOptions, thrownError){
-				alert(xhr.status);
-				alert(thrownError);
-				setTimeout(function() { _this.getNewData(supress_new_with_timeout) }, this.timeout);
+					_this.newStatus(data, supress_new_with_timeout);
+				},
+				error:function (xhr, ajaxOptions, thrownError){
+					alert(xhr.status);
+					alert(thrownError);
+					setTimeout(function() { _this.getNewData(supress_new_with_timeout) }, this.timeout);
+			}
 		   }
-	});
+	);
 }
 
 /*
