@@ -6,15 +6,15 @@
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
       <item>
-        <title>Version 2.2.0</title>
+        <title>Version 2.3.0</title>
 		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 		<sparkle:releaseNotesLink>http://jeenaparadies.net/twittia/ReleaseNotes.html</sparkle:releaseNotesLink>
-		<pubDate>Sun, 16 May 2010 12:39:02 +0200</pubDate>
+		<pubDate>Sat, 08 Jan 2011 21:59:02 +0200</pubDate>
 		<enclosure	url="http://jeenaparadies.net/twittia/Twittia.app.zip"
-					sparkle:version="2.2.0"
-					length="829960"
+					sparkle:version="2.3.0"
+					length="832789"
 					type="application/octet-stream"
-					sparkle:dsaSignature="MCwCFA9pHTR6Yhm4hnGbx+yrdUFOmy+hAhRy6xcQfr5MM3S0YQe9Z5K4TRBH7A==" />
+					sparkle:dsaSignature="MC0CFGrNJVlov+aT3Zgra/wUb+tOopD5AhUAvy9R3GXJ/syc8c2Wc4h164uPK7g=" />
       </item>
    </channel>
 </rss>

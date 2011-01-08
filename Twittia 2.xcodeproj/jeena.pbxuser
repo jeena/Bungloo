@@ -20,12 +20,219 @@
 		vrLen = 1390;
 		vrLoc = 2982;
 	};
+	1F1990DF117BD2250049BEA7 /* Appcast.xml */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {949, 1260}}";
+			sepNavSelRange = "{648, 0}";
+			sepNavVisRange = "{0, 954}";
+		};
+	};
+	1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {949, 1260}}";
+			sepNavSelRange = "{736, 0}";
+			sepNavVisRange = "{0, 1849}";
+		};
+	};
+	1F2746F012D8FFFC00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
+		name = "TwittiaCore.js: 90";
+		rLen = 3;
+		rLoc = 3117;
+		rType = 0;
+		vrLen = 3134;
+		vrLoc = 379;
+	};
+	1F2746F112D8FFFC00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990DF117BD2250049BEA7 /* Appcast.xml */;
+		name = "Appcast.xml: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 954;
+		vrLoc = 0;
+	};
+	1F2746F212D8FFFC00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */;
+		name = "ReleaseNotes.html: 19";
+		rLen = 0;
+		rLoc = 736;
+		rType = 0;
+		vrLen = 1709;
+		vrLoc = 0;
+	};
+	1F2746F312D8FFFC00339B4F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D15AC360486D014006FF6A4 /* Twittia_2-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/jeena/Projects/Twittia/Twittia_2-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	1F2746F412D8FFFC00339B4F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D15AC360486D014006FF6A4 /* Twittia_2-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/jeena/Projects/Twittia/Twittia_2-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	1F2746F512D9041200339B4F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D15AC360486D014006FF6A4 /* Twittia_2-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/jeena/Projects/Twittia/Twittia_2-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	1F2746F612D9041200339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990DF117BD2250049BEA7 /* Appcast.xml */;
+		name = "Appcast.xml: 15";
+		rLen = 0;
+		rLoc = 784;
+		rType = 0;
+		vrLen = 954;
+		vrLoc = 0;
+	};
+	1F2746F712D9041200339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */;
+		name = "ReleaseNotes.html: 19";
+		rLen = 0;
+		rLoc = 736;
+		rType = 0;
+		vrLen = 1709;
+		vrLoc = 0;
+	};
+	1F2746F812D9041200339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */;
+		name = "ReleaseNotes.html: 21";
+		rLen = 0;
+		rLoc = 744;
+		rType = 0;
+		vrLen = 1717;
+		vrLoc = 0;
+	};
+	1F2746FA12D9044500339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */;
+		name = "ReleaseNotes.html: 16";
+		rLen = 0;
+		rLoc = 439;
+		rType = 0;
+		vrLen = 1718;
+		vrLoc = 0;
+	};
+	1F2746FB12D9045400339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */;
+		name = "ReleaseNotes.html: 7";
+		rLen = 0;
+		rLoc = 239;
+		rType = 0;
+		vrLen = 1699;
+		vrLoc = 0;
+	};
+	1F27470012D9057A00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */;
+		name = "ReleaseNotes.html: 24";
+		rLen = 0;
+		rLoc = 791;
+		rType = 0;
+		vrLen = 1699;
+		vrLoc = 0;
+	};
+	1F27470112D9057A00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1FE2FCA6117A8952000504B0 /* dsa_pub.pem */;
+		name = "dsa_pub.pem: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1178;
+		vrLoc = 0;
+	};
+	1F27470212D9057A00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1FE2FCA6117A8952000504B0 /* dsa_pub.pem */;
+		name = "dsa_pub.pem: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1178;
+		vrLoc = 0;
+	};
+	1F27470412D905CA00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1FE2FCA6117A8952000504B0 /* dsa_pub.pem */;
+		name = "dsa_pub.pem: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1178;
+		vrLoc = 0;
+	};
+	1F27470512D905CA00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990DF117BD2250049BEA7 /* Appcast.xml */;
+		name = "Appcast.xml: 12";
+		rLen = 0;
+		rLoc = 648;
+		rType = 0;
+		vrLen = 954;
+		vrLoc = 0;
+	};
+	1F27470612D906AF00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990DF117BD2250049BEA7 /* Appcast.xml */;
+		name = "Appcast.xml: 12";
+		rLen = 0;
+		rLoc = 648;
+		rType = 0;
+		vrLen = 954;
+		vrLoc = 0;
+	};
+	1F27470712D906AF00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */;
+		name = "ReleaseNotes.html: 24";
+		rLen = 0;
+		rLoc = 791;
+		rType = 0;
+		vrLen = 1699;
+		vrLoc = 0;
+	};
+	1F27470812D906AF00339B4F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */;
+		name = "ReleaseNotes.html: 22";
+		rLen = 0;
+		rLoc = 736;
+		rType = 0;
+		vrLen = 1849;
+		vrLoc = 0;
+	};
 	1F2F792712BD907300F073BE /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 206";
 		rLen = 0;
-		rLoc = 5931;
+		rLoc = 5908;
 		rType = 0;
 		vrLen = 2929;
 		vrLoc = 0;
@@ -45,7 +252,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 202";
 		rLen = 34;
-		rLoc = 5772;
+		rLoc = 5749;
 		rType = 0;
 		vrLen = 2859;
 		vrLoc = 0;
@@ -85,7 +292,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 227";
 		rLen = 0;
-		rLoc = 6637;
+		rLoc = 6614;
 		rType = 0;
 		vrLen = 2506;
 		vrLoc = 5289;
@@ -95,7 +302,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 236";
 		rLen = 0;
-		rLoc = 6902;
+		rLoc = 6879;
 		rType = 0;
 		vrLen = 2515;
 		vrLoc = 5470;
@@ -105,7 +312,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 227";
 		rLen = 0;
-		rLoc = 6637;
+		rLoc = 6614;
 		rType = 0;
 		vrLen = 2534;
 		vrLoc = 5508;
@@ -115,7 +322,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 227";
 		rLen = 0;
-		rLoc = 6637;
+		rLoc = 6614;
 		rType = 0;
 		vrLen = 2540;
 		vrLoc = 5532;
@@ -125,7 +332,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 226";
 		rLen = 0;
-		rLoc = 6636;
+		rLoc = 6613;
 		rType = 0;
 		vrLen = 3003;
 		vrLoc = 622;
@@ -135,7 +342,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 56";
 		rLen = 0;
-		rLoc = 1499;
+		rLoc = 1468;
 		rType = 0;
 		vrLen = 3011;
 		vrLoc = 622;
@@ -145,7 +352,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 56";
 		rLen = 3;
-		rLoc = 1496;
+		rLoc = 1461;
 		rType = 0;
 		vrLen = 3004;
 		vrLoc = 677;
@@ -155,7 +362,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 49";
 		rLen = 0;
-		rLoc = 1261;
+		rLoc = 1227;
 		rType = 0;
 		vrLen = 3024;
 		vrLoc = 126;
@@ -165,7 +372,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 49";
 		rLen = 0;
-		rLoc = 1261;
+		rLoc = 1227;
 		rType = 0;
 		vrLen = 3064;
 		vrLoc = 154;
@@ -175,16 +382,16 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 50";
 		rLen = 0;
-		rLoc = 1261;
+		rLoc = 1227;
 		rType = 0;
 		vrLen = 3113;
 		vrLoc = 378;
 	};
 	1F4673E61180F654006CC37C /* TwittiaCore.js */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1050, 5220}}";
-			sepNavSelRange = "{1261, 0}";
-			sepNavVisRange = "{378, 3113}";
+			sepNavIntBoundsRect = "{{0, 0}, {1013, 5190}}";
+			sepNavSelRange = "{3117, 3}";
+			sepNavVisRange = "{379, 3134}";
 		};
 	};
 	1F68210012493A3400A03CED /* Twittia */ = {
@@ -277,10 +484,17 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 157";
 		rLen = 0;
-		rLoc = 4839;
+		rLoc = 4816;
 		rType = 0;
 		vrLen = 1665;
 		vrLoc = 3448;
+	};
+	1FE2FCA6117A8952000504B0 /* dsa_pub.pem */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {949, 865}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1178}";
+		};
 	};
 	1FFA1E1212B1525A003DC552 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -297,7 +511,7 @@
 		fRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */;
 		name = "TwittiaCore.js: 206";
 		rLen = 0;
-		rLoc = 5931;
+		rLoc = 5908;
 		rType = 0;
 		vrLen = 2815;
 		vrLoc = 0;
@@ -331,7 +545,7 @@
 		};
 	};
 	2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Debug;
+		activeBuildConfigurationName = Release;
 		activeExecutable = 1F68210012493A3400A03CED /* Twittia */;
 		activeTarget = 8D15AC270486D014006FF6A4 /* Twittia */;
 		addToTargets = (
@@ -361,7 +575,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					872,
+					771,
 					20,
 					48,
 					43,
@@ -378,12 +592,53 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					731,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
 			PBXPerProjectTemplateStateSaveDate = 316210543;
 			PBXWorkspaceStateSaveDate = 316210543;
 		};
 		perUserProjectItems = {
 			1F17508512A972DF004A0B42 = 1F17508512A972DF004A0B42 /* PBXTextBookmark */;
 			1F17508612A972DF004A0B42 = 1F17508612A972DF004A0B42 /* PBXTextBookmark */;
+			1F2746F012D8FFFC00339B4F /* PBXTextBookmark */ = 1F2746F012D8FFFC00339B4F /* PBXTextBookmark */;
+			1F2746F112D8FFFC00339B4F /* PBXTextBookmark */ = 1F2746F112D8FFFC00339B4F /* PBXTextBookmark */;
+			1F2746F212D8FFFC00339B4F /* PBXTextBookmark */ = 1F2746F212D8FFFC00339B4F /* PBXTextBookmark */;
+			1F2746F312D8FFFC00339B4F /* PlistBookmark */ = 1F2746F312D8FFFC00339B4F /* PlistBookmark */;
+			1F2746F412D8FFFC00339B4F /* PlistBookmark */ = 1F2746F412D8FFFC00339B4F /* PlistBookmark */;
+			1F2746F512D9041200339B4F /* PlistBookmark */ = 1F2746F512D9041200339B4F /* PlistBookmark */;
+			1F2746F612D9041200339B4F /* PBXTextBookmark */ = 1F2746F612D9041200339B4F /* PBXTextBookmark */;
+			1F2746F712D9041200339B4F /* PBXTextBookmark */ = 1F2746F712D9041200339B4F /* PBXTextBookmark */;
+			1F2746F812D9041200339B4F /* PBXTextBookmark */ = 1F2746F812D9041200339B4F /* PBXTextBookmark */;
+			1F2746FA12D9044500339B4F /* PBXTextBookmark */ = 1F2746FA12D9044500339B4F /* PBXTextBookmark */;
+			1F2746FB12D9045400339B4F /* PBXTextBookmark */ = 1F2746FB12D9045400339B4F /* PBXTextBookmark */;
+			1F27470012D9057A00339B4F /* PBXTextBookmark */ = 1F27470012D9057A00339B4F /* PBXTextBookmark */;
+			1F27470112D9057A00339B4F /* PBXTextBookmark */ = 1F27470112D9057A00339B4F /* PBXTextBookmark */;
+			1F27470212D9057A00339B4F /* PBXTextBookmark */ = 1F27470212D9057A00339B4F /* PBXTextBookmark */;
+			1F27470412D905CA00339B4F /* PBXTextBookmark */ = 1F27470412D905CA00339B4F /* PBXTextBookmark */;
+			1F27470512D905CA00339B4F /* PBXTextBookmark */ = 1F27470512D905CA00339B4F /* PBXTextBookmark */;
+			1F27470612D906AF00339B4F /* PBXTextBookmark */ = 1F27470612D906AF00339B4F /* PBXTextBookmark */;
+			1F27470712D906AF00339B4F /* PBXTextBookmark */ = 1F27470712D906AF00339B4F /* PBXTextBookmark */;
+			1F27470812D906AF00339B4F /* PBXTextBookmark */ = 1F27470812D906AF00339B4F /* PBXTextBookmark */;
 			1F2F792712BD907300F073BE = 1F2F792712BD907300F073BE /* PBXTextBookmark */;
 			1F2F793712BD93A600F073BE = 1F2F793712BD93A600F073BE /* PBXTextBookmark */;
 			1F2F793812BD93A600F073BE = 1F2F793812BD93A600F073BE /* PBXTextBookmark */;
