@@ -45,9 +45,8 @@ Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
 
 Twittia.prototype.getItem = function(status) {
 	var _this = this;
-	this.since_id = status.id;
+	this.since_id = status.id_str;
 	
-	alert(status.id + " " status.id_str);
 	
 	if(status.retweeted_status != null) {
 		var original_status = status;
@@ -55,8 +54,8 @@ Twittia.prototype.getItem = function(status) {
 	}
 
 	var template = this.getTemplate();
-	template.reply_to.onclick = function() { replyTo(status.user.screen_name, status.id); return false; }
-	template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id, template.item); return false; }
+	template.reply_to.onclick = function() { replyTo(status.user.screen_name, status.id_str); return false; }
+	template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
 	
 	template.image.src = status.user.profile_image_url;
 	template.username.innerText = status.user.screen_name;
@@ -88,7 +87,7 @@ Twittia.prototype.getItem = function(status) {
 	time.className = "timeago";
 	$(time).timeago();
 	template.ago.appendChild(time);
-	template.ago.href = "http://twitter.com/" +  status.user.screen_name + "/status/" + status.id;
+	template.ago.href = "http://twitter.com/" +  status.user.screen_name + "/status/" + status.id_str;
 	
 	// {"type":"Point","coordinates":[57.10803113,12.25854746]}
 	if (status.geo && status.geo.type == "Point") {
