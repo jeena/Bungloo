@@ -20,6 +20,7 @@
 		1F4673FE1180F7EA006CC37C /* TwittiaCore.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */; };
 		1F4674081180F7EE006CC37C /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E21180F519006CC37C /* jQuery.js */; };
 		1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E41180F590006CC37C /* jQuery-Plugins.js */; };
+		1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F618EC912DB5E6100E500D9 /* TweetModel.m */; };
 		1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F705EA5117889FA00C85707 /* sprite-icons.png */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
@@ -76,6 +77,8 @@
 		1F4673E21180F519006CC37C /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
 		1F4673E41180F590006CC37C /* jQuery-Plugins.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jQuery-Plugins.js"; sourceTree = "<group>"; };
 		1F4673E61180F654006CC37C /* TwittiaCore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TwittiaCore.js; sourceTree = "<group>"; };
+		1F618EC812DB5E6100E500D9 /* TweetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetModel.h; sourceTree = "<group>"; };
+		1F618EC912DB5E6100E500D9 /* TweetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetModel.m; sourceTree = "<group>"; };
 		1F705EA5117889FA00C85707 /* sprite-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprite-icons.png"; sourceTree = "<group>"; };
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -100,7 +103,7 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Twittia_2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Twittia_2-Info.plist"; sourceTree = "<group>"; };
-		8D15AC370486D014006FF6A4 /* Twittia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twittia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D15AC370486D014006FF6A4 /* Twittia 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twittia 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +149,7 @@
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D15AC370486D014006FF6A4 /* Twittia.app */,
+				8D15AC370486D014006FF6A4 /* Twittia 2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,6 +199,8 @@
 				1F77DB46118C5F1C007C7F1E /* Constants.m */,
 				1F36465C118DA5A7008198EF /* OAToken+WebView.h */,
 				1F36465D118DA5A7008198EF /* OAToken+WebView.m */,
+				1F618EC812DB5E6100E500D9 /* TweetModel.h */,
+				1F618EC912DB5E6100E500D9 /* TweetModel.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -255,7 +260,7 @@
 			name = Twittia;
 			productInstallPath = "$(HOME)/Applications";
 			productName = "Twittia 2";
-			productReference = 8D15AC370486D014006FF6A4 /* Twittia.app */;
+			productReference = 8D15AC370486D014006FF6A4 /* Twittia 2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -321,6 +326,7 @@
 				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
 				1F364398118CBC77008198EF /* OAuth.m in Sources */,
 				1F36465E118DA5A7008198EF /* OAToken+WebView.m in Sources */,
+				1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -132,6 +132,8 @@
 
 - (void)updateTweet:(NSString *)tweet inReplaToStatus:(NSString *)statusId {
 	
+	NSLog(@"%@ %@", tweet, statusId);
+	
 	NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
 																   consumer:consumer

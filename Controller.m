@@ -8,6 +8,7 @@
 
 #import "Controller.h"
 #import "MyDocument.h"
+#import "TweetModel.h"
 
 
 @implementation Controller
@@ -170,14 +171,8 @@
 }
 
 - (IBAction)sendTweet:(id)sender {
-	
-	NSString *replyToId;
-	if (![[[sender object] objectAtIndex:1] isEqualTo:@""]) {
-		replyToId = [[[sender object] objectAtIndex:1] stringValue];
-	}
-	
-	[oauth updateTweet:[[sender object] objectAtIndex:0] inReplaToStatus:replyToId];
-	
+	TweetModel *tweet = (TweetModel *)[sender object];
+	[oauth updateTweet:tweet.text inReplaToStatus:tweet.inReplyTostatusId];
 }
 
 - (NSString *)pluginURL {

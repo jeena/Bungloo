@@ -8,6 +8,7 @@
 
 #import "MyDocument.h"
 #import "Constants.h"
+#import "TweetModel.h"
 
 @implementation MyDocument
 
@@ -101,7 +102,9 @@
 
 - (IBAction)sendTweet:(NSControl *)control {
 	if ([[control stringValue] length] <= TWEET_MAX_LENGTH) {
-		NSArray *tweet = [NSArray arrayWithObjects:[control stringValue], inReplyTostatusId, nil];
+		TweetModel *tweet = [[[TweetModel alloc] init] autorelease];
+		tweet.text = [control stringValue];
+		tweet.inReplyTostatusId = inReplyTostatusId;
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"sendTweet" object:tweet];
 		[self close];
 	} else {
