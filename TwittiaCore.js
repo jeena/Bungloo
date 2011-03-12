@@ -54,6 +54,16 @@ Twittia.prototype.getItem = function(status) {
 	}
 
 	var template = this.getTemplate();
+	/*
+	template.item.id = "id-" + status.id_str;
+	template.item.onmousedown = function(e) { if(e.button == 2) {
+		var target = e.target;
+		while(target.nodeName != "LI" && target != null) {
+			target = target.parentNode;
+		}
+		
+		alert(target.id);
+	}}*/
 	template.reply_to.onclick = function() { replyTo(status.user.screen_name, status.id_str); return false; }
 	template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
 	

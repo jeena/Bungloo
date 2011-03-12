@@ -12,7 +12,7 @@
 @implementation Constants
 
 + (NSString *)stringFromVirtualKeyCode:(NSInteger)code {
-	NSString *string;
+	NSString *string = nil;
 	switch (code) {
 		case kVK_ANSI_A:
 			string = @"A";
@@ -210,6 +210,7 @@
 			string = @"9";
 			break;
 		default:
+            string = nil;
 			break;
 	}
 	

@@ -103,7 +103,7 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Twittia_2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Twittia_2-Info.plist"; sourceTree = "<group>"; };
-		8D15AC370486D014006FF6A4 /* Twittia 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twittia 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D15AC370486D014006FF6A4 /* Twittia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twittia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +149,7 @@
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D15AC370486D014006FF6A4 /* Twittia 2.app */,
+				8D15AC370486D014006FF6A4 /* Twittia.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -218,7 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				1F122D48118E1DE100E83B77 /* Icon.icns */,
-				1F1990DF117BD2250049BEA7 /* Appcast.xml */,
 				1F198FC7117BC4AB0049BEA7 /* README.markdown */,
 				1FE2FCA6117A8952000504B0 /* dsa_pub.pem */,
 				1FFA36C71177D861006C8562 /* WebKit */,
@@ -228,6 +227,7 @@
 				1DDD58280DA1D0D100B32029 /* MyDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */,
+				1F1990DF117BD2250049BEA7 /* Appcast.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 			name = Twittia;
 			productInstallPath = "$(HOME)/Applications";
 			productName = "Twittia 2";
-			productReference = 8D15AC370486D014006FF6A4 /* Twittia 2.app */;
+			productReference = 8D15AC370486D014006FF6A4 /* Twittia.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -419,9 +419,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -432,8 +433,9 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

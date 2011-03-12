@@ -265,6 +265,7 @@
 								<string>2A37F4AAFDCFA73011CA2CEA</string>
 								<string>2A37F4ABFDCFA73011CA2CEA</string>
 								<string>2A37F4B8FDCFA73011CA2CEA</string>
+								<string>1FFA36C71177D861006C8562</string>
 								<string>2A37F4C3FDCFA73011CA2CEA</string>
 								<string>1058C7A6FEA54F5311CA2CBB</string>
 								<string>1C37FAAC04509CD000000102</string>
@@ -273,8 +274,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>9</integer>
-									<integer>1</integer>
+									<integer>37</integer>
+									<integer>17</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -316,7 +317,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Controller.m</string>
+								<string>TwittiaCore.js</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -324,22 +325,18 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Controller.m</string>
+										<string>TwittiaCore.js</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>1F618EFA12DB64AA00E500D9</string>
+										<string>1F8D1E4412DF5A0D00571730</string>
 										<key>history</key>
 										<array>
 											<string>1F98DCA9124C691A004289ED</string>
 											<string>1F98DCAD124C691A004289ED</string>
 											<string>1F17508512A972DF004A0B42</string>
 											<string>1F2F793712BD93A600F073BE</string>
-											<string>1F2746F012D8FFFC00339B4F</string>
-											<string>1F2746F512D9041200339B4F</string>
 											<string>1F27470412D905CA00339B4F</string>
-											<string>1F27470612D906AF00339B4F</string>
-											<string>1F618EAB12DB5D0700E500D9</string>
 											<string>1F618EAC12DB5D0700E500D9</string>
 											<string>1F618ED112DB60D100E500D9</string>
 											<string>1F618ED212DB60D100E500D9</string>
@@ -347,7 +344,12 @@
 											<string>1F618ED412DB60D100E500D9</string>
 											<string>1F618ED512DB60D100E500D9</string>
 											<string>1F618ED612DB60D100E500D9</string>
-											<string>1F618ED712DB60D100E500D9</string>
+											<string>1F618F0212DB665B00E500D9</string>
+											<string>1F618F0312DB665B00E500D9</string>
+											<string>1F618F0412DB665B00E500D9</string>
+											<string>1F618F0512DB665B00E500D9</string>
+											<string>1F8D1E4212DF5A0D00571730</string>
+											<string>1F8D1E4312DF5A0D00571730</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -405,9 +407,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>1F618EAE12DB5D0700E500D9</string>
+				<string>1F8D1E2712DF55D600571730</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>1F618EAF12DB5D0700E500D9</string>
+				<string>1F8D1E2812DF55D600571730</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -545,13 +547,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1F618EF612DB63ED00E500D9</string>
-		<string>1F618EBB12DB5D0700E500D9</string>
-		<string>1F618EBC12DB5D0700E500D9</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1F618EB812DB5D0700E500D9</string>
-		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1F8D1E4612DF5A0D00571730</string>
+		<string>1F8D1E4712DF5A0D00571730</string>
 		<string>1F6821201249D25900A03CED</string>
+		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/jeena/Projects/Twittia/Twittia 2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -571,14 +571,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Controller.m</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -634,7 +632,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1F6821201249D25900A03CED</string>
-				<string>1F618EB012DB5D0700E500D9</string>
+				<string>1F8D1E2912DF55D600571730</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -647,7 +645,7 @@
 			<key>WindowToolGUID</key>
 			<string>1F6821201249D25900A03CED</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -756,13 +754,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>1F618EB112DB5D0700E500D9</string>
+				<string>1F8D1E2A12DF55D600571730</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>1F618EB212DB5D0700E500D9</string>
-				<string>1F618EB312DB5D0700E500D9</string>
-				<string>1F618EB412DB5D0700E500D9</string>
-				<string>1F618EB512DB5D0700E500D9</string>
-				<string>1F618EB612DB5D0700E500D9</string>
+				<string>1F8D1E2B12DF55D600571730</string>
+				<string>1F8D1E2C12DF55D600571730</string>
+				<string>1F8D1E2D12DF55D600571730</string>
+				<string>1F8D1E2E12DF55D600571730</string>
+				<string>1F8D1E2F12DF55D600571730</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -926,7 +924,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>1F618EB712DB5D0700E500D9</string>
+				<string>1F8D1E4512DF5A0D00571730</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -936,7 +934,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
