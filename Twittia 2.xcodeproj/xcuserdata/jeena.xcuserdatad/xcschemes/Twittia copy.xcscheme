@@ -2,7 +2,7 @@
 <Scheme
    version = "1.3">
    <BuildAction
-      parallelizeBuildables = "NO"
+      parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
@@ -13,9 +13,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8D15AC270486D014006FF6A4"
+               BlueprintIdentifier = "1FB3EF95132BC2C5001AE564"
                BuildableName = "Twittia.app"
-               BlueprintName = "Twittia"
+               BlueprintName = "Twittia copy"
                ReferencedContainer = "container:Twittia 2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,9 +40,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8D15AC270486D014006FF6A4"
+            BlueprintIdentifier = "1FB3EF95132BC2C5001AE564"
             BuildableName = "Twittia.app"
-            BlueprintName = "Twittia"
+            BlueprintName = "Twittia copy"
             ReferencedContainer = "container:Twittia 2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -55,13 +55,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug">
+      buildConfiguration = "Release">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8D15AC270486D014006FF6A4"
+            BlueprintIdentifier = "1FB3EF95132BC2C5001AE564"
             BuildableName = "Twittia.app"
-            BlueprintName = "Twittia"
+            BlueprintName = "Twittia copy"
             ReferencedContainer = "container:Twittia 2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

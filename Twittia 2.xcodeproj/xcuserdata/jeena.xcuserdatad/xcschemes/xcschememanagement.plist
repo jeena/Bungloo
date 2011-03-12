@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Twittia copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Twittia.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1FB3EF95132BC2C5001AE564</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8D15AC270486D014006FF6A4</key>
 		<dict>
 			<key>primary</key>

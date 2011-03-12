@@ -387,7 +387,8 @@
 				GCC_PREFIX_HEADER = Twittia_2_Prefix.pch;
 				INFOPLIST_FILE = "Twittia_2-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = "Twittia 2";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = Twittia;
 			};
 			name = Debug;
 		};
@@ -395,6 +396,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -407,6 +409,7 @@
 				GCC_PREFIX_HEADER = Twittia_2_Prefix.pch;
 				INFOPLIST_FILE = "Twittia_2-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Twittia;
 			};
 			name = Release;
@@ -449,7 +452,7 @@
 				C05733C908A9546B00998B17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Twittia 2" */ = {
 			isa = XCConfigurationList;
@@ -458,7 +461,7 @@
 				C05733CD08A9546B00998B17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

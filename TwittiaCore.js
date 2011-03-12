@@ -6,6 +6,9 @@
 //  Licence: BSD (see attached LICENCE.txt file).
 //
 
+API_PATH = "http://api.twitter.com/1/";
+//API_PATH = "http://identi.ca/api/";
+
 function Twittia(action) {
 	this.max_length = 100;
 	this.since_id;
@@ -69,7 +72,7 @@ Twittia.prototype.getItem = function(status) {
 	
 	template.image.src = status.user.profile_image_url;
 	template.username.innerText = status.user.screen_name;
-	template.username.href = "http://twitter.com/" + status.user.screen_name
+	template.username.href = API_PATH + status.user.screen_name
 	
 	if(original_status != null) {
 		var retweeted = document.createElement("span")
@@ -79,7 +82,7 @@ Twittia.prototype.getItem = function(status) {
 		retweeted.appendChild(retweeted_icon);
 		var retweeted_by = document.createElement("a");
 		retweeted_by.innerText = original_status.user.screen_name + " ";
-		retweeted_by.href = "http://twitter.com/" + original_status.user.screen_name;
+		retweeted_by.href = API_PATH + original_status.user.screen_name;
 		retweeted.appendChild(document.createTextNode("@"));
 		retweeted.appendChild(retweeted_by);
 		template.in_reply.parentNode.parentNode.insertBefore(retweeted, template.in_reply.parent);
@@ -87,7 +90,7 @@ Twittia.prototype.getItem = function(status) {
 	
 	if(status.in_reply_to_status_id != null) template.in_reply.innerText = status.in_reply_to_screen_name;
 	else template.in_reply.parentNode.className = "hidden";
-	template.in_reply.href = "http://twitter.com/" + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id;
+	template.in_reply.href = API_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id;
 
 	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text));
 	
@@ -97,7 +100,7 @@ Twittia.prototype.getItem = function(status) {
 	time.className = "timeago";
 	$(time).timeago();
 	template.ago.appendChild(time);
-	template.ago.href = "http://twitter.com/" +  status.user.screen_name + "/status/" + status.id_str;
+	template.ago.href = API_PATH +  status.user.screen_name + "/status/" + status.id_str;
 	
 	// {"type":"Point","coordinates":[57.10803113,12.25854746]}
 	if (status.geo && status.geo.type == "Point") {
@@ -210,7 +213,7 @@ Twittia.prototype.getTemplate = function() {
 
 Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 
-	var url = "http://api.twitter.com/1/statuses/" + this.action + ".json"
+	var url = API_PATH + "statuses/" + this.action + ".json"
 	var parameters = {count: this.max_length}
 	if(this.since_id) parameters.since_id = this.since_id
 
@@ -287,7 +290,7 @@ Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 */
 
 Twittia.prototype.retweet = function(status_id, item) {
-	var url = "http://api.twitter.com/1/statuses/retweet/" + status_id + ".json";
+	var url = API_PATH + "statuses/retweet/" + status_id + ".json";
 	var _this = this;
 	
 	var message = { method:"POST" , action:url };
