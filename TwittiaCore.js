@@ -7,6 +7,7 @@
 //
 
 API_PATH = "http://api.twitter.com/1/";
+WEBSITE_PATH = "http://twitter.com/";
 //API_PATH = "http://identi.ca/api/";
 
 function Twittia(action) {
@@ -90,7 +91,7 @@ Twittia.prototype.getItem = function(status) {
 	
 	if(status.in_reply_to_status_id != null) template.in_reply.innerText = status.in_reply_to_screen_name;
 	else template.in_reply.parentNode.className = "hidden";
-	template.in_reply.href = API_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id;
+	template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id;
 
 	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text));
 	
@@ -100,7 +101,7 @@ Twittia.prototype.getItem = function(status) {
 	time.className = "timeago";
 	$(time).timeago();
 	template.ago.appendChild(time);
-	template.ago.href = API_PATH +  status.user.screen_name + "/status/" + status.id_str;
+	template.ago.href = WEBSITE_PATH +  status.user.screen_name + "/status/" + status.id_str;
 	
 	// {"type":"Point","coordinates":[57.10803113,12.25854746]}
 	if (status.geo && status.geo.type == "Point") {
@@ -249,10 +250,10 @@ Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 	);
 }
 
-/*
+
 Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 	
-	var url = "http://api.twitter.com/1/statuses/update.json";
+	var url = API_PATH + "statuses/update.json";
 	var data = "source=twittia&status=" + OAuth.percentEncode(tweet);
 	if(in_reply_to_status_id != '') data += "&in_reply_to_status_id=" + in_reply_to_status_id
 		
@@ -287,7 +288,7 @@ Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 		}
 	});
 }
-*/
+
 
 Twittia.prototype.retweet = function(status_id, item) {
 	var url = API_PATH + "statuses/retweet/" + status_id + ".json";

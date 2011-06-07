@@ -155,8 +155,6 @@
 	NSRange range = [aString rangeOfString:@"oauth_token"];
 	
 	if (range.length > 0) {
-		NSLog(@"test 3 %@", oauth);
-
 		[oauth requestAccessToken];
 	} else {
 		MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
@@ -172,7 +170,9 @@
 
 - (IBAction)sendTweet:(id)sender {
 	TweetModel *tweet = (TweetModel *)[sender object];
-	[oauth updateTweet:tweet.text inReplaToStatus:tweet.inReplyTostatusId];
+	//[oauth updateTweet:tweet.text inReplaToStatus:tweet.inReplyTostatusId];
+    NSString *func = [NSString stringWithFormat:@"twittia_instance.sendNewTweet(\"%@\", \"%@\")", [tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""], tweet.inReplyTostatusId];
+    [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 
 - (NSString *)pluginURL {
