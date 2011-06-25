@@ -73,7 +73,7 @@ Twittia.prototype.getItem = function(status) {
 	
 	template.image.src = status.user.profile_image_url;
 	template.username.innerText = status.user.screen_name;
-	template.username.href = API_PATH + status.user.screen_name
+	template.username.href = WEBSITE_PATH + status.user.screen_name
 	
 	if(original_status != null) {
 		var retweeted = document.createElement("span")
@@ -83,15 +83,15 @@ Twittia.prototype.getItem = function(status) {
 		retweeted.appendChild(retweeted_icon);
 		var retweeted_by = document.createElement("a");
 		retweeted_by.innerText = original_status.user.screen_name + " ";
-		retweeted_by.href = API_PATH + original_status.user.screen_name;
+		retweeted_by.href = WEBSITE_PATH + original_status.user.screen_name;
 		retweeted.appendChild(document.createTextNode("@"));
 		retweeted.appendChild(retweeted_by);
 		template.in_reply.parentNode.parentNode.insertBefore(retweeted, template.in_reply.parent);
 	}
 	
-	if(status.in_reply_to_status_id != null) template.in_reply.innerText = status.in_reply_to_screen_name;
+	if(status.in_reply_to_status_id_str != null) template.in_reply.innerText = status.in_reply_to_screen_name;
 	else template.in_reply.parentNode.className = "hidden";
-	template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id;
+	template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id_str;
 
 	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text));
 	
