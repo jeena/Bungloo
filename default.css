@@ -112,6 +112,19 @@ p {
 	height: 75px;
 }
 
+.images:empty {
+    display: none;
+}
+
+.images {
+    padding-top: 5px;
+}
+
+.images img {
+    border-radius: 5px;
+    max-height: 75px;
+}
+
 .delete {
 	font-weight: normal;
 	color: #555;

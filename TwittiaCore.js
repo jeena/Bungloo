@@ -93,7 +93,7 @@ Twittia.prototype.getItem = function(status) {
 	else template.in_reply.parentNode.className = "hidden";
 	template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id_str;
 
-	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text));
+	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text, status.entities));
 	
 	var time = document.createElement("abbr");
 	time.innerText = status.created_at;
@@ -110,6 +110,38 @@ Twittia.prototype.getItem = function(status) {
 	}
 	
 	template.source.innerHTML = status.source;
+    
+    if(status.entities.media) {
+        
+        for(var i=0; i<status.entities.media.length; i++) {
+            var media = status.entities.media[i];
+            
+            if(media.type == "photo") {
+                var a = document.createElement("a");
+                a.href = media.media_url;
+                
+                var img = document.createElement("img");
+                img.className = "photo";
+                img.src = media.media_url + ":small";
+                alert(media.media_url + "  " + media.type);
+                
+                a.appendChild(img);
+                template.images.appendChild(a);
+                
+            } else if(media.type == "twittia_youtube") {
+                var a = document.createElement("a");
+                a.href = media.url;
+                
+                var img = document.createElement("img");
+                img.className = "video";
+                img.src = media.media_url;
+                alert(media.media_url)
+                
+                a.appendChild(img);
+                template.images.appendChild(a);
+            }
+        }    
+    }
 	
 	return template.item;
 }
@@ -180,6 +212,10 @@ Twittia.prototype.getTemplate = function() {
 	var message = document.createElement("p");
 	message.className = "message";
 	data.appendChild(message);
+    
+    var images = document.createElement("p")
+    images.className = "images";
+    data.appendChild(images);
 	
 	var date = message.cloneNode();
 	date.className = "date";
@@ -205,7 +241,8 @@ Twittia.prototype.getTemplate = function() {
 		message: message,
 		ago: ago,
 		source: source,
-		geo: geo
+		geo: geo,
+        images: images
 	}
 
 	return jQuery.extend(true, {}, this.template);
@@ -215,11 +252,11 @@ Twittia.prototype.getTemplate = function() {
 Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 
 	var url = API_PATH + "statuses/" + this.action + ".json"
-	var parameters = {count: this.max_length}
+	var parameters = {count: this.max_length, include_entities: "true"}
 	if(this.since_id) parameters.since_id = this.since_id
 
 	
-	var url2 = "?count=" + this.max_length;
+	var url2 = "?count=" + this.max_length + "&include_entities=true";
 	if(this.since_id) url2 += "&since_id=" + this.since_id;
 	var _this = this;
 	
@@ -343,9 +380,71 @@ Twittia.prototype.authorizationHeader = function(method, url, params) {
     return OAuth.getAuthorizationHeader("", message.parameters);
 }
 
-function replaceURLWithHTMLLinks(text) {
-	var exp = /(\b(https?|ftp|file):\/\/\S+)/ig;
-	return text.replace(exp,"<a href='$1'>$1</a>"); 
+function replaceURLWithHTMLLinks(text, entities) {
+	//var exp = /(\b(https?|ftp|file):\/\/\S+)/ig;
+    var urls = entities.urls;
+    
+    var words = text.split(" ");
+    
+    for(var word in words) {
+        if(words[word].startsWith("http://t.co/")) {
+            var replace = findTCOLongURL(words[word], urls);
+            
+            if(replace != null) {
+                words[word] = "<a href='" + words[word] + "'>" + replace + "</a>";
+
+                var media = null;
+                
+                if(replace.startsWith("http://youtube.com/") || replace.startsWith("http://www.youtube.com/")) {
+                    media = {
+                        type: "twittia_youtube",
+                        url: replace,
+                        media_url: "http://img.youtube.com/vi/" + getUrlVars(replace)["v"] + "/1.jpg"
+                    }
+
+                } else if (replace.startsWith("http://twitpic.com/")) {
+                    media = {
+                        type: "photo",
+                        url: replace,
+                        media_url: "http://twitpic.com/show/mini/" + replace.substring("http://twitpic.com/".length)
+                    }
+                    
+                } else if (replace.startsWith("http://yfrog")) {
+                    media = {
+                        type: "photo",
+                        url: replace,
+                        media_url: replace
+                    }
+                }
+                
+                if(media) {
+                    if(entities.media) {
+                        entities.media.push(media);
+                    } else {
+                        entities.media = [media];
+                    }                
+                }
+                
+            } else {
+                words[word] = "<a href='" + words[word] + "'>" + words[word] + "</a>";
+            }
+        } else if(words[word].startsWith("http://") || words[word].startsWith("https://") || words[word].startsWith("file://") || words[word].startsWith("ftp://")) {
+            words[word] = "<a href='" + words[word] + "'>" + words[word] + "</a>";
+        }
+    }
+    
+    text = words.join(" ");
+    
+	return text; // text.replace(exp,"<a href='$1'>$1</a>"); 
+}
+
+function findTCOLongURL(url, urls) {
+    for(var u in urls) {
+        if(urls[u].url == url) {
+            return urls[u].expanded_url;
+        }
+    }
+    return null;
 }
 
 function replaceTwitterLinks(text) {
@@ -365,6 +464,28 @@ function loadPlugin(url) {
 	plugin.src = url;
 	document.getElementsByTagName("head")[0].appendChild(plugin);
 }
+
+String.prototype.startsWith = function(prefix) {
+    return this.indexOf(prefix) === 0;
+}
+
+String.prototype.endsWith = function(suffix) {
+    return this.match(suffix+"$") == suffix;
+};
+
+function getUrlVars(url)
+{
+    var vars = [], hash;
+    var hashes = url.slice(url.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
 
 
 var twittia_instance;
