@@ -123,7 +123,6 @@ Twittia.prototype.getItem = function(status) {
                 var img = document.createElement("img");
                 img.className = "photo";
                 img.src = media.media_url + ":small";
-                alert(media.media_url + "  " + media.type);
                 
                 a.appendChild(img);
                 template.images.appendChild(a);
@@ -135,7 +134,6 @@ Twittia.prototype.getItem = function(status) {
                 var img = document.createElement("img");
                 img.className = "video";
                 img.src = media.media_url;
-                alert(media.media_url)
                 
                 a.appendChild(img);
                 template.images.appendChild(a);
@@ -381,7 +379,6 @@ Twittia.prototype.authorizationHeader = function(method, url, params) {
 }
 
 function replaceURLWithHTMLLinks(text, entities) {
-	//var exp = /(\b(https?|ftp|file):\/\/\S+)/ig;
     var urls = entities.urls;
     
     var words = text.split(" ");
@@ -391,6 +388,10 @@ function replaceURLWithHTMLLinks(text, entities) {
             var replace = findTCOLongURL(words[word], urls);
             
             if(replace != null) {
+                if(replace.startsWith("http://bit.ly/") || replace.startsWith("http://j.mp/")) {
+                   replaceShortened(replace);
+                }
+                
                 words[word] = "<a href='" + words[word] + "'>" + replace + "</a>";
 
                 var media = null;
@@ -429,6 +430,10 @@ function replaceURLWithHTMLLinks(text, entities) {
                 words[word] = "<a href='" + words[word] + "'>" + words[word] + "</a>";
             }
         } else if(words[word].startsWith("http://") || words[word].startsWith("https://") || words[word].startsWith("file://") || words[word].startsWith("ftp://")) {
+            if(words[word].startsWith("http://bit.ly/") || words[word].startsWith("http://j.mp/")) {
+                replaceShortened(words[word]);
+            }
+
             words[word] = "<a href='" + words[word] + "'>" + words[word] + "</a>";
         }
     }
@@ -484,6 +489,30 @@ function getUrlVars(url)
         vars[hash[0]] = hash[1];
     }
     return vars;
+}
+                   
+function replaceShortened(url) {
+    var api = "http://api.bitly.com";
+    if(url.startsWith("http://j.mp/")) {
+       api = "http://api.j.mp";
+    }
+    
+    var api_url = api + "/v3/expand?format=json&apiKey=R_4fc2a1aa461d076556016390fa6400f6&login=twittia&shortUrl=" + url;
+    
+    $.ajax({
+           url: api_url,
+           success: function(data) {
+            var new_url = data.data.expand[0].long_url;
+            if (new_url) {
+                var regex = new RegExp(url, "g");
+                twittia_instance.body.innerHTML = twittia_instance.body.innerHTML.replace(regex, new_url);
+            }
+           },
+           error:function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+           }
+    });
 }
 
 
