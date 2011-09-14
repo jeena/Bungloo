@@ -58,16 +58,7 @@ Twittia.prototype.getItem = function(status) {
 	}
 
 	var template = this.getTemplate();
-	/*
-	template.item.id = "id-" + status.id_str;
-	template.item.onmousedown = function(e) { if(e.button == 2) {
-		var target = e.target;
-		while(target.nodeName != "LI" && target != null) {
-			target = target.parentNode;
-		}
-		
-		alert(target.id);
-	}}*/
+
 	template.reply_to.onclick = function() { replyTo(status.user.screen_name, status.id_str); return false; }
 	template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
 	
@@ -93,7 +84,7 @@ Twittia.prototype.getItem = function(status) {
 	else template.in_reply.parentNode.className = "hidden";
 	template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id_str;
 
-	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text, status.entities));
+	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text, status.entities, template.message));
 	
 	var time = document.createElement("abbr");
 	time.innerText = status.created_at;
@@ -137,6 +128,16 @@ Twittia.prototype.getItem = function(status) {
                 
                 a.appendChild(img);
                 template.images.appendChild(a);
+            } else if(media.type == "twittia_photo") {
+                var a = document.createElement("a");
+                a.href = media.url;
+                
+                var img = document.createElement("img");
+                img.className = "photo";
+                img.src = media.media_url;
+                
+                a.appendChild(img);
+                template.images.appendChild(a);            
             }
         }    
     }
@@ -378,18 +379,20 @@ Twittia.prototype.authorizationHeader = function(method, url, params) {
     return OAuth.getAuthorizationHeader("", message.parameters);
 }
 
-function replaceURLWithHTMLLinks(text, entities) {
+function replaceURLWithHTMLLinks(text, entities, message_node) {
     var urls = entities.urls;
     
     var words = text.split(" ");
     
     for(var word in words) {
+        var original = words[word] + "";
+        
         if(words[word].startsWith("http://t.co/")) {
             var replace = findTCOLongURL(words[word], urls);
             
             if(replace != null) {
                 if(replace.startsWith("http://bit.ly/") || replace.startsWith("http://j.mp/")) {
-                   replaceShortened(replace);
+                   replaceShortened(replace, message_node);
                 }
                 
                 words[word] = "<a href='" + words[word] + "'>" + replace + "</a>";
@@ -399,22 +402,22 @@ function replaceURLWithHTMLLinks(text, entities) {
                 if(replace.startsWith("http://youtube.com/") || replace.startsWith("http://www.youtube.com/")) {
                     media = {
                         type: "twittia_youtube",
-                        url: replace,
+                        url: original,
                         media_url: "http://img.youtube.com/vi/" + getUrlVars(replace)["v"] + "/1.jpg"
                     }
 
                 } else if (replace.startsWith("http://twitpic.com/")) {
                     media = {
-                        type: "photo",
-                        url: replace,
+                        type: "twittia_photo",
+                        url: original,
                         media_url: "http://twitpic.com/show/mini/" + replace.substring("http://twitpic.com/".length)
                     }
                     
                 } else if (replace.startsWith("http://yfrog")) {
                     media = {
-                        type: "photo",
-                        url: replace,
-                        media_url: replace
+                        type: "twittia_photo",
+                        url: original,
+                        media_url: replace + ":small"
                     }
                 }
                 
@@ -431,7 +434,7 @@ function replaceURLWithHTMLLinks(text, entities) {
             }
         } else if(words[word].startsWith("http://") || words[word].startsWith("https://") || words[word].startsWith("file://") || words[word].startsWith("ftp://")) {
             if(words[word].startsWith("http://bit.ly/") || words[word].startsWith("http://j.mp/")) {
-                replaceShortened(words[word]);
+                replaceShortened(words[word], message_node);
             }
 
             words[word] = "<a href='" + words[word] + "'>" + words[word] + "</a>";
@@ -491,7 +494,7 @@ function getUrlVars(url)
     return vars;
 }
                    
-function replaceShortened(url) {
+function replaceShortened(url, message_node) {
     var api = "http://api.bitly.com";
     if(url.startsWith("http://j.mp/")) {
        api = "http://api.j.mp";
@@ -505,7 +508,7 @@ function replaceShortened(url) {
             var new_url = data.data.expand[0].long_url;
             if (new_url) {
                 var regex = new RegExp(url, "g");
-                twittia_instance.body.innerHTML = twittia_instance.body.innerHTML.replace(regex, new_url);
+                message_node.innerHTML = message_node.innerHTML.replace(regex, new_url);
             }
            },
            error:function (xhr, ajaxOptions, thrownError) {
