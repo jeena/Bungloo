@@ -382,77 +382,52 @@ Twittia.prototype.authorizationHeader = function(method, url, params) {
 function replaceURLWithHTMLLinks(text, entities, message_node) {
     var urls = entities.urls;
     
-    var words = text.split(" ");
-    
-    for(var word in words) {
-        var original = words[word] + "";
+    for(var i = 0; i<urls.length; i++) {
         
-        if(words[word].startsWith("http://t.co/")) {
-            var replace = findTCOLongURL(words[word], urls);
+        var original = urls[i].url;
+        var replace = urls[i].expanded_url == null ? original : urls[i].expanded_url;
+        
+        if(replace.startsWith("http://bit.ly/") || replace.startsWith("http://j.mp/")) {
+            replaceShortened(replace, message_node);
+        }
+
+        text = text.replace(original, "<a href='" + original + "'>" + replace + "</a>");
+        
+        var media = null;
+        
+        if(replace.startsWith("http://youtube.com/") || replace.startsWith("http://www.youtube.com/")) {
+            media = {
+                type: "twittia_youtube",
+                url: original,
+                media_url: "http://img.youtube.com/vi/" + getUrlVars(replace)["v"] + "/1.jpg"
+            }
             
-            if(replace != null) {
-                if(replace.startsWith("http://bit.ly/") || replace.startsWith("http://j.mp/")) {
-                   replaceShortened(replace, message_node);
-                }
-                
-                words[word] = "<a href='" + words[word] + "'>" + replace + "</a>";
-
-                var media = null;
-                
-                if(replace.startsWith("http://youtube.com/") || replace.startsWith("http://www.youtube.com/")) {
-                    media = {
-                        type: "twittia_youtube",
-                        url: original,
-                        media_url: "http://img.youtube.com/vi/" + getUrlVars(replace)["v"] + "/1.jpg"
-                    }
-
-                } else if (replace.startsWith("http://twitpic.com/")) {
-                    media = {
-                        type: "twittia_photo",
-                        url: original,
-                        media_url: "http://twitpic.com/show/mini/" + replace.substring("http://twitpic.com/".length)
-                    }
-                    
-                } else if (replace.startsWith("http://yfrog")) {
-                    media = {
-                        type: "twittia_photo",
-                        url: original,
-                        media_url: replace + ":small"
-                    }
-                }
-                
-                if(media) {
-                    if(entities.media) {
-                        entities.media.push(media);
-                    } else {
-                        entities.media = [media];
-                    }                
-                }
-                
+        } else if (replace.startsWith("http://twitpic.com/")) {
+            media = {
+                type: "twittia_photo",
+                url: original,
+                media_url: "http://twitpic.com/show/mini/" + replace.substring("http://twitpic.com/".length)
+            }
+            
+        } else if (replace.startsWith("http://yfrog")) {
+            media = {
+                type: "twittia_photo",
+                url: original,
+                media_url: replace + ":small"
+            }
+        }
+        
+        if(media) {
+            if(entities.media) {
+                entities.media.push(media);
             } else {
-                words[word] = "<a href='" + words[word] + "'>" + words[word] + "</a>";
-            }
-        } else if(words[word].startsWith("http://") || words[word].startsWith("https://") || words[word].startsWith("file://") || words[word].startsWith("ftp://")) {
-            if(words[word].startsWith("http://bit.ly/") || words[word].startsWith("http://j.mp/")) {
-                replaceShortened(words[word], message_node);
-            }
-
-            words[word] = "<a href='" + words[word] + "'>" + words[word] + "</a>";
+                entities.media = [media];
+            }                
         }
-    }
-    
-    text = words.join(" ");
-    
-	return text; // text.replace(exp,"<a href='$1'>$1</a>"); 
-}
 
-function findTCOLongURL(url, urls) {
-    for(var u in urls) {
-        if(urls[u].url == url) {
-            return urls[u].expanded_url;
-        }
     }
-    return null;
+
+	return text;
 }
 
 function replaceTwitterLinks(text) {
@@ -484,6 +459,7 @@ String.prototype.endsWith = function(suffix) {
 function getUrlVars(url)
 {
     var vars = [], hash;
+    if(url.indexOf("#") > -1) url = url.slice(0, url.indexOf("#"));
     var hashes = url.slice(url.indexOf('?') + 1).split('&');
     for(var i = 0; i < hashes.length; i++)
     {
