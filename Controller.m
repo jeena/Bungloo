@@ -195,6 +195,10 @@
 	}
 }
 
+- (void)openURL:(NSString *)url {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+}
+
 // Mentions window has been visible
 - (void)windowDidBecomeKey:(NSNotification *)notification {
 	if ([notification object] == mentionsViewWindow) {

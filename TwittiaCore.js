@@ -10,6 +10,16 @@ API_PATH = "http://api.twitter.com/1/";
 WEBSITE_PATH = "http://twitter.com/";
 //API_PATH = "http://identi.ca/api/";
 
+OAUTH_CONSUMER_KEY = "JPmU8KJhiBKfpohCiWLg"
+OAUTH_CONSUMER_SECRET = "jtfSrnDrRcUnL1nqTMcAW0055m63EMClmkxhiBjQ"
+OAUTH_SIGNATURE_METHOD = "HMAC-SHA1"
+OAUTH_REQUEST_TOKEN_URL = "http://twitter.com/oauth/request_token"
+OAUTH_USER_AUTHORIZATION_URL = "http://twitter.com/oauth/authorize"
+OAUTH_ACCESS_TOKEN_URL = "http://twitter.com/oauth/access_token"
+OAUTH_SERVICE_NAME = "twitter.com"
+
+APP_NAME = "Twittia"
+
 function Twittia(action) {
 	this.max_length = 100;
 	this.since_id;
@@ -20,6 +30,8 @@ function Twittia(action) {
 	
 	this.body = document.createElement("ol");
 	this.body.className = this.action;
+    
+    this.requestAToken();
 }
 
 Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
@@ -355,7 +367,7 @@ Twittia.prototype.retweet = function(status_id, item) {
 		}
 	});
 }
-
+/*
 Twittia.prototype.authorizationHeader = function(method, url, params) {	
 	if(params == undefined)
 	    params = '';
@@ -378,6 +390,43 @@ Twittia.prototype.authorizationHeader = function(method, url, params) {
 	
     return OAuth.getAuthorizationHeader("", message.parameters);
 }
+*/
+
+Twittia.prototype.requestAToken = function() {
+    var url = OAUTH_REQUEST_TOKEN_URL;
+	var _this = this;
+	
+	var message = { method:"POST" , action:url };
+	
+	OAuth.completeRequest(message,
+						  { consumerKey   : controller.oauth.consumerToken.key
+						  , consumerSecret: controller.oauth.consumerToken.secret
+						  //, token         : controller.oauth.accessToken.key
+						  //, tokenSecret   : controller.oauth.accessToken.secret
+						  });
+    
+	$.ajax({
+           beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+           },
+           url: url,
+           type: 'POST',
+           dataType: 'text',
+           success: function(data) {
+            _this.requestTokenTicketFinished(data);
+           },
+           error:function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.statusText);
+            alert(ajaxOptions);
+            alert(thrownError);				
+           }
+        });
+}
+
+Twittia.prototype.requestTokenTicketFinished = function(data) {
+    controller.openURL_(OAUTH_USER_AUTHORIZATION_URL + "?" + data);
+}
+
 
 function replaceURLWithHTMLLinks(text, entities, message_node) {
     var urls = entities.urls;
