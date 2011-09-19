@@ -6,10 +6,6 @@
 //  Licence: BSD (see attached LICENCE.txt file).
 //
 
-API_PATH = "http://api.twitter.com/1/";
-WEBSITE_PATH = "http://twitter.com/";
-//API_PATH = "http://identi.ca/api/";
-
 function Twittia(action) {
 	this.max_length = 100;
 	this.since_id;
@@ -20,8 +16,6 @@ function Twittia(action) {
 	
 	this.body = document.createElement("ol");
 	this.body.className = this.action;
-    
-    this.requestAToken();
 }
 
 Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
@@ -262,14 +256,14 @@ Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 	var _this = this;
 	
 	var message = { method:"GET" , action:url, parameters: parameters };
-	
+
 	OAuth.completeRequest(message,
 						  { consumerKey   : OAUTH_CONSUMER_KEY
 						  , consumerSecret: OAUTH_CONSUMER_SECRET
-						  , token         : controller.accessToken.accessToken
-						  , tokenSecret   : controller.accessToken.secret
+						  , token         : controller.accessToken.accessToken()
+						  , tokenSecret   : controller.accessToken.secret()
 						  });
-
+    
 	$.ajax(
 		   {	beforeSend: function(xhr) {
 					xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
@@ -305,8 +299,8 @@ Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 	OAuth.completeRequest(message,
 						  { consumerKey   : OAUTH_CONSUMER_KEY
 						  , consumerSecret: OAUTH_CONSUMER_SECRET
-						  , token         : controller.accessToken.accessToken
-						  , tokenSecret   : controller.accessToken.secret
+						  , token         : controller.accessToken.accessToken()
+						  , tokenSecret   : controller.accessToken.secret()
 						  });	
 		
 	$.ajax({
@@ -337,8 +331,8 @@ Twittia.prototype.retweet = function(status_id, item) {
 	OAuth.completeRequest(message,
 						  { consumerKey   : OAUTH_CONSUMER_KEY
 						  , consumerSecret: OAUTH_CONSUMER_SECRET
-						  , token         : controller.accessToken.accessToken
-						  , tokenSecret   : controller.accessToken.secret
+						  , token         : controller.accessToken.accessToken()
+						  , tokenSecret   : controller.accessToken.secret()
 						  });
 		
 	$.ajax({

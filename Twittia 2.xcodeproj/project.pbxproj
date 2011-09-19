@@ -68,11 +68,7 @@
 		1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseNotes.html; sourceTree = "<group>"; };
 		1F3642ED118C8C35008198EF /* oauth.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = oauth.js; sourceTree = "<group>"; };
 		1F3642EE118C8C35008198EF /* sha1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sha1.js; sourceTree = "<group>"; };
-		1F364396118CBC77008198EF /* OAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuth.h; sourceTree = "<group>"; };
-		1F364397118CBC77008198EF /* OAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuth.m; sourceTree = "<group>"; };
 		1F36440E118CC173008198EF /* OAuthConsumer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OAuthConsumer.framework; sourceTree = "<group>"; };
-		1F36465C118DA5A7008198EF /* OAToken+WebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OAToken+WebView.h"; sourceTree = "<group>"; };
-		1F36465D118DA5A7008198EF /* OAToken+WebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OAToken+WebView.m"; sourceTree = "<group>"; };
 		1F4673E21180F519006CC37C /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
 		1F4673E41180F590006CC37C /* jQuery-Plugins.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jQuery-Plugins.js"; sourceTree = "<group>"; };
 		1F4673E61180F654006CC37C /* TwittiaCore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TwittiaCore.js; sourceTree = "<group>"; };
@@ -199,12 +195,8 @@
 				1FFA36D51177D879006C8562 /* ViewDelegate.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
-				1F364396118CBC77008198EF /* OAuth.h */,
-				1F364397118CBC77008198EF /* OAuth.m */,
 				1F77DB45118C5F1C007C7F1E /* Constants.h */,
 				1F77DB46118C5F1C007C7F1E /* Constants.m */,
-				1F36465C118DA5A7008198EF /* OAToken+WebView.h */,
-				1F36465D118DA5A7008198EF /* OAToken+WebView.m */,
 				1F618EC812DB5E6100E500D9 /* TweetModel.h */,
 				1F618EC912DB5E6100E500D9 /* TweetModel.m */,
 				1FC2549A1427D9930035D84B /* AccessToken.h */,

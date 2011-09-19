@@ -49,8 +49,8 @@
     
     
     accessToken = [[AccessToken alloc] init];
-    NSLog(@"%@", accessToken.accessToken);
-    accessToken.accessToken = nil;
+
+    //accessToken.accessToken = nil;
     if (!accessToken.accessToken) {
         [self initOauth];
     } else {

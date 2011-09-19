@@ -14,4 +14,8 @@ OAUTH_REQUEST_TOKEN_URL = "http://twitter.com/oauth/request_token"
 OAUTH_USER_AUTHORIZATION_URL = "http://twitter.com/oauth/authorize"
 OAUTH_ACCESS_TOKEN_URL = "http://twitter.com/oauth/access_token"
 OAUTH_SERVICE_NAME = "twitter.com"
+
 APP_NAME = "Twittia";
+
+API_PATH = "http://api.twitter.com/1/";
+WEBSITE_PATH = "http://twitter.com/";

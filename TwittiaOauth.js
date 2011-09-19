@@ -8,7 +8,6 @@
 
 function TwittiaOauth() {
     this.requestAToken();
-    alert(APP_NAME);
 }
 
 TwittiaOauth.prototype.requestAToken = function() {
@@ -49,7 +48,6 @@ TwittiaOauth.prototype.requestTokenTicketFinished = function(data) {
 
 TwittiaOauth.prototype.requestAccessToken = function(responseBody) {
     // "twittia://oauth_token?oauth_token=jCcf7ClzJMbE4coZdONi467OAQxRGOBZJsuopG8C8&oauth_verifier=BK2ZkAIz51lqI4qta8MnKc280GyDLy0OQBpdsEmjT40"
-    alert(responseBody);
     
     var urlVars = getUrlVars(responseBody);
     
