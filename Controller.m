@@ -7,7 +7,7 @@
 //
 
 #import "Controller.h"
-#import "MyDocument.h"
+#import "NewTweetWindow.h"
 #import "TweetModel.h"
 
 
@@ -168,7 +168,7 @@
 
 - (void)openNewTweetWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId {
 	[NSApp activateIgnoringOtherApps:YES]; 
-	MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+	NewTweetWindow *newTweet = (NewTweetWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 	[newTweet inReplyTo:userName statusId:statusId];
 }
 
@@ -180,7 +180,7 @@
 	if (range.length > 0) {
         [twittiaOauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"twittia_oauth.requestAccessToken('%@')", aString]];
 	} else {
-		MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+		NewTweetWindow *newTweet = (NewTweetWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
 	}
 	
