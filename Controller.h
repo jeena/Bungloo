@@ -11,7 +11,7 @@
 #import "ViewDelegate.h"
 #import <Carbon/Carbon.h>
 #import "Constants.h"
-#import "OAuth.h"
+#import "AccessToken.h"
 
 
 @interface Controller : NSObject {
@@ -22,7 +22,8 @@
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
 	IBOutlet NSImageView *logoLayer;
 	ViewDelegate *viewDelegate;
-	OAuth *oauth;
+    WebView *twittiaOauthView;
+    AccessToken *accessToken;
 }
 
 @property (retain, nonatomic) IBOutlet WebView *timelineView;
@@ -32,8 +33,10 @@
 @property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
 @property (retain, nonatomic) IBOutlet NSImageView *logoLayer;
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
-@property (retain, nonatomic) IBOutlet OAuth *oauth;
+@property (retain, nonatomic) WebView *twittiaOauthView;
+@property (retain, nonatomic) AccessToken *accessToken;
 
+- (void)initOauth;
 - (void)authentificationSucceded:(id)sender;
 - (void)initWebViews;
 - (void)initHotKeys;
@@ -42,6 +45,7 @@
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)unreadMentions:(NSInteger)count;
 - (void)openURL:(NSString *)url;
+- (void)storeAccessToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName;
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
 

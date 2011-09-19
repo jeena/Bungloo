@@ -10,16 +10,6 @@ API_PATH = "http://api.twitter.com/1/";
 WEBSITE_PATH = "http://twitter.com/";
 //API_PATH = "http://identi.ca/api/";
 
-OAUTH_CONSUMER_KEY = "JPmU8KJhiBKfpohCiWLg"
-OAUTH_CONSUMER_SECRET = "jtfSrnDrRcUnL1nqTMcAW0055m63EMClmkxhiBjQ"
-OAUTH_SIGNATURE_METHOD = "HMAC-SHA1"
-OAUTH_REQUEST_TOKEN_URL = "http://twitter.com/oauth/request_token"
-OAUTH_USER_AUTHORIZATION_URL = "http://twitter.com/oauth/authorize"
-OAUTH_ACCESS_TOKEN_URL = "http://twitter.com/oauth/access_token"
-OAUTH_SERVICE_NAME = "twitter.com"
-
-APP_NAME = "Twittia"
-
 function Twittia(action) {
 	this.max_length = 100;
 	this.since_id;
@@ -274,10 +264,10 @@ Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 	var message = { method:"GET" , action:url, parameters: parameters };
 	
 	OAuth.completeRequest(message,
-						  { consumerKey   : controller.oauth.consumerToken.key
-						  , consumerSecret: controller.oauth.consumerToken.secret
-						  , token         : controller.oauth.accessToken.key
-						  , tokenSecret   : controller.oauth.accessToken.secret
+						  { consumerKey   : OAUTH_CONSUMER_KEY
+						  , consumerSecret: OAUTH_CONSUMER_SECRET
+						  , token         : controller.accessToken.accessToken
+						  , tokenSecret   : controller.accessToken.secret
 						  });
 
 	$.ajax(
@@ -313,10 +303,10 @@ Twittia.prototype.sendNewTweet = function(tweet, in_reply_to_status_id) {
 	var message = { method:"POST" , action:url, parameters:parameters };
 	
 	OAuth.completeRequest(message,
-						  { consumerKey   : controller.oauth.consumerToken.key
-						  , consumerSecret: controller.oauth.consumerToken.secret
-						  , token         : controller.oauth.accessToken.key
-						  , tokenSecret   : controller.oauth.accessToken.secret
+						  { consumerKey   : OAUTH_CONSUMER_KEY
+						  , consumerSecret: OAUTH_CONSUMER_SECRET
+						  , token         : controller.accessToken.accessToken
+						  , tokenSecret   : controller.accessToken.secret
 						  });	
 		
 	$.ajax({
@@ -345,10 +335,10 @@ Twittia.prototype.retweet = function(status_id, item) {
 	var message = { method:"POST" , action:url };
 	
 	OAuth.completeRequest(message,
-						  { consumerKey   : controller.oauth.consumerToken.key
-						  , consumerSecret: controller.oauth.consumerToken.secret
-						  , token         : controller.oauth.accessToken.key
-						  , tokenSecret   : controller.oauth.accessToken.secret
+						  { consumerKey   : OAUTH_CONSUMER_KEY
+						  , consumerSecret: OAUTH_CONSUMER_SECRET
+						  , token         : controller.accessToken.accessToken
+						  , tokenSecret   : controller.accessToken.secret
 						  });
 		
 	$.ajax({
@@ -367,66 +357,6 @@ Twittia.prototype.retweet = function(status_id, item) {
 		}
 	});
 }
-/*
-Twittia.prototype.authorizationHeader = function(method, url, params) {	
-	if(params == undefined)
-	    params = '';
-    if(method == undefined)
-	    method = 'GET';    
-    var timestamp = OAuth.timestamp();
-    var nonce = OAuth.nonce(11);
-    var accessor = { consumerSecret: controller.oauth.consumerToken.secret, tokenSecret: controller.oauth.accessToken.secret };
-
-    var message = {method: method, action: url, parameters: OAuth.decodeForm(params)};
-    message.parameters.push(['oauth_consumer_key',controller.oauth.consumerToken.key]);
-    message.parameters.push(['oauth_nonce',nonce]);
-    message.parameters.push(['oauth_signature_method','HMAC-SHA1']);
-    message.parameters.push(['oauth_timestamp',timestamp]);
-	message.parameters.push(['oauth_token', controller.oauth.accessToken.key]);
-    message.parameters.push(['oauth_version','1.0']);
-    message.parameters.sort()
-    
-	OAuth.SignatureMethod.sign(message, accessor);
-	
-    return OAuth.getAuthorizationHeader("", message.parameters);
-}
-*/
-
-Twittia.prototype.requestAToken = function() {
-    var url = OAUTH_REQUEST_TOKEN_URL;
-	var _this = this;
-	
-	var message = { method:"POST" , action:url };
-	
-	OAuth.completeRequest(message,
-						  { consumerKey   : controller.oauth.consumerToken.key
-						  , consumerSecret: controller.oauth.consumerToken.secret
-						  //, token         : controller.oauth.accessToken.key
-						  //, tokenSecret   : controller.oauth.accessToken.secret
-						  });
-    
-	$.ajax({
-           beforeSend: function(xhr) {
-            xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
-           },
-           url: url,
-           type: 'POST',
-           dataType: 'text',
-           success: function(data) {
-            _this.requestTokenTicketFinished(data);
-           },
-           error:function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.statusText);
-            alert(ajaxOptions);
-            alert(thrownError);				
-           }
-        });
-}
-
-Twittia.prototype.requestTokenTicketFinished = function(data) {
-    controller.openURL_(OAUTH_USER_AUTHORIZATION_URL + "?" + data);
-}
-
 
 function replaceURLWithHTMLLinks(text, entities, message_node) {
     var urls = entities.urls;

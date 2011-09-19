@@ -13,9 +13,11 @@
 @interface ViewDelegate : NSObject {
 	WebView *timelineView;
 	WebView *mentionsView;
+    WebView *twittiaOauthView;
 }
 
 @property (nonatomic, assign) WebView *timelineView;
 @property (nonatomic, assign) WebView *mentionsView;
+@property (nonatomic, assign) WebView *twittiaOauthView;
 
 @end
