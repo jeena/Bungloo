@@ -6,11 +6,11 @@
 //  Licence: BSD (see attached LICENCE.txt file).
 //
 
-#import "MyDocument.h"
+#import "NewTweetWindow.h"
 #import "Constants.h"
 #import "TweetModel.h"
 
-@implementation MyDocument
+@implementation NewTweetWindow
 
 @synthesize textField, counter;
 

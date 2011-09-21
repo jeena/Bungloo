@@ -10,7 +10,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface MyDocument : NSDocument
+@interface NewTweetWindow : NSDocument
 {
 	IBOutlet NSTextField *textField;
 	IBOutlet NSTextField *counter;

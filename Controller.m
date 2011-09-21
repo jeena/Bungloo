@@ -7,13 +7,15 @@
 //
 
 #import "Controller.h"
-#import "MyDocument.h"
+#import "NewTweetWindow.h"
 #import "TweetModel.h"
 
 
 @implementation Controller
 
-@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate, oauth, logoLayer;
+@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate;
+@synthesize logoLayer;
+@synthesize twittiaOauthView, accessToken;
 
 - (void)awakeFromNib {
 	
@@ -43,9 +45,32 @@
 						 forEventClass:kInternetEventClass
 							andEventID:kAEGetURL];
 	
-	if ([oauth accessToken]) {
-		[self initWebViews];
-	}
+    viewDelegate = [[ViewDelegate alloc] init];
+    
+    
+    accessToken = [[AccessToken alloc] init];
+
+    //accessToken.accessToken = nil;
+    if (!accessToken.accessToken) {
+        [self initOauth];
+    } else {
+        [self initWebViews];
+    }    
+}
+
+- (void)initOauth {
+    NSString *path = [[NSBundle mainBundle] resourcePath];
+	NSURL *url = [NSURL fileURLWithPath:path];
+	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index_oauth.html", path] encoding:NSUTF8StringEncoding error:nil];
+
+    
+    twittiaOauthView = [[WebView alloc] init];
+    viewDelegate.twittiaOauthView = twittiaOauthView;
+	[[twittiaOauthView mainFrame] loadHTMLString:index_string baseURL:url];
+	[twittiaOauthView setFrameLoadDelegate:viewDelegate];
+	[twittiaOauthView setPolicyDelegate:viewDelegate];
+	[twittiaOauthView setUIDelegate:viewDelegate];
+    [[twittiaOauthView windowScriptObject] setValue:self forKey:@"controller"];
 }
 
 - (void)initHotKeys {
@@ -107,8 +132,6 @@
 	NSString *path = [[NSBundle mainBundle] resourcePath];
 	NSURL *url = [NSURL fileURLWithPath:path];
 	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index.html", path] encoding:NSUTF8StringEncoding error:nil];
-	
-	viewDelegate = [[ViewDelegate alloc] init];
 
 	viewDelegate.timelineView = timelineView;
 	[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
@@ -145,7 +168,7 @@
 
 - (void)openNewTweetWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId {
 	[NSApp activateIgnoringOtherApps:YES]; 
-	MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+	NewTweetWindow *newTweet = (NewTweetWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 	[newTweet inReplyTo:userName statusId:statusId];
 }
 
@@ -155,9 +178,9 @@
 	NSRange range = [aString rangeOfString:@"oauth_token"];
 	
 	if (range.length > 0) {
-		[oauth requestAccessToken];
+        [twittiaOauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"twittia_oauth.requestAccessToken('%@')", aString]];
 	} else {
-		MyDocument *newTweet = (MyDocument *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+		NewTweetWindow *newTweet = (NewTweetWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
 	}
 	
@@ -170,7 +193,6 @@
 
 - (IBAction)sendTweet:(id)sender {
 	TweetModel *tweet = (TweetModel *)[sender object];
-	//[oauth updateTweet:tweet.text inReplaToStatus:tweet.inReplyTostatusId];
     NSString *func = [NSString stringWithFormat:@"twittia_instance.sendNewTweet(\"%@\", \"%@\")", [tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""], tweet.inReplyTostatusId];
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
@@ -193,6 +215,22 @@
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"twittia_instance.unread_mentions = 0;"];
 	}
+}
+
+- (void)openURL:(NSString *)url {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+}
+
+- (void)storeAccessToken:(NSString *)_accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName
+{
+    self.accessToken.accessToken = _accessToken;
+    self.accessToken.secret = secret;
+    self.accessToken.userId = userId;
+    self.accessToken.screenName = screenName;
+    
+    [timelineViewWindow makeKeyAndOrderFront:self];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }
 
 // Mentions window has been visible

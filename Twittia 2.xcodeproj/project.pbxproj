@@ -3,20 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
+		1DDD582C0DA1D0D100B32029 /* NewTweetWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* NewTweetWindow.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		1F122D49118E1DE100E83B77 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F122D48118E1DE100E83B77 /* Icon.icns */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
 		1F2746FC12D9057600339B4F /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1FE2FCA6117A8952000504B0 /* dsa_pub.pem */; };
 		1F3642EF118C8C35008198EF /* oauth.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F3642ED118C8C35008198EF /* oauth.js */; };
 		1F3642F0118C8C35008198EF /* sha1.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F3642EE118C8C35008198EF /* sha1.js */; };
-		1F364398118CBC77008198EF /* OAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F364397118CBC77008198EF /* OAuth.m */; };
-		1F36440F118CC173008198EF /* OAuthConsumer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F36440E118CC173008198EF /* OAuthConsumer.framework */; };
-		1F36465E118DA5A7008198EF /* OAToken+WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F36465D118DA5A7008198EF /* OAToken+WebView.m */; };
 		1F4673FE1180F7EA006CC37C /* TwittiaCore.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E61180F654006CC37C /* TwittiaCore.js */; };
 		1F4674081180F7EE006CC37C /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E21180F519006CC37C /* jQuery.js */; };
 		1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E41180F590006CC37C /* jQuery-Plugins.js */; };
@@ -25,7 +22,10 @@
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
 		1F98DC9E124BFFD7004289ED /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F98DC9D124BFFD7004289ED /* pin.png */; };
-		1FB074DD118DDAB60013A93C /* OAuthConsumer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F36440E118CC173008198EF /* OAuthConsumer.framework */; };
+		1FC254941427BC050035D84B /* index_oauth.html in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254931427BC050035D84B /* index_oauth.html */; };
+		1FC254951427BF150035D84B /* TwittiaOauth.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254911427ADF90035D84B /* TwittiaOauth.js */; };
+		1FC2549F1427DC7F0035D84B /* Constants.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FC2549D1427DC2B0035D84B /* Constants.js */; };
+		1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2549B1427D9930035D84B /* AccessToken.m */; };
 		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FFA36CD1177D861006C8562 /* even-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFA36C81177D861006C8562 /* even-bg.png */; };
@@ -37,7 +37,7 @@
 		1FFA37071177DAF4006C8562 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFA37061177DAF4006C8562 /* WebKit.framework */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
-		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC310486D014006FF6A4 /* NewTweetWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* NewTweetWindow.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -49,7 +49,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1F36440F118CC173008198EF /* OAuthConsumer.framework in CopyFiles */,
 				1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,7 +59,7 @@
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
+		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/NewTweetWindow.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1F122D48118E1DE100E83B77 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		1F198FC7117BC4AB0049BEA7 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
@@ -69,11 +68,7 @@
 		1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseNotes.html; sourceTree = "<group>"; };
 		1F3642ED118C8C35008198EF /* oauth.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = oauth.js; sourceTree = "<group>"; };
 		1F3642EE118C8C35008198EF /* sha1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sha1.js; sourceTree = "<group>"; };
-		1F364396118CBC77008198EF /* OAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuth.h; sourceTree = "<group>"; };
-		1F364397118CBC77008198EF /* OAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuth.m; sourceTree = "<group>"; };
 		1F36440E118CC173008198EF /* OAuthConsumer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OAuthConsumer.framework; sourceTree = "<group>"; };
-		1F36465C118DA5A7008198EF /* OAToken+WebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OAToken+WebView.h"; sourceTree = "<group>"; };
-		1F36465D118DA5A7008198EF /* OAToken+WebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OAToken+WebView.m"; sourceTree = "<group>"; };
 		1F4673E21180F519006CC37C /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
 		1F4673E41180F590006CC37C /* jQuery-Plugins.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jQuery-Plugins.js"; sourceTree = "<group>"; };
 		1F4673E61180F654006CC37C /* TwittiaCore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TwittiaCore.js; sourceTree = "<group>"; };
@@ -84,6 +79,11 @@
 		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		1F98DC9D124BFFD7004289ED /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		1FC254911427ADF90035D84B /* TwittiaOauth.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TwittiaOauth.js; sourceTree = "<group>"; };
+		1FC254931427BC050035D84B /* index_oauth.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_oauth.html; sourceTree = "<group>"; };
+		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessToken.h; sourceTree = "<group>"; };
+		1FC2549B1427D9930035D84B /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessToken.m; sourceTree = "<group>"; };
+		1FC2549D1427DC2B0035D84B /* Constants.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Constants.js; sourceTree = "<group>"; };
 		1FE2FC92117A818D000504B0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1FE2FCA6117A8952000504B0 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		1FFA36C81177D861006C8562 /* even-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "even-bg.png"; sourceTree = "<group>"; };
@@ -96,8 +96,8 @@
 		1FFA36D51177D879006C8562 /* ViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDelegate.m; sourceTree = "<group>"; };
 		1FFA37061177DAF4006C8562 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		2564AD2C0F5327BB00F57823 /* Twittia_2_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Twittia_2_Prefix.pch; sourceTree = "<group>"; };
-		2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
-		2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
+		2A37F4ACFDCFA73011CA2CEA /* NewTweetWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTweetWindow.m; sourceTree = "<group>"; };
+		2A37F4AEFDCFA73011CA2CEA /* NewTweetWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTweetWindow.h; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -111,7 +111,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FB074DD118DDAB60013A93C /* OAuthConsumer.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				1FFA37071177DAF4006C8562 /* WebKit.framework in Frameworks */,
 				1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */,
@@ -160,10 +159,13 @@
 				1F3642ED118C8C35008198EF /* oauth.js */,
 				1F3642EE118C8C35008198EF /* sha1.js */,
 				1F4673E61180F654006CC37C /* TwittiaCore.js */,
+				1FC254911427ADF90035D84B /* TwittiaOauth.js */,
+				1FC2549D1427DC2B0035D84B /* Constants.js */,
 				1FFA36C81177D861006C8562 /* even-bg.png */,
 				1F98DC9D124BFFD7004289ED /* pin.png */,
 				1F705EA5117889FA00C85707 /* sprite-icons.png */,
 				1FFA36C91177D861006C8562 /* index.html */,
+				1FC254931427BC050035D84B /* index_oauth.html */,
 				1FFA36CA1177D861006C8562 /* odd-bg.png */,
 				1FFA36CB1177D861006C8562 /* default.css */,
 				1F4673E21180F519006CC37C /* jQuery.js */,
@@ -191,16 +193,14 @@
 				1FFA36D31177D879006C8562 /* Controller.m */,
 				1FFA36D41177D879006C8562 /* ViewDelegate.h */,
 				1FFA36D51177D879006C8562 /* ViewDelegate.m */,
-				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
-				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
-				1F364396118CBC77008198EF /* OAuth.h */,
-				1F364397118CBC77008198EF /* OAuth.m */,
+				2A37F4AEFDCFA73011CA2CEA /* NewTweetWindow.h */,
+				2A37F4ACFDCFA73011CA2CEA /* NewTweetWindow.m */,
 				1F77DB45118C5F1C007C7F1E /* Constants.h */,
 				1F77DB46118C5F1C007C7F1E /* Constants.m */,
-				1F36465C118DA5A7008198EF /* OAToken+WebView.h */,
-				1F36465D118DA5A7008198EF /* OAToken+WebView.m */,
 				1F618EC812DB5E6100E500D9 /* TweetModel.h */,
 				1F618EC912DB5E6100E500D9 /* TweetModel.m */,
+				1FC2549A1427D9930035D84B /* AccessToken.h */,
+				1FC2549B1427D9930035D84B /* AccessToken.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -224,7 +224,7 @@
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Twittia_2-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
-				1DDD58280DA1D0D100B32029 /* MyDocument.xib */,
+				1DDD58280DA1D0D100B32029 /* NewTweetWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */,
 				1F1990DF117BD2250049BEA7 /* Appcast.xml */,
@@ -268,8 +268,11 @@
 /* Begin PBXProject section */
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Twittia 2" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -292,13 +295,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FC2549F1427DC7F0035D84B /* Constants.js in Resources */,
+				1FC254951427BF150035D84B /* TwittiaOauth.js in Resources */,
 				1F2746FC12D9057600339B4F /* dsa_pub.pem in Resources */,
 				1F3642EF118C8C35008198EF /* oauth.js in Resources */,
 				1F3642F0118C8C35008198EF /* sha1.js in Resources */,
 				1F4673FE1180F7EA006CC37C /* TwittiaCore.js in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
-				1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */,
+				1DDD582C0DA1D0D100B32029 /* NewTweetWindow.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				1FFA36CD1177D861006C8562 /* even-bg.png in Resources */,
 				1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */,
@@ -309,6 +314,7 @@
 				1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */,
 				1F122D49118E1DE100E83B77 /* Icon.icns in Resources */,
 				1F98DC9E124BFFD7004289ED /* pin.png in Resources */,
+				1FC254941427BC050035D84B /* index_oauth.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,13 +325,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */,
+				1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */,
+				8D15AC310486D014006FF6A4 /* NewTweetWindow.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				1FFA36D71177D879006C8562 /* Controller.m in Sources */,
 				1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */,
 				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
-				1F364398118CBC77008198EF /* OAuth.m in Sources */,
-				1F36465E118DA5A7008198EF /* OAToken+WebView.m in Sources */,
 				1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,12 +346,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		1DDD58280DA1D0D100B32029 /* MyDocument.xib */ = {
+		1DDD58280DA1D0D100B32029 /* NewTweetWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1DDD58290DA1D0D100B32029 /* English */,
 			);
-			name = MyDocument.xib;
+			name = NewTweetWindow.xib;
 			sourceTree = "<group>";
 		};
 		1DDD582A0DA1D0D100B32029 /* MainMenu.xib */ = {
@@ -380,7 +385,6 @@
 					"\"$(SRCROOT)/../oauth-obj-c/OAuthConsumer/build/Release\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -424,7 +428,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -437,7 +440,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
