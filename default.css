@@ -123,6 +123,7 @@ p {
 .images img {
     border-radius: 5px;
     max-height: 75px;
+    margin-right: 5px;
 }
 
 .delete {
