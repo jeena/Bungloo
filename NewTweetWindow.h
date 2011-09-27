@@ -1,5 +1,5 @@
 //
-//  MyDocument.h
+//  NewTweetWindow.h
 //  Twittia 2
 //
 //  Created by Jeena on 16.04.10.

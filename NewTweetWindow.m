@@ -1,5 +1,5 @@
 //
-//  MyDocument.m
+//  NewTweetWindow.m
 //  Twittia 2
 //
 //  Created by Jeena on 16.04.10.
@@ -31,7 +31,7 @@
 {
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
-    return @"MyDocument";
+    return @"NewTweetWindow";
 }
 
 - (NSString *)displayName {
