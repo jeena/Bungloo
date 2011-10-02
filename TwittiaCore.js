@@ -369,10 +369,13 @@ function replaceURLWithHTMLLinks(text, entities, message_node) {
         var media = null;
         
         if(replace.startsWith("http://youtube.com/") || replace.startsWith("http://www.youtube.com/")) {
-            media = {
-                type: "twittia_youtube",
-                url: original,
-                media_url: "http://img.youtube.com/vi/" + getUrlVars(replace)["v"] + "/1.jpg"
+            var v = getUrlVars(replace)["v"];
+            if (v) {
+                media = {
+                    type: "twittia_youtube",
+                    url: original,
+                    media_url: "http://img.youtube.com/vi/" + v + "/1.jpg"
+                }            
             }
             
         } else if (replace.startsWith("http://twitpic.com/")) {
@@ -466,7 +469,30 @@ function replaceShortened(url, message_node) {
            }
     });
 }
-
-
-
+/*
+function replaceFlickrThumbnail(url, message_node) {
+    var flickr_id = "6154030877";
+    
+    var api_url = "http://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=1f3f2fc4474854c8e86618c0ae9368bd&photo_id=" + flickr_id + "&format=json&nojsoncallback=1";
+    
+    $.ajax({
+           url: api_url,
+           success: function(data) {
+            var new_url;
+            for(var size in data.sizes.size) {
+                if(size.label == "Thumbnail") {
+                    new_url = size.source;
+                }
+            }
+            if (new_url) {
+                 $("<img/>").attr("src", src).appendTo($(message_node));
+            }
+           },
+           error:function (xhr, ajaxOptions, thrownError) {
+           alert(xhr.status);
+           alert(thrownError);
+           }
+    });
+}
+*/
 var twittia_instance;
