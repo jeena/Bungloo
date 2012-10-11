@@ -114,7 +114,8 @@ Twittia.prototype.getItem = function(status) {
             if(media.type == "photo") {
                 var a = document.createElement("a");
                 a.href = media.media_url;
-                alert(a.href)
+                template.message.innerHTML = template.message.innerHTML.replace(media.url, "");
+                alert(media.url)
                 
                 var img = document.createElement("img");
                 img.className = "photo";
