@@ -7,15 +7,23 @@
 //
 
 function Twittia(action) {
-	this.max_length = 100;
-	this.since_id;
-	this.timeout = 2 * 60 * 1000;
-	this.action = action;
-	this.getNewData();
-	this.unread_mentions = 0;
-	
-	this.body = document.createElement("ol");
-	this.body.className = this.action;
+    this.max_length = 100;
+    this.since_id;
+    this.timeout = 2 * 60 * 1000;
+    this.action = action;
+    this.getNewData();
+    this.unread_mentions = 0;
+
+    this.body = document.createElement("ol");
+    this.body.className = this.action;
+
+/*
+    if (action == "home_timeline") {
+        this.usernames = [];
+        this.getUsernames("friends");
+        this.getUsernames("followers");
+    }
+*/
 }
 
 Twittia.prototype.newStatus = function(status, supress_new_with_timeout) {
@@ -106,6 +114,7 @@ Twittia.prototype.getItem = function(status) {
             if(media.type == "photo") {
                 var a = document.createElement("a");
                 a.href = media.media_url;
+                alert(a.href)
                 
                 var img = document.createElement("img");
                 img.className = "photo";
@@ -243,7 +252,6 @@ Twittia.prototype.getTemplate = function() {
 	return jQuery.extend(true, {}, this.template);
 }
 
-
 Twittia.prototype.getNewData = function(supress_new_with_timeout) {
 
 	var url = API_PATH + "statuses/" + this.action + ".json"
@@ -352,6 +360,89 @@ Twittia.prototype.retweet = function(status_id, item) {
 	});
 }
 
+Twittia.prototype.getUsernames = function(type, cursor) {
+  cursor = typeof cursor == "undefined" ? -1 : cursor;
+  
+  var url = API_PATH + type + "/ids.json";
+  var _this = this;
+  var parameters = { stringify_ids: "true", cursor:cursor };
+
+  var message = { method:"GET" , action:url, parameters:parameters };
+
+  OAuth.completeRequest(message,
+  					  { consumerKey   : OAUTH_CONSUMER_KEY
+  					  , consumerSecret: OAUTH_CONSUMER_SECRET
+  					  , token         : controller.accessToken.accessToken()
+  					  , tokenSecret   : controller.accessToken.secret()
+  					  });
+
+  $.ajax({
+  	beforeSend: function(xhr) {
+  	   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+  	},
+  	url: url + "?stringify_ids=true&cursor=" + cursor ,
+  	type: 'GET',
+  	dataType: 'json',
+  	success: function(data) {
+      for (var i=0; i < data.ids.length; i = i + 100) {
+        _this.getUsernamesFromIds(data.ids.slice(i, i + 100));
+      }
+  		if (data.next_cursor > 0) {
+  		  _this.getUsernames(type, data.next_cursor);
+  		}
+  	},
+  	error:function (xhr, ajaxOptions, thrownError) {
+  		alert(xhr.status);
+  		alert(thrownError);				
+  	}
+  });
+}
+
+Twittia.prototype.getUsernamesFromIds = function(ids) {
+  
+  var url = API_PATH + "users/lookup.json";
+  var _this = this;
+  var parameters = { user_id:ids.join(",") };
+  var message = { method:"GET" , action:url, parameters:parameters };
+
+  OAuth.completeRequest(message,
+  					  { consumerKey   : OAUTH_CONSUMER_KEY
+  					  , consumerSecret: OAUTH_CONSUMER_SECRET
+  					  , token         : controller.accessToken.accessToken()
+  					  , tokenSecret   : controller.accessToken.secret()
+  					  });
+
+  $.ajax({
+  	beforeSend: function(xhr) {
+  	   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+  	},
+  	url: url + "?user_id=" + ids.join(","),
+  	type: 'GET',
+  	dataType: 'json',
+  	success: function(data) {
+      for (var i=0; i < data.length; i++) {
+        _this.usernames.push(data[i].screen_name);
+      }
+  	},
+  	error:function (xhr, ajaxOptions, thrownError) {
+  		alert(xhr.status);
+  		alert(thrownError);				
+  	}
+  });
+}
+
+Twittia.prototype.findUsernamesFor = function(query) {
+  var ret = [];
+  for (var i=0; i < this.usernames.length; i++) {
+    if(this.usernames[i].startsWith(query)) {
+      ret.push(this.usernames[i]);
+    }
+  }
+  return ret;
+}
+
+/* Helper functions */
+
 function replaceURLWithHTMLLinks(text, entities, message_node) {
     var urls = entities.urls;
     
@@ -368,6 +459,7 @@ function replaceURLWithHTMLLinks(text, entities, message_node) {
         
         var media = null;
         
+        // add thumbnail
         if(replace.startsWith("http://youtube.com/") || replace.startsWith("http://www.youtube.com/")) {
             var v = getUrlVars(replace)["v"];
             if (v) {
@@ -390,6 +482,13 @@ function replaceURLWithHTMLLinks(text, entities, message_node) {
                 type: "twittia_photo",
                 url: original,
                 media_url: replace + ":small"
+            }
+            
+        } else if (replace.startsWith("http://instagr.am/p/") || replace.startsWith("http://instagram.com/p/")) {
+            media = {
+                type: "twittia_photo",
+                url: original,
+                media_url: replace + "media?size=t"
             }
         }
         
@@ -469,30 +568,5 @@ function replaceShortened(url, message_node) {
            }
     });
 }
-/*
-function replaceFlickrThumbnail(url, message_node) {
-    var flickr_id = "6154030877";
-    
-    var api_url = "http://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=1f3f2fc4474854c8e86618c0ae9368bd&photo_id=" + flickr_id + "&format=json&nojsoncallback=1";
-    
-    $.ajax({
-           url: api_url,
-           success: function(data) {
-            var new_url;
-            for(var size in data.sizes.size) {
-                if(size.label == "Thumbnail") {
-                    new_url = size.source;
-                }
-            }
-            if (new_url) {
-                 $("<img/>").attr("src", src).appendTo($(message_node));
-            }
-           },
-           error:function (xhr, ajaxOptions, thrownError) {
-           alert(xhr.status);
-           alert(thrownError);
-           }
-    });
-}
-*/
+
 var twittia_instance;

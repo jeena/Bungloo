@@ -22,6 +22,9 @@
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
 		1F98DC9E124BFFD7004289ED /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F98DC9D124BFFD7004289ED /* pin.png */; };
+		1FA09845144600C20079E258 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA09844144600C20079E258 /* RegexKitLite.m */; };
+		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
+		1FA0984A144606D60079E258 /* NewTweetTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA09849144606D60079E258 /* NewTweetTextView.m */; };
 		1FC254941427BC050035D84B /* index_oauth.html in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254931427BC050035D84B /* index_oauth.html */; };
 		1FC254951427BF150035D84B /* TwittiaOauth.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254911427ADF90035D84B /* TwittiaOauth.js */; };
 		1FC2549F1427DC7F0035D84B /* Constants.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FC2549D1427DC2B0035D84B /* Constants.js */; };
@@ -79,6 +82,11 @@
 		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		1F98DC9D124BFFD7004289ED /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		1FA09843144600C20079E258 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		1FA09844144600C20079E258 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		1FA09848144606D60079E258 /* NewTweetTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTweetTextView.h; sourceTree = "<group>"; };
+		1FA09849144606D60079E258 /* NewTweetTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTweetTextView.m; sourceTree = "<group>"; };
 		1FC254911427ADF90035D84B /* TwittiaOauth.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TwittiaOauth.js; sourceTree = "<group>"; };
 		1FC254931427BC050035D84B /* index_oauth.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_oauth.html; sourceTree = "<group>"; };
 		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessToken.h; sourceTree = "<group>"; };
@@ -111,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FA09847144602530079E258 /* libicucore.dylib in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				1FFA37071177DAF4006C8562 /* WebKit.framework in Frameworks */,
 				1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */,
@@ -177,6 +186,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* Twittia 2 */ = {
 			isa = PBXGroup;
 			children = (
+				1FA09846144602530079E258 /* libicucore.dylib */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
@@ -189,12 +199,16 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1FA09843144600C20079E258 /* RegexKitLite.h */,
+				1FA09844144600C20079E258 /* RegexKitLite.m */,
 				1FFA36D21177D879006C8562 /* Controller.h */,
 				1FFA36D31177D879006C8562 /* Controller.m */,
 				1FFA36D41177D879006C8562 /* ViewDelegate.h */,
 				1FFA36D51177D879006C8562 /* ViewDelegate.m */,
 				2A37F4AEFDCFA73011CA2CEA /* NewTweetWindow.h */,
 				2A37F4ACFDCFA73011CA2CEA /* NewTweetWindow.m */,
+				1FA09848144606D60079E258 /* NewTweetTextView.h */,
+				1FA09849144606D60079E258 /* NewTweetTextView.m */,
 				1F77DB45118C5F1C007C7F1E /* Constants.h */,
 				1F77DB46118C5F1C007C7F1E /* Constants.m */,
 				1F618EC812DB5E6100E500D9 /* TweetModel.h */,
@@ -269,7 +283,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0410;
+				LastUpgradeCheck = 0420;
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Twittia 2" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -332,6 +346,8 @@
 				1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */,
 				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
 				1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */,
+				1FA09845144600C20079E258 /* RegexKitLite.m in Sources */,
+				1FA0984A144606D60079E258 /* NewTweetTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
