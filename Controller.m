@@ -1,13 +1,13 @@
 //
 //  Controller.m
-//  Twittia 2
+//  Tentia
 //
 //  Created by Jeena on 15.04.10.
 //  Licence: BSD (see attached LICENCE.txt file).
 //
 
 #import "Controller.h"
-#import "NewTweetWindow.h"
+#import "NewMessageWindow.h"
 #import "TweetModel.h"
 
 
@@ -15,7 +15,7 @@
 
 @synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate;
 @synthesize logoLayer;
-@synthesize twittiaOauthView, accessToken;
+@synthesize oauthView, accessToken;
 
 - (void)awakeFromNib {
 	
@@ -23,8 +23,8 @@
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self 
-		   selector:@selector(openNewTweetWindow:) 
-			   name:@"openNewTweetWindow"
+		   selector:@selector(openNewMessageWindow:) 
+			   name:@"openNewMessageWindow"
 			 object:nil];
 	[nc addObserver:self 
 		   selector:@selector(sendTweet:) 
@@ -64,13 +64,13 @@
 	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index_oauth.html", path] encoding:NSUTF8StringEncoding error:nil];
 
     
-    twittiaOauthView = [[WebView alloc] init];
-    viewDelegate.twittiaOauthView = twittiaOauthView;
-	[[twittiaOauthView mainFrame] loadHTMLString:index_string baseURL:url];
-	[twittiaOauthView setFrameLoadDelegate:viewDelegate];
-	[twittiaOauthView setPolicyDelegate:viewDelegate];
-	[twittiaOauthView setUIDelegate:viewDelegate];
-    [[twittiaOauthView windowScriptObject] setValue:self forKey:@"controller"];
+    oauthView = [[WebView alloc] init];
+    viewDelegate.oauthView = oauthView;
+	[[oauthView mainFrame] loadHTMLString:index_string baseURL:url];
+	[oauthView setFrameLoadDelegate:viewDelegate];
+	[oauthView setPolicyDelegate:viewDelegate];
+	[oauthView setUIDelegate:viewDelegate];
+    [[oauthView windowScriptObject] setValue:self forKey:@"controller"];
 }
 
 - (void)initHotKeys {
@@ -146,8 +146,8 @@
 	[mentionsView setPolicyDelegate:viewDelegate];
 	[mentionsView setUIDelegate:viewDelegate];
     [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
-	
-	[logoLayer removeFromSuperview];
+
+    // FIXME: show timelineView after authentification
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
@@ -161,26 +161,26 @@
 
 #pragma mark Notifications
 
-- (IBAction)openNewTweetWindow:(id)sender {
+- (IBAction)openNewMessageWindow:(id)sender {
 	[NSApp activateIgnoringOtherApps:YES]; 
 	[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];	
 }
 
-- (void)openNewTweetWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId {
+- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId {
 	[NSApp activateIgnoringOtherApps:YES]; 
-	NewTweetWindow *newTweet = (NewTweetWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+	NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 	[newTweet inReplyTo:userName statusId:statusId];
 }
 
-- (void)openNewTweetWindowWithString:(NSString *)aString {
+- (void)openNewMessageWindowWithString:(NSString *)aString {
 	[NSApp activateIgnoringOtherApps:YES];
 	
 	NSRange range = [aString rangeOfString:@"oauth_token"];
 	
 	if (range.length > 0) {
-        [twittiaOauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"twittia_oauth.requestAccessToken('%@')", aString]];
+        [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"tentia_oauth.requestAccessToken('%@')", aString]];
 	} else {
-		NewTweetWindow *newTweet = (NewTweetWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+		NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
 	}
 	
@@ -188,18 +188,18 @@
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
 	NSString *text = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] substringFromIndex:8];
-	[self openNewTweetWindowWithString:[text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	[self openNewMessageWindowWithString:[text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (IBAction)sendTweet:(id)sender {
 	TweetModel *tweet = (TweetModel *)[sender object];
-    NSString *func = [NSString stringWithFormat:@"twittia_instance.sendNewTweet(\"%@\", \"%@\")", [tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""], tweet.inReplyTostatusId];
+    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\")", [tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""], tweet.inReplyTostatusId];
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 
 - (NSString *)pluginURL {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSString *pathToPlugin = [@"~/Library/Application Support/Twittia/Plugin.js" stringByExpandingTildeInPath];
+	NSString *pathToPlugin = [@"~/Library/Application Support/Tentia/Plugin.js" stringByExpandingTildeInPath];
 	if([fileManager fileExistsAtPath:pathToPlugin]) {
 		return [NSString stringWithFormat:@"%@", [NSURL fileURLWithPath:pathToPlugin]];
 	}
@@ -208,12 +208,12 @@
 
 - (void)unreadMentions:(NSInteger)count {
 	if (![mentionsViewWindow isVisible] && count > 0) {
-		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia (@%i)", count]];
+		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia (@%i)", count]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
 	} else {
-		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia"]];
+		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia"]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
-		[mentionsView stringByEvaluatingJavaScriptFromString:@"twittia_instance.unread_mentions = 0;"];
+		[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.unread_mentions = 0;"];
 	}
 }
 
@@ -241,8 +241,8 @@
 }
 
 - (void)getTweetUpdates:(id)sender {
-	[timelineView stringByEvaluatingJavaScriptFromString:@"twittia_instance.getNewData(true)"];
-	[mentionsView stringByEvaluatingJavaScriptFromString:@"twittia_instance.getNewData(true)"];
+	[timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData(true)"];
+	[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData(true)"];
 }
 
 
@@ -250,7 +250,7 @@
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData)
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"openNewTweetWindow" object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"openNewMessageWindow" object:nil];
 	return noErr;
 }
 

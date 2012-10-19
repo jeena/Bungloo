@@ -1,6 +1,6 @@
 //
 //  Controller.h
-//  Twittia 2
+//  Tentia
 //
 //  Created by Jeena on 15.04.10.
 //  Licence: BSD (see attached LICENCE.txt file).
@@ -22,7 +22,7 @@
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
 	IBOutlet NSImageView *logoLayer;
 	ViewDelegate *viewDelegate;
-    WebView *twittiaOauthView;
+    WebView *oauthView;
     AccessToken *accessToken;
 }
 
@@ -33,14 +33,14 @@
 @property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
 @property (retain, nonatomic) IBOutlet NSImageView *logoLayer;
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
-@property (retain, nonatomic) WebView *twittiaOauthView;
+@property (retain, nonatomic) WebView *oauthView;
 @property (retain, nonatomic) AccessToken *accessToken;
 
 - (void)initOauth;
 - (void)authentificationSucceded:(id)sender;
 - (void)initWebViews;
 - (void)initHotKeys;
-- (void)openNewTweetWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId;
+- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId;
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)unreadMentions:(NSInteger)count;

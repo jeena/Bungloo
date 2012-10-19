@@ -1,6 +1,6 @@
 //
 //  Constants.m
-//  Twittia 2
+//  Tentia
 //
 //  Created by Jeena on 01.05.10.
 //  Licence: BSD (see attached LICENCE.txt file).

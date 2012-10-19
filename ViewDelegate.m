@@ -1,6 +1,6 @@
 //
 //  ViewDelegate.m
-//  Twittia 2
+//  Tentia
 //
 //  Created by Jeena on 15.04.10.
 //  Licence: BSD (see attached LICENCE.txt file).
@@ -11,7 +11,7 @@
 
 @implementation ViewDelegate
 
-@synthesize timelineView, mentionsView, twittiaOauthView;
+@synthesize timelineView, mentionsView, oauthView;
 
 - (void)webView:(WebView *)sender addMessageToConsole:(NSDictionary *)message;{
 
@@ -19,7 +19,7 @@
 	
     NSString *viewName = @"TimelineView";
     if (sender == mentionsView) viewName = @"MentionsView";
-    if (sender == twittiaOauthView) viewName = @"TwittiaOauthView";
+    if (sender == oauthView) viewName = @"OauthView";
     
 	NSLog(@"js<%@>: %@:%@: %@",
         viewName,
@@ -32,7 +32,7 @@
 - (void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
     NSString *viewName = @"TimelineView";
     if (sender == mentionsView) viewName = @"MentionsView";
-    if (sender == twittiaOauthView) viewName = @"TwittiaOauthView";
+    if (sender == oauthView) viewName = @"OauthView";
 
 	NSLog(@"jsa<%@>: %@", viewName, message);
 }
@@ -44,9 +44,9 @@
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
 
-    if (sender == twittiaOauthView) {
+    if (sender == oauthView) {
         
-        [twittiaOauthView stringByEvaluatingJavaScriptFromString:@"setTimeout( function() { twittia_oauth = new TwittiaOauth(); }, 2);"];
+        [oauthView stringByEvaluatingJavaScriptFromString:@"setTimeout( function() { tentia_oauth = new OauthImplementation(); }, 2);"];
         
     } else {
         
@@ -59,8 +59,8 @@
         }
         
         [sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:
-                                                        @"setTimeout(function(){ twittia_instance = new Twittia('%@'); \
-                                                        document.getElementsByTagName('body')[0].appendChild(twittia_instance.body); \
+                                                        @"setTimeout(function(){ tentia_instance = new Core('%@'); \
+                                                        document.getElementsByTagName('body')[0].appendChild(tentia_instance.body); \
                                                         setTimeout(function() { loadPlugin(controller.pluginURL()) }, 1); }, %@);", action, delay]];
     }
 }

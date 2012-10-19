@@ -1,6 +1,6 @@
 //
 //  ViewDelegate.h
-//  Twittia 2
+//  Tentia
 //
 //  Created by Jeena on 15.04.10.
 //  Licence: BSD (see attached LICENCE.txt file).
@@ -13,11 +13,11 @@
 @interface ViewDelegate : NSObject {
 	WebView *timelineView;
 	WebView *mentionsView;
-    WebView *twittiaOauthView;
+    WebView *oauthView;
 }
 
 @property (nonatomic, assign) WebView *timelineView;
 @property (nonatomic, assign) WebView *mentionsView;
-@property (nonatomic, assign) WebView *twittiaOauthView;
+@property (nonatomic, assign) WebView *oauthView;
 
 @end

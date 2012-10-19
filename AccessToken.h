@@ -1,6 +1,6 @@
 //
 //  AccessToken.h
-//  Twittia 2
+//  Tentia
 //
 //  Created by Jeena Paradies on 19/09/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.

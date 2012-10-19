@@ -1,6 +1,6 @@
 //
 //  Constants.h
-//  Twittia 2
+//  Tentia
 //
 //  Created by Jeena on 01.05.10.
 //  Licence: BSD (see attached LICENCE.txt file).
@@ -22,8 +22,8 @@
 #define OAUTH_ACCESS_TOKEN_URL @"http://twitter.com/oauth/access_token"
 #define OAUTH_SERVICE_NAME @"twitter.com"
 
-#define APP_NAME @"Twittia"
-#define TWEET_MAX_LENGTH 140
+#define APP_NAME @"Tentia"
+#define MESSAGE_MAX_LENGTH 256
 
 + (NSString *)stringFromVirtualKeyCode:(NSInteger)code;
 
