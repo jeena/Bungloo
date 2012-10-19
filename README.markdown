@@ -8,11 +8,11 @@ by doing so. _"Keep it simple, stupid!"_ Is the mantra, therefore there
 will not by much more functionality as it is now. But you're welcome to
 fork and extend it.
 
-[Download Tentia](http://github.com/downloads/jeena/Tentia/Ttentia.app.zip)
+Sorry, Tentia is in the first development stage so nothing is working yet.
 
 It works on Mac OS 10.5 and higher.
 
-![Tentia screenshot](http://github.com/downloads/jeena/Tentia/Screen-shot.png)
+![Tentia screenshot](http://github.com/downloads/jeena/Tentia/Icon.png)
 
 FAQ:s
 -----
