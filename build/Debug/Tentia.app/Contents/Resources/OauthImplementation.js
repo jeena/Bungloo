@@ -6,7 +6,21 @@
 //  Licence: BSD (see attached LICENCE.txt file).
 //
 
-MY_ENTITY = "https://jeena.tent.is";
+MY_ENTITY = "http://lala.home.jeena.net:3002";
+
+var app_info = {
+    "name": "Tentia",
+    "description": "A small TentStatus client.",
+    "url": "http://jabs.nu/Tentia/",
+    "icon": "http://jabs.nu/Tentia/icon.png",
+    "redirect_uris": [
+        "tentia://oauthtoken"
+    ],
+    "scopes": {
+        "read_posts": "Uses posts to show them in a list",
+        "write_posts": "Posts on users behalf"
+    }
+};
 
 function getURL(url, type, callback, data) {
     $.ajax({
@@ -22,7 +36,17 @@ function getURL(url, type, callback, data) {
              alert(ajaxOptions);
              alert(thrownError);
         }
-});
+    });
+}
+
+function makeid(len) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < len; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }
 
 function OauthImplementation() {
@@ -35,38 +59,44 @@ OauthImplementation.prototype.requestProfileURL = function (entity) {
     getURL(entity, "HEAD", function(resp) {
         var headers = resp.getAllResponseHeaders();
         var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/;
-        var matches = headers.match(regex)
-        alert(matches[1]);
-        those.register(matches[1]);
+        var profile_url = headers.match(regex)[1]
+        if (profile_url == "/profile") {
+            profile_url = entity + "/profile";
+        }
+        alert(profile_url);
+        those.register(profile_url);
     });
 
 }
 
 OauthImplementation.prototype.register = function (url) {
-
-    var app_info = {
-        "name": "Tentia",
-        "description": "A small TentStatus client.",
-        "url": "http://jabs.nu/Tentia/",
-        "icon": "http://jabs.nu/Tentia/icon.png",
-        "redirect_uris": [
-            "tentia://oauth_token"
-        ],
-        "scopes": {
-            "read_posts": "Uses posts to show them in a list",
-            "write_posts": "Posts on users behalf"
-        }
-    };
-
     var those = this;
     getURL(url, "GET", function(resp) {
         var profile = JSON.parse(resp.responseText);
         var server = profile["https://tent.io/types/info/core/v0.1.0"]["servers"][0];
         var callback = function(resp) {
-            alert(JSON.parse(resp.responseText));
+            var data = JSON.parse(resp.responseText);
+            those.authRequest(server, data);
         }
+        alert(server + "/apps")
         getURL(server + "/apps", "POST", callback, JSON.stringify(app_info));
     });
+}
+
+OauthImplementation.prototype.authRequest = function(server, register_data) {
+    // id
+    // mac_key_id
+    // mac_key
+    // mac_algorithm
+    var state = makeid(19);
+    var auth = "/oauth/authorize?client_id=" + register_data["id"]
+                + "&redirect_uri=" + escape(app_info["redirect_uris"][0])
+                + "&scope=" + Object.keys(app_info["scopes"]).join(",")
+                + "&state=" + state
+                + "&tent_post_types=" + escape("https://tent.io/types/posts/status/v0.1.0");
+
+    alert(server + auth)
+    controller.openURL_(server + auth);
 }
 
 
@@ -113,7 +143,11 @@ OauthImplementation.prototype.requestTokenTicketFinished = function(data) {
 
 OauthImplementation.prototype.requestAccessToken = function(responseBody) {
         // "twittia://oauth_token?oauth_token=jCcf7ClzJMbE4coZdONi467OAQxRGOBZJsuopG8C8&oauth_verifier=BK2ZkAIz51lqI4qta8MnKc280GyDLy0OQBpdsEmjT40"
-        
+        alert("XXX");
+        alert(responseBody);
+
+
+        /*
         var urlVars = getUrlVars(responseBody);
         
         var url = OAUTH_ACCESS_TOKEN_URL;
@@ -144,7 +178,7 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
                      alert(ajaxOptions);
                      alert(thrownError);                
                      }
-                     });
+                     });*/
 }
 
 OauthImplementation.prototype.requestAccessTokenTicketFinished = function(responseBody) {

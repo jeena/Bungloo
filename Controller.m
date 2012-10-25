@@ -75,7 +75,7 @@
 
 - (void)initHotKeys {
 
-	NSInteger newTweetKey = kVK_ANSI_T; // http://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
+	NSInteger newTweetKey = kVK_ANSI_M; // http://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
 	NSInteger newTweetModifierKey = controlKey + cmdKey + optionKey; // cmdKey 256, shitfKey 512, optionKey 2048, controlKey 4096 
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -175,7 +175,7 @@
 - (void)openNewMessageWindowWithString:(NSString *)aString {
 	[NSApp activateIgnoringOtherApps:YES];
 	
-	NSRange range = [aString rangeOfString:@"oauth_token"];
+	NSRange range = [aString rangeOfString:@"oauthtoken"];
 	
 	if (range.length > 0) {
         [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"tentia_oauth.requestAccessToken('%@')", aString]];

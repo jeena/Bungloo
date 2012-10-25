@@ -11,9 +11,8 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		1F122D49118E1DE100E83B77 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F122D48118E1DE100E83B77 /* Icon.icns */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
+		1F245D6F1632AEFE00E4469A /* jso.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F245D6E1632AEFE00E4469A /* jso.js */; };
 		1F2746FC12D9057600339B4F /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1FE2FCA6117A8952000504B0 /* dsa_pub.pem */; };
-		1F3642EF118C8C35008198EF /* oauth.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F3642ED118C8C35008198EF /* oauth.js */; };
-		1F3642F0118C8C35008198EF /* sha1.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F3642EE118C8C35008198EF /* sha1.js */; };
 		1F4673FE1180F7EA006CC37C /* Core.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E61180F654006CC37C /* Core.js */; };
 		1F4674081180F7EE006CC37C /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E21180F519006CC37C /* jQuery.js */; };
 		1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E41180F590006CC37C /* jQuery-Plugins.js */; };
@@ -67,8 +66,7 @@
 		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		1F1990DF117BD2250049BEA7 /* Appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Appcast.xml; sourceTree = "<group>"; };
 		1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; lineEnding = 0; path = ReleaseNotes.html; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.html; };
-		1F3642ED118C8C35008198EF /* oauth.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = oauth.js; sourceTree = "<group>"; };
-		1F3642EE118C8C35008198EF /* sha1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sha1.js; sourceTree = "<group>"; };
+		1F245D6E1632AEFE00E4469A /* jso.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jso.js; sourceTree = "<group>"; };
 		1F36440E118CC173008198EF /* OAuthConsumer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OAuthConsumer.framework; sourceTree = "<group>"; };
 		1F4673E21180F519006CC37C /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
 		1F4673E41180F590006CC37C /* jQuery-Plugins.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jQuery-Plugins.js"; sourceTree = "<group>"; };
@@ -159,8 +157,7 @@
 		1FFA36C71177D861006C8562 /* WebKit */ = {
 			isa = PBXGroup;
 			children = (
-				1F3642ED118C8C35008198EF /* oauth.js */,
-				1F3642EE118C8C35008198EF /* sha1.js */,
+				1F245D6E1632AEFE00E4469A /* jso.js */,
 				1F4673E61180F654006CC37C /* Core.js */,
 				1FC254911427ADF90035D84B /* OauthImplementation.js */,
 				1FC2549D1427DC2B0035D84B /* Constants.js */,
@@ -302,8 +299,6 @@
 				1FC2549F1427DC7F0035D84B /* Constants.js in Resources */,
 				1FC254951427BF150035D84B /* OauthImplementation.js in Resources */,
 				1F2746FC12D9057600339B4F /* dsa_pub.pem in Resources */,
-				1F3642EF118C8C35008198EF /* oauth.js in Resources */,
-				1F3642F0118C8C35008198EF /* sha1.js in Resources */,
 				1F4673FE1180F7EA006CC37C /* Core.js in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
@@ -336,6 +331,7 @@
 				1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */,
 				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
 				1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */,
+				1F245D6F1632AEFE00E4469A /* jso.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

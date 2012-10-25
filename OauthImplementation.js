@@ -6,8 +6,6 @@
 //  Licence: BSD (see attached LICENCE.txt file).
 //
 
-MY_ENTITY = "https://jeena.tent.is";
-
 function getURL(url, type, callback, data) {
     $.ajax({
         url: url,
@@ -22,12 +20,43 @@ function getURL(url, type, callback, data) {
              alert(ajaxOptions);
              alert(thrownError);
         }
-});
+    });
 }
 
-function OauthImplementation() {
-        this.requestProfileURL(MY_ENTITY);
-        //this.requestAToken();
+function makeid(len) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < len; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+function OauthImplementation(entity) {
+    this.entity = entity || "http://lala.home.jeena.net:3002";
+    this.app_info = {
+        "id": null,
+        "name": "Tentia",
+        "description": "A small TentStatus client.",
+        "url": "http://jabs.nu/Tentia/",
+        "icon": "http://jabs.nu/Tentia/icon.png",
+        "redirect_uris": [
+            "tentia://oauthtoken"
+        ],
+        "scopes": {
+            "read_posts": "Uses posts to show them in a list",
+            "write_posts": "Posts on users behalf"
+        }
+    };
+    this.register_data = null;
+    this.profile = null;
+    this.state = null;
+    this.requestProfileURL(this.entity);
+}
+
+OauthImplementation.prototype.apiRoot = function() {
+    return this.profile["https://tent.io/types/info/core/v0.1.0"]["servers"][0];
 }
 
 OauthImplementation.prototype.requestProfileURL = function (entity) {
@@ -35,44 +64,94 @@ OauthImplementation.prototype.requestProfileURL = function (entity) {
     getURL(entity, "HEAD", function(resp) {
         var headers = resp.getAllResponseHeaders();
         var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/;
-        var matches = headers.match(regex)
-        alert(matches[1]);
-        those.register(matches[1]);
+        var profile_url = headers.match(regex)[1]
+        if (profile_url == "/profile") {
+            profile_url = entity + "/profile";
+        }
+        those.register(profile_url);
     });
 
 }
 
 OauthImplementation.prototype.register = function (url) {
-
-    var app_info = {
-        "name": "Tentia",
-        "description": "A small TentStatus client.",
-        "url": "http://jabs.nu/Tentia/",
-        "icon": "http://jabs.nu/Tentia/icon.png",
-        "redirect_uris": [
-            "tentia://oauth_token"
-        ],
-        "scopes": {
-            "read_posts": "Uses posts to show them in a list",
-            "write_posts": "Posts on users behalf"
-        }
-    };
-
     var those = this;
     getURL(url, "GET", function(resp) {
-        var profile = JSON.parse(resp.responseText);
-        var server = profile["https://tent.io/types/info/core/v0.1.0"]["servers"][0];
+        this.profile = JSON.parse(resp.responseText);
         var callback = function(resp) {
-            alert(JSON.parse(resp.responseText));
+            var data = JSON.parse(resp.responseText);
+            those.authRequest(data);
         }
-        getURL(server + "/apps", "POST", callback, JSON.stringify(app_info));
+        getURL(those.apiRoot() + "/apps", "POST", callback, JSON.stringify(those.app_info));
     });
 }
 
+OauthImplementation.prototype.authRequest = function(register_data) {
+    // id
+    // mac_key_id
+    // mac_key
+    // mac_algorithm
+    this.register_data = register_data;
+
+    this.state = makeid(19);
+    var auth = "/oauth/authorize?client_id=" + register_data["id"]
+                + "&redirect_uri=" + escape(this.app_info["redirect_uris"][0])
+                + "&scope=" + Object.keys(this.app_info["scopes"]).join(",")
+                + "&state=" + this.state
+                + "&tent_post_types=" + escape("https://tent.io/types/posts/status/v0.1.0");
+
+    controller.openURL_(those.apiRoot() + auth);
+}
+
+OauthImplementation.prototype.requestAccessToken = function(responseBody) {
+        // /oauthtoken?code=51d0115b04d1ed94001dde751c5b360f&state=aQfH1VEohYsQr86qqyv
+
+        var urlVars = getUrlVars(responseBody);
+        if(this.state && this.state != "" && urlVars["state"] == this.state) {
+
+            var code = urlVars["code"];
+            var url = this.apiRoot() + "/apps/" + this.register_data["id"] + "/authorizations";
 
 
+        } else {
+            alert("State is not the same: {" + this.state + "} vs {" + urlVars["state"] + "}")
+        }
+
+        this.state = null; // reset the state
 
 
+        /*
+        var urlVars = getUrlVars(responseBody);
+        
+        var url = OAUTH_ACCESS_TOKEN_URL;
+    var _this = this;
+        var accessTokenKey = getUrlVars(responseBody)
+    
+    var message = { method:"POST" , action:url };
+    
+    OAuth.completeRequest(message,
+                            { consumerKey   : OAUTH_CONSUMER_KEY
+                            , consumerSecret: OAUTH_CONSUMER_SECRET
+                            , token         : urlVars["oauth_token"]
+                            , tokenSecret   : urlVars["oauth_verifier"]
+                            });
+        
+    $.ajax({
+                     beforeSend: function(xhr) {
+                     xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+                     },
+                     url: url,
+                     type: 'POST',
+                     dataType: 'text',
+                     success: function(data) {
+                     _this.requestAccessTokenTicketFinished(data);
+                     },
+                     error:function (xhr, ajaxOptions, thrownError) {
+                     alert(xhr.statusText);
+                     alert(ajaxOptions);
+                     alert(thrownError);                
+                     }
+                     });*/
+}
 
 
 OauthImplementation.prototype.requestAToken = function() {
@@ -111,41 +190,6 @@ OauthImplementation.prototype.requestTokenTicketFinished = function(data) {
         controller.openURL_(OAUTH_USER_AUTHORIZATION_URL + "?" + data);
 }
 
-OauthImplementation.prototype.requestAccessToken = function(responseBody) {
-        // "twittia://oauth_token?oauth_token=jCcf7ClzJMbE4coZdONi467OAQxRGOBZJsuopG8C8&oauth_verifier=BK2ZkAIz51lqI4qta8MnKc280GyDLy0OQBpdsEmjT40"
-        
-        var urlVars = getUrlVars(responseBody);
-        
-        var url = OAUTH_ACCESS_TOKEN_URL;
-    var _this = this;
-        var accessTokenKey = getUrlVars(responseBody)
-    
-    var message = { method:"POST" , action:url };
-    
-    OAuth.completeRequest(message,
-                            { consumerKey   : OAUTH_CONSUMER_KEY
-                            , consumerSecret: OAUTH_CONSUMER_SECRET
-                            , token         : urlVars["oauth_token"]
-                            , tokenSecret   : urlVars["oauth_verifier"]
-                            });
-        
-    $.ajax({
-                     beforeSend: function(xhr) {
-                     xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
-                     },
-                     url: url,
-                     type: 'POST',
-                     dataType: 'text',
-                     success: function(data) {
-                     _this.requestAccessTokenTicketFinished(data);
-                     },
-                     error:function (xhr, ajaxOptions, thrownError) {
-                     alert(xhr.statusText);
-                     alert(ajaxOptions);
-                     alert(thrownError);                
-                     }
-                     });
-}
 
 OauthImplementation.prototype.requestAccessTokenTicketFinished = function(responseBody) {
         var urlVars = getUrlVars(responseBody);
