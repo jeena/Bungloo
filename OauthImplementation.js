@@ -6,8 +6,21 @@
 //  Licence: BSD (see attached LICENCE.txt file).
 //
 
-function getURL(url, type, callback, data) {
+function getURL(url, type, callback, data, auth_header) {
     $.ajax({
+        beforeSend: function(xhr) {
+            if (data) {
+                xhr.setRequestHeader("Content-Length", data.length);
+            }
+
+            if (auth_header) {
+                var header_data = 'MAC id=' + auth_header.mac_key_id 
+                                    + ', ts="' + auth_header.time_stamp
+                                    + '", nonce="' + auth_header.nonce
+                                    + '", mac="' + auth_header.mac + '"';
+                xhr.setRequestHeader("Authorization", header_data);                
+            };
+        },
         url: url,
         accepts: "application/vnd.tent.v0+json",
         contentType: "application/vnd.tent.v0+json",
@@ -16,9 +29,10 @@ function getURL(url, type, callback, data) {
         data: data,
         processData: false,
         error: function(xhr, ajaxOptions, thrownError) {
-             alert(xhr.statusText);
-             alert(ajaxOptions);
-             alert(thrownError);
+            alert("getURL ERROR:");
+            alert(xhr.statusText);
+            alert(ajaxOptions);
+            alert(thrownError);
         }
     });
 }
@@ -76,7 +90,7 @@ OauthImplementation.prototype.requestProfileURL = function (entity) {
 OauthImplementation.prototype.register = function (url) {
     var those = this;
     getURL(url, "GET", function(resp) {
-        this.profile = JSON.parse(resp.responseText);
+        those.profile = JSON.parse(resp.responseText);
         var callback = function(resp) {
             var data = JSON.parse(resp.responseText);
             those.authRequest(data);
@@ -99,58 +113,48 @@ OauthImplementation.prototype.authRequest = function(register_data) {
                 + "&state=" + this.state
                 + "&tent_post_types=" + escape("https://tent.io/types/posts/status/v0.1.0");
 
-    controller.openURL_(those.apiRoot() + auth);
+    controller.openURL_(this.apiRoot() + auth);
 }
 
 OauthImplementation.prototype.requestAccessToken = function(responseBody) {
         // /oauthtoken?code=51d0115b04d1ed94001dde751c5b360f&state=aQfH1VEohYsQr86qqyv
-
         var urlVars = getUrlVars(responseBody);
         if(this.state && this.state != "" && urlVars["state"] == this.state) {
 
-            var code = urlVars["code"];
             var url = this.apiRoot() + "/apps/" + this.register_data["id"] + "/authorizations";
+            var nonce = makeid(4);
+            var time_stamp = (new Date).getTime(); 
 
+            var requestBody = JSON.stringify({
+                'code' : urlVars["code"],
+                'token_type' : "mac"
+            });
+
+            var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, this.register_data["mac_key"]);
+            hmac.update(requestBody);
+            var hash = hmac.finalize();
+
+            var auth_header = {
+                mac_key_id: this.register_data["mac_key_id"],
+                time_stamp: time_stamp,
+                nonce: nonce,
+                mac: hash.toString(CryptoJS.enc.Base64)
+            }
+
+            var those = this;
+            var callback = function(resp) {
+                alert("requestAccessTokenTicketFinished")
+                alert(resp.responseText);
+                //those.requestAccessTokenTicketFinished(data);
+            };
+
+            getURL(url, "POST", callback, requestBody, auth_header);
 
         } else {
             alert("State is not the same: {" + this.state + "} vs {" + urlVars["state"] + "}")
         }
 
         this.state = null; // reset the state
-
-
-        /*
-        var urlVars = getUrlVars(responseBody);
-        
-        var url = OAUTH_ACCESS_TOKEN_URL;
-    var _this = this;
-        var accessTokenKey = getUrlVars(responseBody)
-    
-    var message = { method:"POST" , action:url };
-    
-    OAuth.completeRequest(message,
-                            { consumerKey   : OAUTH_CONSUMER_KEY
-                            , consumerSecret: OAUTH_CONSUMER_SECRET
-                            , token         : urlVars["oauth_token"]
-                            , tokenSecret   : urlVars["oauth_verifier"]
-                            });
-        
-    $.ajax({
-                     beforeSend: function(xhr) {
-                     xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
-                     },
-                     url: url,
-                     type: 'POST',
-                     dataType: 'text',
-                     success: function(data) {
-                     _this.requestAccessTokenTicketFinished(data);
-                     },
-                     error:function (xhr, ajaxOptions, thrownError) {
-                     alert(xhr.statusText);
-                     alert(ajaxOptions);
-                     alert(thrownError);                
-                     }
-                     });*/
 }
 
 

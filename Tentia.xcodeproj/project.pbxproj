@@ -20,6 +20,10 @@
 		1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F705EA5117889FA00C85707 /* sprite-icons.png */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
+		1F9816C8163915A100AFD4EE /* enc-base64-min.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9816C6163915A100AFD4EE /* enc-base64-min.js */; };
+		1F9816C9163915A100AFD4EE /* hmac-sha256.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9816C7163915A100AFD4EE /* hmac-sha256.js */; };
+		1F9816CA16391C4A00AFD4EE /* enc-base64-min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9816C6163915A100AFD4EE /* enc-base64-min.js */; };
+		1F9816CB16391C4A00AFD4EE /* hmac-sha256.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9816C7163915A100AFD4EE /* hmac-sha256.js */; };
 		1F98DC9E124BFFD7004289ED /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F98DC9D124BFFD7004289ED /* pin.png */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
 		1FC254941427BC050035D84B /* index_oauth.html in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254931427BC050035D84B /* index_oauth.html */; };
@@ -77,6 +81,8 @@
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Constants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Constants.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1F9816C6163915A100AFD4EE /* enc-base64-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "enc-base64-min.js"; sourceTree = "<group>"; };
+		1F9816C7163915A100AFD4EE /* hmac-sha256.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "hmac-sha256.js"; sourceTree = "<group>"; };
 		1F98DC9D124BFFD7004289ED /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FC254911427ADF90035D84B /* OauthImplementation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; lineEnding = 0; path = OauthImplementation.js; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
@@ -157,6 +163,8 @@
 		1FFA36C71177D861006C8562 /* WebKit */ = {
 			isa = PBXGroup;
 			children = (
+				1F9816C6163915A100AFD4EE /* enc-base64-min.js */,
+				1F9816C7163915A100AFD4EE /* hmac-sha256.js */,
 				1F245D6E1632AEFE00E4469A /* jso.js */,
 				1F4673E61180F654006CC37C /* Core.js */,
 				1FC254911427ADF90035D84B /* OauthImplementation.js */,
@@ -296,6 +304,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9816CA16391C4A00AFD4EE /* enc-base64-min.js in Resources */,
+				1F9816CB16391C4A00AFD4EE /* hmac-sha256.js in Resources */,
 				1FC2549F1427DC7F0035D84B /* Constants.js in Resources */,
 				1FC254951427BF150035D84B /* OauthImplementation.js in Resources */,
 				1F2746FC12D9057600339B4F /* dsa_pub.pem in Resources */,
@@ -332,6 +342,8 @@
 				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
 				1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */,
 				1F245D6F1632AEFE00E4469A /* jso.js in Sources */,
+				1F9816C8163915A100AFD4EE /* enc-base64-min.js in Sources */,
+				1F9816C9163915A100AFD4EE /* hmac-sha256.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
