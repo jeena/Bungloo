@@ -46,6 +46,7 @@
 - (void)unreadMentions:(NSInteger)count;
 - (void)openURL:(NSString *)url;
 - (void)storeAccessToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName;
+- (void)storeSecretData:(NSString *)secretData;
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
 

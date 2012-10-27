@@ -14,12 +14,8 @@ function getURL(url, type, callback, data, auth_header) {
             }
 
             if (auth_header) {
-                var header_data = 'MAC id=' + auth_header.mac_key_id 
-                                    + ', ts="' + auth_header.time_stamp
-                                    + '", nonce="' + auth_header.nonce
-                                    + '", mac="' + auth_header.mac + '"';
-                xhr.setRequestHeader("Authorization", header_data);                
-            };
+                xhr.setRequestHeader("Authorization", auth_header);                
+            }
         },
         url: url,
         accepts: "application/vnd.tent.v0+json",
@@ -36,6 +32,46 @@ function getURL(url, type, callback, data, auth_header) {
         }
     });
 }
+
+function getUrlVars(url) {
+        var vars = [], hash;
+        if(url.indexOf("#") > -1) url = url.slice(0, url.indexOf("#"));
+        var hashes = url.slice(url.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+        }
+        return vars;
+}
+
+function makeAuthHeader(url, http_method, mac_key, mac_key_id) {
+
+    url = URI(url);
+    var nonce = makeid(8);
+    var time_stamp = parseInt((new Date).getTime() / 1000, 10);
+
+    var normalizedRequestString = "" 
+                                + time_stamp + '\n'
+                                + nonce + '\n'
+                                + http_method + '\n'
+                                + url.path() + '\n'
+                                + url.hostname() + '\n'
+                                + url.port() + '\n'
+                                + '\n' ;
+
+    var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, mac_key);
+    hmac.update(normalizedRequestString);
+    var hash = hmac.finalize();
+    var mac = hash.toString(CryptoJS.enc.Base64);
+
+    return 'MAC id="' + mac_key_id +
+            '", ts="' + time_stamp +
+            '", nonce="' + nonce +
+            '", mac="' + mac + '"';
+}
+
 
 function makeid(len) {
     var text = "";
@@ -122,32 +158,18 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
         if(this.state && this.state != "" && urlVars["state"] == this.state) {
 
             var url = this.apiRoot() + "/apps/" + this.register_data["id"] + "/authorizations";
-            var nonce = makeid(4);
-            var time_stamp = (new Date).getTime(); 
 
             var requestBody = JSON.stringify({
                 'code' : urlVars["code"],
                 'token_type' : "mac"
             });
 
-            var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, this.register_data["mac_key"]);
-            hmac.update(requestBody);
-            var hash = hmac.finalize();
-
-            var auth_header = {
-                mac_key_id: this.register_data["mac_key_id"],
-                time_stamp: time_stamp,
-                nonce: nonce,
-                mac: hash.toString(CryptoJS.enc.Base64)
-            }
-
             var those = this;
             var callback = function(resp) {
-                alert("requestAccessTokenTicketFinished")
-                alert(resp.responseText);
-                //those.requestAccessTokenTicketFinished(data);
+                those.requestAccessTokenTicketFinished(resp.responseText);
             };
 
+            var auth_header = makeAuthHeader(url, "POST", this.register_data["mac_key"], this.register_data["mac_key_id"]);
             getURL(url, "POST", callback, requestBody, auth_header);
 
         } else {
@@ -158,65 +180,17 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
 }
 
 
-OauthImplementation.prototype.requestAToken = function() {
-    var url = OAUTH_REQUEST_TOKEN_URL;
-    var _this = this;
-    
-    var message = { method:"POST" , action:url };
-    
-    OAuth.completeRequest(message,
-                            { consumerKey   : OAUTH_CONSUMER_KEY
-                            , consumerSecret: OAUTH_CONSUMER_SECRET
-                            //, token         : controller.oauth.accessToken.key
-                            //, tokenSecret   : controller.oauth.accessToken.secret
-                            });
-        
-    $.ajax({
-                     beforeSend: function(xhr) {
-                     xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
-                     },
-                     url: url,
-                     type: 'POST',
-                     dataType: 'text',
-                     success: function(data) {
-                     _this.requestTokenTicketFinished(data);
-                     },
-                     error:function (xhr, ajaxOptions, thrownError) {
-                     alert(xhr.statusText);
-                     alert(ajaxOptions);
-                     alert(thrownError);                
-                     }
-                     });
 
-}
-
-OauthImplementation.prototype.requestTokenTicketFinished = function(data) {
-        controller.openURL_(OAUTH_USER_AUTHORIZATION_URL + "?" + data);
-}
 
 
 OauthImplementation.prototype.requestAccessTokenTicketFinished = function(responseBody) {
-        var urlVars = getUrlVars(responseBody);
-        controller.storeAccessToken_secret_userId_andScreenName_(
-                                                                                                                         urlVars["oauth_token"],
-                                                                                                                         urlVars["oauth_token_secret"],
-                                                                                                                         urlVars["user_id"],
-                                                                                                                         urlVars["screen_name"]
-                                                                                                                         );
-}
 
-function getUrlVars(url)
-{
-        var vars = [], hash;
-        if(url.indexOf("#") > -1) url = url.slice(0, url.indexOf("#"));
-        var hashes = url.slice(url.indexOf('?') + 1).split('&');
-        for(var i = 0; i < hashes.length; i++)
-        {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
-        }
-        return vars;
+    var secret_data = {
+        access: JSON.parse(responseBody),
+        register_data: this.register_data
+    }
+
+    controller.storeSecretData_(JSON.stringify(secret_data));
 }
 
 var tentia_oauth;

@@ -233,6 +233,13 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }
 
+- (void)storeSecretData:(NSString *)secretData
+{
+    NSLog(@"got secret data: %@", secretData);
+    [timelineViewWindow makeKeyAndOrderFront:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
+}
+
 // Mentions window has been visible
 - (void)windowDidBecomeKey:(NSNotification *)notification {
 	if ([notification object] == mentionsViewWindow) {
