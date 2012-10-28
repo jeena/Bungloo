@@ -17,6 +17,7 @@ function Core(action) {
 
     this.body = document.createElement("ol");
     this.body.className = this.action;
+    this.cache = {};
 
 /*
     if (action == "home_timeline") {
@@ -53,24 +54,38 @@ Core.prototype.newStatus = function(status, supress_new_with_timeout) {
 }
 
 Core.prototype.getItem = function(status) {
+    alert(JSON.stringify(status))
+
 	var _this = this;
-	this.since_id = status.id_str;
+	this.since_id = status.id;
 	
-	
+    var original_status = null;
+	/*
 	if(status.retweeted_status != null) {
 		var original_status = status;
 		var status = status.retweeted_status;
-	}
+	}*/
 
 	var template = this.getTemplate();
 
-	template.reply_to.onclick = function() { replyTo(status.user.screen_name, status.id_str); return false; }
-	template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
+	template.reply_to.onclick = function() { replyTo(status.entity, status.id); return false; }
+	//template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
 	
-	template.image.src = status.user.profile_image_url;
-	template.username.innerText = status.user.screen_name;
-	template.username.href = WEBSITE_PATH + status.user.screen_name
-	
+	//template.image.src = status.user.profile_image_url;
+	template.username.innerText = status.entity;
+	template.username.href = status.entity; // FIXME open profile
+
+    findProfileURL(status.entity, function(profile_url) {
+        getURL(profile_url, "GET", function(resp) {
+            var profile = JSON.parse(resp.responseText);
+            var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+            alert(JSON.stringify(basic))
+            template.username.innerText = basic.name;
+            template.image.src = basic.avatar_url;
+        });
+    });
+
+	/*
 	if(original_status != null) {
 		var retweeted = document.createElement("span")
 		retweeted.className = "retweeted";
@@ -83,21 +98,21 @@ Core.prototype.getItem = function(status) {
 		retweeted.appendChild(document.createTextNode("@"));
 		retweeted.appendChild(retweeted_by);
 		template.in_reply.parentNode.parentNode.insertBefore(retweeted, template.in_reply.parent);
-	}
+	}*/
 	
-	if(status.in_reply_to_status_id_str != null) template.in_reply.innerText = status.in_reply_to_screen_name;
-	else template.in_reply.parentNode.className = "hidden";
-	template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id_str;
+	/*if(status.in_reply_to_status_id_str != null) template.in_reply.innerText = status.in_reply_to_screen_name;
+	else */template.in_reply.parentNode.className = "hidden";
+	//template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id_str;
 
-	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.text, status.entities, template.message));
+	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.content.text, status.entities, template.message));
 	
 	var time = document.createElement("abbr");
-	time.innerText = status.created_at;
-	time.title = status.created_at;
+	time.innerText = status.published_at;
+	time.title = status.published_at;
 	time.className = "timeago";
 	$(time).timeago();
 	template.ago.appendChild(time);
-	template.ago.href = WEBSITE_PATH +  status.user.screen_name + "/status/" + status.id_str;
+	//template.ago.href = WEBSITE_PATH +  status.user.screen_name + "/status/" + status.id_str;
 	
 	// {"type":"Point","coordinates":[57.10803113,12.25854746]}
 	if (status.geo && status.geo.type == "Point") {
@@ -106,7 +121,7 @@ Core.prototype.getItem = function(status) {
 	}
 	
 	template.source.innerHTML = status.source;
-    
+    /*
     if(status.entities.media) {
         
         for(var i=0; i<status.entities.media.length; i++) {
@@ -148,7 +163,7 @@ Core.prototype.getItem = function(status) {
             }
         }    
     }
-	
+	*/
 	return template.item;
 }
 
@@ -262,7 +277,7 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
     
     var http_method = "GET";
     var callback = function(resp) {
-        those.newStatus(data, supress_new_with_timeout);
+        those.newStatus(JSON.parse(resp.responseText), supress_new_with_timeout);
     }
 
     var data = null;
@@ -299,7 +314,7 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
 	);*/
 }
 
-
+/*
 Core.prototype.sendNewMessage = function(tweet, in_reply_to_status_id) {
 	
 	var url = API_PATH + "statuses/update.json";
@@ -449,10 +464,12 @@ Core.prototype.findUsernamesFor = function(query) {
   }
   return ret;
 }
-
+*/
 /* Helper functions */
 
 function replaceURLWithHTMLLinks(text, entities, message_node) {
+    if(!entities) return text;
+    /*
     var urls = entities.urls;
     
     for(var i = 0; i<urls.length; i++) {
@@ -511,13 +528,14 @@ function replaceURLWithHTMLLinks(text, entities, message_node) {
 
     }
 
-	return text;
+	return text;*/
 }
 
 function replaceTwitterLinks(text) {
-	var username = /(^|\s)(@)(\w+)/ig;
+    return text; // FIXME!
+	var username = /(^|\s)(\^)(\w+)/ig;
 	var hash = /(^|\s)(#)(\w+)/ig;
-	text = text.replace(username, "$1$2<a href='http://twitter.com/$3'>$3</a>");
+	text = text.replace(username, "$1$2<a href='tentia://profile/$3'>$3</a>");
 	return text.replace(hash, "$1$2<a href='http://search.twitter.com/search?q=%23$3'>$3</a>");
 }
 

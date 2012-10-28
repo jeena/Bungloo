@@ -21,7 +21,7 @@ function getURL(url, http_method, callback, data, auth_header) {
         data: data,
         processData: false,
         error: function(xhr, ajaxOptions, thrownError) {
-            alert("getURL ERROR:");
+            alert("getURL ERROR (" + url + ") (" + http_method + "):");
             alert(xhr.statusText);
             alert(ajaxOptions);
             alert(thrownError);
@@ -63,4 +63,16 @@ function makeid(len) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return text;
+}
+
+function findProfileURL(entity, callback) {
+    getURL(entity, "HEAD", function(resp) {
+        var headers = resp.getAllResponseHeaders();
+        var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/; // FIXME: parse it!
+        var profile_url = headers.match(regex)[1];
+        if (profile_url == "/profile") {
+            profile_url = entity + "/profile";
+        }
+        callback(profile_url);
+    });
 }

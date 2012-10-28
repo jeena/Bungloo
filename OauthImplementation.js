@@ -20,7 +20,7 @@ function getUrlVars(url) {
 }
 
 function OauthImplementation(entity) {
-    this.entity = entity || "http://lala.home.jeena.net:3002";
+    this.entity = entity || "http://jeena.net";
     controller.setString_forKey_(this.entity, "entity");
     this.app_info = {
         "id": null,
@@ -51,7 +51,7 @@ OauthImplementation.prototype.requestProfileURL = function (entity) {
     getURL(entity, "HEAD", function(resp) {
         var headers = resp.getAllResponseHeaders();
         var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/; // FIXME: parse it!
-        var profile_url = headers.match(regex)[1]
+        var profile_url = headers.match(regex)[1];
         if (profile_url == "/profile") {
             profile_url = entity + "/profile";
         }
