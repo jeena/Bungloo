@@ -1,902 +1,0 @@
-TTwittia
-v5
-r1
-cCheck dependencies
-cProcessInfoPlistFile /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Info.plist Twittia_2-Info.plist
-cCpResource Constants.js build/Debug/Twittia.app/Contents/Resources/Constants.js
-cCpResource TwittiaOauth.js build/Debug/Twittia.app/Contents/Resources/TwittiaOauth.js
-cCpResource dsa_pub.pem build/Debug/Twittia.app/Contents/Resources/dsa_pub.pem
-cCpResource oauth.js build/Debug/Twittia.app/Contents/Resources/oauth.js
-cCpResource sha1.js build/Debug/Twittia.app/Contents/Resources/sha1.js
-cCpResource English.lproj/Credits.rtf build/Debug/Twittia.app/Contents/Resources/English.lproj/Credits.rtf
-cCpResource TwittiaCore.js build/Debug/Twittia.app/Contents/Resources/TwittiaCore.js
-cCopyStringsFile /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings
-cCompileXIB /Users/jeena/Projects/Tentia/English.lproj/NewTweetWindow.xib
-cCompileXIB /Users/jeena/Projects/Tentia/English.lproj/MainMenu.xib
-cCpResource even-bg.png build/Debug/Twittia.app/Contents/Resources/even-bg.png
-cCpResource jQuery-Plugins.js build/Debug/Twittia.app/Contents/Resources/jQuery-Plugins.js
-cCpResource index.html build/Debug/Twittia.app/Contents/Resources/index.html
-cCpResource odd-bg.png build/Debug/Twittia.app/Contents/Resources/odd-bg.png
-cCpResource jQuery.js build/Debug/Twittia.app/Contents/Resources/jQuery.js
-cCpResource default.css build/Debug/Twittia.app/Contents/Resources/default.css
-cCpResource sprite-icons.png build/Debug/Twittia.app/Contents/Resources/sprite-icons.png
-cCpResource Icon.icns build/Debug/Twittia.app/Contents/Resources/Icon.icns
-cCpResource pin.png build/Debug/Twittia.app/Contents/Resources/pin.png
-cCpResource index_oauth.html build/Debug/Twittia.app/Contents/Resources/index_oauth.html
-cProcessPCH /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch.pth Twittia_2_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cProcessPCH /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch.pth Twittia_2_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/main.o /Users/jeena/Projects/Tentia/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/NewTweetWindow.o /Users/jeena/Projects/Tentia/NewTweetWindow.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Controller.o /Users/jeena/Projects/Tentia/Controller.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/ViewDelegate.o /Users/jeena/Projects/Tentia/ViewDelegate.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/TweetModel.o /Users/jeena/Projects/Tentia/TweetModel.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/NewTweetWindow.o /Users/jeena/Projects/Tentia/NewTweetWindow.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/AccessToken.o /Users/jeena/Projects/Tentia/AccessToken.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/main.o /Users/jeena/Projects/Tentia/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/AccessToken.o /Users/jeena/Projects/Tentia/AccessToken.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Constants.o /Users/jeena/Projects/Tentia/Constants.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Controller.o /Users/jeena/Projects/Tentia/Controller.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/ViewDelegate.o /Users/jeena/Projects/Tentia/ViewDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/TweetModel.o /Users/jeena/Projects/Tentia/TweetModel.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Constants.o /Users/jeena/Projects/Tentia/Constants.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cLd /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia normal x86_64
-cLd /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia normal i386
-cCreateUniversalBinary /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/MacOS/Twittia normal "x86_64 i386"
-cPBXCp Sparkle.framework build/Debug/Twittia.app/Contents/Frameworks/Sparkle.framework
-cTouch /Users/jeena/Projects/Tentia/build/Debug/Twittia.app
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
-c00000000506EC14600000000000000AA
-t1349435718
-s170
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices
-c00000000506029450000000000007C70
-t1348479301
-s31856
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Carbon.framework/Carbon
-c00000000506029480000000000002B7C
-t1348479304
-s11132
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
-c000000005060294800000000000001E5
-t1348479304
-s485
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/WebKit.framework/WebKit
-c00000000506029560000000000086934
-t1348479318
-s551220
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libicucore.dylib
-c000000005060296400000000000F613C
-t1348479332
-s1007932
-
-N/System/Library/Frameworks/Cocoa.framework/Cocoa
-c000000003A4FD1DC0000000000006730
-t978309596
-s26416
-
-N/Users/jeena/Projects/Tentia/AccessToken.m
-c0000000050784CB400000000000004F1
-t1350061236
-s1265
-
-N/Users/jeena/Projects/Tentia/Constants.js
-c0000000050784CEB0000000000000262
-t1350061291
-s610
-
-N/Users/jeena/Projects/Tentia/Constants.m
-c0000000050784CB40000000000000E21
-t1350061236
-s3617
-
-N/Users/jeena/Projects/Tentia/Controller.m
-c0000000050784E0900000000000023C9
-t1350061577
-s9161
-
-N/Users/jeena/Projects/Tentia/English.lproj/Credits.rtf
-c0000000050784D7100000000000001BA
-t1350061425
-s442
-
-N/Users/jeena/Projects/Tentia/English.lproj/InfoPlist.strings
-c0000000050783BA0000000000000002D
-t1350056864
-s45
-
-N/Users/jeena/Projects/Tentia/English.lproj/MainMenu.xib
-c0000000050783BA0000000000001950B
-t1350056864
-s103691
-
-N/Users/jeena/Projects/Tentia/English.lproj/NewTweetWindow.xib
-c0000000050783BA00000000000004832
-t1350056864
-s18482
-
-N/Users/jeena/Projects/Tentia/Icon.icns
-c0000000050783BA000000000000409C3
-t1350056864
-s264643
-
-N/Users/jeena/Projects/Tentia/NewTweetWindow.m
-c0000000050784CB40000000000000F5C
-t1350061236
-s3932
-
-N/Users/jeena/Projects/Tentia/Sparkle.framework
-c0000000050783BA000000000000000CC
-t1350056864
-s204
-
-N/Users/jeena/Projects/Tentia/Sparkle.framework/Sparkle
-c0000000050783BA000000000000712B4
-t1350056864
-s463540
-
-N/Users/jeena/Projects/Tentia/TweetModel.m
-c0000000050784CB40000000000000139
-t1350061236
-s313
-
-N/Users/jeena/Projects/Tentia/TwittiaCore.js
-c0000000050784CB4000000000000432E
-t1350061236
-s17198
-
-N/Users/jeena/Projects/Tentia/TwittiaOauth.js
-c000000005078505C0000000000000D87
-t1350062172
-s3463
-
-N/Users/jeena/Projects/Tentia/Twittia_2_Prefix.pch
-c0000000050783BA00000000000000095
-t1350056864
-s149
-i<Cocoa/Cocoa.h>
-
-N/Users/jeena/Projects/Tentia/ViewDelegate.m
-c0000000050784E090000000000000932
-t1350061577
-s2354
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Frameworks/Sparkle.framework
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Info.plist
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/MacOS/Twittia
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/PkgInfo
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/Constants.js
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/Credits.rtf
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/MainMenu.nib
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/NewTweetWindow.nib
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/Icon.icns
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/TwittiaCore.js
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/TwittiaOauth.js
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/default.css
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/dsa_pub.pem
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/even-bg.png
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/index.html
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/index_oauth.html
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/jQuery-Plugins.js
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/jQuery.js
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/oauth.js
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/odd-bg.png
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/pin.png
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/sha1.js
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/sprite-icons.png
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/AccessToken.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Constants.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Controller.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/NewTweetWindow.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/TweetModel.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia.LinkFileList
-c000000005078506300000000000002C3
-t1350062179
-s707
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/ViewDelegate.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/main.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/AccessToken.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Constants.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Controller.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/NewTweetWindow.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/TweetModel.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia.LinkFileList
-c000000005078506300000000000002D1
-t1350062179
-s721
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/ViewDelegate.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/main.o
-t2
-s0
-
-N/Users/jeena/Projects/Tentia/default.css
-c0000000050783BA00000000000000BBA
-t1350056864
-s3002
-
-N/Users/jeena/Projects/Tentia/dsa_pub.pem
-c0000000050783BA0000000000000049A
-t1350056864
-s1178
-
-N/Users/jeena/Projects/Tentia/even-bg.png
-c0000000050783BA000000000000000AB
-t1350056864
-s171
-
-N/Users/jeena/Projects/Tentia/index.html
-c0000000050784D7B00000000000002C4
-t1350061435
-s708
-
-N/Users/jeena/Projects/Tentia/index_oauth.html
-c0000000050784D8200000000000002CF
-t1350061442
-s719
-
-N/Users/jeena/Projects/Tentia/jQuery-Plugins.js
-c0000000050783BA0000000000000268C
-t1350056864
-s9868
-
-N/Users/jeena/Projects/Tentia/jQuery.js
-c0000000050783BA000000000000119EE
-t1350056864
-s72174
-
-N/Users/jeena/Projects/Tentia/main.m
-c0000000050784CB400000000000000EC
-t1350061236
-s236
-
-N/Users/jeena/Projects/Tentia/oauth.js
-c0000000050783BA00000000000005114
-t1350056864
-s20756
-
-N/Users/jeena/Projects/Tentia/odd-bg.png
-c0000000050783BA000000000000000A6
-t1350056864
-s166
-
-N/Users/jeena/Projects/Tentia/pin.png
-c0000000050783BA00000000000000276
-t1350056864
-s630
-
-N/Users/jeena/Projects/Tentia/sha1.js
-c0000000050783BA000000000000015AE
-t1350056864
-s5550
-
-N/Users/jeena/Projects/Tentia/sprite-icons.png
-c0000000050783BA00000000000002E5C
-t1350056864
-s11868
-
-N/var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch.pth
-t2
-s0
-
-N/var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch.pth
-t2
-s0
-
-NTwittia_2-Info.plist
-c0000000050784DD500000000000008AB
-t1350061525
-s2219
-
-CBuild AST from /Users/jeena/Projects/Tentia/AccessToken.m
-r0
-
-CBuild AST from /Users/jeena/Projects/Tentia/Constants.m
-r0
-
-CBuild AST from /Users/jeena/Projects/Tentia/Controller.m
-r0
-
-CBuild AST from /Users/jeena/Projects/Tentia/NewTweetWindow.m
-r0
-
-CBuild AST from /Users/jeena/Projects/Tentia/TweetModel.m
-r0
-
-CBuild AST from /Users/jeena/Projects/Tentia/ViewDelegate.m
-r0
-
-CBuild AST from /Users/jeena/Projects/Tentia/main.m
-r0
-
-CCheck dependencies
-r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies29b3d5e28728b641^081db8e38728b641^---0#1#0#--18"Check dependencies36"6CA3880D-F39B-4343-9906-F34F5C4B1750-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/AccessToken.o /Users/jeena/Projects/Tentia/AccessToken.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754981.906266
-e371754982.290577
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/i386/AccessToken.o
-x/Users/jeena/Projects/Tentia/AccessToken.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection50"Compile /Users/jeena/Projects/Tentia/AccessToken.m3e3fe8e58728b641^b7634ae68728b641^---0#0#0#-19%DVTDocumentLocation2@58"file://localhost/Users/jeena/Projects/Tentia/AccessToken.m0000000000000000^2913"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/AccessToken.o AccessToken.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/i386 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/AccessToken.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/AccessToken.dia -c /Users/jeena/Projects/Tentia/AccessToken.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/AccessToken.o36"FAEEF232-F2A5-494C-B2E1-E57812F660FA-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Constants.o /Users/jeena/Projects/Tentia/Constants.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754982.293814
-e371754982.443647
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Constants.o
-x/Users/jeena/Projects/Tentia/Constants.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection48"Compile /Users/jeena/Projects/Tentia/Constants.mcc614be68728b641^a79271e68728b641^---0#0#0#-19%DVTDocumentLocation2@56"file://localhost/Users/jeena/Projects/Tentia/Constants.m0000000000000000^2901"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Constants.o Constants.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/i386 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Constants.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Constants.dia -c /Users/jeena/Projects/Tentia/Constants.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Constants.o36"8878D76F-A339-4F87-884A-26E0795C7B66-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Controller.o /Users/jeena/Projects/Tentia/Controller.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754982.290751
-e371754982.511182
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Controller.o
-x/Users/jeena/Projects/Tentia/Controller.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection49"Compile /Users/jeena/Projects/Tentia/Controller.mfb914ae68728b641^1af88de68728b641^---0#0#0#-19%DVTDocumentLocation2@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^2907"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Controller.o Controller.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/i386 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Controller.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Controller.dia -c /Users/jeena/Projects/Tentia/Controller.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Controller.o36"1689C89B-16AB-447A-9E50-2596581427E5-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/NewTweetWindow.o /Users/jeena/Projects/Tentia/NewTweetWindow.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754981.906260
-e371754982.292612
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/i386/NewTweetWindow.o
-x/Users/jeena/Projects/Tentia/NewTweetWindow.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection53"Compile /Users/jeena/Projects/Tentia/NewTweetWindow.mfe2ae8e58728b641^6ce84ae68728b641^---0#0#0#-19%DVTDocumentLocation2@61"file://localhost/Users/jeena/Projects/Tentia/NewTweetWindow.m0000000000000000^2931"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/NewTweetWindow.o NewTweetWindow.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/i386 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/NewTweetWindow.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/NewTweetWindow.dia -c /Users/jeena/Projects/Tentia/NewTweetWindow.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/NewTweetWindow.o36"17CF1753-7AFE-49C9-8CCC-BD0D3B90E174-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/TweetModel.o /Users/jeena/Projects/Tentia/TweetModel.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754982.293803
-e371754982.349573
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/i386/TweetModel.o
-x/Users/jeena/Projects/Tentia/TweetModel.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection49"Compile /Users/jeena/Projects/Tentia/TweetModel.m465d4be68728b641^128659e68728b641^---0#0#0#-19%DVTDocumentLocation2@57"file://localhost/Users/jeena/Projects/Tentia/TweetModel.m0000000000000000^2907"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/TweetModel.o TweetModel.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/i386 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/TweetModel.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/TweetModel.dia -c /Users/jeena/Projects/Tentia/TweetModel.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/TweetModel.o36"86142509-3766-4C0C-804A-7DD6F3AAA96F-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/ViewDelegate.o /Users/jeena/Projects/Tentia/ViewDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754982.293781
-e371754982.478559
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/i386/ViewDelegate.o
-x/Users/jeena/Projects/Tentia/ViewDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection51"Compile /Users/jeena/Projects/Tentia/ViewDelegate.m4a604be68728b641^7f837ae68728b641^---0#0#0#-19%DVTDocumentLocation2@59"file://localhost/Users/jeena/Projects/Tentia/ViewDelegate.m0000000000000000^2919"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/ViewDelegate.o ViewDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/i386 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/ViewDelegate.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/ViewDelegate.dia -c /Users/jeena/Projects/Tentia/ViewDelegate.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/ViewDelegate.o36"C9765962-98B3-4CC4-A28F-EAE8BD5278A7-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/main.o /Users/jeena/Projects/Tentia/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754981.906416
-e371754982.290072
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/i386/main.o
-x/Users/jeena/Projects/Tentia/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection43"Compile /Users/jeena/Projects/Tentia/main.m4436e8e58728b641^18424ae68728b641^---0#0#0#-19%DVTDocumentLocation2@51"file://localhost/Users/jeena/Projects/Tentia/main.m0000000000000000^2871"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/main.o main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/i386 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/main.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/main.dia -c /Users/jeena/Projects/Tentia/main.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/main.o36"7A0A2EC6-6A1F-45E5-BE31-8A4D29260B39-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/AccessToken.o /Users/jeena/Projects/Tentia/AccessToken.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754982.290742
-e371754982.349481
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/AccessToken.o
-x/Users/jeena/Projects/Tentia/AccessToken.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection50"Compile /Users/jeena/Projects/Tentia/AccessToken.m1a8b4ae68728b641^fa7f59e68728b641^---0#0#0#-19%DVTDocumentLocation2@58"file://localhost/Users/jeena/Projects/Tentia/AccessToken.m0000000000000000^2927"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/AccessToken.o AccessToken.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/x86_64 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/AccessToken.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/AccessToken.dia -c /Users/jeena/Projects/Tentia/AccessToken.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/AccessToken.o36"D9955F64-0A5E-4131-8DE5-8F55420652D4-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Constants.o /Users/jeena/Projects/Tentia/Constants.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754982.290746
-e371754982.414242
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Constants.o
-x/Users/jeena/Projects/Tentia/Constants.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection48"Compile /Users/jeena/Projects/Tentia/Constants.m1d924ae68728b641^b30b6ae68728b641^---0#0#0#-19%DVTDocumentLocation2@56"file://localhost/Users/jeena/Projects/Tentia/Constants.m0000000000000000^2915"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Constants.o Constants.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/x86_64 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Constants.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Constants.dia -c /Users/jeena/Projects/Tentia/Constants.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Constants.o36"AC1B5697-1D09-48B8-8275-21106C35641F-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Controller.o /Users/jeena/Projects/Tentia/Controller.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754981.906237
-e371754982.321023
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Controller.o
-x/Users/jeena/Projects/Tentia/Controller.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-o/Users/jeena/Projects/Tentia/Controller.m:211:72: warning: format specifies type 'int' but the argument has type 'NSInteger' (aka 'long') [-Wformat]
-o                [timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia (@%i)", count]];
-o                                                                                    ~^    ~~~~~
-o                                                                                    %li
-o/Users/jeena/Projects/Tentia/Controller.m:212:93: warning: format specifies type 'int' but the argument has type 'NSInteger' (aka 'long') [-Wformat]
-o                [[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
-o                                                                                                         ~^   ~~~~~
-o                                                                                                         %li
-o2 warnings generated.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection49"Compile /Users/jeena/Projects/Tentia/Controller.m782ae8e58728b641^6f2e52e68728b641^-947"/Users/jeena/Projects/Tentia/Controller.m:211:72: warning: format specifies type 'int' but the argument has type 'NSInteger' (aka 'long') [-Wformat]                [timelineViewWindow setTitle:[NSString stringWithFormat:@"Twittia (@%i)", count]];                                                                                    ~^    ~~~~~                                                                                    %li/Users/jeena/Projects/Tentia/Controller.m:212:93: warning: format specifies type 'int' but the argument has type 'NSInteger' (aka 'long') [-Wformat]                [[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];                                                                                                         ~^   ~~~~~                                                                                                         %li2 warnings generated.2(36%IDEClangDiagnosticActivityLogMessage2@78"Format specifies type 'int' but the argument has type 'NSInteger' (aka 'long')-371754982#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^210#71#210#71#7569#0#19"Format String Issue3(3@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^210#76#210#81#7574#0#3@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^210#70#210#72#7568#2#3@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^210#70#210#72#7568#2#-2@78"Format specifies type 'int' but the argument has type 'NSInteger' (aka 'long')-371754982#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^211#92#211#92#7675#0#19"Format String Issue3(3@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^211#96#211#101#7679#0#3@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^211#91#211#93#7674#2#3@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^211#91#211#93#7674#2#-0#0#0#-19%DVTDocumentLocation4@57"file://localhost/Users/jeena/Projects/Tentia/Controller.m0000000000000000^2921"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Controller.o Controller.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/x86_64 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Controller.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Controller.dia -c /Users/jeena/Projects/Tentia/Controller.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Controller.o36"F734229B-06AE-463E-B862-8561F6AD225B-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/NewTweetWindow.o /Users/jeena/Projects/Tentia/NewTweetWindow.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754981.906234
-e371754982.293045
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/NewTweetWindow.o
-x/Users/jeena/Projects/Tentia/NewTweetWindow.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection53"Compile /Users/jeena/Projects/Tentia/NewTweetWindow.m9e29e8e58728b641^64054be68728b641^---0#0#0#-19%DVTDocumentLocation2@61"file://localhost/Users/jeena/Projects/Tentia/NewTweetWindow.m0000000000000000^2945"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/NewTweetWindow.o NewTweetWindow.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/x86_64 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/NewTweetWindow.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/NewTweetWindow.dia -c /Users/jeena/Projects/Tentia/NewTweetWindow.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/NewTweetWindow.o36"6F2E15D2-D8A8-4E71-A5F9-9C96C82BE4AF-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/TweetModel.o /Users/jeena/Projects/Tentia/TweetModel.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754981.906251
-e371754982.293310
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/TweetModel.o
-x/Users/jeena/Projects/Tentia/TweetModel.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection49"Compile /Users/jeena/Projects/Tentia/TweetModel.m522be8e58728b641^94154be68728b641^---0#0#0#-19%DVTDocumentLocation2@57"file://localhost/Users/jeena/Projects/Tentia/TweetModel.m0000000000000000^2921"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/TweetModel.o TweetModel.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/x86_64 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/TweetModel.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/TweetModel.dia -c /Users/jeena/Projects/Tentia/TweetModel.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/TweetModel.o36"FAB65961-0B78-4EDA-9AAD-886CEC4868C7-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/ViewDelegate.o /Users/jeena/Projects/Tentia/ViewDelegate.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754981.906249
-e371754982.292919
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/ViewDelegate.o
-x/Users/jeena/Projects/Tentia/ViewDelegate.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection51"Compile /Users/jeena/Projects/Tentia/ViewDelegate.m8d29e8e58728b641^87fd4ae68728b641^---0#0#0#-19%DVTDocumentLocation2@59"file://localhost/Users/jeena/Projects/Tentia/ViewDelegate.m0000000000000000^2933"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/ViewDelegate.o ViewDelegate.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/x86_64 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/ViewDelegate.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/ViewDelegate.dia -c /Users/jeena/Projects/Tentia/ViewDelegate.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/ViewDelegate.o36"44C167D4-E6B5-4C58-9DD9-4175A625E175-
-
-CCompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/main.o /Users/jeena/Projects/Tentia/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754981.906211
-e371754982.289471
-r1
-xCompileC
-xbuild/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/main.o
-x/Users/jeena/Projects/Tentia/main.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection43"Compile /Users/jeena/Projects/Tentia/main.m581ee8e58728b641^091b4ae68728b641^---0#0#0#-19%DVTDocumentLocation2@51"file://localhost/Users/jeena/Projects/Tentia/main.m0000000000000000^2885"CompileC build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/main.o main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/x86_64 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -include /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch -MMD -MT dependencies -MF /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/main.dia -c /Users/jeena/Projects/Tentia/main.m -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/main.o36"8F184711-1CAF-4D10-AEA6-5E8FEBB5B9E8-
-
-CCompileXIB /Users/jeena/Projects/Tentia/English.lproj/MainMenu.xib
-s371754979.760998
-e371754980.650974
-r1
-xCompileXIB
-x/Users/jeena/Projects/Tentia/English.lproj/MainMenu.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection65"Compiling /Users/jeena/Projects/Tentia/English.lproj/MainMenu.xibd6e3c2e38728b641^c9b0a6e48728b641^---0#0#0#-19%DVTDocumentLocation2@71"file://localhost/Users/jeena/Projects/Tentia/English.lproj/MainMenu.xib0000000000000000^562"CompileXIB English.lproj/MainMenu.xib    cd /Users/jeena/Projects/Tentia    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/MainMenu.nib /Users/jeena/Projects/Tentia/English.lproj/MainMenu.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk36"B6E0060A-2945-4AF3-9010-A855B74A55CC-
-
-CCompileXIB /Users/jeena/Projects/Tentia/English.lproj/NewTweetWindow.xib
-s371754979.759577
-e371754980.620436
-r1
-xCompileXIB
-x/Users/jeena/Projects/Tentia/English.lproj/NewTweetWindow.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection71"Compiling /Users/jeena/Projects/Tentia/English.lproj/NewTweetWindow.xib6491c2e38728b641^45d69ee48728b641^---0#0#0#-19%DVTDocumentLocation2@77"file://localhost/Users/jeena/Projects/Tentia/English.lproj/NewTweetWindow.xib0000000000000000^580"CompileXIB English.lproj/NewTweetWindow.xib    cd /Users/jeena/Projects/Tentia    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/NewTweetWindow.nib /Users/jeena/Projects/Tentia/English.lproj/NewTweetWindow.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk36"1531B9CD-4231-41D9-AE5F-8F7231FF80C9-
-
-CCopyStringsFile /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings
-s371754979.747280
-e371754979.827374
-r1
-xCopyStringsFile
-x/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings
-xEnglish.lproj/InfoPlist.strings
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection36"Copy English.lproj/InfoPlist.strings9566bfe38728b641^0bcfd3e38728b641^---0#0#0#-19%DVTDocumentLocation2@76"file://localhost/Users/jeena/Projects/Tentia/English.lproj/InfoPlist.strings0000000000000000^370"CopyStringsFile build/Debug/Twittia.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings    cd /Users/jeena/Projects/Tentia    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding UTF-16 --outdir /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj -- English.lproj/InfoPlist.strings36"535D11CD-E877-482C-ADB1-390674EAA92B-
-
-CCpResource Constants.js build/Debug/Twittia.app/Contents/Resources/Constants.js
-s371754979.746154
-e371754979.759790
-r1
-xCpResource
-xConstants.js
-xbuild/Debug/Twittia.app/Contents/Resources/Constants.js
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection60"Copy build/Debug/Twittia.app/Contents/Resources/Constants.js5c3dbfe38728b641^9083c2e38728b641^---0#0#0#-19%DVTDocumentLocation2@100"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/Constants.js000000000080d041^342"CpResource Constants.js build/Debug/Twittia.app/Contents/Resources/Constants.js    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/Constants.js /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"B5F9883A-84B7-462A-9E56-9DAF16736502-
-
-CCpResource English.lproj/Credits.rtf build/Debug/Twittia.app/Contents/Resources/English.lproj/Credits.rtf
-s371754979.746768
-e371754979.761312
-r1
-xCpResource
-xEnglish.lproj/Credits.rtf
-xbuild/Debug/Twittia.app/Contents/Resources/English.lproj/Credits.rtf
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection73"Copy build/Debug/Twittia.app/Contents/Resources/English.lproj/Credits.rtf514bbfe38728b641^00e6c2e38728b641^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj/Credits.rtf000000000080d041^395"CpResource English.lproj/Credits.rtf build/Debug/Twittia.app/Contents/Resources/English.lproj/Credits.rtf    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/English.lproj/Credits.rtf /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/English.lproj36"6837F4C9-2DC5-49B8-969E-053105666ACE-
-
-CCpResource Icon.icns build/Debug/Twittia.app/Contents/Resources/Icon.icns
-s371754979.805939
-e371754979.843443
-r1
-xCpResource
-xIcon.icns
-xbuild/Debug/Twittia.app/Contents/Resources/Icon.icns
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection57"Copy build/Debug/Twittia.app/Contents/Resources/Icon.icns7d5dcee38728b641^abecd7e38728b641^---0#0#0#-19%DVTDocumentLocation2@97"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/Icon.icns000000000080d041^333"CpResource Icon.icns build/Debug/Twittia.app/Contents/Resources/Icon.icns    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/Icon.icns /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"F54AFE3A-3AB5-4F38-9A96-CC6EF2141910-
-
-CCpResource TwittiaCore.js build/Debug/Twittia.app/Contents/Resources/TwittiaCore.js
-s371754979.746982
-e371754979.762445
-r1
-xCpResource
-xTwittiaCore.js
-xbuild/Debug/Twittia.app/Contents/Resources/TwittiaCore.js
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Copy build/Debug/Twittia.app/Contents/Resources/TwittiaCore.jsce51bfe38728b641^ec2fc3e38728b641^---0#0#0#-19%DVTDocumentLocation2@102"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/TwittiaCore.js000000000080d041^348"CpResource TwittiaCore.js build/Debug/Twittia.app/Contents/Resources/TwittiaCore.js    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/TwittiaCore.js /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"D3BB6B66-368D-4DE5-B44A-833093D8F8CB-
-
-CCpResource TwittiaOauth.js build/Debug/Twittia.app/Contents/Resources/TwittiaOauth.js
-s371754979.746284
-e371754979.764677
-r1
-xCpResource
-xTwittiaOauth.js
-xbuild/Debug/Twittia.app/Contents/Resources/TwittiaOauth.js
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection63"Copy build/Debug/Twittia.app/Contents/Resources/TwittiaOauth.js0052bfe38728b641^65c2c3e38728b641^---0#0#0#-19%DVTDocumentLocation2@103"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/TwittiaOauth.js000000000080d041^351"CpResource TwittiaOauth.js build/Debug/Twittia.app/Contents/Resources/TwittiaOauth.js    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/TwittiaOauth.js /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"0B40CBC2-F2C3-465C-9D4E-02C2B003927C-
-
-CCpResource default.css build/Debug/Twittia.app/Contents/Resources/default.css
-s371754979.776191
-e371754979.806104
-r1
-xCpResource
-xdefault.css
-xbuild/Debug/Twittia.app/Contents/Resources/default.css
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection59"Copy build/Debug/Twittia.app/Contents/Resources/default.css6abec6e38728b641^f25dcee38728b641^---0#0#0#-19%DVTDocumentLocation2@99"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/default.css000000000080d041^339"CpResource default.css build/Debug/Twittia.app/Contents/Resources/default.css    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/default.css /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"109B02C5-887E-4F5D-94CC-3BBE4CA5D8F2-
-
-CCpResource dsa_pub.pem build/Debug/Twittia.app/Contents/Resources/dsa_pub.pem
-s371754979.746292
-e371754979.756670
-r1
-xCpResource
-xdsa_pub.pem
-xbuild/Debug/Twittia.app/Contents/Resources/dsa_pub.pem
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection59"Copy build/Debug/Twittia.app/Contents/Resources/dsa_pub.pema933bfe38728b641^2cb6c1e38728b641^---0#0#0#-19%DVTDocumentLocation2@99"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/dsa_pub.pem000000000080d041^339"CpResource dsa_pub.pem build/Debug/Twittia.app/Contents/Resources/dsa_pub.pem    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/dsa_pub.pem /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"9A1BAB23-D07D-446E-A20F-0FB8F7C0BC17-
-
-CCpResource even-bg.png build/Debug/Twittia.app/Contents/Resources/even-bg.png
-s371754979.761004
-e371754979.806327
-r1
-xCpResource
-xeven-bg.png
-xbuild/Debug/Twittia.app/Contents/Resources/even-bg.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection59"Copy build/Debug/Twittia.app/Contents/Resources/even-bg.png83dfc2e38728b641^946bcee38728b641^---0#0#0#-19%DVTDocumentLocation2@99"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/even-bg.png000000000080d041^339"CpResource even-bg.png build/Debug/Twittia.app/Contents/Resources/even-bg.png    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/even-bg.png /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"474D7C50-1468-4D7F-AD97-E13D6389ECEB-
-
-CCpResource index.html build/Debug/Twittia.app/Contents/Resources/index.html
-s371754979.763579
-e371754979.772004
-r1
-xCpResource
-xindex.html
-xbuild/Debug/Twittia.app/Contents/Resources/index.html
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection58"Copy build/Debug/Twittia.app/Contents/Resources/index.html6684c3e38728b641^73a2c5e38728b641^---0#0#0#-19%DVTDocumentLocation2@98"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/index.html000000000080d041^336"CpResource index.html build/Debug/Twittia.app/Contents/Resources/index.html    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/index.html /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"5E88DEE8-4B8A-4314-94DE-B30CB5EFB28F-
-
-CCpResource index_oauth.html build/Debug/Twittia.app/Contents/Resources/index_oauth.html
-s371754979.807358
-e371754979.809163
-r1
-xCpResource
-xindex_oauth.html
-xbuild/Debug/Twittia.app/Contents/Resources/index_oauth.html
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Copy build/Debug/Twittia.app/Contents/Resources/index_oauth.html6abecee38728b641^c425cfe38728b641^---0#0#0#-19%DVTDocumentLocation2@104"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/index_oauth.html000000000080d041^354"CpResource index_oauth.html build/Debug/Twittia.app/Contents/Resources/index_oauth.html    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/index_oauth.html /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"AC2B7549-64E2-44D0-ADE5-7486CB1BE192-
-
-CCpResource jQuery-Plugins.js build/Debug/Twittia.app/Contents/Resources/jQuery-Plugins.js
-s371754979.762449
-e371754979.806543
-r1
-xCpResource
-xjQuery-Plugins.js
-xbuild/Debug/Twittia.app/Contents/Resources/jQuery-Plugins.js
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection65"Copy build/Debug/Twittia.app/Contents/Resources/jQuery-Plugins.js9f39c3e38728b641^cc79cee38728b641^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/jQuery-Plugins.js000000000080d041^357"CpResource jQuery-Plugins.js build/Debug/Twittia.app/Contents/Resources/jQuery-Plugins.js    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/jQuery-Plugins.js /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"80651986-6FE1-4F23-8016-4E620D0E7D6C-
-
-CCpResource jQuery.js build/Debug/Twittia.app/Contents/Resources/jQuery.js
-s371754979.773186
-e371754979.774932
-r1
-xCpResource
-xjQuery.js
-xbuild/Debug/Twittia.app/Contents/Resources/jQuery.js
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection57"Copy build/Debug/Twittia.app/Contents/Resources/jQuery.jsf0f9c5e38728b641^7862c6e38728b641^---0#0#0#-19%DVTDocumentLocation2@97"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/jQuery.js000000000080d041^333"CpResource jQuery.js build/Debug/Twittia.app/Contents/Resources/jQuery.js    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/jQuery.js /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"F5EDE4C1-4F3B-412C-9225-A421BC0B3770-
-
-CCpResource oauth.js build/Debug/Twittia.app/Contents/Resources/oauth.js
-s371754979.746423
-e371754979.760161
-r1
-xCpResource
-xoauth.js
-xbuild/Debug/Twittia.app/Contents/Resources/oauth.js
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy build/Debug/Twittia.app/Contents/Resources/oauth.js7443bfe38728b641^2c9ac2e38728b641^---0#0#0#-19%DVTDocumentLocation2@96"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/oauth.js000000000080d041^330"CpResource oauth.js build/Debug/Twittia.app/Contents/Resources/oauth.js    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/oauth.js /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"AADA7F84-7663-4BD1-BC8E-4F6201323B42-
-
-CCpResource odd-bg.png build/Debug/Twittia.app/Contents/Resources/odd-bg.png
-s371754979.765793
-e371754979.809012
-r1
-xCpResource
-xodd-bg.png
-xbuild/Debug/Twittia.app/Contents/Resources/odd-bg.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection58"Copy build/Debug/Twittia.app/Contents/Resources/odd-bg.pnge814c4e38728b641^481bcfe38728b641^---0#0#0#-19%DVTDocumentLocation2@98"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/odd-bg.png000000000080d041^336"CpResource odd-bg.png build/Debug/Twittia.app/Contents/Resources/odd-bg.png    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/odd-bg.png /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"582C159F-9DAF-4168-81BF-3C1B283A9C77-
-
-CCpResource pin.png build/Debug/Twittia.app/Contents/Resources/pin.png
-s371754979.807344
-e371754979.842495
-r1
-xCpResource
-xpin.png
-xbuild/Debug/Twittia.app/Contents/Resources/pin.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection55"Copy build/Debug/Twittia.app/Contents/Resources/pin.pngbebecee38728b641^9baed7e38728b641^---0#0#0#-19%DVTDocumentLocation2@95"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/pin.png000000000080d041^327"CpResource pin.png build/Debug/Twittia.app/Contents/Resources/pin.png    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/pin.png /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"A30AB35E-A65C-4904-A865-CEE5568B2C03-
-
-CCpResource sha1.js build/Debug/Twittia.app/Contents/Resources/sha1.js
-s371754979.746755
-e371754979.801082
-r1
-xCpResource
-xsha1.js
-xbuild/Debug/Twittia.app/Contents/Resources/sha1.js
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection55"Copy build/Debug/Twittia.app/Contents/Resources/sha1.jsd350bfe38728b641^c713cde38728b641^---0#0#0#-19%DVTDocumentLocation2@95"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/sha1.js000000000080d041^327"CpResource sha1.js build/Debug/Twittia.app/Contents/Resources/sha1.js    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/sha1.js /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"F17B529E-3921-46CC-8E84-D2D715402624-
-
-CCpResource sprite-icons.png build/Debug/Twittia.app/Contents/Resources/sprite-icons.png
-s371754979.802548
-e371754979.804672
-r1
-xCpResource
-xsprite-icons.png
-xbuild/Debug/Twittia.app/Contents/Resources/sprite-icons.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Copy build/Debug/Twittia.app/Contents/Resources/sprite-icons.png8d7dcde38728b641^61ffcde38728b641^---0#0#0#-19%DVTDocumentLocation2@104"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources/sprite-icons.png000000000080d041^354"CpResource sprite-icons.png build/Debug/Twittia.app/Contents/Resources/sprite-icons.png    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/sprite-icons.png /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Resources36"F1D15561-05CB-435D-8CF9-C1F755CE11C2-
-
-CCreateUniversalBinary /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/MacOS/Twittia normal "x86_64 i386"
-s371754983.066677
-e371754983.085840
-r1
-xCreateUniversalBinary
-x/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/MacOS/Twittia
-xnormal
-xx86_64 i386
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection99"Create universal binary /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/MacOS/Twittia6f2b11e78728b641^9cf915e78728b641^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/MacOS/Twittia000000000080d041^421"CreateUniversalBinary build/Debug/Twittia.app/Contents/MacOS/Twittia normal "x86_64 i386"    cd /Users/jeena/Projects/Tentia    lipo -create /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia -output /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/MacOS/Twittia36"3F66DA69-6B14-4C40-93A6-66F5AC5BAD14-
-
-CLd /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia normal i386
-s371754982.517915
-e371754983.059143
-r1
-xLd
-x/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia
-xnormal
-xi386
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"Link /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittiac2a484e68728b641^81250fe78728b641^---0#0#0#--870"Ld build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia normal i386    cd /Users/jeena/Projects/Tentia    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -L/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -filelist /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia.LinkFileList -mmacosx-version-min=10.5 -fobjc-link-runtime -licucore -framework Cocoa -framework WebKit -framework Carbon -framework Sparkle -framework ApplicationServices -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/i386/Twittia36"7EFEFD3F-502B-440A-8365-44ABFD5170F1-
-
-CLd /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia normal x86_64
-s371754982.420815
-e371754983.059781
-r1
-xLd
-x/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia
-xnormal
-xx86_64
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection102"Link /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittiabccd6be68728b641^444e0fe78728b641^---0#0#0#--880"Ld build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia normal x86_64    cd /Users/jeena/Projects/Tentia    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -L/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia -filelist /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia.LinkFileList -mmacosx-version-min=10.5 -fobjc-link-runtime -licucore -framework Cocoa -framework WebKit -framework Carbon -framework Sparkle -framework ApplicationServices -o /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Objects-normal/x86_64/Twittia36"73CC3805-3264-4ABB-9348-E63B2B2CAFC2-
-
-CPBXCp Sparkle.framework build/Debug/Twittia.app/Contents/Frameworks/Sparkle.framework
-s371754983.094303
-e371754983.172122
-r1
-xPBXCp
-xSparkle.framework
-xbuild/Debug/Twittia.app/Contents/Frameworks/Sparkle.framework
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection66"Copy build/Debug/Twittia.app/Contents/Frameworks/Sparkle.framework942f18e78728b641^73102ce78728b641^---0#0#0#-19%DVTDocumentLocation2@106"file://localhost/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Frameworks/Sparkle.framework000000000080d041^354"PBXCp Sparkle.framework build/Debug/Twittia.app/Contents/Frameworks/Sparkle.framework    cd /Users/jeena/Projects/Tentia    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/jeena/Projects/Tentia/Sparkle.framework /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Frameworks36"923A1D8A-04FC-4AAC-A296-6872BF77EAF8-
-
-CProcessInfoPlistFile /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Info.plist Twittia_2-Info.plist
-s371754979.730303
-e371754979.733906
-r1
-xProcessInfoPlistFile
-x/Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Info.plist
-xTwittia_2-Info.plist
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Process Twittia_2-Info.pliste606bbe38728b641^32e5bbe38728b641^---0#0#0#-19%DVTDocumentLocation2@65"file://localhost/Users/jeena/Projects/Tentia/Twittia_2-Info.plist0000000000000000^368"ProcessInfoPlistFile build/Debug/Twittia.app/Contents/Info.plist Twittia_2-Info.plist    cd /Users/jeena/Projects/Tentia    builtin-infoPlistUtility Twittia_2-Info.plist -genpkginfo /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Users/jeena/Projects/Tentia/build/Debug/Twittia.app/Contents/Info.plist36"9104315F-968B-47D3-9046-2CBB968D4BF3-
-
-CProcessPCH /Users/jeena/Library/Developer/Xcode/DerivedData/Tentia-eafhkkgvaxvonwgnrjjmjcztdytf/Index/PrecompiledHeaders/Twittia_2_Prefix-cyemzlifisolncbwrlqjwkgucces_ast/Twittia_2_Prefix.pch.pth Twittia_2_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH /Users/jeena/Library/Developer/Xcode/DerivedData/Tentia-eafhkkgvaxvonwgnrjjmjcztdytf/Index/PrecompiledHeaders/Twittia_2_Prefix-dbldcifqrwyybwbutyemgykbepbh_ast/Twittia_2_Prefix.pch.pth Twittia_2_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch.pth Twittia_2_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754980.659310
-e371754981.899277
-r1
-xProcessPCH
-x/var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch.pth
-xTwittia_2_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection31"Precompile Twittia_2_Prefix.pchffeba8e48728b641^e336e6e58728b641^---0#0#0#-19%DVTDocumentLocation2@65"file://localhost/Users/jeena/Projects/Tentia/Twittia_2_Prefix.pch0000000000000000^3043"ProcessPCH /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch.pth Twittia_2_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/i386 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia --serialize-diagnostics /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch.dia -c /Users/jeena/Projects/Tentia/Twittia_2_Prefix.pch -o /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-dupsavsrxpykrhckkalasucksbmr/Twittia_2_Prefix.pch.d36"46209F78-449F-4A78-9B89-3CEC9591F758-
-
-CProcessPCH /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch.pth Twittia_2_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s371754980.659095
-e371754981.899416
-r1
-xProcessPCH
-x/var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch.pth
-xTwittia_2_Prefix.pch
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection31"Precompile Twittia_2_Prefix.pch04e3a8e48728b641^683fe6e58728b641^---0#0#0#-19%DVTDocumentLocation2@65"file://localhost/Users/jeena/Projects/Tentia/Twittia_2_Prefix.pch0000000000000000^3049"ProcessPCH /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch.pth Twittia_2_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jeena/Projects/Tentia    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-generated-files.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-own-target-headers.hmap -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-all-target-headers.hmap -iquote /Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/Twittia-project-headers.hmap -I/Users/jeena/Projects/Tentia/build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources/x86_64 -I/Users/jeena/Projects/Tentia/build/Tentia.build/Debug/Twittia.build/DerivedSources -F/Users/jeena/Projects/Tentia/build/Debug -F/Users/jeena/Projects/Tentia --serialize-diagnostics /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch.dia -c /Users/jeena/Projects/Tentia/Twittia_2_Prefix.pch -o /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/zl/vphyb36166vg0vnzmz23_y740000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/Twittia_2_Prefix-fpptaolsfvvxnvczpysxrbgrdlmb/Twittia_2_Prefix.pch.d36"E64FD452-C79E-4C50-ACCB-A7AFD17B83D4-
-
-CTouch /Users/jeena/Projects/Tentia/build/Debug/Twittia.app
-s371754983.180191
-e371754983.200569
-r1
-xTouch
-x/Users/jeena/Projects/Tentia/build/Debug/Twittia.app
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection58"Touch /Users/jeena/Projects/Tentia/build/Debug/Twittia.app6b2b2ee78728b641^685933e78728b641^---0#0#0#--141"Touch build/Debug/Twittia.app    cd /Users/jeena/Projects/Tentia    /usr/bin/touch -c /Users/jeena/Projects/Tentia/build/Debug/Twittia.app36"553F7CAA-665A-4C3F-8A58-9B88AFFA652F-
-

@@ -21,9 +21,21 @@
     return self;
 }
 
+- (void)setString:(NSString *)string forKey:(NSString *)aKey
+{
+    NSLog(@"Saving: %@ %@", string, aKey);
+    [d setObject:string forKey:aKey];
+    [d synchronize];
+}
+
+- (NSString *)stringForKey:(NSString *)aKey
+{
+    NSLog(@"%@", [d objectForKey:aKey]);
+    return [d objectForKey:aKey];
+}
+
 - (void)setAccessToken:(NSString *)_accessToken
 {
-    [d setObject:_accessToken forKey:@"accessToken"];
     [d synchronize];
 }
 

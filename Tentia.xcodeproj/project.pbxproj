@@ -27,6 +27,8 @@
 		1F98DC9E124BFFD7004289ED /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F98DC9D124BFFD7004289ED /* pin.png */; };
 		1F9D655E163B63E300B7282B /* URI.min.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D655D163B63E300B7282B /* URI.min.js */; };
 		1F9D655F163B63F700B7282B /* URI.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9D655D163B63E300B7282B /* URI.min.js */; };
+		1F9D6561163C222400B7282B /* hmac-helper.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D6560163C222400B7282B /* hmac-helper.js */; };
+		1F9D6562163C26FC00B7282B /* hmac-helper.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9D6560163C222400B7282B /* hmac-helper.js */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
 		1FC254941427BC050035D84B /* index_oauth.html in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254931427BC050035D84B /* index_oauth.html */; };
 		1FC254951427BF150035D84B /* OauthImplementation.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254911427ADF90035D84B /* OauthImplementation.js */; };
@@ -87,6 +89,7 @@
 		1F9816C7163915A100AFD4EE /* hmac-sha256.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "hmac-sha256.js"; sourceTree = "<group>"; };
 		1F98DC9D124BFFD7004289ED /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		1F9D655D163B63E300B7282B /* URI.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = URI.min.js; sourceTree = "<group>"; };
+		1F9D6560163C222400B7282B /* hmac-helper.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "hmac-helper.js"; sourceTree = "<group>"; };
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FC254911427ADF90035D84B /* OauthImplementation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; lineEnding = 0; path = OauthImplementation.js; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
 		1FC254931427BC050035D84B /* index_oauth.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_oauth.html; sourceTree = "<group>"; };
@@ -182,6 +185,7 @@
 				1FFA36CB1177D861006C8562 /* default.css */,
 				1F4673E21180F519006CC37C /* jQuery.js */,
 				1F4673E41180F590006CC37C /* jQuery-Plugins.js */,
+				1F9D6560163C222400B7282B /* hmac-helper.js */,
 			);
 			name = WebKit;
 			sourceTree = "<group>";
@@ -308,6 +312,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9D6562163C26FC00B7282B /* hmac-helper.js in Resources */,
 				1F9D655F163B63F700B7282B /* URI.min.js in Resources */,
 				1F9816CA16391C4A00AFD4EE /* enc-base64-min.js in Resources */,
 				1F9816CB16391C4A00AFD4EE /* hmac-sha256.js in Resources */,
@@ -350,6 +355,7 @@
 				1F9816C8163915A100AFD4EE /* enc-base64-min.js in Sources */,
 				1F9816C9163915A100AFD4EE /* hmac-sha256.js in Sources */,
 				1F9D655E163B63E300B7282B /* URI.min.js in Sources */,
+				1F9D6561163C222400B7282B /* hmac-helper.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

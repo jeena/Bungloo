@@ -12,6 +12,9 @@
     NSUserDefaults *d;
 }
 
+- (void)setString:(NSString *)string forKey:(NSString *)aKey;
+- (NSString *)stringForKey:(NSString *)aKey;
+
 - (void)setAccessToken:(NSString *)_accessToken;
 - (NSString *)accessToken;
 - (void)setSecret:(NSString *)_secret;

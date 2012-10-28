@@ -6,33 +6,6 @@
 //  Licence: BSD (see attached LICENCE.txt file).
 //
 
-function getURL(url, type, callback, data, auth_header) {
-    $.ajax({
-        beforeSend: function(xhr) {
-            if (data) {
-                xhr.setRequestHeader("Content-Length", data.length);
-            }
-
-            if (auth_header) {
-                xhr.setRequestHeader("Authorization", auth_header);                
-            }
-        },
-        url: url,
-        accepts: "application/vnd.tent.v0+json",
-        contentType: "application/vnd.tent.v0+json",
-        type: type,
-        complete: callback,
-        data: data,
-        processData: false,
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert("getURL ERROR:");
-            alert(xhr.statusText);
-            alert(ajaxOptions);
-            alert(thrownError);
-        }
-    });
-}
-
 function getUrlVars(url) {
         var vars = [], hash;
         if(url.indexOf("#") > -1) url = url.slice(0, url.indexOf("#"));
@@ -46,45 +19,9 @@ function getUrlVars(url) {
         return vars;
 }
 
-function makeAuthHeader(url, http_method, mac_key, mac_key_id) {
-
-    url = URI(url);
-    var nonce = makeid(8);
-    var time_stamp = parseInt((new Date).getTime() / 1000, 10);
-
-    var normalizedRequestString = "" 
-                                + time_stamp + '\n'
-                                + nonce + '\n'
-                                + http_method + '\n'
-                                + url.path() + '\n'
-                                + url.hostname() + '\n'
-                                + url.port() + '\n'
-                                + '\n' ;
-
-    var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, mac_key);
-    hmac.update(normalizedRequestString);
-    var hash = hmac.finalize();
-    var mac = hash.toString(CryptoJS.enc.Base64);
-
-    return 'MAC id="' + mac_key_id +
-            '", ts="' + time_stamp +
-            '", nonce="' + nonce +
-            '", mac="' + mac + '"';
-}
-
-
-function makeid(len) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for( var i=0; i < len; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-}
-
 function OauthImplementation(entity) {
     this.entity = entity || "http://lala.home.jeena.net:3002";
+    controller.setString_forKey_(this.entity, "entity");
     this.app_info = {
         "id": null,
         "name": "Tentia",
@@ -113,7 +50,7 @@ OauthImplementation.prototype.requestProfileURL = function (entity) {
     var those = this;
     getURL(entity, "HEAD", function(resp) {
         var headers = resp.getAllResponseHeaders();
-        var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/;
+        var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/; // FIXME: parse it!
         var profile_url = headers.match(regex)[1]
         if (profile_url == "/profile") {
             profile_url = entity + "/profile";
@@ -127,6 +64,7 @@ OauthImplementation.prototype.register = function (url) {
     var those = this;
     getURL(url, "GET", function(resp) {
         those.profile = JSON.parse(resp.responseText);
+        controller.setString_forKey_(those.apiRoot(), "api_root");
         var callback = function(resp) {
             var data = JSON.parse(resp.responseText);
             those.authRequest(data);
@@ -141,6 +79,12 @@ OauthImplementation.prototype.authRequest = function(register_data) {
     // mac_key
     // mac_algorithm
     this.register_data = register_data;
+    
+    // Needed for later App Registration Modification
+    controller.setString_forKey_(register_data["mac_key"], "app_mac_key");
+    controller.setString_forKey_(register_data["mac_key_id"], "app_mac_key_id");
+    controller.setString_forKey_(register_data["id"], "app_id");
+    controller.setString_forKey_(register_data["mac_algorithm"], "app_mac_algorithm");
 
     this.state = makeid(19);
     var auth = "/oauth/authorize?client_id=" + register_data["id"]
@@ -169,7 +113,8 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
                 those.requestAccessTokenTicketFinished(resp.responseText);
             };
 
-            var auth_header = makeAuthHeader(url, "POST", this.register_data["mac_key"], this.register_data["mac_key_id"]);
+            alert(controller.stringForKey_("app_mac_key"))
+            var auth_header = makeAuthHeader(url, "POST", controller.stringForKey_("app_mac_key"), controller.stringForKey_("app_mac_key_id"));
             getURL(url, "POST", callback, requestBody, auth_header);
 
         } else {
@@ -185,12 +130,14 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
 
 OauthImplementation.prototype.requestAccessTokenTicketFinished = function(responseBody) {
 
-    var secret_data = {
-        access: JSON.parse(responseBody),
-        register_data: this.register_data
-    }
+    var access = JSON.parse(responseBody); 
+    
+    controller.setString_forKey_(access["access_token"], "user_access_token");
+    controller.setString_forKey_(access["mac_key"], "user_mac_key");
+    controller.setString_forKey_(access["mac_algorithm"], "user_mac_algorithm");
+    controller.setString_forKey_(access["token_type"], "user_token_type");
 
-    controller.storeSecretData_(JSON.stringify(secret_data));
+    controller.loggedIn();
 }
 
 var tentia_oauth;

@@ -45,8 +45,11 @@
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)unreadMentions:(NSInteger)count;
 - (void)openURL:(NSString *)url;
+
+- (void)setString:(NSString *)string forKey:(NSString *)aKey;
+- (NSString *)stringForKey:(NSString *)aKey;
 - (void)storeAccessToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName;
-- (void)storeSecretData:(NSString *)secretData;
+- (void)loggedIn;
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
 

@@ -7,7 +7,8 @@
 //
 
 function Core(action) {
-    this.max_length = 100;
+
+    this.max_length = 200;
     this.since_id;
     this.timeout = 2 * 60 * 1000;
     this.action = action;
@@ -255,27 +256,34 @@ Core.prototype.getTemplate = function() {
 
 Core.prototype.getNewData = function(supress_new_with_timeout) {
 
-	var url = API_PATH + "statuses/" + this.action + ".json"
-	var parameters = {count: this.max_length, include_entities: "true"}
-	if(this.since_id) parameters.since_id = this.since_id
-
-	
-	var url2 = "?count=" + this.max_length + "&include_entities=true";
-	if(this.since_id) url2 += "&since_id=" + this.since_id;
-	var _this = this;
-	
-	var message = { method:"GET" , action:url, parameters: parameters };
-
-	OAuth.completeRequest(message,
-						  { consumerKey   : OAUTH_CONSUMER_KEY
-						  , consumerSecret: OAUTH_CONSUMER_SECRET
-						  , token         : controller.accessToken.accessToken()
-						  , tokenSecret   : controller.accessToken.secret()
-						  });
+    var those = this;
+	var url = controller.stringForKey_("api_root") + "/posts";
+	//if(this.since_id) url += "?since_id=" this.since_id;
     
+    var http_method = "GET";
+    var callback = function(resp) {
+        those.newStatus(data, supress_new_with_timeout);
+    }
+
+    var data = null;
+
+    getURL(
+        url, 
+        http_method, 
+        callback, 
+        data, 
+        makeAuthHeader(
+            url, 
+            http_method, 
+            controller.stringForKey_("user_mac_key"), 
+            controller.stringForKey_("user_access_token")
+        )
+    );
+
+    /*
 	$.ajax(
 		   {	beforeSend: function(xhr) {
-					xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
+					xhr.setRequestHeader("Authorization", );
 				},
 				url: url + url2,
 				dataType: 'json',
@@ -288,7 +296,7 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
 					setTimeout(function() { _this.getNewData(supress_new_with_timeout) }, this.timeout);
 			}
 		   }
-	);
+	);*/
 }
 
 

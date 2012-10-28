@@ -51,7 +51,8 @@
     accessToken = [[AccessToken alloc] init];
 
     //accessToken.accessToken = nil;
-    if (!accessToken.accessToken) {
+    NSLog(@"%@", [accessToken stringForKey:@"user_access_token"]);
+    if (![accessToken stringForKey:@"user_access_token"]) {
         [self initOauth];
     } else {
         [self initWebViews];
@@ -158,6 +159,16 @@
 	return NO;
 }
 
+- (void)setString:(NSString *)string forKey:(NSString *)aKey
+{
+    [self.accessToken setString:string forKey:aKey];
+}
+
+- (NSString *)stringForKey:(NSString *)aKey
+{
+    return [self.accessToken stringForKey:aKey];
+}
+
 
 #pragma mark Notifications
 
@@ -233,9 +244,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }
 
-- (void)storeSecretData:(NSString *)secretData
+- (void)loggedIn
 {
-    NSLog(@"got secret data: %@", secretData);
     [timelineViewWindow makeKeyAndOrderFront:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }
