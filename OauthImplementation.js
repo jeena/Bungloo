@@ -48,16 +48,9 @@ OauthImplementation.prototype.apiRoot = function() {
 
 OauthImplementation.prototype.requestProfileURL = function (entity) {
     var those = this;
-    getURL(entity, "HEAD", function(resp) {
-        var headers = resp.getAllResponseHeaders();
-        var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/; // FIXME: parse it!
-        var profile_url = headers.match(regex)[1];
-        if (profile_url == "/profile") {
-            profile_url = entity + "/profile";
-        }
+    findProfileURL(entity, function(profile_url) {
         those.register(profile_url);
     });
-
 }
 
 OauthImplementation.prototype.register = function (url) {
@@ -113,7 +106,6 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
                 those.requestAccessTokenTicketFinished(resp.responseText);
             };
 
-            alert(controller.stringForKey_("app_mac_key"))
             var auth_header = makeAuthHeader(url, "POST", controller.stringForKey_("app_mac_key"), controller.stringForKey_("app_mac_key_id"));
             getURL(url, "POST", callback, requestBody, auth_header);
 

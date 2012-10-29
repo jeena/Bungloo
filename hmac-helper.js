@@ -5,13 +5,8 @@
 function getURL(url, http_method, callback, data, auth_header) {
     $.ajax({
         beforeSend: function(xhr) {
-            if (data) {
-                xhr.setRequestHeader("Content-Length", data.length);
-            }
-
-            if (auth_header) {
-                xhr.setRequestHeader("Authorization", auth_header);                
-            }
+            if (data) xhr.setRequestHeader("Content-Length", data.length);
+            if (auth_header) xhr.setRequestHeader("Authorization", auth_header);                
         },
         url: url,
         accepts: "application/vnd.tent.v0+json",
@@ -39,7 +34,7 @@ function makeAuthHeader(url, http_method, mac_key, mac_key_id) {
                                 + time_stamp + '\n'
                                 + nonce + '\n'
                                 + http_method + '\n'
-                                + url.path() + '\n'
+                                + url.path() + url.search() + url.hash() + '\n'
                                 + url.hostname() + '\n'
                                 + url.port() + '\n'
                                 + '\n' ;
@@ -66,13 +61,33 @@ function makeid(len) {
 }
 
 function findProfileURL(entity, callback) {
-    getURL(entity, "HEAD", function(resp) {
-        var headers = resp.getAllResponseHeaders();
-        var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/; // FIXME: parse it!
-        var profile_url = headers.match(regex)[1];
-        if (profile_url == "/profile") {
-            profile_url = entity + "/profile";
+    $.ajax({
+        url: entity,
+        type: "HEAD",
+        complete: function(resp) {
+            if(resp) {
+                var headers = resp.getAllResponseHeaders();
+                var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/; // FIXME: parse it!
+                var ret = headers.match(regex);
+                var profile_url = entity + "/profile";
+                if(ret.length > 1) {
+                    var profile_url = ret[1];
+                    if (profile_url == "/profile") {
+                        profile_url = entity + "/profile";
+                    }
+                }
+                callback(profile_url);                
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert("getURL ERROR (" + url + ") (" + http_method + "):");
+            alert(xhr.statusText);
+            alert(ajaxOptions);
+            alert(thrownError);
         }
-        callback(profile_url);
     });
+}
+
+function debug(string) {
+    alert("DEBUG: " + string);
 }

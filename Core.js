@@ -7,17 +7,20 @@
 //
 
 function Core(action) {
-
     this.max_length = 200;
-    this.since_id;
-    this.timeout = 2 * 60 * 1000;
+    // this.timeout = 2 * 60 * 1000;
+    this.timeout = 10 * 1000; // every 10 seconds
     this.action = action;
     this.getNewData();
     this.unread_mentions = 0;
+    this.since_id = null;
+    this.since_id_entity = null;
+    this.since_time = 0;
 
     this.body = document.createElement("ol");
     this.body.className = this.action;
     this.cache = {};
+    this.is_not_init = false;
 
 /*
     if (action == "home_timeline") {
@@ -29,7 +32,8 @@ function Core(action) {
 }
 
 Core.prototype.newStatus = function(status, supress_new_with_timeout) {
-	if(status != null) {
+	if(status != null && status.length > 0) {
+        this.since_id = status[0]["id"];
 		for(var i = status.length-1, c=0; i>=c; --i) {
 			if(this.body.childNodes.length > 0) {
 				if(this.body.childNodes.length > this.max_length) {
@@ -54,10 +58,11 @@ Core.prototype.newStatus = function(status, supress_new_with_timeout) {
 }
 
 Core.prototype.getItem = function(status) {
-    alert(JSON.stringify(status))
 
 	var _this = this;
 	this.since_id = status.id;
+    this.since_id_entity = status.entity;
+    if (this.since_time < status.published_at) this.since_time = status.published_at;
 	
     var original_status = null;
 	/*
@@ -76,13 +81,17 @@ Core.prototype.getItem = function(status) {
 	template.username.href = status.entity; // FIXME open profile
 
     findProfileURL(status.entity, function(profile_url) {
-        getURL(profile_url, "GET", function(resp) {
-            var profile = JSON.parse(resp.responseText);
-            var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
-            alert(JSON.stringify(basic))
-            template.username.innerText = basic.name;
-            template.image.src = basic.avatar_url;
-        });
+        if (profile_url) {
+            getURL(profile_url, "GET", function(resp) {
+                var profile = JSON.parse(resp.responseText);
+                var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+
+                if (profile && basic) {
+                    if(basic.name) template.username.innerText = basic.name;
+                    if(basic.avatar_url) template.image.src = basic.avatar_url;                    
+                }
+            });
+        }
     });
 
 	/*
@@ -107,20 +116,22 @@ Core.prototype.getItem = function(status) {
 	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.content.text, status.entities, template.message));
 	
 	var time = document.createElement("abbr");
-	time.innerText = status.published_at;
-	time.title = status.published_at;
+	time.innerText = ISODateString(new Date(status.published_at * 1000));
+	time.title = time.innerText;
 	time.className = "timeago";
 	$(time).timeago();
 	template.ago.appendChild(time);
 	//template.ago.href = WEBSITE_PATH +  status.user.screen_name + "/status/" + status.id_str;
 	
 	// {"type":"Point","coordinates":[57.10803113,12.25854746]}
-	if (status.geo && status.geo.type == "Point") {
-		template.geo.href = "http://maps.google.com/maps?q=" + status.geo.coordinates[0] + "," + status.geo.coordinates[1];
+	if (status.content && status.content.location && status.content.location.type == "Point") {
+		template.geo.href = "http://maps.google.com/maps?q=" + status.content.location.coordinates[0] + "," + status.content.location.coordinates[1];
 		template.geo.style.display = "";
 	}
 	
-	template.source.innerHTML = status.source;
+    template.source.href = status.app.url;
+	template.source.innerHTML = status.app.name;
+    template.source.title = status.app.url;
     /*
     if(status.entities.media) {
         
@@ -187,11 +198,12 @@ Core.prototype.getTemplate = function() {
 	retweet.className = "retweet";
 	retweet.innerText = " ";
 	retweet.href = "#";
-	item.appendChild(retweet);
+	// item.appendChild(retweet); // FIXME
 	
 	
 	var image = document.createElement("img");
 	image.className = "image";
+    image.src = "default-avatar.png";
 	image.onmousedown = function(e) { e.preventDefault(); };
 	item.appendChild(image);
 	
@@ -248,7 +260,7 @@ Core.prototype.getTemplate = function() {
 	var from = document.createTextNode(" from ");
 	date.appendChild(from)
 	
-	var source = document.createElement("span");
+	var source = document.createElement("a");
 	source.className = "source";
 	date.appendChild(source)
 	
@@ -272,28 +284,47 @@ Core.prototype.getTemplate = function() {
 Core.prototype.getNewData = function(supress_new_with_timeout) {
 
     var those = this;
-	var url = controller.stringForKey_("api_root") + "/posts";
-	//if(this.since_id) url += "?since_id=" this.since_id;
-    
+    var url = URI(controller.stringForKey_("api_root"));
+    url.path("posts");
+    url.addSearch("post_types", "https://tent.io/types/post/status/v0.1.0");
+    url.addSearch("limit", this.max_length);
+    if(this.since_id) {
+        url.addSearch("since_id", this.since_id);
+        url.addSearch("since_id_entity", this.since_id_entity);
+    }
+
+    if (this.action == "mentions") {
+        url.addSearch("mentioned_entity", controller.stringForKey_("entity"));
+    }
+
     var http_method = "GET";
     var callback = function(resp) {
-        those.newStatus(JSON.parse(resp.responseText), supress_new_with_timeout);
+        
+        try {
+            var json = JSON.parse(resp.responseText)
+        } catch (e) {
+            //alert(resp.responseText);
+            alert(url + " JSON parse error");
+            throw e;
+        }
+
+        those.newStatus(json, supress_new_with_timeout);
     }
 
     var data = null;
 
     getURL(
-        url, 
+        url.toString(), 
         http_method, 
         callback, 
         data, 
         makeAuthHeader(
-            url, 
+            url.toString(), 
             http_method, 
             controller.stringForKey_("user_mac_key"), 
             controller.stringForKey_("user_access_token")
         )
-    );
+    ); // FIXME: error callback
 
     /*
 	$.ajax(
@@ -594,6 +625,16 @@ function replaceShortened(url, message_node) {
             alert(thrownError);
            }
     });
+}
+
+function ISODateString(d){
+  function pad(n){return n<10 ? '0'+n : n}
+  return d.getUTCFullYear()+'-'
+      + pad(d.getUTCMonth()+1)+'-'
+      + pad(d.getUTCDate())+'T'
+      + pad(d.getUTCHours())+':'
+      + pad(d.getUTCMinutes())+':'
+      + pad(d.getUTCSeconds())+'Z'
 }
 
 var tentia_instance;

@@ -29,6 +29,7 @@
 		1F9D655F163B63F700B7282B /* URI.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9D655D163B63E300B7282B /* URI.min.js */; };
 		1F9D6561163C222400B7282B /* hmac-helper.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D6560163C222400B7282B /* hmac-helper.js */; };
 		1F9D6562163C26FC00B7282B /* hmac-helper.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9D6560163C222400B7282B /* hmac-helper.js */; };
+		1F9D6564163F35C600B7282B /* default-avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F9D6563163F35C600B7282B /* default-avatar.png */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
 		1FC254941427BC050035D84B /* index_oauth.html in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254931427BC050035D84B /* index_oauth.html */; };
 		1FC254951427BF150035D84B /* OauthImplementation.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254911427ADF90035D84B /* OauthImplementation.js */; };
@@ -90,6 +91,7 @@
 		1F98DC9D124BFFD7004289ED /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		1F9D655D163B63E300B7282B /* URI.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = URI.min.js; sourceTree = "<group>"; };
 		1F9D6560163C222400B7282B /* hmac-helper.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "hmac-helper.js"; sourceTree = "<group>"; };
+		1F9D6563163F35C600B7282B /* default-avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-avatar.png"; sourceTree = "<group>"; };
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FC254911427ADF90035D84B /* OauthImplementation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; lineEnding = 0; path = OauthImplementation.js; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
 		1FC254931427BC050035D84B /* index_oauth.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_oauth.html; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				1F4673E21180F519006CC37C /* jQuery.js */,
 				1F4673E41180F590006CC37C /* jQuery-Plugins.js */,
 				1F9D6560163C222400B7282B /* hmac-helper.js */,
+				1F9D6563163F35C600B7282B /* default-avatar.png */,
 			);
 			name = WebKit;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				1F122D49118E1DE100E83B77 /* Icon.icns in Resources */,
 				1F98DC9E124BFFD7004289ED /* pin.png in Resources */,
 				1FC254941427BC050035D84B /* index_oauth.html in Resources */,
+				1F9D6564163F35C600B7282B /* default-avatar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

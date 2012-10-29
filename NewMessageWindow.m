@@ -73,7 +73,7 @@
 }
 
 - (void)inReplyTo:(NSString *)userName statusId:(NSString *)statusId {
-	[textField setStringValue:[NSString stringWithFormat:@"@%@ ", userName]];
+	[textField setStringValue:[NSString stringWithFormat:@"^%@ ", userName]];
 	NSRange range = {[[textField stringValue] length] , 0};
 	[[textField currentEditor] setSelectedRange:range];
 	[inReplyTostatusId release];

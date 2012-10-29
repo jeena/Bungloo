@@ -16,6 +16,7 @@
     if (self) {
         // Initialization code here.
         d = [NSUserDefaults standardUserDefaults];
+        //[d removeObjectForKey:@"user_access_token"];
     }
     
     return self;

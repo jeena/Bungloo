@@ -44,14 +44,12 @@
 						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
 						 forEventClass:kInternetEventClass
 							andEventID:kAEGetURL];
-	
+	 
     viewDelegate = [[ViewDelegate alloc] init];
     
     
     accessToken = [[AccessToken alloc] init];
 
-    //accessToken.accessToken = nil;
-    NSLog(@"%@", [accessToken stringForKey:@"user_access_token"]);
     if (![accessToken stringForKey:@"user_access_token"]) {
         [self initOauth];
     } else {
