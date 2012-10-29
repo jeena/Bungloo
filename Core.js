@@ -345,9 +345,41 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
 	);*/
 }
 
-/*
-Core.prototype.sendNewMessage = function(tweet, in_reply_to_status_id) {
+
+Core.prototype.sendNewMessage = function(content, in_reply_to_status_id) {
+
+    var _this = this;
+
+    var url = URI(controller.stringForKey_("api_root") + "/posts");
+
+    var http_method = "POST";
+    var callback = function(data) { _this.getNewData(true); }
+
+    var data = JSON.stringify({
+        "type": "https://tent.io/types/post/status/v0.1.0",
+        "published_at": (new Date().getTime() / 1000),
+        "permissions": {
+            "public": true
+        },
+        "content": {
+            "text": content,
+        }
+    });
+
+    getURL(
+        url.toString(), 
+        http_method, 
+        callback, 
+        data, 
+        makeAuthHeader(
+            url.toString(), 
+            http_method, 
+            controller.stringForKey_("user_mac_key"), 
+            controller.stringForKey_("user_access_token")
+        )
+    ); // FIXME: error callback
 	
+    /*
 	var url = API_PATH + "statuses/update.json";
 	var data = "source=tentia&status=" + OAuth.percentEncode(tweet);
 	if(in_reply_to_status_id != '') data += "&in_reply_to_status_id=" + in_reply_to_status_id
@@ -381,9 +413,9 @@ Core.prototype.sendNewMessage = function(tweet, in_reply_to_status_id) {
 			alert(xhr.status);
 			alert(thrownError);				
 		}
-	});
+	});*/
 }
-
+/*
 
 Core.prototype.retweet = function(status_id, item) {
 	var url = API_PATH + "statuses/retweet/" + status_id + ".json";
