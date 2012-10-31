@@ -6,7 +6,21 @@ function getURL(url, http_method, callback, data, auth_header) {
     $.ajax({
         beforeSend: function(xhr) {
             if (data) xhr.setRequestHeader("Content-Length", data.length);
-            if (auth_header) xhr.setRequestHeader("Authorization", auth_header);                
+
+            if (auth_header) { // if is_set? auth_header
+                xhr.setRequestHeader("Authorization", auth_header);
+            } else {
+                var user_access_token = controller.stringForKey_("user_access_token");
+                if (auth_header !== false && user_access_token) {
+                    auth_header = makeAuthHeader(
+                        url, 
+                        http_method, 
+                        controller.stringForKey_("user_mac_key"), 
+                        user_access_token
+                    )
+                    xhr.setRequestHeader("Authorization", auth_header);
+                }                
+            }
         },
         url: url,
         accepts: "application/vnd.tent.v0+json",
@@ -16,10 +30,7 @@ function getURL(url, http_method, callback, data, auth_header) {
         data: data,
         processData: false,
         error: function(xhr, ajaxOptions, thrownError) {
-            alert("getURL ERROR (" + url + ") (" + http_method + "):");
-            alert(xhr.statusText);
-            alert(ajaxOptions);
-            alert(thrownError);
+            alert("getURL " + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
         }
     });
 }
@@ -30,13 +41,18 @@ function makeAuthHeader(url, http_method, mac_key, mac_key_id) {
     var nonce = makeid(8);
     var time_stamp = parseInt((new Date).getTime() / 1000, 10);
 
+    var port = url.port();
+    if (!port) {
+        port = url.protocol() == "https" ? "443" : "80";
+    }
+
     var normalizedRequestString = "" 
                                 + time_stamp + '\n'
                                 + nonce + '\n'
                                 + http_method + '\n'
                                 + url.path() + url.search() + url.hash() + '\n'
                                 + url.hostname() + '\n'
-                                + url.port() + '\n'
+                                + port + '\n'
                                 + '\n' ;
 
     var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, mac_key);
@@ -69,21 +85,21 @@ function findProfileURL(entity, callback) {
                 var headers = resp.getAllResponseHeaders();
                 var regex = /Link: <([^>]*)>; rel="https:\/\/tent.io\/rels\/profile"/; // FIXME: parse it!
                 var ret = headers.match(regex);
-                var profile_url = entity + "/profile";
-                if(ret.length > 1) {
+                var profile_url = null;
+                if(ret && ret.length > 1) {
                     var profile_url = ret[1];
                     if (profile_url == "/profile") {
                         profile_url = entity + "/profile";
                     }
                 }
-                callback(profile_url);                
+
+                if (profile_url) {
+                    callback(profile_url);
+                }
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            alert("getURL ERROR (" + url + ") (" + http_method + "):");
-            alert(xhr.statusText);
-            alert(ajaxOptions);
-            alert(thrownError);
+            alert("findProfileURL " + xhr.statusText + " (" + entity + "): " + xhr.responseText);
         }
     });
 }

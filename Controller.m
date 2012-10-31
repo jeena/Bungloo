@@ -12,6 +12,8 @@
 
 
 @implementation Controller
+@synthesize loginViewWindow;
+@synthesize loginActivityIndicator;
 
 @synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate;
 @synthesize logoLayer;
@@ -50,26 +52,35 @@
     
     accessToken = [[AccessToken alloc] init];
 
+    //[accessToken setString:nil forKey:@"user_access_token"];
+    
     if (![accessToken stringForKey:@"user_access_token"]) {
-        [self initOauth];
+        [timelineViewWindow performClose:self];
+        [mentionsViewWindow performClose:self];
+        [self.loginViewWindow makeKeyAndOrderFront:self];
     } else {
+        [timelineViewWindow makeKeyAndOrderFront:self];
         [self initWebViews];
     }    
 }
 
 - (void)initOauth {
-    NSString *path = [[NSBundle mainBundle] resourcePath];
-	NSURL *url = [NSURL fileURLWithPath:path];
-	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index_oauth.html", path] encoding:NSUTF8StringEncoding error:nil];
-
-    
-    oauthView = [[WebView alloc] init];
-    viewDelegate.oauthView = oauthView;
-	[[oauthView mainFrame] loadHTMLString:index_string baseURL:url];
-	[oauthView setFrameLoadDelegate:viewDelegate];
-	[oauthView setPolicyDelegate:viewDelegate];
-	[oauthView setUIDelegate:viewDelegate];
-    [[oauthView windowScriptObject] setValue:self forKey:@"controller"];
+    if (!oauthView) {
+        NSString *path = [[NSBundle mainBundle] resourcePath];
+        NSURL *url = [NSURL fileURLWithPath:path];
+        NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index_oauth.html", path] encoding:NSUTF8StringEncoding error:nil];
+        
+        
+        oauthView = [[WebView alloc] init];
+        viewDelegate.oauthView = oauthView;
+        [[oauthView mainFrame] loadHTMLString:index_string baseURL:url];
+        [oauthView setFrameLoadDelegate:viewDelegate];
+        [oauthView setPolicyDelegate:viewDelegate];
+        [oauthView setUIDelegate:viewDelegate];
+        [[oauthView windowScriptObject] setValue:self forKey:@"controller"];
+    } else {
+        [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_oauth.authenticate()"];
+    }
 }
 
 - (void)initHotKeys {
@@ -123,7 +134,9 @@
 }
 
 - (void)authentificationSucceded:(id)sender {
+    [loginActivityIndicator stopAnimation:self];
 	[self initWebViews];
+    [loginViewWindow performClose:self];
 }
 
 - (void)initWebViews {
@@ -245,10 +258,34 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }
 
-- (void)loggedIn
-{
+- (void)loggedIn {
     [timelineViewWindow makeKeyAndOrderFront:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
+}
+
+- (IBAction)login:(id)sender {
+    [loginActivityIndicator startAnimation:self];
+    [self initOauth];
+}
+
+- (IBAction)logout:(id)sender {
+    [timelineViewWindow performClose:self];
+    [mentionsViewWindow performClose:self];
+    [self.loginViewWindow makeKeyAndOrderFront:self];
+    
+    [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    [mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    
+    [accessToken setString:nil forKey:@"app_mac_key"];
+    [accessToken setString:nil forKey:@"app_mac_key_id"];
+    [accessToken setString:nil forKey:@"app_id"];
+    [accessToken setString:nil forKey:@"app_mac_algorithm"];
+    [accessToken setString:nil forKey:@"user_access_token"];
+    [accessToken setString:nil forKey:@"user_mac_key"];
+    [accessToken setString:nil forKey:@"user_mac_algorithm"];
+    [accessToken setString:nil forKey:@"user_token_type"];
+    [accessToken setString:nil forKey:@"api_root"];
+    [accessToken setString:nil forKey:@"entity"];
 }
 
 // Mentions window has been visible

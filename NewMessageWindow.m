@@ -34,11 +34,11 @@
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"NewMessageWindow";
 }
-/*
+
 - (NSString *)displayName {
-	return @"New Tweet";
+	return @"New Post";
 }
-*/
+
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];

@@ -19,6 +19,8 @@
 	IBOutlet NSWindow *timelineViewWindow;
 	IBOutlet WebView *mentionsView;
 	IBOutlet NSWindow *mentionsViewWindow;
+    NSWindow *loginViewWindow;
+    NSProgressIndicator *loginActivityIndicator;
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
 	IBOutlet NSImageView *logoLayer;
 	ViewDelegate *viewDelegate;
@@ -30,6 +32,8 @@
 @property (retain, nonatomic) IBOutlet NSWindow *timelineViewWindow;
 @property (retain, nonatomic) IBOutlet WebView *mentionsView;
 @property (retain, nonatomic) IBOutlet NSWindow *mentionsViewWindow;
+@property (assign) IBOutlet NSWindow *loginViewWindow;
+@property (assign) IBOutlet NSProgressIndicator *loginActivityIndicator;
 @property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
 @property (retain, nonatomic) IBOutlet NSImageView *logoLayer;
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
@@ -50,6 +54,10 @@
 - (NSString *)stringForKey:(NSString *)aKey;
 - (void)storeAccessToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName;
 - (void)loggedIn;
+
+- (IBAction)login:(id)sender;
+- (IBAction)logout:(id)sender;
+
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
 

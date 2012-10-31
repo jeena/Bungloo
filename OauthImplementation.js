@@ -19,9 +19,7 @@ function getUrlVars(url) {
         return vars;
 }
 
-function OauthImplementation(entity) {
-    this.entity = entity || "http://jeena.net";
-    controller.setString_forKey_(this.entity, "entity");
+function OauthImplementation() {
     this.app_info = {
         "id": null,
         "name": "Tentia",
@@ -39,6 +37,12 @@ function OauthImplementation(entity) {
     this.register_data = null;
     this.profile = null;
     this.state = null;
+
+    this.authenticate();
+}
+
+OauthImplementation.prototype.authenticate = function() {
+    this.entity = controller.stringForKey_("entity");
     this.requestProfileURL(this.entity);
 }
 
@@ -102,12 +106,19 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
             });
 
             var those = this;
+            var http_method = "POST";
             var callback = function(resp) {
                 those.requestAccessTokenTicketFinished(resp.responseText);
             };
 
-            var auth_header = makeAuthHeader(url, "POST", controller.stringForKey_("app_mac_key"), controller.stringForKey_("app_mac_key_id"));
-            getURL(url, "POST", callback, requestBody, auth_header);
+            var auth_header = makeAuthHeader(
+                    url, 
+                    http_method, 
+                    controller.stringForKey_("app_mac_key"), 
+                    controller.stringForKey_("app_mac_key_id")
+                );
+
+            getURL(url, http_method, callback, requestBody, auth_header);
 
         } else {
             alert("State is not the same: {" + this.state + "} vs {" + urlVars["state"] + "}")
@@ -115,10 +126,6 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
 
         this.state = null; // reset the state
 }
-
-
-
-
 
 OauthImplementation.prototype.requestAccessTokenTicketFinished = function(responseBody) {
 

@@ -57,19 +57,15 @@ Core.prototype.newStatus = function(status, supress_new_with_timeout) {
 	this.is_not_init = true;
 }
 
+Core.prototype.logout = function() {
+    this.body.innerHTML = "";
+}
+
 Core.prototype.getItem = function(status) {
 
 	var _this = this;
 	this.since_id = status.id;
     this.since_id_entity = status.entity;
-    if (this.since_time < status.published_at) this.since_time = status.published_at;
-	
-    var original_status = null;
-	/*
-	if(status.retweeted_status != null) {
-		var original_status = status;
-		var status = status.retweeted_status;
-	}*/
 
 	var template = this.getTemplate();
 
@@ -85,7 +81,6 @@ Core.prototype.getItem = function(status) {
     }
 	//template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
 	
-	//template.image.src = status.user.profile_image_url;
 	template.username.innerText = status.entity;
 	template.username.href = status.entity; // FIXME open profile
 
@@ -100,30 +95,16 @@ Core.prototype.getItem = function(status) {
                         template.username.title = template.username.innerText;
                         template.username.innerText = basic.name;
                     }
-                    if(basic.avatar_url) template.image.src = basic.avatar_url;                    
+                    if(basic.avatar_url) {
+                        template.image.onerror = function() { template.image.src = 'default-avatar.png' };
+                        template.image.src = basic.avatar_url;
+                    }
                 }
-            });
+            }, null, false); // do not send auth-headers
         }
     });
-
-	/*
-	if(original_status != null) {
-		var retweeted = document.createElement("span")
-		retweeted.className = "retweeted";
-		var retweeted_icon = document.createElement("span");
-		retweeted_icon.innerText = " ";
-		retweeted.appendChild(retweeted_icon);
-		var retweeted_by = document.createElement("a");
-		retweeted_by.innerText = original_status.user.screen_name + " ";
-		retweeted_by.href = WEBSITE_PATH + original_status.user.screen_name;
-		retweeted.appendChild(document.createTextNode("@"));
-		retweeted.appendChild(retweeted_by);
-		template.in_reply.parentNode.parentNode.insertBefore(retweeted, template.in_reply.parent);
-	}*/
 	
-	/*if(status.in_reply_to_status_id_str != null) template.in_reply.innerText = status.in_reply_to_screen_name;
-	else */template.in_reply.parentNode.className = "hidden";
-	//template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id_str;
+	template.in_reply.parentNode.className = "hidden";
 
 	template.message.innerHTML = replaceUsernamesWithLinks(replaceURLWithHTMLLinks(status.content.text, status.entities, template.message));
 	
@@ -133,60 +114,17 @@ Core.prototype.getItem = function(status) {
 	time.className = "timeago";
 	$(time).timeago();
 	template.ago.appendChild(time);
-	//template.ago.href = WEBSITE_PATH +  status.user.screen_name + "/status/" + status.id_str;
 	
 	// {"type":"Point","coordinates":[57.10803113,12.25854746]}
 	if (status.content && status.content.location && status.content.location.type == "Point") {
 		template.geo.href = "http://maps.google.com/maps?q=" + status.content.location.coordinates[0] + "," + status.content.location.coordinates[1];
 		template.geo.style.display = "";
 	}
-	
+
     template.source.href = status.app.url;
 	template.source.innerHTML = status.app.name;
     template.source.title = status.app.url;
-    /*
-    if(status.entities.media) {
-        
-        for(var i=0; i<status.entities.media.length; i++) {
-            var media = status.entities.media[i];
-            
-            if(media.type == "photo") {
-                var a = document.createElement("a");
-                a.href = media.media_url;
-                template.message.innerHTML = template.message.innerHTML.replace(media.url, "");
-                alert(media.url)
-                
-                var img = document.createElement("img");
-                img.className = "photo";
-                img.src = media.media_url + ":small";
-                
-                a.appendChild(img);
-                template.images.appendChild(a);
-                
-            } else if(media.type == "tentia_youtube") {
-                var a = document.createElement("a");
-                a.href = media.url;
-                
-                var img = document.createElement("img");
-                img.className = "video";
-                img.src = media.media_url;
-                
-                a.appendChild(img);
-                template.images.appendChild(a);
-            } else if(media.type == "tentia_photo") {
-                var a = document.createElement("a");
-                a.href = media.url;
-                
-                var img = document.createElement("img");
-                img.className = "photo";
-                img.src = media.media_url;
-                
-                a.appendChild(img);
-                template.images.appendChild(a);            
-            }
-        }    
-    }
-	*/
+
 	return template.item;
 }
 
@@ -297,7 +235,7 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
 
     var those = this;
     var url = URI(controller.stringForKey_("api_root"));
-    url.path("posts");
+    url.path(url.directory() + "posts");
     url.addSearch("post_types", "https://tent.io/types/post/status/v0.1.0");
     url.addSearch("limit", this.max_length);
     if(this.since_id) {
@@ -311,7 +249,7 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
 
     var http_method = "GET";
     var callback = function(resp) {
-        
+
         try {
             var json = JSON.parse(resp.responseText)
         } catch (e) {
@@ -325,18 +263,9 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
 
     var data = null;
 
-    getURL(
-        url.toString(), 
-        http_method, 
-        callback, 
-        data, 
-        makeAuthHeader(
-            url.toString(), 
-            http_method, 
-            controller.stringForKey_("user_mac_key"), 
-            controller.stringForKey_("user_access_token")
-        )
-    ); // FIXME: error callback
+    if (controller.stringForKey_("user_access_token")) {
+        getURL(url.toString(), http_method, callback, data); // FIXME: error callback        
+    }
 
     /*
 	$.ajax(
@@ -383,54 +312,7 @@ Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_repl
         data["mentions"] = mentions;
     }
 
-    getURL(
-        url.toString(), 
-        http_method, 
-        callback, 
-        JSON.stringify(data),
-        makeAuthHeader(
-            url.toString(), 
-            http_method, 
-            controller.stringForKey_("user_mac_key"), 
-            controller.stringForKey_("user_access_token")
-        )
-    ); // FIXME: error callback
-	
-    /*
-	var url = API_PATH + "statuses/update.json";
-	var data = "source=tentia&status=" + OAuth.percentEncode(tweet);
-	if(in_reply_to_status_id != '') data += "&in_reply_to_status_id=" + in_reply_to_status_id
-		
-	var parameters = { source: "tentia", status: tweet };
-	if(in_reply_to_status_id != '') parameters.in_reply_to_status_id = in_reply_to_status_id;
-		
-	var _this = this;
-	
-	var message = { method:"POST" , action:url, parameters:parameters };
-	
-	OAuth.completeRequest(message,
-						  { consumerKey   : OAUTH_CONSUMER_KEY
-						  , consumerSecret: OAUTH_CONSUMER_SECRET
-						  , token         : controller.accessToken.accessToken()
-						  , tokenSecret   : controller.accessToken.secret()
-						  });	
-		
-	$.ajax({
-		beforeSend: function(xhr) {
-		   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
-		},
-		url: url,
-		type: 'POST',
-		data: data,
-		dataType: 'json',
-		success: function(data) {
-			_this.getNewData(true);
-		},
-		error:function (xhr, ajaxOptions, thrownError) {
-			alert(xhr.status);
-			alert(thrownError);				
-		}
-	});*/
+    getURL(url.toString(), http_method, callback, JSON.stringify(data)); // FIXME: error callback
 }
 
 /*

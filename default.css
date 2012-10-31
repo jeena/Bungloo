@@ -6,7 +6,7 @@ html, body {
 body {
 	font-family: "Lucida Grande", Tahoma, sans-serif;
 	font-size: 11px;
-	background: #dedede;
+	background: #dedede url(Icon.png) bottom center no-repeat;
 }
 
 a {
