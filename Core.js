@@ -73,7 +73,16 @@ Core.prototype.getItem = function(status) {
 
 	var template = this.getTemplate();
 
-	template.reply_to.onclick = function() { replyTo(status.entity, status.id); return false; }
+	template.reply_to.onclick = function() {
+        var mentions = [];
+        for (var i = 0; i < status.mentions.length; i++) {
+            var mention = status.mentions[i];
+            if(mention.entity != controller.stringForKey_("entity"))
+                mentions.push(mention);
+        };
+        replyTo(status.entity, status.id, mentions);
+        return false;
+    }
 	//template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
 	
 	//template.image.src = status.user.profile_image_url;
@@ -87,7 +96,10 @@ Core.prototype.getItem = function(status) {
                 var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
 
                 if (profile && basic) {
-                    if(basic.name) template.username.innerText = basic.name;
+                    if(basic.name) {
+                        template.username.title = template.username.innerText;
+                        template.username.innerText = basic.name;
+                    }
                     if(basic.avatar_url) template.image.src = basic.avatar_url;                    
                 }
             });
@@ -113,7 +125,7 @@ Core.prototype.getItem = function(status) {
 	else */template.in_reply.parentNode.className = "hidden";
 	//template.in_reply.href = WEBSITE_PATH + status.in_reply_to_screen_name + "/status/" + status.in_reply_to_status_id_str;
 
-	template.message.innerHTML = replaceTwitterLinks(replaceURLWithHTMLLinks(status.content.text, status.entities, template.message));
+	template.message.innerHTML = replaceUsernamesWithLinks(replaceURLWithHTMLLinks(status.content.text, status.entities, template.message));
 	
 	var time = document.createElement("abbr");
 	time.innerText = ISODateString(new Date(status.published_at * 1000));
@@ -346,7 +358,7 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
 }
 
 
-Core.prototype.sendNewMessage = function(content, in_reply_to_status_id) {
+Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity) {
 
     var _this = this;
 
@@ -355,7 +367,7 @@ Core.prototype.sendNewMessage = function(content, in_reply_to_status_id) {
     var http_method = "POST";
     var callback = function(data) { _this.getNewData(true); }
 
-    var data = JSON.stringify({
+    var data = {
         "type": "https://tent.io/types/post/status/v0.1.0",
         "published_at": (new Date().getTime() / 1000),
         "permissions": {
@@ -363,14 +375,19 @@ Core.prototype.sendNewMessage = function(content, in_reply_to_status_id) {
         },
         "content": {
             "text": content,
-        }
-    });
+        },
+    };
+
+    var mentions = parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
+    if (mentions.length > 0) {
+        data["mentions"] = mentions;
+    }
 
     getURL(
         url.toString(), 
         http_method, 
         callback, 
-        data, 
+        JSON.stringify(data),
         makeAuthHeader(
             url.toString(), 
             http_method, 
@@ -415,6 +432,7 @@ Core.prototype.sendNewMessage = function(content, in_reply_to_status_id) {
 		}
 	});*/
 }
+
 /*
 
 Core.prototype.retweet = function(status_id, item) {
@@ -531,7 +549,9 @@ Core.prototype.findUsernamesFor = function(query) {
 /* Helper functions */
 
 function replaceURLWithHTMLLinks(text, entities, message_node) {
-    if(!entities) return text;
+    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_()|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(exp, "<a href='$1'>$1</a>");
+
     /*
     var urls = entities.urls;
     
@@ -594,7 +614,7 @@ function replaceURLWithHTMLLinks(text, entities, message_node) {
 	return text;*/
 }
 
-function replaceTwitterLinks(text) {
+function replaceUsernamesWithLinks(text, mentions) {
     return text; // FIXME!
 	var username = /(^|\s)(\^)(\w+)/ig;
 	var hash = /(^|\s)(#)(\w+)/ig;
@@ -602,8 +622,12 @@ function replaceTwitterLinks(text) {
 	return text.replace(hash, "$1$2<a href='http://search.twitter.com/search?q=%23$3'>$3</a>");
 }
 
-function replyTo(username, status_id) {
-	controller.openNewMessageWindowInReplyTo_statusId_(username, status_id);
+function replyTo(entity, status_id, mentions) {
+    var string = "^" + entity + " ";
+    for (var i = 0; i < mentions.length; i++) {
+        string += "^" + mentions[i].entity + " ";
+    }
+	controller.openNewMessageWindowInReplyTo_statusId_withString_(entity, status_id, string);
 }
 
 function loadPlugin(url) {
@@ -657,6 +681,30 @@ function replaceShortened(url, message_node) {
             alert(thrownError);
            }
     });
+}
+
+function parseMentions(text, post_id, entity) {
+    var mentions = [];
+    
+    if (post_id && entity) {
+        mentions.push({
+            post: post_id,
+            entity: entity
+        })
+    }
+    
+    var res = text.match(/((\^https?):\/\/\S+)/ig);
+
+    if (res) {
+        for (var i = 0; i < res.length; i++) {
+            var e = res[i].substring(1);
+            if (e != entity) {
+                mentions.push({entity:e});
+            }
+        }
+    }
+
+    return mentions;
 }
 
 function ISODateString(d){

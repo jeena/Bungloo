@@ -40,7 +40,7 @@
 - (void)authentificationSucceded:(id)sender;
 - (void)initWebViews;
 - (void)initHotKeys;
-- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId;
+- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)unreadMentions:(NSInteger)count;

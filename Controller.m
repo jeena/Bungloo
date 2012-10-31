@@ -175,10 +175,10 @@
 	[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];	
 }
 
-- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId {
+- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string {
 	[NSApp activateIgnoringOtherApps:YES]; 
 	NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
-	[newTweet inReplyTo:userName statusId:statusId];
+	[newTweet inReplyTo:userName statusId:statusId withString:string];
 }
 
 - (void)openNewMessageWindowWithString:(NSString *)aString {
@@ -202,7 +202,10 @@
 
 - (IBAction)sendTweet:(id)sender {
 	TweetModel *tweet = (TweetModel *)[sender object];
-    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\")", [tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""], tweet.inReplyTostatusId];
+    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\")",
+                      [tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""],
+                      tweet.inReplyTostatusId,
+                      tweet.inReplyToEntity];
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 

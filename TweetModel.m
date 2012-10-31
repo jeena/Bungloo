@@ -11,11 +11,12 @@
 
 @implementation TweetModel
 
-@synthesize text, inReplyTostatusId;
+@synthesize text, inReplyTostatusId, inReplyToEntity;
 
 - (void)dealloc {
 	[text release];
 	[inReplyTostatusId release];
+    [inReplyToEntity release];
 	[super dealloc];
 }
 

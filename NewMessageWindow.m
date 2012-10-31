@@ -23,6 +23,7 @@
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
 		inReplyTostatusId = @"";
+        inReplyToEntity = @"";
     }
     return self;
 }
@@ -33,11 +34,11 @@
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"NewMessageWindow";
 }
-
+/*
 - (NSString *)displayName {
 	return @"New Tweet";
 }
-
+*/
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
@@ -72,13 +73,18 @@
     return YES;
 }
 
-- (void)inReplyTo:(NSString *)userName statusId:(NSString *)statusId {
-	[textField setStringValue:[NSString stringWithFormat:@"^%@ ", userName]];
+- (void)inReplyTo:(NSString *)entity statusId:(NSString *)statusId withString:(NSString *)string {
+	[textField setStringValue:string];
 	NSRange range = {[[textField stringValue] length] , 0};
 	[[textField currentEditor] setSelectedRange:range];
+    
 	[inReplyTostatusId release];
 	inReplyTostatusId = statusId;
 	[inReplyTostatusId retain];
+    
+    [inReplyToEntity release];
+    inReplyToEntity = entity;
+    [inReplyToEntity retain];
 }
 
 - (void)withString:(NSString *)aString {
@@ -105,6 +111,7 @@
 		TweetModel *tweet = [[[TweetModel alloc] init] autorelease];
 		tweet.text = [control stringValue];
 		tweet.inReplyTostatusId = inReplyTostatusId;
+        tweet.inReplyToEntity = inReplyToEntity;
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"sendTweet" object:tweet];
 		[self close];
 	} else {

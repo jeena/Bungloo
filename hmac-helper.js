@@ -89,5 +89,8 @@ function findProfileURL(entity, callback) {
 }
 
 function debug(string) {
+    if (typeof string == "Object") {
+        string = JSON.stirngify(string);
+    }
     alert("DEBUG: " + string);
 }

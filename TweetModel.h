@@ -12,9 +12,11 @@
 @interface TweetModel : NSObject {
 	NSString *text;
 	NSString *inReplyTostatusId;
+    NSString *inReplyToEntity;
 }
 
 @property (nonatomic, retain) NSString *text;
 @property (nonatomic, retain) NSString *inReplyTostatusId;
+@property (nonatomic, retain) NSString *inReplyToEntity;
 
 @end
