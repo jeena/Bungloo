@@ -143,6 +143,9 @@
     if (commandSelector == @selector(insertNewline:)) {
         retval = YES; // causes Apple to NOT fire the default enter action
         textField.stringValue = [NSString stringWithFormat:@"%@\n", textField.stringValue];
+
+        [[[textField window] fieldEditor:YES forObject:nil] scrollRangeToVisible:NSMakeRange([[textField stringValue] length], 0)];
+        [[[textField window] fieldEditor:YES forObject:nil] setSelectedRange:NSMakeRange([[textField stringValue] length], 0)];
     }
     
     if (commandSelector == @selector(noop:)) {
