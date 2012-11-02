@@ -10,7 +10,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface NewMessageWindow : NSDocument
+@interface NewMessageWindow : NSDocument <NSTextFieldDelegate>
 {
 	IBOutlet NSTextField *textField;
 	IBOutlet NSTextField *counter;

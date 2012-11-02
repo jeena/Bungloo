@@ -10,6 +10,10 @@
 #import "Constants.h"
 #import "TweetModel.h"
 
+@interface NewMessageWindow (private)
+- (BOOL)isCommandEnterEvent:(NSEvent *)e;
+@end
+
 @implementation NewMessageWindow
 
 @synthesize textField, counter;
@@ -43,6 +47,7 @@
 {
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
+
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -85,12 +90,16 @@
     [inReplyToEntity release];
     inReplyToEntity = entity;
     [inReplyToEntity retain];
+    
+    [self controlTextDidChange:nil];
 }
 
 - (void)withString:(NSString *)aString {
 	[textField setStringValue:aString];
 	NSRange range = {[[textField stringValue] length] , 0};
-	[[textField currentEditor] setSelectedRange:range];	
+	[[textField currentEditor] setSelectedRange:range];
+    
+    [self controlTextDidChange:nil];
 }
 
 -(void)controlTextDidChange:(NSNotification *)aNotification {
@@ -120,4 +129,27 @@
 
 }
 
+- (BOOL)isCommandEnterEvent:(NSEvent *)e {
+    NSUInteger flags = (e.modifierFlags & NSDeviceIndependentModifierFlagsMask);
+    BOOL isCommand = (flags & NSCommandKeyMask) == NSCommandKeyMask;
+    BOOL isEnter = (e.keyCode == 0x24); // VK_RETURN
+    return (isCommand && isEnter);
+}
+
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)commandSelector
+{
+    BOOL retval = NO;
+    
+    if (commandSelector == @selector(insertNewline:)) {
+        retval = YES; // causes Apple to NOT fire the default enter action
+        textField.stringValue = [NSString stringWithFormat:@"%@\n", textField.stringValue];
+    }
+    
+    if (commandSelector == @selector(noop:)) {
+        retval = YES;
+        [self sendTweet:control];
+    }
+    
+    return retval;  
+}
 @end

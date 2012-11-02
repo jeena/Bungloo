@@ -22,16 +22,11 @@ function Core(action) {
     this.cache = {};
     this.is_not_init = false;
 
-/*
-    if (action == "home_timeline") {
-        this.usernames = [];
-        this.getUsernames("friends");
-        this.getUsernames("followers");
-    }
-*/
+    var _this = this;
+    setInterval(function() { _this.getNewData() }, this.timeout);
 }
 
-Core.prototype.newStatus = function(status, supress_new_with_timeout) {
+Core.prototype.newStatus = function(status) {
 	if(status != null && status.length > 0) {
         this.since_id = status[0]["id"];
 		for(var i = status.length-1, c=0; i>=c; --i) {
@@ -46,10 +41,6 @@ Core.prototype.newStatus = function(status, supress_new_with_timeout) {
 		}
 	}
 	
-	if(!supress_new_with_timeout) {
-		var _this = this;
-		setTimeout(function() { _this.getNewData() }, this.timeout);
-	}
 	if(this.action == "mentions" && this.is_not_init) {
 		this.unread_mentions += status.length;
 		controller.unreadMentions_(this.unread_mentions);
@@ -231,11 +222,10 @@ Core.prototype.getTemplate = function() {
 	return jQuery.extend(true, {}, this.template);
 }
 
-Core.prototype.getNewData = function(supress_new_with_timeout) {
+Core.prototype.getNewData = function() {
 
     var those = this;
-    var url = URI(controller.stringForKey_("api_root"));
-    url.path(url.directory() + "posts");
+    var url = URI(mkApiRootPath("/posts"));
     url.addSearch("post_types", "https://tent.io/types/post/status/v0.1.0");
     url.addSearch("limit", this.max_length);
     if(this.since_id) {
@@ -258,7 +248,7 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
             throw e;
         }
 
-        those.newStatus(json, supress_new_with_timeout);
+        those.newStatus(json);
     }
 
     var data = null;
@@ -266,24 +256,6 @@ Core.prototype.getNewData = function(supress_new_with_timeout) {
     if (controller.stringForKey_("user_access_token")) {
         getURL(url.toString(), http_method, callback, data); // FIXME: error callback        
     }
-
-    /*
-	$.ajax(
-		   {	beforeSend: function(xhr) {
-					xhr.setRequestHeader("Authorization", );
-				},
-				url: url + url2,
-				dataType: 'json',
-				success: function(data) {
-					_this.newStatus(data, supress_new_with_timeout);
-				},
-				error:function (xhr, ajaxOptions, thrownError){
-					alert(xhr.status);
-					alert(thrownError);
-					setTimeout(function() { _this.getNewData(supress_new_with_timeout) }, this.timeout);
-			}
-		   }
-	);*/
 }
 
 
@@ -291,7 +263,7 @@ Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_repl
 
     var _this = this;
 
-    var url = URI(controller.stringForKey_("api_root") + "/posts");
+    var url = URI(mkApiRootPath("/posts"));
 
     var http_method = "POST";
     var callback = function(data) { _this.getNewData(true); }
@@ -315,185 +287,11 @@ Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_repl
     getURL(url.toString(), http_method, callback, JSON.stringify(data)); // FIXME: error callback
 }
 
-/*
-
-Core.prototype.retweet = function(status_id, item) {
-	var url = API_PATH + "statuses/retweet/" + status_id + ".json";
-	var _this = this;
-	
-	var message = { method:"POST" , action:url };
-	
-	OAuth.completeRequest(message,
-						  { consumerKey   : OAUTH_CONSUMER_KEY
-						  , consumerSecret: OAUTH_CONSUMER_SECRET
-						  , token         : controller.accessToken.accessToken()
-						  , tokenSecret   : controller.accessToken.secret()
-						  });
-		
-	$.ajax({
-		beforeSend: function(xhr) {
-		   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
-		},
-		url: url,
-		type: 'POST',
-		dataType: 'json',
-		success: function(data) {
-			item.parentNode.replaceChild(_this.getItem(data), item);
-		},
-		error:function (xhr, ajaxOptions, thrownError) {
-			alert(xhr.status);
-			alert(thrownError);				
-		}
-	});
-}
-
-Core.prototype.getUsernames = function(type, cursor) {
-  cursor = typeof cursor == "undefined" ? -1 : cursor;
-  
-  var url = API_PATH + type + "/ids.json";
-  var _this = this;
-  var parameters = { stringify_ids: "true", cursor:cursor };
-
-  var message = { method:"GET" , action:url, parameters:parameters };
-
-  OAuth.completeRequest(message,
-  					  { consumerKey   : OAUTH_CONSUMER_KEY
-  					  , consumerSecret: OAUTH_CONSUMER_SECRET
-  					  , token         : controller.accessToken.accessToken()
-  					  , tokenSecret   : controller.accessToken.secret()
-  					  });
-
-  $.ajax({
-  	beforeSend: function(xhr) {
-  	   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
-  	},
-  	url: url + "?stringify_ids=true&cursor=" + cursor ,
-  	type: 'GET',
-  	dataType: 'json',
-  	success: function(data) {
-      for (var i=0; i < data.ids.length; i = i + 100) {
-        _this.getUsernamesFromIds(data.ids.slice(i, i + 100));
-      }
-  		if (data.next_cursor > 0) {
-  		  _this.getUsernames(type, data.next_cursor);
-  		}
-  	},
-  	error:function (xhr, ajaxOptions, thrownError) {
-  		alert(xhr.status);
-  		alert(thrownError);				
-  	}
-  });
-}
-
-Core.prototype.getUsernamesFromIds = function(ids) {
-  
-  var url = API_PATH + "users/lookup.json";
-  var _this = this;
-  var parameters = { user_id:ids.join(",") };
-  var message = { method:"GET" , action:url, parameters:parameters };
-
-  OAuth.completeRequest(message,
-  					  { consumerKey   : OAUTH_CONSUMER_KEY
-  					  , consumerSecret: OAUTH_CONSUMER_SECRET
-  					  , token         : controller.accessToken.accessToken()
-  					  , tokenSecret   : controller.accessToken.secret()
-  					  });
-
-  $.ajax({
-  	beforeSend: function(xhr) {
-  	   xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters));
-  	},
-  	url: url + "?user_id=" + ids.join(","),
-  	type: 'GET',
-  	dataType: 'json',
-  	success: function(data) {
-      for (var i=0; i < data.length; i++) {
-        _this.usernames.push(data[i].screen_name);
-      }
-  	},
-  	error:function (xhr, ajaxOptions, thrownError) {
-  		alert(xhr.status);
-  		alert(thrownError);				
-  	}
-  });
-}
-
-Core.prototype.findUsernamesFor = function(query) {
-  var ret = [];
-  for (var i=0; i < this.usernames.length; i++) {
-    if(this.usernames[i].startsWith(query)) {
-      ret.push(this.usernames[i]);
-    }
-  }
-  return ret;
-}
-*/
 /* Helper functions */
 
 function replaceURLWithHTMLLinks(text, entities, message_node) {
     var exp = /(([^\^]https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_()|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     return text.replace(exp, "<a href='$1'>$1</a>");
-
-    /*
-    var urls = entities.urls;
-    
-    for(var i = 0; i<urls.length; i++) {
-        
-        var original = urls[i].url;
-        var replace = urls[i].expanded_url == null ? original : urls[i].expanded_url;
-        
-        if(replace.startsWith("http://bit.ly/") || replace.startsWith("http://j.mp/")) {
-            replaceShortened(replace, message_node);
-        }
-
-        text = text.replace(original, "<a href='" + original + "'>" + replace + "</a>");
-        
-        var media = null;
-        
-        // add thumbnail
-        if(replace.startsWith("http://youtube.com/") || replace.startsWith("http://www.youtube.com/")) {
-            var v = getUrlVars(replace)["v"];
-            if (v) {
-                media = {
-                    type: "tentia_youtube",
-                    url: original,
-                    media_url: "http://img.youtube.com/vi/" + v + "/1.jpg"
-                }            
-            }
-            
-        } else if (replace.startsWith("http://twitpic.com/")) {
-            media = {
-                type: "tentia_photo",
-                url: original,
-                media_url: "http://twitpic.com/show/mini/" + replace.substring("http://twitpic.com/".length)
-            }
-            
-        } else if (replace.startsWith("http://yfrog")) {
-            media = {
-                type: "tentia_photo",
-                url: original,
-                media_url: replace + ":small"
-            }
-            
-        } else if (replace.startsWith("http://instagr.am/p/") || replace.startsWith("http://instagram.com/p/")) {
-            media = {
-                type: "tentia_photo",
-                url: original,
-                media_url: replace + "media?size=t"
-            }
-        }
-        
-        if(media) {
-            if(entities.media) {
-                entities.media.push(media);
-            } else {
-                entities.media = [media];
-            }                
-        }
-
-    }
-
-	return text;*/
 }
 
 function replaceUsernamesWithLinks(text, mentions) {
@@ -505,9 +303,10 @@ function replaceUsernamesWithLinks(text, mentions) {
 }
 
 function replyTo(entity, status_id, mentions) {
-    var string = "^" + entity + " ";
+    var string = "^" + entity.replace("https://", "") + " ";
     for (var i = 0; i < mentions.length; i++) {
-        string += "^" + mentions[i].entity + " ";
+      var e = mentions[i].entity.replace("https://", "");
+      if(string.indexOf(e) == -1) string += "^" + e + " ";
     }
 	controller.openNewMessageWindowInReplyTo_statusId_withString_(entity, status_id, string);
 }
@@ -575,11 +374,14 @@ function parseMentions(text, post_id, entity) {
         })
     }
     
-    var res = text.match(/((\^https?):\/\/\S+)/ig);
+    var res = text.match(/(\^\S+)/ig);
 
     if (res) {
         for (var i = 0; i < res.length; i++) {
             var e = res[i].substring(1);
+            if (e.substring(0,7) != "http://" && e.substring(0,8) != "https://") {
+              e = "https://" + e;
+            }
             if (e != entity) {
                 mentions.push({entity:e});
             }

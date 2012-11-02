@@ -66,7 +66,7 @@ OauthImplementation.prototype.register = function (url) {
             var data = JSON.parse(resp.responseText);
             those.authRequest(data);
         }
-        getURL(those.apiRoot() + "/apps", "POST", callback, JSON.stringify(those.app_info));
+        getURL(mkApiRootPath("/apps"), "POST", callback, JSON.stringify(those.app_info));
     });
 }
 
@@ -98,7 +98,7 @@ OauthImplementation.prototype.requestAccessToken = function(responseBody) {
         var urlVars = getUrlVars(responseBody);
         if(this.state && this.state != "" && urlVars["state"] == this.state) {
 
-            var url = this.apiRoot() + "/apps/" + this.register_data["id"] + "/authorizations";
+            var url = mkApiRootPath("/apps/") + this.register_data["id"] + "/authorizations";
 
             var requestBody = JSON.stringify({
                 'code' : urlVars["code"],

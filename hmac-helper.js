@@ -104,6 +104,16 @@ function findProfileURL(entity, callback) {
     });
 }
 
+function mkApiRootPath(path) {
+    var api_root = controller.stringForKey_("api_root");
+    if((api_root.substring(api_root.length - 1, api_root.length) != "/") && (path.substring(0, 1) != "/")) {
+        api_root += "/";
+    } else if((api_root.substring(api_root.length - 1, api_root.length) == "/") && (path.substring(0, 1) == "/")) {
+        api_root = api_root.substring(0, api_root.length -1);
+    }
+    return api_root + path;
+}
+
 function debug(string) {
     if (typeof string == "Object") {
         string = JSON.stirngify(string);

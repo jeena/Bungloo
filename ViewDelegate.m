@@ -65,4 +65,20 @@
     }
 }
 
+- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems {
+    for (NSMenuItem*item in defaultMenuItems) {
+        if ([[item title] isEqualToString:@"Reload"]) {
+            [item setAction:@selector(reload:)];
+            [item setTarget:self];
+        }
+    }
+    
+    return defaultMenuItems;
+}
+
+- (void)reload:(id)sender {
+    [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData();"];
+    [mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData();"];
+}
+
 @end
