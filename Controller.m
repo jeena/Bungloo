@@ -220,7 +220,6 @@
                       text,
                       tweet.inReplyTostatusId,
                       tweet.inReplyToEntity];
-    NSLog(@"%@", func);
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 
