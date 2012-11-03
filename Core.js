@@ -261,13 +261,14 @@ Core.prototype.getNewData = function() {
 
 
 Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity) {
+    debug(content)
 
     var _this = this;
 
     var url = URI(mkApiRootPath("/posts"));
 
     var http_method = "POST";
-    var callback = function(data) { _this.getNewData(true); }
+    var callback = function(data) { _this.getNewData(); }
 
     var data = {
         "type": "https://tent.io/types/post/status/v0.1.0",
@@ -284,6 +285,8 @@ Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_repl
     if (mentions.length > 0) {
         data["mentions"] = mentions;
     }
+
+    debug(JSON.stringify(data))
 
     getURL(url.toString(), http_method, callback, JSON.stringify(data)); // FIXME: error callback
 }

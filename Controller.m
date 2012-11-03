@@ -215,10 +215,12 @@
 
 - (IBAction)sendTweet:(id)sender {
 	TweetModel *tweet = (TweetModel *)[sender object];
+    NSString *text = [[tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""] stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
     NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\")",
-                      [tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""],
+                      text,
                       tweet.inReplyTostatusId,
                       tweet.inReplyToEntity];
+    NSLog(@"%@", func);
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 
