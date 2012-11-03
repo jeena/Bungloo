@@ -7,7 +7,7 @@
 //
 
 function Core(action) {
-    this.max_length = 200;
+    this.max_length = 20;
     // this.timeout = 2 * 60 * 1000;
     this.timeout = 10 * 1000; // every 10 seconds
     this.action = action;
@@ -403,7 +403,7 @@ function findMentions(node, mentions) {
                             if(basic.name) {
                                 var new_text = node.innerHTML.replace(
                                     mention.text, 
-                                    "<strong class='name' title='" + mention.entity + "'" + ">^"
+                                    "<strong class='name' title='" + mention.entity + "'" + ">"
                                     + basic.name
                                     + "</strong>"
                                 );

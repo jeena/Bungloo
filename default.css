@@ -83,6 +83,10 @@ h1 img {
 p {
 	margin: 0;
 	padding: 0;
+	padding-left: 3px;
+	margin-left: -3px;
+	padding-bottom: 2px;
+	margin-bottom: -2px;
 }
 
 .image, .twitpic {
@@ -163,6 +167,21 @@ p {
 
 li:hover .reply, li:hover .direct-message {
 	display: inline;
+}
+
+li .name:first-child {
+	margin-left: -3px;
+}
+
+.name {
+	background: #d8dfea;
+	font-weight: normal;
+	padding: 0 3px 2px 3px;
+	border-radius: 5px;
+}
+
+li:hover .name {
+	background: #b8c1d0;
 }
 
 
