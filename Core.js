@@ -115,7 +115,7 @@ Core.prototype.getItem = function(status) {
 
     template.source.href = status.app.url;
 	template.source.innerHTML = status.app.name;
-    template.source.title = status.id;
+    template.source.title = status.app.url;
 
 	return template.item;
 }
@@ -224,7 +224,6 @@ Core.prototype.getTemplate = function() {
 }
 
 Core.prototype.getNewData = function() {
-    if (this.action == "mentions") return;
 
     var those = this;
     var url = URI(mkApiRootPath("/posts"));
@@ -404,7 +403,7 @@ function findMentions(node, mentions) {
                             if(basic.name) {
                                 var new_text = node.innerHTML.replace(
                                     mention.text, 
-                                    "<strong class='name' title='" + mention.entity + "'" + ">"
+                                    "<strong class='name' title='" + mention.entity + "'" + ">^"
                                     + basic.name
                                     + "</strong>"
                                 );
