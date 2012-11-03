@@ -99,6 +99,7 @@ Core.prototype.getItem = function(status) {
 	template.in_reply.parentNode.className = "hidden";
 
 	template.message.innerHTML = replaceUsernamesWithLinks(replaceURLWithHTMLLinks(status.content.text, status.entities, template.message));
+    findMentions(template.message, status.mentions);
 	
 	var time = document.createElement("abbr");
 	time.innerText = ISODateString(new Date(status.published_at * 1000));
@@ -363,6 +364,56 @@ function replaceShortened(url, message_node) {
             alert(thrownError);
            }
     });
+}
+
+function findMentions(node, mentions) {
+    var text = node.innerHTML;
+    var mentions_in_text = [];
+    var res = text.match(/(\^\S+)/ig);
+
+    if (res) {
+        for (var i = 0; i < res.length; i++) {
+            var name = res[i];
+            var e = name.substring(1);
+            if (e.substring(0,7) != "http://" && e.substring(0,8) != "https://") {
+              e = "https://" + e;
+            }
+            for (var j = 0; j < mentions.length; j++) {
+                var m = mentions[j];
+                if(m.entity.startsWith(e)) {
+                    mentions_in_text.push({
+                        entity: m.entity,
+                        text: name
+                    });
+                }
+            }
+        }
+    }
+
+    for (var i = 0; i < mentions_in_text.length; i++) {
+        var mention = mentions_in_text[i];
+
+        findProfileURL(mention.entity, function(profile_url) {
+            if (profile_url) {
+                getURL(profile_url, "GET", function(resp) {
+                    var profile = JSON.parse(resp.responseText);
+                    var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+
+                    if (profile && basic) {
+                        if(basic.name) {
+                            var new_text = node.innerHTML.replace(
+                                mention.text, 
+                                "<strong class='name' title='" + mention.entity + "'" + ">"
+                                + basic.name
+                                + "</strong>"
+                            );
+                            node.innerHTML = new_text;
+                        }
+                    }
+                }, null, false); // do not send auth-headers
+            }
+        });
+    }
 }
 
 function parseMentions(text, post_id, entity) {
