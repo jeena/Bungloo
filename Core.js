@@ -27,6 +27,7 @@ function Core(action) {
 }
 
 Core.prototype.newStatus = function(status) {
+
 	if(status != null && status.length > 0) {
         this.since_id = status[0]["id"];
 		for(var i = status.length-1, c=0; i>=c; --i) {
