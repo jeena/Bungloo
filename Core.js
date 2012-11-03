@@ -29,15 +29,14 @@ function Core(action) {
 Core.prototype.newStatus = function(status) {
 
 	if(status != null && status.length > 0) {
-        this.since_id = status[0]["id"];
 		for(var i = status.length-1, c=0; i>=c; --i) {
 			if(this.body.childNodes.length > 0) {
 				if(this.body.childNodes.length > this.max_length) {
 					this.body.removeChild(this.body.lastChild);
 				}
-				this.body.insertBefore(this.getItem(status[i]),	this.body.firstChild);
+			    this.body.insertBefore(this.getItem(status[i]), this.body.firstChild);
 			} else {
-				this.body.appendChild(this.getItem(status[i]));
+                this.body.appendChild(this.getItem(status[i]));
 			}
 		}
 	}
@@ -116,7 +115,7 @@ Core.prototype.getItem = function(status) {
 
     template.source.href = status.app.url;
 	template.source.innerHTML = status.app.name;
-    template.source.title = status.app.url;
+    template.source.title = status.id;
 
 	return template.item;
 }
@@ -225,6 +224,7 @@ Core.prototype.getTemplate = function() {
 }
 
 Core.prototype.getNewData = function() {
+    if (this.action == "mentions") return;
 
     var those = this;
     var url = URI(mkApiRootPath("/posts"));
@@ -393,26 +393,28 @@ function findMentions(node, mentions) {
     for (var i = 0; i < mentions_in_text.length; i++) {
         var mention = mentions_in_text[i];
 
-        findProfileURL(mention.entity, function(profile_url) {
-            if (profile_url) {
-                getURL(profile_url, "GET", function(resp) {
-                    var profile = JSON.parse(resp.responseText);
-                    var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+        (function(mention) { // need this closure
+            findProfileURL(mention.entity, function(profile_url) {
+                if (profile_url) {
+                    getURL(profile_url, "GET", function(resp) {
+                        var profile = JSON.parse(resp.responseText);
+                        var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
 
-                    if (profile && basic) {
-                        if(basic.name) {
-                            var new_text = node.innerHTML.replace(
-                                mention.text, 
-                                "<strong class='name' title='" + mention.entity + "'" + ">"
-                                + basic.name
-                                + "</strong>"
-                            );
-                            node.innerHTML = new_text;
+                        if (profile && basic) {
+                            if(basic.name) {
+                                var new_text = node.innerHTML.replace(
+                                    mention.text, 
+                                    "<strong class='name' title='" + mention.entity + "'" + ">"
+                                    + basic.name
+                                    + "</strong>"
+                                );
+                                node.innerHTML = new_text;
+                            }
                         }
-                    }
-                }, null, false); // do not send auth-headers
-            }
-        });
+                    }, null, false); // do not send auth-headers
+                }
+            });
+        })(mention);
     }
 }
 
