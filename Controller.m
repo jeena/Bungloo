@@ -215,7 +215,7 @@
 
 - (IBAction)sendTweet:(id)sender {
 	TweetModel *tweet = (TweetModel *)[sender object];
-    NSString *text = [[tweet.text stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""] stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
+    NSString *text = [[tweet.text stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
     NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\")",
                       text,
                       tweet.inReplyTostatusId,
