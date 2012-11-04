@@ -7,7 +7,7 @@
 //
 
 function Core(action) {
-    this.max_length = 20;
+    this.max_length = 200;
     // this.timeout = 2 * 60 * 1000;
     this.timeout = 10 * 1000; // every 10 seconds
     this.action = action;
