@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from gi.repository import Gtk
-import PreferencesWindow
+import TentiaWindows
 
 class Tentia:
 
@@ -10,10 +10,10 @@ class Tentia:
 		Gtk.main()
 
 	def quit(self):
-		Gtk.main_quit
+		Gtk.main_quit()
 
 	def setup_preferences_window(self):
-		self.preferences_window = PreferencesWindow(self)
+		self.preferences_window = TentiaWindows.Preferences(self)
 
 		
 if __name__ == "__main__":
