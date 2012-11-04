@@ -1,3 +1,4 @@
 build/
 Tentia.xcodeproj/project.xcworkspace/xcuserdata/jeena.xcuserdatad/UserInterfaceState.xcuserstate
 dsa_priv.pem
+*.pyc
