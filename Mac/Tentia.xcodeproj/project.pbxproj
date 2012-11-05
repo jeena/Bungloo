@@ -1,0 +1,490 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DDD582C0DA1D0D100B32029 /* NewMessageWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* NewMessageWindow.xib */; };
+		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		1F122D49118E1DE100E83B77 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F122D48118E1DE100E83B77 /* Icon.icns */; };
+		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
+		1F1C8082164824B30010B409 /* Constants.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C805A164824760010B409 /* Constants.js */; };
+		1F1C8083164824B30010B409 /* ConversationView.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C805B164824760010B409 /* ConversationView.js */; };
+		1F1C8084164824B30010B409 /* Core.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C805C164824760010B409 /* Core.js */; };
+		1F1C8085164824B30010B409 /* default-avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C805D164824760010B409 /* default-avatar.png */; };
+		1F1C8086164824B30010B409 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C805E164824760010B409 /* default.css */; };
+		1F1C8087164824B30010B409 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C805F164824760010B409 /* delete.png */; };
+		1F1C8088164824B30010B409 /* enc-base64-min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8060164824760010B409 /* enc-base64-min.js */; };
+		1F1C8089164824B30010B409 /* even-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8061164824760010B409 /* even-bg.png */; };
+		1F1C808A164824B30010B409 /* hmac-helper.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8062164824760010B409 /* hmac-helper.js */; };
+		1F1C808B164824B30010B409 /* hmac-sha256.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8063164824760010B409 /* hmac-sha256.js */; };
+		1F1C808C164824B30010B409 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8064164824760010B409 /* index.html */; };
+		1F1C808D164824B30010B409 /* index_oauth.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8065164824760010B409 /* index_oauth.html */; };
+		1F1C808E164824B30010B409 /* jQuery-Plugins.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8066164824760010B409 /* jQuery-Plugins.js */; };
+		1F1C808F164824B30010B409 /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8067164824760010B409 /* jQuery.js */; };
+		1F1C8090164824B30010B409 /* OauthImplementation.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8068164824760010B409 /* OauthImplementation.js */; };
+		1F1C8091164824B30010B409 /* odd-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C8069164824760010B409 /* odd-bg.png */; };
+		1F1C8092164824B30010B409 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C806A164824760010B409 /* pin.png */; };
+		1F1C8093164824B30010B409 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C806B164824760010B409 /* sprite-icons.png */; };
+		1F1C8094164824B30010B409 /* TimelineView.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C806C164824760010B409 /* TimelineView.js */; };
+		1F1C8095164824B30010B409 /* URI.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C806D164824760010B409 /* URI.min.js */; };
+		1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F618EC912DB5E6100E500D9 /* TweetModel.m */; };
+		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
+		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
+		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
+		1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2549B1427D9930035D84B /* AccessToken.m */; };
+		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
+		1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
+		1FFA36D71177D879006C8562 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFA36D31177D879006C8562 /* Controller.m */; };
+		1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFA36D51177D879006C8562 /* ViewDelegate.m */; };
+		1FFA37071177DAF4006C8562 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFA37061177DAF4006C8562 /* WebKit.framework */; };
+		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
+		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
+		8D15AC310486D014006FF6A4 /* NewMessageWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* NewMessageWindow.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1FE2FCA1117A82E1000504B0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/NewMessageWindow.xib; sourceTree = "<group>"; };
+		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1F122D48118E1DE100E83B77 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		1F1C805A164824760010B409 /* Constants.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Constants.js; sourceTree = "<group>"; };
+		1F1C805B164824760010B409 /* ConversationView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ConversationView.js; sourceTree = "<group>"; };
+		1F1C805C164824760010B409 /* Core.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Core.js; sourceTree = "<group>"; };
+		1F1C805D164824760010B409 /* default-avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-avatar.png"; sourceTree = "<group>"; };
+		1F1C805E164824760010B409 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
+		1F1C805F164824760010B409 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		1F1C8060164824760010B409 /* enc-base64-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "enc-base64-min.js"; sourceTree = "<group>"; };
+		1F1C8061164824760010B409 /* even-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "even-bg.png"; sourceTree = "<group>"; };
+		1F1C8062164824760010B409 /* hmac-helper.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "hmac-helper.js"; sourceTree = "<group>"; };
+		1F1C8063164824760010B409 /* hmac-sha256.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "hmac-sha256.js"; sourceTree = "<group>"; };
+		1F1C8064164824760010B409 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		1F1C8065164824760010B409 /* index_oauth.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_oauth.html; sourceTree = "<group>"; };
+		1F1C8066164824760010B409 /* jQuery-Plugins.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jQuery-Plugins.js"; sourceTree = "<group>"; };
+		1F1C8067164824760010B409 /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
+		1F1C8068164824760010B409 /* OauthImplementation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = OauthImplementation.js; sourceTree = "<group>"; };
+		1F1C8069164824760010B409 /* odd-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odd-bg.png"; sourceTree = "<group>"; };
+		1F1C806A164824760010B409 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		1F1C806B164824760010B409 /* sprite-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprite-icons.png"; sourceTree = "<group>"; };
+		1F1C806C164824760010B409 /* TimelineView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TimelineView.js; sourceTree = "<group>"; };
+		1F1C806D164824760010B409 /* URI.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = URI.min.js; sourceTree = "<group>"; };
+		1F36440E118CC173008198EF /* OAuthConsumer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OAuthConsumer.framework; sourceTree = "<group>"; };
+		1F618EC812DB5E6100E500D9 /* TweetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TweetModel.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		1F618EC912DB5E6100E500D9 /* TweetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TweetModel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Constants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Constants.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AccessToken.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		1FC2549B1427D9930035D84B /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccessToken.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1FE2FC92117A818D000504B0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		1FFA36D21177D879006C8562 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Controller.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		1FFA36D31177D879006C8562 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Controller.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1FFA36D41177D879006C8562 /* ViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDelegate.h; sourceTree = "<group>"; };
+		1FFA36D51177D879006C8562 /* ViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDelegate.m; sourceTree = "<group>"; };
+		1FFA37061177DAF4006C8562 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		2564AD2C0F5327BB00F57823 /* Tentia_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Tentia_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2A37F4ACFDCFA73011CA2CEA /* NewMessageWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NewMessageWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2A37F4AEFDCFA73011CA2CEA /* NewMessageWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NewMessageWindow.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8D15AC360486D014006FF6A4 /* Tentia-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tentia-Info.plist"; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* Tentia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tentia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D15AC330486D014006FF6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FA09847144602530079E258 /* libicucore.dylib in Frameworks */,
+				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				1FFA37071177DAF4006C8562 /* WebKit.framework in Frameworks */,
+				1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */,
+				1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */,
+				1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F36440E118CC173008198EF /* OAuthConsumer.framework */,
+				1FE2FC92117A818D000504B0 /* Sparkle.framework */,
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+				1FFA37061177DAF4006C8562 /* WebKit.framework */,
+				1F70619E1178FBB300C85707 /* Carbon.framework */,
+				1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
+				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB0FE9D524F11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D15AC370486D014006FF6A4 /* Tentia.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F1C8059164824760010B409 /* WebKit */ = {
+			isa = PBXGroup;
+			children = (
+				1F1C805A164824760010B409 /* Constants.js */,
+				1F1C805B164824760010B409 /* ConversationView.js */,
+				1F1C805C164824760010B409 /* Core.js */,
+				1F1C805D164824760010B409 /* default-avatar.png */,
+				1F1C805E164824760010B409 /* default.css */,
+				1F1C805F164824760010B409 /* delete.png */,
+				1F1C8060164824760010B409 /* enc-base64-min.js */,
+				1F1C8061164824760010B409 /* even-bg.png */,
+				1F1C8062164824760010B409 /* hmac-helper.js */,
+				1F1C8063164824760010B409 /* hmac-sha256.js */,
+				1F1C8064164824760010B409 /* index.html */,
+				1F1C8065164824760010B409 /* index_oauth.html */,
+				1F1C8066164824760010B409 /* jQuery-Plugins.js */,
+				1F1C8067164824760010B409 /* jQuery.js */,
+				1F1C8068164824760010B409 /* OauthImplementation.js */,
+				1F1C8069164824760010B409 /* odd-bg.png */,
+				1F1C806A164824760010B409 /* pin.png */,
+				1F1C806B164824760010B409 /* sprite-icons.png */,
+				1F1C806C164824760010B409 /* TimelineView.js */,
+				1F1C806D164824760010B409 /* URI.min.js */,
+			);
+			path = WebKit;
+			sourceTree = "<group>";
+		};
+		2A37F4AAFDCFA73011CA2CEA /* Twittia 2 */ = {
+			isa = PBXGroup;
+			children = (
+				1FA09846144602530079E258 /* libicucore.dylib */,
+				2A37F4ABFDCFA73011CA2CEA /* Classes */,
+				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
+				19C28FB0FE9D524F11CA2CBB /* Products */,
+			);
+			name = "Twittia 2";
+			sourceTree = "<group>";
+		};
+		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1FFA36D21177D879006C8562 /* Controller.h */,
+				1FFA36D31177D879006C8562 /* Controller.m */,
+				1FFA36D41177D879006C8562 /* ViewDelegate.h */,
+				1FFA36D51177D879006C8562 /* ViewDelegate.m */,
+				2A37F4AEFDCFA73011CA2CEA /* NewMessageWindow.h */,
+				2A37F4ACFDCFA73011CA2CEA /* NewMessageWindow.m */,
+				1F77DB45118C5F1C007C7F1E /* Constants.h */,
+				1F77DB46118C5F1C007C7F1E /* Constants.m */,
+				1F618EC812DB5E6100E500D9 /* TweetModel.h */,
+				1F618EC912DB5E6100E500D9 /* TweetModel.m */,
+				1FC2549A1427D9930035D84B /* AccessToken.h */,
+				1FC2549B1427D9930035D84B /* AccessToken.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2564AD2C0F5327BB00F57823 /* Tentia_Prefix.pch */,
+				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1F122D48118E1DE100E83B77 /* Icon.icns */,
+				1F1C8059164824760010B409 /* WebKit */,
+				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
+				8D15AC360486D014006FF6A4 /* Tentia-Info.plist */,
+				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
+				1DDD58280DA1D0D100B32029 /* NewMessageWindow.xib */,
+				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
+				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D15AC270486D014006FF6A4 /* Twittia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Twittia" */;
+			buildPhases = (
+				8D15AC2B0486D014006FF6A4 /* Resources */,
+				8D15AC300486D014006FF6A4 /* Sources */,
+				8D15AC330486D014006FF6A4 /* Frameworks */,
+				1FE2FCA1117A82E1000504B0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Twittia;
+			productInstallPath = "$(HOME)/Applications";
+			productName = "Twittia 2";
+			productReference = 8D15AC370486D014006FF6A4 /* Tentia.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+			};
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Tentia" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Twittia 2 */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D15AC270486D014006FF6A4 /* Twittia */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D15AC2B0486D014006FF6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F1C8082164824B30010B409 /* Constants.js in Resources */,
+				1F1C8083164824B30010B409 /* ConversationView.js in Resources */,
+				1F1C8084164824B30010B409 /* Core.js in Resources */,
+				1F1C8085164824B30010B409 /* default-avatar.png in Resources */,
+				1F1C8086164824B30010B409 /* default.css in Resources */,
+				1F1C8087164824B30010B409 /* delete.png in Resources */,
+				1F1C8088164824B30010B409 /* enc-base64-min.js in Resources */,
+				1F1C8089164824B30010B409 /* even-bg.png in Resources */,
+				1F1C808A164824B30010B409 /* hmac-helper.js in Resources */,
+				1F1C808B164824B30010B409 /* hmac-sha256.js in Resources */,
+				1F1C808C164824B30010B409 /* index.html in Resources */,
+				1F1C808D164824B30010B409 /* index_oauth.html in Resources */,
+				1F1C808E164824B30010B409 /* jQuery-Plugins.js in Resources */,
+				1F1C808F164824B30010B409 /* jQuery.js in Resources */,
+				1F1C8090164824B30010B409 /* OauthImplementation.js in Resources */,
+				1F1C8091164824B30010B409 /* odd-bg.png in Resources */,
+				1F1C8092164824B30010B409 /* pin.png in Resources */,
+				1F1C8093164824B30010B409 /* sprite-icons.png in Resources */,
+				1F1C8094164824B30010B409 /* TimelineView.js in Resources */,
+				1F1C8095164824B30010B409 /* URI.min.js in Resources */,
+				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
+				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
+				1DDD582C0DA1D0D100B32029 /* NewMessageWindow.xib in Resources */,
+				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				1F122D49118E1DE100E83B77 /* Icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D15AC300486D014006FF6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */,
+				8D15AC310486D014006FF6A4 /* NewMessageWindow.m in Sources */,
+				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				1FFA36D71177D879006C8562 /* Controller.m in Sources */,
+				1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */,
+				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
+				1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1660FE840EACC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58280DA1D0D100B32029 /* NewMessageWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58290DA1D0D100B32029 /* English */,
+			);
+			name = NewMessageWindow.xib;
+			sourceTree = "<group>";
+		};
+		1DDD582A0DA1D0D100B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD582B0DA1D0D100B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4BAFDCFA73011CA2CEA /* English */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C05733C808A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tentia_Prefix.pch;
+				INFOPLIST_FILE = "Tentia-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = Tentia;
+				SDKROOT = "";
+			};
+			name = Debug;
+		};
+		C05733C908A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tentia_Prefix.pch;
+				INFOPLIST_FILE = "Tentia-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = Tentia;
+				SDKROOT = "";
+			};
+			name = Release;
+		};
+		C05733CC08A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = "";
+			};
+			name = Debug;
+		};
+		C05733CD08A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Twittia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733C808A9546B00998B17 /* Debug */,
+				C05733C908A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Tentia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733CC08A9546B00998B17 /* Debug */,
+				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+}

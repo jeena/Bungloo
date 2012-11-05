@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+   <channel>
+      <title>Tentia's Changelog</title>
+      <link>http://jabs.nu/Tentia/download/Appcast.xml</link>
+      <description>Most recent changes with links to updates.</description>
+      <language>en</language>
+      <item>
+        <title>Version 0.1.2</title>
+		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
+		<sparkle:releaseNotesLink>http://jabs.nu/Tentia/download/ReleaseNotes.html</sparkle:releaseNotesLink>
+		<pubDate>Sun, 04 Nov 2012 17:30:32 +0100</pubDate>
+		<enclosure	url="http://jabs.nu/Tentia/download/Tentia.app.zip"
+					sparkle:version="0.1.2"
+					length="631471"
+					type="application/octet-stream"
+					sparkle:dsaSignature="MCwCFFr4/IKkJSJUdBUMRCDt8lWIS6iFAhQJLcP71dsRv3iTJMsqo/pzkLlZCA==" />
+      </item>
+   </channel>
+</rss>
