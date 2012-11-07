@@ -46,11 +46,11 @@
 
     if (sender == oauthView) {
         
-        [oauthView stringByEvaluatingJavaScriptFromString:@"setTimeout( function() { tentia_oauth = new OauthImplementation(); }, 2);"];
+        [oauthView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('oauth') }"];
         
     } else {
         
-        NSString *action = @"home_timeline";
+        NSString *action = @"timeline";
         NSString *delay = @"1";
         
         if (sender == mentionsView) {
@@ -58,10 +58,7 @@
             delay = @"1000";
         }
         
-        [sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:
-                                                        @"setTimeout(function(){ tentia_instance = new Core('%@'); \
-                                                        document.getElementsByTagName('body')[0].appendChild(tentia_instance.body); \
-                                                        setTimeout(function() { loadPlugin(controller.pluginURL()) }, 1); }, %@);", action, delay]];
+        [sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"function HostAppGo() { start('%@') }", action]];
     }
 }
 

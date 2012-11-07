@@ -6,7 +6,7 @@ html, body {
 body {
 	font-family: "Lucida Grande", Tahoma, sans-serif;
 	font-size: 11px;
-	background: #dedede url(Icon.png) bottom center no-repeat;
+	background: #dedede url(../img/Icon.png) bottom center no-repeat;
 }
 
 a {
@@ -42,11 +42,11 @@ li:first-child {
 }
 
 li:nth-child(odd), .error {
-	background: url(odd-bg.png) repeat-x bottom #fafafa;
+	background: url(../img/odd-bg.png) repeat-x bottom #fafafa;
 }
 
 li:nth-child(even) {
-	background: url(even-bg.png) repeat-x bottom #f2f2f2;
+	background: url(../img/even-bg.png) repeat-x bottom #f2f2f2;
 }
 
 li:hover {
@@ -143,7 +143,7 @@ p {
 .retweeted span {
 	height: 11px;
 	width: 15px;
-	background: url(sprite-icons.png) no-repeat -192px -1px;
+	background: url(../img/sprite-icons.png) no-repeat -192px -1px;
 	display: inline-block;
 	margin: 0 3px 0 4px; 
 }
@@ -224,7 +224,7 @@ li:first-child:hover .date {
 	position: absolute;
 	top: 2px;
 	right: 2px;
-	background: url(sprite-icons.png) no-repeat -16px 0;
+	background: url(../img/sprite-icons.png) no-repeat -16px 0;
 	display: none;
 }
 

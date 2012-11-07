@@ -66,10 +66,9 @@
 
 - (void)initOauth {
     if (!oauthView) {
-        NSString *path = [[NSBundle mainBundle] resourcePath];
+        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
         NSURL *url = [NSURL fileURLWithPath:path];
-        NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index_oauth.html", path] encoding:NSUTF8StringEncoding error:nil];
-        
+        NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
         
         oauthView = [[WebView alloc] init];
         viewDelegate.oauthView = oauthView;
@@ -78,9 +77,34 @@
         [oauthView setPolicyDelegate:viewDelegate];
         [oauthView setUIDelegate:viewDelegate];
         [[oauthView windowScriptObject] setValue:self forKey:@"controller"];
+        //[oauthView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('oauth'); };"];
+
     } else {
-        [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_oauth.authenticate()"];
+        [oauthView stringByEvaluatingJavaScriptFromString:@"start('oauth');"];
     }
+}
+
+- (void)initWebViews {
+    
+	NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
+	NSURL *url = [NSURL fileURLWithPath:path];
+	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
+    
+	viewDelegate.timelineView = timelineView;
+	[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
+	[timelineView setFrameLoadDelegate:viewDelegate];
+	[timelineView setPolicyDelegate:viewDelegate];
+	[timelineView setUIDelegate:viewDelegate];
+    [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
+    
+	viewDelegate.mentionsView = mentionsView;
+	[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
+	[mentionsView setFrameLoadDelegate:viewDelegate];
+	[mentionsView setPolicyDelegate:viewDelegate];
+	[mentionsView setUIDelegate:viewDelegate];
+    [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
+    
+    // FIXME: show timelineView after authentification
 }
 
 - (void)initHotKeys {
@@ -139,29 +163,6 @@
     [loginViewWindow performClose:self];
 }
 
-- (void)initWebViews {
-
-	NSString *path = [[NSBundle mainBundle] resourcePath];
-	NSURL *url = [NSURL fileURLWithPath:path];
-	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index.html", path] encoding:NSUTF8StringEncoding error:nil];
-
-	viewDelegate.timelineView = timelineView;
-	[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
-	[timelineView setFrameLoadDelegate:viewDelegate];
-	[timelineView setPolicyDelegate:viewDelegate];
-	[timelineView setUIDelegate:viewDelegate];
-    [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
-
-	viewDelegate.mentionsView = mentionsView;
-	[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
-	[mentionsView setFrameLoadDelegate:viewDelegate];
-	[mentionsView setPolicyDelegate:viewDelegate];
-	[mentionsView setUIDelegate:viewDelegate];
-    [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
-
-    // FIXME: show timelineView after authentification
-}
-
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
 	return NO;
 }
@@ -200,7 +201,7 @@
 	NSRange range = [aString rangeOfString:@"oauthtoken"];
 	
 	if (range.length > 0) {
-        [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"tentia_oauth.requestAccessToken('%@')", aString]];
+        [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"tentia_instance.requestAccessToken('%@')", aString]];
 	} else {
 		NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
@@ -276,6 +277,9 @@
     
     [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
     [mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    if (oauthView) {
+        [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    }
     
     [accessToken setString:nil forKey:@"app_mac_key"];
     [accessToken setString:nil forKey:@"app_mac_key_id"];
