@@ -2,10 +2,11 @@ define([
     "jquery",
     "helper/Paths",
     "lib/URI",
+    "helper/HostApp",
     "lib/vendor/jquery.plugins"
 ],
 
-function(jQuery, Paths, URI) {
+function(jQuery, Paths, URI, HostApp) {
 
     function Core() {
 
@@ -122,13 +123,15 @@ function(jQuery, Paths, URI) {
 
 
         template.reply_to.onclick = function() {
+
             var mentions = [];
             for (var i = 0; i < status.mentions.length; i++) {
                 var mention = status.mentions[i];
                 if(mention.entity != HostApp.stringForKey("entity"))
                     mentions.push(mention);
             }
-            this.replyTo(status.entity, status.id, mentions);
+
+            _this.replyTo(status.entity, status.id, mentions);
             return false;
         }
 
@@ -344,13 +347,14 @@ function(jQuery, Paths, URI) {
         return text.replace(hash, "$1$2<a href='http://search.twitter.com/search?q=%23$3'>$3</a>");
     }
 
-    Core.prototype.replyTo = function(entity, status_id, mentions) {
+    Core.prototype.replyTo = function(entity, status_id, mentions) {        
         var string = "^" + entity.replace("https://", "") + " ";
         for (var i = 0; i < mentions.length; i++) {
           var e = mentions[i].entity.replace("https://", "");
           if(string.indexOf(e) == -1) string += "^" + e + " ";
         }
-        controller.openNewMessageWindowInReplyTo_statusId_withString_(entity, status_id, string);
+        debug("a")
+        HostApp.openNewMessageWidow(entity, status_id, string);
     }
 
     return Core;
