@@ -215,6 +215,7 @@ function(jQuery, Paths, URI, HostApp) {
 
 
     Core.prototype.logout = function() {
+        
         this.body.innerHTML = "";
     }
         
@@ -222,6 +223,7 @@ function(jQuery, Paths, URI, HostApp) {
     // Helper functions
 
     Core.prototype.replaceShortened = function(url, message_node) {
+
         var api = "http://api.bitly.com";
         if(url.startsWith("http://j.mp/")) {
            api = "http://api.j.mp";
@@ -246,6 +248,7 @@ function(jQuery, Paths, URI, HostApp) {
     }
 
     Core.prototype.findMentions = function(node, mentions) {
+
         var text = node.innerHTML;
         var mentions_in_text = [];
         var res = text.match(/(\^\S+)/ig);
@@ -298,6 +301,7 @@ function(jQuery, Paths, URI, HostApp) {
     }
 
     Core.prototype.parseMentions = function(text, post_id, entity) {
+
         var mentions = [];
         
         if (post_id && entity) {
@@ -325,7 +329,9 @@ function(jQuery, Paths, URI, HostApp) {
     }
 
     Core.prototype.ISODateString = function(d){
+
       function pad(n){return n<10 ? '0'+n : n}
+
       return d.getUTCFullYear()+'-'
           + pad(d.getUTCMonth()+1)+'-'
           + pad(d.getUTCDate())+'T'
@@ -335,11 +341,13 @@ function(jQuery, Paths, URI, HostApp) {
     }
 
     Core.prototype.replaceURLWithHTMLLinks = function(text, entities, message_node) {
+
         var exp = /(([^\^]https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_()|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
         return text.replace(exp, "<a href='$1'>$1</a>");
     }
 
     Core.prototype.replaceUsernamesWithLinks = function(text, mentions) {
+
         return text; // FIXME!
         var username = /(^|\s)(\^)(\w+)/ig;
         var hash = /(^|\s)(#)(\w+)/ig;
@@ -348,12 +356,13 @@ function(jQuery, Paths, URI, HostApp) {
     }
 
     Core.prototype.replyTo = function(entity, status_id, mentions) {        
+
         var string = "^" + entity.replace("https://", "") + " ";
         for (var i = 0; i < mentions.length; i++) {
           var e = mentions[i].entity.replace("https://", "");
           if(string.indexOf(e) == -1) string += "^" + e + " ";
         }
-        debug("a")
+
         HostApp.openNewMessageWidow(entity, status_id, string);
     }
 
