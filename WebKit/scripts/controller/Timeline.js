@@ -13,7 +13,7 @@ function(Core, Paths, HostApp, URI) {
 
         this.action = "timeline";
 
-        this.max_length = 20;
+        this.max_length = 200;
         this.timeout = 10 * 1000; // every 10 seconds
         this.since_id = null;
         this.since_id_entity = null;
