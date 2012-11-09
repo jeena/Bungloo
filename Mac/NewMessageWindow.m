@@ -138,9 +138,6 @@
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)commandSelector
 {
-    NSLog(@"%@", NSStringFromSelector(commandSelector)  );
-    
-
     BOOL retval = NO;
     
     if (commandSelector == @selector(insertNewline:)) {
@@ -165,21 +162,6 @@
     }
     
     return retval;
-}
-
-
-/* Perform a Quick Look on the content at location in the event. If there are no Quick Look items at the location, call super.
- Also, see quickLookPreviewItems: further below.
- */
-- (void)quickLookWithEvent:(NSEvent *)event {
-    NSLog(@"%@", event);
-}
-/* Perform a Quick Look on the text cursor position, selection, or whatever is appropriate for your view. If there are no Quick Look
- items, then call [[self nextResponder] tryToPerform:_cmd with:sender]; to pass the request up the responder chain. Eventually
- AppKit will attempt to perform a dictionary look up. Also see quickLookWithEvent: above.
- */
-- (void)quickLookPreviewItems:(id)sender {
-    NSLog(@"%@", sender);
 }
 
 @end
