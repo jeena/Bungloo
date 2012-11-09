@@ -232,6 +232,8 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             data["mentions"] = mentions;
         }
 
+        debug(data);
+        //return
         Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data)); // FIXME: error callback
     }
 

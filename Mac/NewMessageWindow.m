@@ -156,11 +156,12 @@
 
         retval = YES; // causes Apple to NOT fire the default enter action
     }
-    
-    if (commandSelector == @selector(noop:)) {
+    else if (commandSelector == @selector(noop:)) {
         retval = YES;
         [self sendTweet:control];
     }
+    
+    NSLog(@"%@", NSStringFromSelector(commandSelector)  );
     
     return retval;  
 }
