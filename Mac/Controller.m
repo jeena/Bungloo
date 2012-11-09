@@ -323,6 +323,7 @@
     NSString *js = [NSString stringWithFormat:@"tentia_instance.showStatus('%@', '%@');", postId, entity];
     [conversationView stringByEvaluatingJavaScriptFromString:js];
     [conversationViewWindow makeKeyAndOrderFront:self];
+    conversationViewWindow.title = @"Test";
 }
 
 /* CARBON */
