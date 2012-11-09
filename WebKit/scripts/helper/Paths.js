@@ -21,21 +21,28 @@ function(jQuery, HostApp, Hmac) {
     }
 
     Paths.getURL = function(url, http_method, callback, data, auth_header) {
+
         jQuery.ajax({
+
             beforeSend: function(xhr) {
                 if (data) xhr.setRequestHeader("Content-Length", data.length);
 
                 if (auth_header) { // if is_set? auth_header
+
                     xhr.setRequestHeader("Authorization", auth_header);
+
                 } else {
+
                     var user_access_token = HostApp.stringForKey("user_access_token");
+
                     if (auth_header !== false && user_access_token) {
+
                         auth_header = Hmac.makeAuthHeader(
                             url, 
                             http_method, 
                             HostApp.stringForKey("user_mac_key"), 
                             user_access_token
-                        )
+                        );
                         xhr.setRequestHeader("Authorization", auth_header);
                     }                
                 }
@@ -54,6 +61,7 @@ function(jQuery, HostApp, Hmac) {
     }
 
     Paths.findProfileURL = function(entity, callback) {
+        
         jQuery.ajax({
             url: entity,
             type: "HEAD",

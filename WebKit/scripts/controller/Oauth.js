@@ -18,7 +18,13 @@ function(HostApp, Paths, Hmac) {
             ],
             "scopes": {
                 "read_posts": "Uses posts to show them in a list",
-                "write_posts": "Posts on users behalf"
+                "write_posts": "Posts on users behalf",
+                "read_profile": "Displays your own profile",
+                "write_profile": "Updating profile and mentions pointer",
+                "read_followers": "Display a list of people who follow you",
+                "write_followers": "Be able to block people who follow you",
+                "read_followings": "Display following list and their older posts in conversations",
+                "write_followings": "Follow ne entities"
             }
         };
 
@@ -74,7 +80,7 @@ function(HostApp, Paths, Hmac) {
                     + "&redirect_uri=" + escape(this.app_info["redirect_uris"][0])
                     + "&scope=" + Object.keys(this.app_info["scopes"]).join(",")
                     + "&state=" + this.state
-                    + "&tent_post_types=" + escape("https://tent.io/types/posts/status/v0.1.0");
+                    + "&tent_post_types=all";
 
         HostApp.openURL(this.apiRoot() + auth);
     }

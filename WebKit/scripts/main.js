@@ -39,6 +39,12 @@ function start(view) {
 
     } else if (view == "conversation") {
 
+        require(["controller/Conversation"], function(Conversation) {
+
+            tentia_instance = new Conversation();
+
+        });
+
     }
 }
 
@@ -59,10 +65,12 @@ function loadPlugin(url) {
 }
 
 function debug(string) {
+    
     if (typeof string != "string") {
         string = JSON.stringify(string);
     }
+
     alert("DEBUG: " + string);
 }
 
-setTimeout(HostAppGo, 1000);
+setTimeout(HostAppGo, 2000);

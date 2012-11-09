@@ -62,6 +62,10 @@ li:after {
     height: 0;
 }
 
+.highlight {
+	border-right: 5px solid #f17779;
+}
+
 h1 {
 	font-size: 1em;
 	font-weight: bold;

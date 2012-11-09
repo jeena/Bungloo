@@ -15,7 +15,8 @@
 @synthesize loginViewWindow;
 @synthesize loginActivityIndicator;
 
-@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate;
+@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, conversationView, conversationViewWindow;
+@synthesize globalHotkeyMenuItem, viewDelegate;
 @synthesize logoLayer;
 @synthesize oauthView, accessToken;
 
@@ -53,6 +54,10 @@
     accessToken = [[AccessToken alloc] init];
 
     //[accessToken setString:nil forKey:@"user_access_token"];
+    if (![accessToken stringForKey:@"version-0.2.0-new-login"]) {
+        [self logout:self];
+        [accessToken setString:@"yes" forKey:@"version-0.2.0-new-login"];
+    }
     
     if (![accessToken stringForKey:@"user_access_token"]) {
         [timelineViewWindow performClose:self];
@@ -103,6 +108,14 @@
 	[mentionsView setPolicyDelegate:viewDelegate];
 	[mentionsView setUIDelegate:viewDelegate];
     [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
+
+    
+    viewDelegate.conversationView = conversationView;
+	[[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
+	[conversationView setFrameLoadDelegate:viewDelegate];
+	[conversationView setPolicyDelegate:viewDelegate];
+	[conversationView setUIDelegate:viewDelegate];
+    [[conversationView windowScriptObject] setValue:self forKey:@"controller"];
     
     // FIXME: show timelineView after authentification
 }
@@ -305,6 +318,12 @@
 	[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData(true)"];
 }
 
+- (IBAction)showConversationForPostId:(NSString *)postId andEntity:(NSString *)entity
+{
+    NSString *js = [NSString stringWithFormat:@"tentia_instance.showStatus('%@', '%@');", postId, entity];
+    [conversationView stringByEvaluatingJavaScriptFromString:js];
+    [conversationViewWindow makeKeyAndOrderFront:self];
+}
 
 /* CARBON */
 

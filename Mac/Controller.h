@@ -19,6 +19,8 @@
 	IBOutlet NSWindow *timelineViewWindow;
 	IBOutlet WebView *mentionsView;
 	IBOutlet NSWindow *mentionsViewWindow;
+    IBOutlet WebView *conversationView;
+    IBOutlet NSWindow *conversationViewWindow;
     NSWindow *loginViewWindow;
     NSProgressIndicator *loginActivityIndicator;
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
@@ -32,6 +34,8 @@
 @property (retain, nonatomic) IBOutlet NSWindow *timelineViewWindow;
 @property (retain, nonatomic) IBOutlet WebView *mentionsView;
 @property (retain, nonatomic) IBOutlet NSWindow *mentionsViewWindow;
+@property (retain, nonatomic) IBOutlet WebView *conversationView;
+@property (retain, nonatomic) IBOutlet NSWindow *conversationViewWindow;
 @property (assign) IBOutlet NSWindow *loginViewWindow;
 @property (assign) IBOutlet NSProgressIndicator *loginActivityIndicator;
 @property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
@@ -57,6 +61,8 @@
 
 - (IBAction)login:(id)sender;
 - (IBAction)logout:(id)sender;
+
+- (IBAction)showConversationForPostId:(NSString *)postId andEntity:(NSString *)entity;
 
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);

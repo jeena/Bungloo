@@ -3,12 +3,15 @@ define([
     "helper/Paths",
     "lib/URI",
     "helper/HostApp",
+    "helper/Followings",
     "lib/vendor/jquery.plugins"
 ],
 
-function(jQuery, Paths, URI, HostApp) {
+function(jQuery, Paths, URI, HostApp, Followings) {
 
     function Core() {
+
+        this.followings = new Followings();
 
     }
 
@@ -121,7 +124,6 @@ function(jQuery, Paths, URI, HostApp) {
 
         var template = this.getTemplate();
 
-
         template.reply_to.onclick = function() {
 
             var mentions = [];
@@ -140,25 +142,39 @@ function(jQuery, Paths, URI, HostApp) {
         template.username.innerText = status.entity;
         template.username.href = status.entity; // FIXME open profile
 
-        Paths.findProfileURL(status.entity, function(profile_url) {
-            if (profile_url) {
-                Paths.getURL(profile_url, "GET", function(resp) {
-                    var profile = JSON.parse(resp.responseText);
-                    var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+        var profile = function(profile) {
 
-                    if (profile && basic) {
-                        if(basic.name) {
-                            template.username.title = template.username.innerText;
-                            template.username.innerText = basic.name;
-                        }
-                        if(basic.avatar_url) {
-                            template.image.onerror = function() { template.image.src = 'img/default-avatar.png' };
-                            template.image.src = basic.avatar_url;
-                        }
-                    }
-                }, null, false); // do not send auth-headers
+            var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+
+            if (profile && basic) {
+                if(basic.name) {
+                    template.username.title = template.username.innerText;
+                    template.username.innerText = basic.name;
+                }
+                if(basic.avatar_url) {
+                    template.image.onerror = function() { template.image.src = 'img/default-avatar.png' };
+                    template.image.src = basic.avatar_url;
+                }
             }
-        });
+
+        }
+
+        if (this.followings.followings[status.entity]) {
+
+            profile(this.followings.followings[status.entity].profile);
+
+        } else {
+
+            Paths.findProfileURL(status.entity, function(profile_url) {
+                if (profile_url) {
+                    Paths.getURL(profile_url, "GET", function(resp) {
+                        var p = JSON.parse(resp.responseText);
+                        profile(p)
+                    }, null, false); // do not send auth-headers
+                }
+            });            
+        }
+
         
         template.in_reply.parentNode.className = "hidden";
 
@@ -174,6 +190,12 @@ function(jQuery, Paths, URI, HostApp) {
         time.className = "timeago";
         jQuery(time).timeago();
         template.ago.appendChild(time);
+
+        template.ago.href = "#"
+        template.ago.onclick = function() {
+            HostApp.showConversation(status.id, status.entity);
+            return false;
+        }
         
         // {"type":"Point","coordinates":[57.10803113,12.25854746]}
         if (status.content && status.content.location && status.content.location.type == "Point") {
@@ -272,30 +294,44 @@ function(jQuery, Paths, URI, HostApp) {
             }
         }
 
+        var _this = this;
         for (var i = 0; i < mentions_in_text.length; i++) {
             var mention = mentions_in_text[i];
 
             (function(mention) { // need this closure
-                Paths.findProfileURL(mention.entity, function(profile_url) {
-                    if (profile_url) {
-                        Paths.getURL(profile_url, "GET", function(resp) {
-                            var profile = JSON.parse(resp.responseText);
-                            var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
 
-                            if (profile && basic) {
-                                if(basic.name) {
-                                    var new_text = node.innerHTML.replace(
-                                        mention.text, 
-                                        "<strong class='name' title='" + mention.entity + "'" + ">"
-                                        + basic.name
-                                        + "</strong>"
-                                    );
-                                    node.innerHTML = new_text;
-                                }
-                            }
-                        }, null, false); // do not send auth-headers
+                var profile = function(profile) {
+                    var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+
+                    if (profile && basic) {
+                        if(basic.name) {
+                            var new_text = node.innerHTML.replace(
+                                mention.text, 
+                                "<strong class='name' title='" + mention.entity + "'" + ">"
+                                + basic.name
+                                + "</strong>"
+                            );
+                            node.innerHTML = new_text;
+                        }
                     }
-                });
+                }
+
+                if (_this.followings.followings[mention.entity]) {
+
+                    profile(_this.followings.followings[mention.entity].profile)
+
+                } else {
+
+                    Paths.findProfileURL(mention.entity, function(profile_url) {
+                        if (profile_url) {
+                            Paths.getURL(profile_url, "GET", function(resp) {
+                                var p = JSON.parse(resp.responseText);
+                                profile(p)
+                            }, null, false); // do not send auth-headers
+                        }
+                    });
+                }
+
             })(mention);
         }
     }

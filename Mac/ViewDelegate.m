@@ -11,7 +11,7 @@
 
 @implementation ViewDelegate
 
-@synthesize timelineView, mentionsView, oauthView;
+@synthesize timelineView, mentionsView, conversationView, oauthView;
 
 - (void)webView:(WebView *)sender addMessageToConsole:(NSDictionary *)message;{
 
@@ -19,6 +19,7 @@
 	
     NSString *viewName = @"TimelineView";
     if (sender == mentionsView) viewName = @"MentionsView";
+    if (sender == conversationView) viewName = @"ConversationView";
     if (sender == oauthView) viewName = @"OauthView";
     
 	NSLog(@"js<%@>: %@:%@: %@",
@@ -32,6 +33,7 @@
 - (void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
     NSString *viewName = @"TimelineView";
     if (sender == mentionsView) viewName = @"MentionsView";
+    if (sender == conversationView) viewName = @"ConversationView";
     if (sender == oauthView) viewName = @"OauthView";
 
 	NSLog(@"jsa<%@>: %@", viewName, message);
@@ -47,7 +49,11 @@
     if (sender == oauthView) {
         
         [oauthView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('oauth') }"];
-        
+
+    } else if(sender == conversationView) {
+    
+        [conversationView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('conversation') }"];
+
     } else {
         
         NSString *action = @"timeline";
