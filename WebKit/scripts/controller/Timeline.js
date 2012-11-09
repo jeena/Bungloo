@@ -12,6 +12,7 @@ function(Core, Paths, HostApp, URI) {
         Core.call(this);
 
         this.action = "timeline";
+        this.reload_blocked = false;
 
         this.max_length = 200;
         this.timeout = 10 * 1000; // every 10 seconds
@@ -82,12 +83,16 @@ function(Core, Paths, HostApp, URI) {
             }
 
             those.newStatus(json);
+            those.reload_blocked = false;
         }
 
         var data = null;
 
         if (HostApp.stringForKey("user_access_token")) {
-            Paths.getURL(url.toString(), http_method, callback, data); // FIXME: error callback        
+            if (!this.reload_blocked) {
+                this.reload_blocked = true;
+                Paths.getURL(url.toString(), http_method, callback, data); // FIXME: error callback
+            }
         }
     }
 
@@ -95,10 +100,6 @@ function(Core, Paths, HostApp, URI) {
         var _this = this;
         var callback = function(data) { _this.getNewData(); }
         Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, callback);
-    }
-
-    Timeline.prototype.foo = function(a) {
-        return a;
     }
 
     return Timeline;

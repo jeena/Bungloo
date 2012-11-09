@@ -73,4 +73,21 @@ function debug(string) {
     alert("DEBUG: " + string);
 }
 
-setTimeout(HostAppGo, 2000);
+function go() { // wait untill everything is loaded
+    setTimeout(function() {
+
+        if (HostAppGo != undefined) {
+
+            HostAppGo();
+
+        } else {
+
+            go();
+
+        }
+
+    }, 500);    
+}
+
+go();
+
