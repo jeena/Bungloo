@@ -24,8 +24,10 @@ function(HostApp, Timeline) {
         Timeline.prototype.newStatus.call(this, statuses);
 
         if(this.is_not_init) {
+
             this.unread_mentions += statuses.length;
             HostApp.unreadMentions(this.unread_mentions);
+
             for (var i = 0; i < statuses.length; i++) {
                 var status = statuses[i];
                 
@@ -50,6 +52,13 @@ function(HostApp, Timeline) {
         }
 
         Timeline.prototype.getNewData.call(this, add_to_search);
+    }
+
+    Mentions.prototype.mentionRead = function(id, entity) {
+        if (this.unread_mentions > 0) {
+            this.unread_mentions--;
+            HostApp.unreadMentions(this.unread_mentions);
+        }
     }
 
     return Mentions;

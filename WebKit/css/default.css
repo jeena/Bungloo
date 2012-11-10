@@ -226,8 +226,8 @@ li:first-child:hover .date {
 	width: 15px;
 	height: 12px;
 	position: absolute;
-	top: 2px;
-	right: 2px;
+	top: 5px;
+	right: 10px;
 	background: url(../img/sprite-icons.png) no-repeat -16px 0;
 	display: none;
 }
@@ -237,6 +237,6 @@ li:hover .reply_to, li:hover .retweet {
 }
 
 .retweet {
-	top: 15px;
+	top: 18px;
 	background-position: -192px 0;
 }

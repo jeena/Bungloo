@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8D15AC270486D014006FF6A4"
                BuildableName = "Tentia.app"
-               BlueprintName = "Twittia"
+               BlueprintName = "Tentia"
                ReferencedContainer = "container:Tentia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
             BuildableName = "Tentia.app"
-            BlueprintName = "Twittia"
+            BlueprintName = "Tentia"
             ReferencedContainer = "container:Tentia.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -53,7 +53,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
             BuildableName = "Tentia.app"
-            BlueprintName = "Twittia"
+            BlueprintName = "Tentia"
             ReferencedContainer = "container:Tentia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,7 +71,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
             BuildableName = "Tentia.app"
-            BlueprintName = "Twittia"
+            BlueprintName = "Tentia"
             ReferencedContainer = "container:Tentia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

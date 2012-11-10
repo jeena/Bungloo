@@ -1099,6 +1099,10 @@
 										<bytes key="NSWhite">MAA</bytes>
 									</object>
 								</object>
+								<object class="NSArray" key="NSAllowedInputLocales">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSAllRomanInputSourcesLocaleIdentifier</string>
+								</object>
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
@@ -1142,7 +1146,6 @@
 							<string key="NSFrame">{{391, 46}, {75, 32}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="54847478">
@@ -1584,14 +1587,6 @@
 					<int key="connectionID">570</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">loginEntityTextField</string>
-						<reference key="source" ref="408500656"/>
-						<reference key="destination" ref="643973685"/>
-					</object>
-					<int key="connectionID">605</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">login:</string>
 						<reference key="source" ref="408500656"/>
@@ -1646,6 +1641,14 @@
 						<reference key="destination" ref="919859780"/>
 					</object>
 					<int key="connectionID">633</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">loginEntityTextField</string>
+						<reference key="source" ref="408500656"/>
+						<reference key="destination" ref="643973685"/>
+					</object>
+					<int key="connectionID">643</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2757,7 +2760,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">642</int>
+			<int key="maxID">643</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2771,11 +2774,17 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>login:</string>
 							<string>logout:</string>
+							<string>openNewMessageWindow:</string>
+							<string>sendTweet:</string>
+							<string>showConversationForPostId:andEntity:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>NSString</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -2784,6 +2793,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>login:</string>
 							<string>logout:</string>
+							<string>openNewMessageWindow:</string>
+							<string>sendTweet:</string>
+							<string>showConversationForPostId:andEntity:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2795,6 +2807,18 @@
 								<string key="name">logout:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">openNewMessageWindow:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">sendTweet:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showConversationForPostId:andEntity:</string>
+								<string key="candidateClassName">NSString</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -2805,6 +2829,7 @@
 							<string>conversationViewWindow</string>
 							<string>globalHotkeyMenuItem</string>
 							<string>loginActivityIndicator</string>
+							<string>loginEntityTextField</string>
 							<string>loginViewWindow</string>
 							<string>logoLayer</string>
 							<string>mentionsView</string>
@@ -2819,6 +2844,7 @@
 							<string>NSWindow</string>
 							<string>NSMenuItem</string>
 							<string>NSProgressIndicator</string>
+							<string>NSTextField</string>
 							<string>NSWindow</string>
 							<string>NSImageView</string>
 							<string>WebView</string>
@@ -2836,6 +2862,7 @@
 							<string>conversationViewWindow</string>
 							<string>globalHotkeyMenuItem</string>
 							<string>loginActivityIndicator</string>
+							<string>loginEntityTextField</string>
 							<string>loginViewWindow</string>
 							<string>logoLayer</string>
 							<string>mentionsView</string>
@@ -2861,6 +2888,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">loginActivityIndicator</string>
 								<string key="candidateClassName">NSProgressIndicator</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">loginEntityTextField</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">loginViewWindow</string>

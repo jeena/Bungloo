@@ -4,9 +4,9 @@ require 'time'
 path = File.dirname File.expand_path(__FILE__)
 
 # system "cd \"#{path}/build/Release/\"; zip -r Tentia.app.zip Tentia.app; cd \"#{path}\""
-version = `defaults read \"#{path}/build/Release/Tentia.app/Contents/Info\" CFBundleVersion`.gsub(/\n/,'')
-length = `stat -f %z \"#{path}/build/Release/Tentia.app.zip\"`.gsub(/\n/,'')
-signature = `ruby \"#{path}/../Sparkle\ 1.5b6/Extras/Signing Tools/sign_update.rb\" \"#{path}/build/Release/Tentia.app.zip\" \"#{path}/dsa_priv.pem\"`.gsub(/\n/,'')
+version = `defaults read \"#{path}/../build/Release/Tentia.app/Contents/Info\" CFBundleVersion`.gsub(/\n/,'')
+length = `stat -f %z \"#{path}/../build/Release/Tentia.app.zip\"`.gsub(/\n/,'')
+signature = `ruby \"#{path}/../../../Sparkle\ 1.5b6/Extras/Signing Tools/sign_update.rb\" \"#{path}/../build/Release/Tentia.app.zip\" \"#{path}/dsa_priv.pem\"`.gsub(/\n/,'')
 
 xml = <<XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -33,7 +33,7 @@ XML
 
 
 File.open("#{path}/Appcast.xml", 'w') {|f| f.write(xml) }
-system "scp \"#{path}/build/Release/Tentia.app.zip\" jeena@jeena.net:~/jabs.nu/public/Tentia/download/"
+system "scp \"#{path}/../build/Release/Tentia.app.zip\" jeena@jeena.net:~/jabs.nu/public/Tentia/download/"
 system "scp \"#{path}/ReleaseNotes.html\" jeena@jeena.net:~/jabs.nu/public/Tentia/download/"
 system "scp \"#{path}/Appcast.xml\" jeena@jeena.net:~/jabs.nu/public/Tentia/download/"
 

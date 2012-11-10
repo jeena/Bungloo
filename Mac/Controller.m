@@ -10,9 +10,14 @@
 #import "NewMessageWindow.h"
 #import "TweetModel.h"
 
+@interface NSUserNotificationCenter (Private)
+- (void)_removeAllDisplayedNotifications;
+- (void)_removeDisplayedNotification:(NSUserNotification *)notification;
+@end
 
 @implementation Controller
 @synthesize loginViewWindow;
+@synthesize loginEntityTextField;
 @synthesize loginActivityIndicator;
 
 @synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, conversationView, conversationViewWindow;
@@ -23,7 +28,8 @@
 - (void)awakeFromNib {
 	
 	[self initHotKeys];
-    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    
+    [GrowlApplicationBridge setGrowlDelegate:self];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self 
@@ -90,35 +96,43 @@
     }
 }
 
-- (void)initWebViews {
-    
-	NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
-	NSURL *url = [NSURL fileURLWithPath:path];
-	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
-    
-	viewDelegate.timelineView = timelineView;
-	[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
-	[timelineView setFrameLoadDelegate:viewDelegate];
-	[timelineView setPolicyDelegate:viewDelegate];
-	[timelineView setUIDelegate:viewDelegate];
-    [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
-    
-	viewDelegate.mentionsView = mentionsView;
-	[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
-	[mentionsView setFrameLoadDelegate:viewDelegate];
-	[mentionsView setPolicyDelegate:viewDelegate];
-	[mentionsView setUIDelegate:viewDelegate];
-    [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
+- (void)initWebViews
+{
 
-    
-    viewDelegate.conversationView = conversationView;
-	[[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
-	[conversationView setFrameLoadDelegate:viewDelegate];
-	[conversationView setPolicyDelegate:viewDelegate];
-	[conversationView setUIDelegate:viewDelegate];
-    [[conversationView windowScriptObject] setValue:self forKey:@"controller"];
-    
-    // FIXME: show timelineView after authentification
+    if (YES) //viewDelegate.timelineView != timelineView)
+    {
+        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
+        NSURL *url = [NSURL fileURLWithPath:path];
+        NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
+        
+        viewDelegate.timelineView = timelineView;
+        [[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
+        [timelineView setFrameLoadDelegate:viewDelegate];
+        [timelineView setPolicyDelegate:viewDelegate];
+        [timelineView setUIDelegate:viewDelegate];
+        [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
+        
+        viewDelegate.mentionsView = mentionsView;
+        [[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
+        [mentionsView setFrameLoadDelegate:viewDelegate];
+        [mentionsView setPolicyDelegate:viewDelegate];
+        [mentionsView setUIDelegate:viewDelegate];
+        [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
+        
+        
+        viewDelegate.conversationView = conversationView;
+        [[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
+        [conversationView setFrameLoadDelegate:viewDelegate];
+        [conversationView setPolicyDelegate:viewDelegate];
+        [conversationView setUIDelegate:viewDelegate];
+        [[conversationView windowScriptObject] setValue:self forKey:@"controller"];
+    }
+    else
+    {
+        [timelineView stringByEvaluatingJavaScriptFromString:@"start('timeline')"];
+        [mentionsView stringByEvaluatingJavaScriptFromString:@"start('mentions')"];
+        [conversationView stringByEvaluatingJavaScriptFromString:@"start('conversation')"];
+    }
 }
 
 - (void)initHotKeys {
@@ -255,23 +269,43 @@
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia"]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.unread_mentions = 0;"];
+
+        if ([NSUserNotificationCenter class]) {
+            [[NSUserNotificationCenter defaultUserNotificationCenter] _removeAllDisplayedNotifications]; // Undocumented API
+        }
 	}
 }
 
-- (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity {
+- (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity
+{
+    /*
+    if ([NSUserNotificationCenter class]) {
+        
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"Tent Mention";
+        notification.subtitle = [NSString stringWithFormat:@"by %@", name];
+        notification.informativeText = text;
+        notification.hasActionButton = YES;
+        notification.actionButtonTitle = @"Show";
+        notification.soundName = NSUserNotificationDefaultSoundName;
+        notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 entity, @"entity",
+                                 postId, @"postId", nil];
+        
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];        
+    }
+     */
     
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"Tent Mention";
-    notification.subtitle = [NSString stringWithFormat:@"Mentioned by %@", name];
-    notification.informativeText = text;
-    notification.hasActionButton = YES;
-    notification.actionButtonTitle = @"Show";
-    notification.soundName = NSUserNotificationDefaultSoundName;
-    notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                             entity, @"entity",
-                             postId, @"postId", nil];
-
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    [GrowlApplicationBridge
+        notifyWithTitle:[NSString stringWithFormat:@"Mentioned by %@ on Tent", name]
+        description:text
+        notificationName:@"Mention"
+        iconData:nil
+        priority:0
+        isSticky:NO
+        clickContext:[NSDictionary dictionaryWithObjectsAndKeys:
+                      entity, @"entity",
+                      postId, @"postId", nil]];
 }
 
 - (void)openURL:(NSString *)url {
@@ -296,6 +330,7 @@
 }
 
 - (IBAction)login:(id)sender {
+    [[loginEntityTextField window] makeFirstResponder:nil];
     [loginActivityIndicator startAnimation:self];
     [self initOauth];
 }
@@ -343,11 +378,43 @@
 }
 
 // Notifications
-
+/*
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
-    //[self showConversationForPostId:[notification.userInfo objectForKey:@"postId"] andEntity:[notification.userInfo objectForKey:@"entity"]];
-    [[self mentionsViewWindow] makeKeyAndOrderFront:self];
+    [self showConversationForPostId:[notification.userInfo objectForKey:@"postId"] andEntity:[notification.userInfo objectForKey:@"entity"]];
+
+    [[NSUserNotificationCenter defaultUserNotificationCenter] _removeDisplayedNotification:notification]; // Undocumented API
+    //[[self mentionsViewWindow] makeKeyAndOrderFront:self];
+}
+*/
+
+- (void)growlNotificationWasClicked:(id)clickContext
+{
+    NSDictionary *userInfo = (NSDictionary *)clickContext;
+    NSString *postId = [userInfo objectForKey:@"postId"];
+    NSString *entity = [userInfo objectForKey:@"entity"];
+    
+    [self showConversationForPostId:postId andEntity:entity];
+    
+    NSString *js = [NSString stringWithFormat:@"tentia_instance.mentionRead('%@', '%@');", postId, entity];
+    [mentionsView stringByEvaluatingJavaScriptFromString:js];
+    
+    if ([NSUserNotificationCenter class]) {
+        // [[NSUserNotificationCenter defaultUserNotificationCenter] _removeDisplayedNotification:[userInfo objectForKey:@"notification"]]; // Undocumented API
+    }
+}
+/*
+- (NSDictionary *)registrationDictionaryForGrowl
+{
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSArray arrayWithObjects:@"Mention", @"Status", nil], @"GROWL_NOTIFICATIONS_ALL",
+            [NSArray arrayWithObject:@"Mention"], @"GROWL_NOTIFICATIONS_DEFAULT"
+            , nil];
+}*/
+
+- (NSString *) applicationNameForGrowl
+{
+    return @"Tentia";
 }
 
 /* CARBON */
