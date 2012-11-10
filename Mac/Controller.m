@@ -346,7 +346,8 @@
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
-    [self showConversationForPostId:[notification.userInfo objectForKey:@"postId"] andEntity:[notification.userInfo objectForKey:@"entity"]];
+    //[self showConversationForPostId:[notification.userInfo objectForKey:@"postId"] andEntity:[notification.userInfo objectForKey:@"entity"]];
+    [[self mentionsViewWindow] makeKeyAndOrderFront:self];
 }
 
 /* CARBON */
