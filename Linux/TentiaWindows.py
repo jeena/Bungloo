@@ -1,4 +1,4 @@
-import gtk, webkit
+from PyQt4 import QtCore, QtGui, QtWebKit
 
 class Preferences:
 

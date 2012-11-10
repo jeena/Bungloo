@@ -1,18 +1,19 @@
 #!/usr/bin/env python
-import gtk
+import sys
+from PyQt4 import QtCore, QtGui
 import TentiaWindows
 
 class Tentia:
 
 	def __init__(self):
-		self.controller = Controller()
+		self.app = QtGui.QApplication(sys.argv)
+		self.controller = Controller(self)
 
 		self.setup_windows()
 		self.preferences.show()
-		gtk.main()
 
 	def quit(self, sender):
-		gtk.main_quit()
+		print "quit"
 
 	def setup_windows(self):
 		self.preferences = TentiaWindows.Preferences(self)
@@ -23,7 +24,7 @@ class Tentia:
 		return "../"
 
 	def login_with_entity(self, entity):
-		self.controller.setString_forKey_("entity", entity)
+		self.controller.setStringForKey("entity", entity)
 		self.oauth_implementation = TentiaWindows.OauthImplementation(self)
 
 	def controller():
@@ -34,11 +35,12 @@ class Controller:
 
 	def __init__(self, app):
 		self.app = app
+		self.user_defaults = 
 
-	def setString_forKey_(self, string, key):
+	def setStringForKey(self, string, key):
 		self.user_defaults[string] = key
 
-	def getStringForKey_(self, key):
+	def getStringForKey(self, key):
 		return self.user_defaults[key]
 		
 if __name__ == "__main__":
