@@ -10,11 +10,6 @@
 #import "NewMessageWindow.h"
 #import "TweetModel.h"
 
-@interface NSUserNotificationCenter (Private)
-- (void)_removeAllDisplayedNotifications;
-- (void)_removeDisplayedNotification:(NSUserNotification *)notification;
-@end
-
 @implementation Controller
 @synthesize loginViewWindow;
 @synthesize loginEntityTextField;
@@ -269,33 +264,11 @@
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia"]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.unread_mentions = 0;"];
-
-        if ([NSUserNotificationCenter class]) {
-            [[NSUserNotificationCenter defaultUserNotificationCenter] _removeAllDisplayedNotifications]; // Undocumented API
-        }
 	}
 }
 
 - (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity
 {
-    /*
-    if ([NSUserNotificationCenter class]) {
-        
-        NSUserNotification *notification = [[NSUserNotification alloc] init];
-        notification.title = @"Tent Mention";
-        notification.subtitle = [NSString stringWithFormat:@"by %@", name];
-        notification.informativeText = text;
-        notification.hasActionButton = YES;
-        notification.actionButtonTitle = @"Show";
-        notification.soundName = NSUserNotificationDefaultSoundName;
-        notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 entity, @"entity",
-                                 postId, @"postId", nil];
-        
-        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];        
-    }
-     */
-    
     [GrowlApplicationBridge
         notifyWithTitle:[NSString stringWithFormat:@"Mentioned by %@ on Tent", name]
         description:text
@@ -377,17 +350,6 @@
     [conversationViewWindow makeKeyAndOrderFront:self];
 }
 
-// Notifications
-/*
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
-{
-    [self showConversationForPostId:[notification.userInfo objectForKey:@"postId"] andEntity:[notification.userInfo objectForKey:@"entity"]];
-
-    [[NSUserNotificationCenter defaultUserNotificationCenter] _removeDisplayedNotification:notification]; // Undocumented API
-    //[[self mentionsViewWindow] makeKeyAndOrderFront:self];
-}
-*/
-
 - (void)growlNotificationWasClicked:(id)clickContext
 {
     NSDictionary *userInfo = (NSDictionary *)clickContext;
@@ -398,10 +360,6 @@
     
     NSString *js = [NSString stringWithFormat:@"tentia_instance.mentionRead('%@', '%@');", postId, entity];
     [mentionsView stringByEvaluatingJavaScriptFromString:js];
-    
-    if ([NSUserNotificationCenter class]) {
-        // [[NSUserNotificationCenter defaultUserNotificationCenter] _removeDisplayedNotification:[userInfo objectForKey:@"notification"]]; // Undocumented API
-    }
 }
 /*
 - (NSDictionary *)registrationDictionaryForGrowl
