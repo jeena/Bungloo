@@ -23,6 +23,7 @@
 - (void)awakeFromNib {
 	
 	[self initHotKeys];
+    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self 
@@ -257,6 +258,24 @@
 	}
 }
 
+- (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity {
+    
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"Tent Mention";
+    notification.subtitle = [NSString stringWithFormat:@"Mentioned by %@", name];
+    notification.informativeText = text;
+    notification.hasActionButton = YES;
+    notification.actionButtonTitle = @"Show";
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                             entity, @"entity",
+                             postId, @"postId", nil];
+
+    NSLog(@"%@", notification);
+
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+}
+
 - (void)openURL:(NSString *)url {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
 }
@@ -324,6 +343,13 @@
     [conversationView stringByEvaluatingJavaScriptFromString:js];
     [conversationViewWindow makeKeyAndOrderFront:self];
     conversationViewWindow.title = @"Test";
+}
+
+// Notifications
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
+{
+    [self showConversationForPostId:[notification.userInfo objectForKey:@"postId"] andEntity:[notification.userInfo objectForKey:@"entity"]];
 }
 
 /* CARBON */

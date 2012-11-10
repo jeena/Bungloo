@@ -14,7 +14,7 @@
 #import "AccessToken.h"
 
 
-@interface Controller : NSObject {
+@interface Controller : NSObject <NSUserNotificationCenterDelegate> {
 	IBOutlet WebView *timelineView;
 	IBOutlet NSWindow *timelineViewWindow;
 	IBOutlet WebView *mentionsView;
@@ -52,6 +52,8 @@
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)unreadMentions:(NSInteger)count;
+- (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity;
+
 - (void)openURL:(NSString *)url;
 
 - (void)setString:(NSString *)string forKey:(NSString *)aKey;
