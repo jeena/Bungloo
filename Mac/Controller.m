@@ -271,8 +271,6 @@
                              entity, @"entity",
                              postId, @"postId", nil];
 
-    NSLog(@"%@", notification);
-
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
@@ -342,7 +340,6 @@
     NSString *js = [NSString stringWithFormat:@"tentia_instance.showStatus('%@', '%@');", postId, entity];
     [conversationView stringByEvaluatingJavaScriptFromString:js];
     [conversationViewWindow makeKeyAndOrderFront:self];
-    conversationViewWindow.title = @"Test";
 }
 
 // Notifications
