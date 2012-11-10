@@ -920,7 +920,7 @@
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
-							<object class="WebPreferences" key="Preferences" id="1028823828">
+							<object class="WebPreferences" key="Preferences" id="357923190">
 								<string key="Identifier">12</string>
 								<object class="NSMutableDictionary" key="Values">
 									<bool key="EncodedWithXMLCoder">YES</bool>
@@ -942,7 +942,7 @@
 				<string key="NSFrameAutosaveName">mentions</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
-			<object class="NSWindowTemplate" id="522849916">
+			<object class="NSWindowTemplate" id="104265934">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{1292, 328}, {376, 581}}</string>
@@ -951,13 +951,13 @@
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
-				<object class="NSView" key="NSWindowView" id="443388945">
+				<object class="NSView" key="NSWindowView" id="194273937">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="WebView" id="461483829">
-							<reference key="NSNextResponder" ref="443388945"/>
+						<object class="WebView" id="722188549">
+							<reference key="NSNextResponder" ref="194273937"/>
 							<int key="NSvFlags">274</int>
 							<object class="NSMutableSet" key="NSDragTypes">
 								<bool key="EncodedWithXMLCoder">YES</bool>
@@ -981,12 +981,12 @@
 								</object>
 							</object>
 							<string key="NSFrameSize">{376, 581}</string>
-							<reference key="NSSuperview" ref="443388945"/>
+							<reference key="NSSuperview" ref="194273937"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
-							<reference key="Preferences" ref="1028823828"/>
+							<reference key="Preferences" ref="357923190"/>
 							<bool key="UseBackForwardList">NO</bool>
 							<bool key="AllowsUndo">YES</bool>
 						</object>
@@ -994,7 +994,7 @@
 					<string key="NSFrameSize">{376, 581}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="461483829"/>
+					<reference key="NSNextKeyView" ref="722188549"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
@@ -1133,6 +1133,7 @@
 							<string key="NSFrame">{{391, 46}, {75, 32}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="54847478">
@@ -1625,7 +1626,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">conversationView</string>
 						<reference key="source" ref="408500656"/>
-						<reference key="destination" ref="461483829"/>
+						<reference key="destination" ref="722188549"/>
 					</object>
 					<int key="connectionID">632</int>
 				</object>
@@ -1633,7 +1634,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">conversationViewWindow</string>
 						<reference key="source" ref="408500656"/>
-						<reference key="destination" ref="522849916"/>
+						<reference key="destination" ref="104265934"/>
 					</object>
 					<int key="connectionID">633</int>
 				</object>
@@ -1696,7 +1697,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
-						<reference key="source" ref="522849916"/>
+						<reference key="source" ref="104265934"/>
 						<reference key="destination" ref="408500656"/>
 					</object>
 					<int key="connectionID">631</int>
@@ -2452,27 +2453,27 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">628</int>
-						<reference key="object" ref="522849916"/>
+						<reference key="object" ref="104265934"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="443388945"/>
+							<reference ref="194273937"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Mentions</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">629</int>
-						<reference key="object" ref="443388945"/>
+						<reference key="object" ref="194273937"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="461483829"/>
+							<reference ref="722188549"/>
 						</object>
-						<reference key="parent" ref="522849916"/>
+						<reference key="parent" ref="104265934"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">630</int>
-						<reference key="object" ref="461483829"/>
-						<reference key="parent" ref="443388945"/>
+						<reference key="object" ref="722188549"/>
+						<reference key="parent" ref="194273937"/>
 					</object>
 				</object>
 			</object>
@@ -2747,6 +2748,7 @@
 							<string>logout:</string>
 							<string>openNewMessageWindow:</string>
 							<string>sendTweet:</string>
+							<string>showConversationForPostId:andEntity:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2754,6 +2756,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>NSString</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -2764,6 +2767,7 @@
 							<string>logout:</string>
 							<string>openNewMessageWindow:</string>
 							<string>sendTweet:</string>
+							<string>showConversationForPostId:andEntity:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2782,6 +2786,10 @@
 							<object class="IBActionInfo">
 								<string key="name">sendTweet:</string>
 								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showConversationForPostId:andEntity:</string>
+								<string key="candidateClassName">NSString</string>
 							</object>
 						</object>
 					</object>
