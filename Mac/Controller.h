@@ -14,11 +14,13 @@
 #import "AccessToken.h"
 
 
-@interface Controller : NSObject {
+@interface Controller : NSObject <NSUserNotificationCenterDelegate> {
 	IBOutlet WebView *timelineView;
 	IBOutlet NSWindow *timelineViewWindow;
 	IBOutlet WebView *mentionsView;
 	IBOutlet NSWindow *mentionsViewWindow;
+    IBOutlet WebView *conversationView;
+    IBOutlet NSWindow *conversationViewWindow;
     NSWindow *loginViewWindow;
     NSProgressIndicator *loginActivityIndicator;
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
@@ -32,6 +34,8 @@
 @property (retain, nonatomic) IBOutlet NSWindow *timelineViewWindow;
 @property (retain, nonatomic) IBOutlet WebView *mentionsView;
 @property (retain, nonatomic) IBOutlet NSWindow *mentionsViewWindow;
+@property (retain, nonatomic) IBOutlet WebView *conversationView;
+@property (retain, nonatomic) IBOutlet NSWindow *conversationViewWindow;
 @property (assign) IBOutlet NSWindow *loginViewWindow;
 @property (assign) IBOutlet NSProgressIndicator *loginActivityIndicator;
 @property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
@@ -47,7 +51,9 @@
 - (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
-- (void)unreadMentions:(NSInteger)count;
+- (void)unreadMentions:(int)count;
+- (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity;
+
 - (void)openURL:(NSString *)url;
 
 - (void)setString:(NSString *)string forKey:(NSString *)aKey;
@@ -57,6 +63,8 @@
 
 - (IBAction)login:(id)sender;
 - (IBAction)logout:(id)sender;
+
+- (IBAction)showConversationForPostId:(NSString *)postId andEntity:(NSString *)entity;
 
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);

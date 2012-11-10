@@ -1,0 +1,57 @@
+define([
+    "helper/HostApp",
+    "controller/Timeline"
+],
+
+function(HostApp, Timeline) {
+
+
+    function Mentions() {
+
+        this.is_not_init = false;
+        this.unread_mentions = 0;
+
+        Timeline.call(this);
+
+        this.action = "mentions";
+        this.body.className = this.action;
+    }
+
+    Mentions.prototype = Object.create(Timeline.prototype);
+
+    Mentions.prototype.newStatus = function(statuses) {
+
+        Timeline.prototype.newStatus.call(this, statuses);
+
+        if(this.is_not_init) {
+            this.unread_mentions += statuses.length;
+            HostApp.unreadMentions(this.unread_mentions);
+            for (var i = 0; i < statuses.length; i++) {
+                var status = statuses[i];
+                
+                var name;
+                if(this.followings.followings[status.entity]) {
+                    name = this.followings.followings[status.entity].profile["https://tent.io/types/info/basic/v0.1.0"].name;
+                }
+                
+                HostApp.notificateUserAboutMention(status.content.text, name || status.entity, status.id, status.entity);
+            };
+        }
+
+        this.is_not_init = true;
+    }
+
+    Mentions.prototype.getNewData = function(add_to_search) {
+
+        add_to_search = add_to_search || {};
+
+        if (!add_to_search["mentioned_entity"]) {
+            add_to_search["mentioned_entity"] = HostApp.stringForKey("entity");            
+        }
+
+        Timeline.prototype.getNewData.call(this, add_to_search);
+    }
+
+    return Mentions;
+
+});

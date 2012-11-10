@@ -141,18 +141,27 @@
     BOOL retval = NO;
     
     if (commandSelector == @selector(insertNewline:)) {
-        retval = YES; // causes Apple to NOT fire the default enter action
-        textField.stringValue = [NSString stringWithFormat:@"%@\n", textField.stringValue];
+        
+        NSText *text = [[textField window] fieldEditor:YES forObject:nil];
+        
+        NSRange range = [text selectedRange];
+        NSString *stringBefore = [textField.stringValue substringToIndex:range.location];
+        NSString *stringAfter =  [textField.stringValue substringFromIndex:range.location + range.length];
+        
+        textField.stringValue = [NSString stringWithFormat:@"%@\n%@", stringBefore, stringAfter];
 
-        [[[textField window] fieldEditor:YES forObject:nil] scrollRangeToVisible:NSMakeRange([[textField stringValue] length], 0)];
-        [[[textField window] fieldEditor:YES forObject:nil] setSelectedRange:NSMakeRange([[textField stringValue] length], 0)];
+        NSRange r = NSMakeRange(range.location + 1, 0);
+        [text scrollRangeToVisible:r];
+        [text setSelectedRange:r];
+
+        retval = YES; // causes Apple to NOT fire the default enter action
     }
-    
-    if (commandSelector == @selector(noop:)) {
+    else if (commandSelector == @selector(noop:)) {
         retval = YES;
         [self sendTweet:control];
     }
     
-    return retval;  
+    return retval;
 }
+
 @end

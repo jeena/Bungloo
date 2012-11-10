@@ -15,13 +15,15 @@
 @synthesize loginViewWindow;
 @synthesize loginActivityIndicator;
 
-@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, globalHotkeyMenuItem, viewDelegate;
+@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, conversationView, conversationViewWindow;
+@synthesize globalHotkeyMenuItem, viewDelegate;
 @synthesize logoLayer;
 @synthesize oauthView, accessToken;
 
 - (void)awakeFromNib {
 	
 	[self initHotKeys];
+    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self 
@@ -53,6 +55,10 @@
     accessToken = [[AccessToken alloc] init];
 
     //[accessToken setString:nil forKey:@"user_access_token"];
+    if (![accessToken stringForKey:@"version-0.2.0-new-login"]) {
+        [self logout:self];
+        [accessToken setString:@"yes" forKey:@"version-0.2.0-new-login"];
+    }
     
     if (![accessToken stringForKey:@"user_access_token"]) {
         [timelineViewWindow performClose:self];
@@ -66,10 +72,9 @@
 
 - (void)initOauth {
     if (!oauthView) {
-        NSString *path = [[NSBundle mainBundle] resourcePath];
+        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
         NSURL *url = [NSURL fileURLWithPath:path];
-        NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index_oauth.html", path] encoding:NSUTF8StringEncoding error:nil];
-        
+        NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
         
         oauthView = [[WebView alloc] init];
         viewDelegate.oauthView = oauthView;
@@ -78,9 +83,42 @@
         [oauthView setPolicyDelegate:viewDelegate];
         [oauthView setUIDelegate:viewDelegate];
         [[oauthView windowScriptObject] setValue:self forKey:@"controller"];
+        //[oauthView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('oauth'); };"];
+
     } else {
-        [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_oauth.authenticate()"];
+        [oauthView stringByEvaluatingJavaScriptFromString:@"start('oauth');"];
     }
+}
+
+- (void)initWebViews {
+    
+	NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
+	NSURL *url = [NSURL fileURLWithPath:path];
+	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
+    
+	viewDelegate.timelineView = timelineView;
+	[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
+	[timelineView setFrameLoadDelegate:viewDelegate];
+	[timelineView setPolicyDelegate:viewDelegate];
+	[timelineView setUIDelegate:viewDelegate];
+    [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
+    
+	viewDelegate.mentionsView = mentionsView;
+	[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
+	[mentionsView setFrameLoadDelegate:viewDelegate];
+	[mentionsView setPolicyDelegate:viewDelegate];
+	[mentionsView setUIDelegate:viewDelegate];
+    [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
+
+    
+    viewDelegate.conversationView = conversationView;
+	[[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
+	[conversationView setFrameLoadDelegate:viewDelegate];
+	[conversationView setPolicyDelegate:viewDelegate];
+	[conversationView setUIDelegate:viewDelegate];
+    [[conversationView windowScriptObject] setValue:self forKey:@"controller"];
+    
+    // FIXME: show timelineView after authentification
 }
 
 - (void)initHotKeys {
@@ -139,29 +177,6 @@
     [loginViewWindow performClose:self];
 }
 
-- (void)initWebViews {
-
-	NSString *path = [[NSBundle mainBundle] resourcePath];
-	NSURL *url = [NSURL fileURLWithPath:path];
-	NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/index.html", path] encoding:NSUTF8StringEncoding error:nil];
-
-	viewDelegate.timelineView = timelineView;
-	[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
-	[timelineView setFrameLoadDelegate:viewDelegate];
-	[timelineView setPolicyDelegate:viewDelegate];
-	[timelineView setUIDelegate:viewDelegate];
-    [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
-
-	viewDelegate.mentionsView = mentionsView;
-	[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
-	[mentionsView setFrameLoadDelegate:viewDelegate];
-	[mentionsView setPolicyDelegate:viewDelegate];
-	[mentionsView setUIDelegate:viewDelegate];
-    [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
-
-    // FIXME: show timelineView after authentification
-}
-
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
 	return NO;
 }
@@ -200,7 +215,7 @@
 	NSRange range = [aString rangeOfString:@"oauthtoken"];
 	
 	if (range.length > 0) {
-        [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"tentia_oauth.requestAccessToken('%@')", aString]];
+        [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"tentia_instance.requestAccessToken('%@')", aString]];
 	} else {
 		NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
@@ -232,7 +247,7 @@
 	return nil;
 }
 
-- (void)unreadMentions:(NSInteger)count {
+- (void)unreadMentions:(int)count {
 	if (![mentionsViewWindow isVisible] && count > 0) {
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia (^%i)", count]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
@@ -241,6 +256,22 @@
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.unread_mentions = 0;"];
 	}
+}
+
+- (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity {
+    
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"Tent Mention";
+    notification.subtitle = [NSString stringWithFormat:@"Mentioned by %@", name];
+    notification.informativeText = text;
+    notification.hasActionButton = YES;
+    notification.actionButtonTitle = @"Show";
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                             entity, @"entity",
+                             postId, @"postId", nil];
+
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 - (void)openURL:(NSString *)url {
@@ -276,6 +307,9 @@
     
     [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
     [mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    if (oauthView) {
+        [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    }
     
     [accessToken setString:nil forKey:@"app_mac_key"];
     [accessToken setString:nil forKey:@"app_mac_key_id"];
@@ -301,6 +335,20 @@
 	[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData(true)"];
 }
 
+- (IBAction)showConversationForPostId:(NSString *)postId andEntity:(NSString *)entity
+{
+    NSString *js = [NSString stringWithFormat:@"tentia_instance.showStatus('%@', '%@');", postId, entity];
+    [conversationView stringByEvaluatingJavaScriptFromString:js];
+    [conversationViewWindow makeKeyAndOrderFront:self];
+}
+
+// Notifications
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
+{
+    //[self showConversationForPostId:[notification.userInfo objectForKey:@"postId"] andEntity:[notification.userInfo objectForKey:@"entity"]];
+    [[self mentionsViewWindow] makeKeyAndOrderFront:self];
+}
 
 /* CARBON */
 

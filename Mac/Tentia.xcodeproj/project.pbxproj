@@ -11,35 +11,14 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		1F122D49118E1DE100E83B77 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F122D48118E1DE100E83B77 /* Icon.icns */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
-		1F2746FC12D9057600339B4F /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1FE2FCA6117A8952000504B0 /* dsa_pub.pem */; };
-		1F4673FE1180F7EA006CC37C /* Core.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E61180F654006CC37C /* Core.js */; };
-		1F4674081180F7EE006CC37C /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E21180F519006CC37C /* jQuery.js */; };
-		1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F4673E41180F590006CC37C /* jQuery-Plugins.js */; };
+		1F1C80F916482A250010B409 /* WebKit in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C80F816482A250010B409 /* WebKit */; };
 		1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F618EC912DB5E6100E500D9 /* TweetModel.m */; };
-		1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F705EA5117889FA00C85707 /* sprite-icons.png */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
-		1F9816C8163915A100AFD4EE /* enc-base64-min.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9816C6163915A100AFD4EE /* enc-base64-min.js */; };
-		1F9816C9163915A100AFD4EE /* hmac-sha256.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9816C7163915A100AFD4EE /* hmac-sha256.js */; };
-		1F9816CA16391C4A00AFD4EE /* enc-base64-min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9816C6163915A100AFD4EE /* enc-base64-min.js */; };
-		1F9816CB16391C4A00AFD4EE /* hmac-sha256.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9816C7163915A100AFD4EE /* hmac-sha256.js */; };
-		1F98DC9E124BFFD7004289ED /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F98DC9D124BFFD7004289ED /* pin.png */; };
-		1F9D655E163B63E300B7282B /* URI.min.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D655D163B63E300B7282B /* URI.min.js */; };
-		1F9D655F163B63F700B7282B /* URI.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9D655D163B63E300B7282B /* URI.min.js */; };
-		1F9D6561163C222400B7282B /* hmac-helper.js in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D6560163C222400B7282B /* hmac-helper.js */; };
-		1F9D6562163C26FC00B7282B /* hmac-helper.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F9D6560163C222400B7282B /* hmac-helper.js */; };
-		1F9D6564163F35C600B7282B /* default-avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F9D6563163F35C600B7282B /* default-avatar.png */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
-		1FC254941427BC050035D84B /* index_oauth.html in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254931427BC050035D84B /* index_oauth.html */; };
-		1FC254951427BF150035D84B /* OauthImplementation.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FC254911427ADF90035D84B /* OauthImplementation.js */; };
-		1FC2549F1427DC7F0035D84B /* Constants.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FC2549D1427DC2B0035D84B /* Constants.js */; };
 		1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2549B1427D9930035D84B /* AccessToken.m */; };
 		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
-		1FFA36CD1177D861006C8562 /* even-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFA36C81177D861006C8562 /* even-bg.png */; };
-		1FFA36CE1177D861006C8562 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1FFA36C91177D861006C8562 /* index.html */; };
-		1FFA36CF1177D861006C8562 /* odd-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFA36CA1177D861006C8562 /* odd-bg.png */; };
-		1FFA36D01177D861006C8562 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 1FFA36CB1177D861006C8562 /* default.css */; };
 		1FFA36D71177D879006C8562 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFA36D31177D879006C8562 /* Controller.m */; };
 		1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFA36D51177D879006C8562 /* ViewDelegate.m */; };
 		1FFA37071177DAF4006C8562 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFA37061177DAF4006C8562 /* WebKit.framework */; };
@@ -70,38 +49,17 @@
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/NewMessageWindow.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1F122D48118E1DE100E83B77 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
-		1F198FC7117BC4AB0049BEA7 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 0; path = README.markdown; sourceTree = "<group>"; };
 		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
-		1F1990DF117BD2250049BEA7 /* Appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Appcast.xml; sourceTree = "<group>"; };
-		1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; lineEnding = 0; path = ReleaseNotes.html; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.html; };
-		1F36440E118CC173008198EF /* OAuthConsumer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OAuthConsumer.framework; sourceTree = "<group>"; };
-		1F4673E21180F519006CC37C /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
-		1F4673E41180F590006CC37C /* jQuery-Plugins.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jQuery-Plugins.js"; sourceTree = "<group>"; };
-		1F4673E61180F654006CC37C /* Core.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; lineEnding = 0; path = Core.js; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
+		1F1C80F816482A250010B409 /* WebKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WebKit; path = ../WebKit; sourceTree = "<group>"; };
 		1F618EC812DB5E6100E500D9 /* TweetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TweetModel.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1F618EC912DB5E6100E500D9 /* TweetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TweetModel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1F705EA5117889FA00C85707 /* sprite-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprite-icons.png"; sourceTree = "<group>"; };
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Constants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Constants.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1F9816C6163915A100AFD4EE /* enc-base64-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "enc-base64-min.js"; sourceTree = "<group>"; };
-		1F9816C7163915A100AFD4EE /* hmac-sha256.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "hmac-sha256.js"; sourceTree = "<group>"; };
-		1F98DC9D124BFFD7004289ED /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
-		1F9D655D163B63E300B7282B /* URI.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = URI.min.js; sourceTree = "<group>"; };
-		1F9D6560163C222400B7282B /* hmac-helper.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "hmac-helper.js"; sourceTree = "<group>"; };
-		1F9D6563163F35C600B7282B /* default-avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-avatar.png"; sourceTree = "<group>"; };
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		1FC254911427ADF90035D84B /* OauthImplementation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; lineEnding = 0; path = OauthImplementation.js; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
-		1FC254931427BC050035D84B /* index_oauth.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_oauth.html; sourceTree = "<group>"; };
 		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AccessToken.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FC2549B1427D9930035D84B /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccessToken.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1FC2549D1427DC2B0035D84B /* Constants.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; lineEnding = 0; path = Constants.js; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
 		1FE2FC92117A818D000504B0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		1FE2FCA6117A8952000504B0 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
-		1FFA36C81177D861006C8562 /* even-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "even-bg.png"; sourceTree = "<group>"; };
-		1FFA36C91177D861006C8562 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		1FFA36CA1177D861006C8562 /* odd-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "odd-bg.png"; sourceTree = "<group>"; };
-		1FFA36CB1177D861006C8562 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
 		1FFA36D21177D879006C8562 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Controller.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FFA36D31177D879006C8562 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Controller.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1FFA36D41177D879006C8562 /* ViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDelegate.h; sourceTree = "<group>"; };
@@ -138,7 +96,6 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1F36440E118CC173008198EF /* OAuthConsumer.framework */,
 				1FE2FC92117A818D000504B0 /* Sparkle.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				1FFA37061177DAF4006C8562 /* WebKit.framework */,
@@ -164,30 +121,6 @@
 				8D15AC370486D014006FF6A4 /* Tentia.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		1FFA36C71177D861006C8562 /* WebKit */ = {
-			isa = PBXGroup;
-			children = (
-				1F9D655D163B63E300B7282B /* URI.min.js */,
-				1F9816C6163915A100AFD4EE /* enc-base64-min.js */,
-				1F9816C7163915A100AFD4EE /* hmac-sha256.js */,
-				1F4673E61180F654006CC37C /* Core.js */,
-				1FC254911427ADF90035D84B /* OauthImplementation.js */,
-				1FC2549D1427DC2B0035D84B /* Constants.js */,
-				1FFA36C81177D861006C8562 /* even-bg.png */,
-				1F98DC9D124BFFD7004289ED /* pin.png */,
-				1F705EA5117889FA00C85707 /* sprite-icons.png */,
-				1FFA36C91177D861006C8562 /* index.html */,
-				1FC254931427BC050035D84B /* index_oauth.html */,
-				1FFA36CA1177D861006C8562 /* odd-bg.png */,
-				1FFA36CB1177D861006C8562 /* default.css */,
-				1F4673E21180F519006CC37C /* jQuery.js */,
-				1F4673E41180F590006CC37C /* jQuery-Plugins.js */,
-				1F9D6560163C222400B7282B /* hmac-helper.js */,
-				1F9D6563163F35C600B7282B /* default-avatar.png */,
-			);
-			name = WebKit;
 			sourceTree = "<group>";
 		};
 		2A37F4AAFDCFA73011CA2CEA /* Twittia 2 */ = {
@@ -234,17 +167,13 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F1C80F816482A250010B409 /* WebKit */,
 				1F122D48118E1DE100E83B77 /* Icon.icns */,
-				1F198FC7117BC4AB0049BEA7 /* README.markdown */,
-				1FE2FCA6117A8952000504B0 /* dsa_pub.pem */,
-				1FFA36C71177D861006C8562 /* WebKit */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Tentia-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* NewMessageWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
-				1F1990E1117BD2650049BEA7 /* ReleaseNotes.html */,
-				1F1990DF117BD2250049BEA7 /* Appcast.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -312,29 +241,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F9D6562163C26FC00B7282B /* hmac-helper.js in Resources */,
-				1F9D655F163B63F700B7282B /* URI.min.js in Resources */,
-				1F9816CA16391C4A00AFD4EE /* enc-base64-min.js in Resources */,
-				1F9816CB16391C4A00AFD4EE /* hmac-sha256.js in Resources */,
-				1FC2549F1427DC7F0035D84B /* Constants.js in Resources */,
-				1FC254951427BF150035D84B /* OauthImplementation.js in Resources */,
-				1F2746FC12D9057600339B4F /* dsa_pub.pem in Resources */,
-				1F4673FE1180F7EA006CC37C /* Core.js in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* NewMessageWindow.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
-				1FFA36CD1177D861006C8562 /* even-bg.png in Resources */,
-				1F4674091180F7F3006CC37C /* jQuery-Plugins.js in Resources */,
-				1FFA36CE1177D861006C8562 /* index.html in Resources */,
-				1FFA36CF1177D861006C8562 /* odd-bg.png in Resources */,
-				1F4674081180F7EE006CC37C /* jQuery.js in Resources */,
-				1FFA36D01177D861006C8562 /* default.css in Resources */,
-				1F705EA6117889FA00C85707 /* sprite-icons.png in Resources */,
 				1F122D49118E1DE100E83B77 /* Icon.icns in Resources */,
-				1F98DC9E124BFFD7004289ED /* pin.png in Resources */,
-				1FC254941427BC050035D84B /* index_oauth.html in Resources */,
-				1F9D6564163F35C600B7282B /* default-avatar.png in Resources */,
+				1F1C80F916482A250010B409 /* WebKit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,10 +264,6 @@
 				1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */,
 				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
 				1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */,
-				1F9816C8163915A100AFD4EE /* enc-base64-min.js in Sources */,
-				1F9816C9163915A100AFD4EE /* hmac-sha256.js in Sources */,
-				1F9D655E163B63E300B7282B /* URI.min.js in Sources */,
-				1F9D6561163C222400B7282B /* hmac-helper.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
