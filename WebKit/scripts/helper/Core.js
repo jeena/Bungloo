@@ -178,8 +178,10 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         
         template.in_reply.parentNode.className = "hidden";
 
+        var text = status.content.text.replace(/\n/g, "<br>");
+
         template.message.innerHTML = this.replaceUsernamesWithLinks(
-            this.replaceURLWithHTMLLinks(status.content.text, status.entities, template.message)
+            this.replaceURLWithHTMLLinks(text, status.entities, template.message)
         );
 
         this.findMentions(template.message, status.mentions);
