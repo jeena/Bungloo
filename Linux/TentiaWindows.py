@@ -4,36 +4,43 @@ class Preferences:
 
 	def __init__(self, app):
 		self.app = app
-		self.window = gtk.Window()
-		self.window.set_title("Preferences")
-		self.window.set_position(gtk.WIN_POS_CENTER)
-		self.window.connect("delete-event", self.quit)
+		self.window = QtGui.QMainWindow()
+		self.window.setWindowTitle("Preferences")
+		self.window.resize(300, 500)
+		self.window.setMinimumSize(150, 150)
+		self.window.move(0, 0)
 
-		hbox1 = gtk.HBox()
-		self.window.add(hbox1)
+		#hbox1 = QtGui.QHBoxLayout()
+		#self.window.addWidget(hbox1)
 
-		icon = gtk.Image()
-		pixbuffer = gtk.gdk.pixbuf_new_from_file(self.app.resources_path() + "Icon.png")
-		scaled_buffer = pixbuffer.scale_simple(150, 150, gtk.gdk.INTERP_BILINEAR)
-		icon.set_from_pixbuf(scaled_buffer)
-		hbox1.pack_start(icon, False, False, 20)
+		image = QtGui.QPixmap(self.app.resources_path() + "Icon.png")
 
-		fix = gtk.Fixed()
-		hbox1.pack_start(fix, False, False, 20)
+		label = QtGui.QLabel(self.window)
+		label.setGeometry(20, 20, 150, 150)
+		label.setPixmap(image)
+		label.setScaledContents(True)
 
-		label = gtk.Label("Please enter your entity:")
-		fix.put(label, 0, 30)
 
-		self.entity_entry = gtk.Entry()
-		self.entity_entry.set_width_chars(36)
-		fix.put(self.entity_entry, 0, 52)
 
-		self.login_button = gtk.Button(label="Login")
-		self.login_button.connect("clicked", self.on_login_button_clicked)
-		fix.put(self.login_button, 248, 82)
 
-		self.window.show_all()
-		self.window.hide()
+		
+		#scaled_buffer = pixbuffer.scale_simple(150, 150, gtk.gdk.INTERP_BILINEAR)
+		#icon.set_from_pixbuf(scaled_buffer)
+		#hbox1.pack_start(icon, False, False, 20)
+#
+		#fix = gtk.Fixed()
+		#hbox1.pack_start(fix, False, False, 20)
+#
+		#label = gtk.Label("Please enter your entity:")
+		#fix.put(label, 0, 30)
+#
+		#self.entity_entry = gtk.Entry()
+		#self.entity_entry.set_width_chars(36)
+		#fix.put(self.entity_entry, 0, 52)
+#
+		#self.login_button = gtk.Button(label="Login")
+		#self.login_button.connect("clicked", self.on_login_button_clicked)
+		#fix.put(self.login_button, 248, 82)
 
 	def quit(self, wiget, foo):
 		self.window.hide()
