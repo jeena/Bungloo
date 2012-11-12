@@ -20,8 +20,8 @@
 @synthesize logoLayer;
 @synthesize oauthView, accessToken;
 
-- (void)awakeFromNib {
-	
+- (void)awakeFromNib
+{
 	[self initHotKeys];
     
     [GrowlApplicationBridge setGrowlDelegate:self];
@@ -71,7 +71,8 @@
     }    
 }
 
-- (void)initOauth {
+- (void)initOauth
+{
     if (!oauthView) {
         NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
         NSURL *url = [NSURL fileURLWithPath:path];
@@ -130,7 +131,8 @@
     }
 }
 
-- (void)initHotKeys {
+- (void)initHotKeys
+{
 
 	NSInteger newTweetKey = kVK_ANSI_M; // http://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
 	NSInteger newTweetModifierKey = controlKey + cmdKey + optionKey; // cmdKey 256, shitfKey 512, optionKey 2048, controlKey 4096 
@@ -138,16 +140,22 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger defaultsNewTweetKey = (NSInteger)[defaults integerForKey:@"newTweetKey"];
 
-	if ([defaults objectForKey:@"newTweetKey"] != nil) {
+	if ([defaults objectForKey:@"newTweetKey"] != nil)
+    {
 		newTweetKey = defaultsNewTweetKey;
-	} else {
+	}
+    else
+    {
 		[defaults setInteger:newTweetKey forKey:@"newTweetKey"];
 	}
 	
 	NSInteger defaultsNewTweetModifierKey = (NSInteger)[defaults integerForKey:@"newTweetModifierKey"];
-	if ([defaults objectForKey:@"newTweetModifierKey"] != nil) {
+	if ([defaults objectForKey:@"newTweetModifierKey"] != nil)
+    {
 		newTweetModifierKey = defaultsNewTweetModifierKey;
-	} else {
+	}
+    else
+    {
 		[defaults setInteger:newTweetModifierKey forKey:@"newTweetModifierKey"];
 	}
 	
@@ -180,17 +188,34 @@
 	/* end CARBON */
 }
 
-- (void)authentificationSucceded:(id)sender {
+- (void)alertTitle:(NSString *)title withMessage:(NSString *)message
+{
+    NSAlert *alert = [NSAlert alertWithMessageText:title
+                                     defaultButton:@"OK" alternateButton:nil otherButton:nil
+                         informativeTextWithFormat:@"%@", message];
+    [alert runModal];
+}
+
+- (void)authentificationSucceded:(id)sender
+{
     [loginActivityIndicator stopAnimation:self];
 	[self initWebViews];
     [loginViewWindow performClose:self];
 }
 
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector {
+- (void)authentificationDidNotSucceed:(NSString *)errorMessage
+{
+    [loginActivityIndicator stopAnimation:self];
+    [self alertTitle:@"Authenication error" withMessage:errorMessage];
+}
+
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector
+{
 	return NO;
 }
 
-+ (BOOL)isKeyExcludedFromWebScript:(const char *)name {
++ (BOOL)isKeyExcludedFromWebScript:(const char *)name
+{
 	return NO;
 }
 
@@ -207,37 +232,45 @@
 
 #pragma mark Notifications
 
-- (IBAction)openNewMessageWindow:(id)sender {
+- (IBAction)openNewMessageWindow:(id)sender
+{
 	[NSApp activateIgnoringOtherApps:YES]; 
 	[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];	
 }
 
-- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string {
+- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string
+{
 	[NSApp activateIgnoringOtherApps:YES]; 
 	NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 	[newTweet inReplyTo:userName statusId:statusId withString:string];
 }
 
-- (void)openNewMessageWindowWithString:(NSString *)aString {
+- (void)openNewMessageWindowWithString:(NSString *)aString
+{
 	[NSApp activateIgnoringOtherApps:YES];
 	
 	NSRange range = [aString rangeOfString:@"oauthtoken"];
 	
-	if (range.length > 0) {
+	if (range.length > 0)
+    {
         [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"tentia_instance.requestAccessToken('%@')", aString]];
-	} else {
+	}
+    else
+    {
 		NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
 	}
 	
 }
 
-- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
 	NSString *text = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] substringFromIndex:8];
 	[self openNewMessageWindowWithString:[text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (IBAction)sendTweet:(id)sender {
+- (IBAction)sendTweet:(id)sender
+{
 	TweetModel *tweet = (TweetModel *)[sender object];
     NSString *text = [[tweet.text stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
     text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
@@ -248,20 +281,27 @@
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 
-- (NSString *)pluginURL {
+- (NSString *)pluginURL
+{
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *pathToPlugin = [@"~/Library/Application Support/Tentia/Plugin.js" stringByExpandingTildeInPath];
-	if([fileManager fileExistsAtPath:pathToPlugin]) {
+	
+    if([fileManager fileExistsAtPath:pathToPlugin])
+    {
 		return [NSString stringWithFormat:@"%@", [NSURL fileURLWithPath:pathToPlugin]];
 	}
 	return nil;
 }
 
-- (void)unreadMentions:(int)count {
-	if (![mentionsViewWindow isVisible] && count > 0) {
+- (void)unreadMentions:(int)count
+{
+	if (![mentionsViewWindow isVisible] && count > 0)
+    {
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia (^%i)", count]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
-	} else {
+	}
+    else
+    {
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia"]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.unread_mentions = 0;"];
@@ -282,7 +322,8 @@
                       postId, @"postId", nil]];
 }
 
-- (void)openURL:(NSString *)url {
+- (void)openURL:(NSString *)url
+{
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
 }
 
@@ -298,18 +339,23 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }
 
-- (void)loggedIn {
+- (void)loggedIn
+{
     [timelineViewWindow makeKeyAndOrderFront:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }
 
-- (IBAction)login:(id)sender {
-    [[loginEntityTextField window] makeFirstResponder:nil];
-    [loginActivityIndicator startAnimation:self];
-    [self initOauth];
+- (IBAction)login:(id)sender
+{
+    if ([[loginEntityTextField stringValue] length] > 0) {
+        [[loginEntityTextField window] makeFirstResponder:nil];
+        [loginActivityIndicator startAnimation:self];
+        [self initOauth];
+    }
 }
 
-- (IBAction)logout:(id)sender {
+- (IBAction)logout:(id)sender
+{
     [timelineViewWindow performClose:self];
     [mentionsViewWindow performClose:self];
     [self.loginViewWindow makeKeyAndOrderFront:self];
@@ -333,13 +379,16 @@
 }
 
 // Mentions window has been visible
-- (void)windowDidBecomeKey:(NSNotification *)notification {
-	if ([notification object] == mentionsViewWindow) {
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{
+	if ([notification object] == mentionsViewWindow)
+    {
 		[self unreadMentions:0];		
 	}	
 }
 
-- (void)getTweetUpdates:(id)sender {
+- (void)getTweetUpdates:(id)sender
+{
 	[timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData(true)"];
 	[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData(true)"];
 }
@@ -362,14 +411,6 @@
     NSString *js = [NSString stringWithFormat:@"tentia_instance.mentionRead('%@', '%@');", postId, entity];
     [mentionsView stringByEvaluatingJavaScriptFromString:js];
 }
-/*
-- (NSDictionary *)registrationDictionaryForGrowl
-{
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSArray arrayWithObjects:@"Mention", @"Status", nil], @"GROWL_NOTIFICATIONS_ALL",
-            [NSArray arrayWithObject:@"Mention"], @"GROWL_NOTIFICATIONS_DEFAULT"
-            , nil];
-}*/
 
 - (NSString *) applicationNameForGrowl
 {

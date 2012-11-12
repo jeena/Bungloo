@@ -34,8 +34,14 @@ function(HostApp, Paths, Hmac) {
     }
 
     Oauth.prototype.authenticate = function() {
-        this.entity = HostApp.stringForKey("entity");
-        this.requestProfileURL(this.entity);
+        var entity = HostApp.stringForKey("entity");
+
+        if (entity && (entity.startsWith("http://") || entity.startsWith("https://"))) {
+            this.entity = entity;
+            this.requestProfileURL(this.entity);
+        } else {
+            HostApp.authentificationDidNotSucceed("The entity should start with https:// or http://");
+        }
     }
 
     Oauth.prototype.apiRoot = function() {
@@ -44,9 +50,18 @@ function(HostApp, Paths, Hmac) {
 
     Oauth.prototype.requestProfileURL = function (entity) {
         var those = this;
-        Paths.findProfileURL(entity, function(profile_url) {
-            those.register(profile_url);
-        });
+        Paths.findProfileURL(entity,
+            function(profile_url) {
+                if (profile_url && (profile_url.startsWith("http://") || profile_url.startsWith("https:(("))) {
+                    those.register(profile_url);
+                } else {
+                    HostApp.authentificationDidNotSucceed("Could not find profile for: " + entity);
+                }
+            },
+            function(errorMessage) { // error callback
+                HostApp.authentificationDidNotSucceed("Could not find profile for: " + entity);
+            }
+        );
     }
 
     Oauth.prototype.register = function (url) {

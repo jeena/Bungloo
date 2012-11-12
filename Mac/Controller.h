@@ -48,8 +48,10 @@
 
 - (void)initOauth;
 - (void)authentificationSucceded:(id)sender;
+- (void)authentificationDidNotSucceed:(NSString *)errorMessage;
 - (void)initWebViews;
 - (void)initHotKeys;
+- (void)alertTitle:(NSString *)title withMessage:(NSString *)message;
 - (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
