@@ -60,7 +60,7 @@ function(jQuery, HostApp, Hmac) {
         });
     }
 
-    Paths.findProfileURL = function(entity, callback) {
+    Paths.findProfileURL = function(entity, callback, errorCallback) {
         
         jQuery.ajax({
             url: entity,
@@ -80,11 +80,14 @@ function(jQuery, HostApp, Hmac) {
 
                     if (profile_url) {
                         callback(profile_url);
+                    } else {
+                        if(errorCallback) errorCallback(entity + " has no profile URL");
                     }
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert("findProfileURL " + xhr.statusText + " (" + entity + "): " + xhr.responseText);
+                if (errorCallback) errorCallback(xhr.statusText + " - " + xhr.responseText)
             }
         });
     }

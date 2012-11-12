@@ -76,6 +76,22 @@ define(function() {
         }
     }
 
+    HostApp.alertTitleWithMessage = function(title, message) {
+        if (OS_TYPE == "mac") {
+            controller.alertTitle_withMessage_(message);
+        } else {
+            controller.alertTitleWithMessage(message);
+        }
+    }
+
+    HostApp.authentificationDidNotSucceed = function(errorMessage) {
+        if (OS_TYPE == "mac") {
+            controller.authentificationDidNotSucceed_(errorMessage);
+        } else {
+            controller.authentificationDidNotSucceed(errorMessage);
+        }
+    }
+
     return HostApp;    
 
 });

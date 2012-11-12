@@ -12,9 +12,9 @@
 #import <Carbon/Carbon.h>
 #import "Constants.h"
 #import "AccessToken.h"
+#import <Growl/Growl.h>
 
-
-@interface Controller : NSObject <NSUserNotificationCenterDelegate> {
+@interface Controller : NSObject <GrowlApplicationBridgeDelegate> {
 	IBOutlet WebView *timelineView;
 	IBOutlet NSWindow *timelineViewWindow;
 	IBOutlet WebView *mentionsView;
@@ -22,6 +22,7 @@
     IBOutlet WebView *conversationView;
     IBOutlet NSWindow *conversationViewWindow;
     NSWindow *loginViewWindow;
+    NSTextField *loginEntityTextField;
     NSProgressIndicator *loginActivityIndicator;
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
 	IBOutlet NSImageView *logoLayer;
@@ -37,6 +38,7 @@
 @property (retain, nonatomic) IBOutlet WebView *conversationView;
 @property (retain, nonatomic) IBOutlet NSWindow *conversationViewWindow;
 @property (assign) IBOutlet NSWindow *loginViewWindow;
+@property (assign) IBOutlet NSTextField *loginEntityTextField;
 @property (assign) IBOutlet NSProgressIndicator *loginActivityIndicator;
 @property (retain, nonatomic) IBOutlet NSMenuItem *globalHotkeyMenuItem;
 @property (retain, nonatomic) IBOutlet NSImageView *logoLayer;
@@ -46,8 +48,10 @@
 
 - (void)initOauth;
 - (void)authentificationSucceded:(id)sender;
+- (void)authentificationDidNotSucceed:(NSString *)errorMessage;
 - (void)initWebViews;
 - (void)initHotKeys;
+- (void)alertTitle:(NSString *)title withMessage:(NSString *)message;
 - (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;

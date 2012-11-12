@@ -12,11 +12,15 @@
 		1F122D49118E1DE100E83B77 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F122D48118E1DE100E83B77 /* Icon.icns */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
 		1F1C80F916482A250010B409 /* WebKit in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C80F816482A250010B409 /* WebKit */; };
+		1F3F129E164F202000C7C983 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1F3F129D164F202000C7C983 /* dsa_pub.pem */; };
 		1F618ECA12DB5E6100E500D9 /* TweetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F618EC912DB5E6100E500D9 /* TweetModel.m */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
 		1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2549B1427D9930035D84B /* AccessToken.m */; };
+		1FDEF722164EFE9100F927F3 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FDEF721164EFE9100F927F3 /* Growl.framework */; };
+		1FDEF723164EFF3100F927F3 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FDEF721164EFE9100F927F3 /* Growl.framework */; };
+		1FDEF726164F094600F927F3 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 1FDEF724164F079800F927F3 /* Growl Registration Ticket.growlRegDict */; };
 		1FE2FC93117A818D000504B0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FE2FC92117A818D000504B0 /* Sparkle.framework */; };
 		1FFA36D71177D879006C8562 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFA36D31177D879006C8562 /* Controller.m */; };
@@ -37,6 +41,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				1FE2FCA4117A83B1000504B0 /* Sparkle.framework in CopyFiles */,
+				1FDEF723164EFF3100F927F3 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +56,7 @@
 		1F122D48118E1DE100E83B77 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		1F1C80F816482A250010B409 /* WebKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WebKit; path = ../WebKit; sourceTree = "<group>"; };
+		1F3F129D164F202000C7C983 /* dsa_pub.pem */ = {isa = PBXFileReference; lastKnownFileType = text; name = dsa_pub.pem; path = publish/dsa_pub.pem; sourceTree = "<group>"; };
 		1F618EC812DB5E6100E500D9 /* TweetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TweetModel.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1F618EC912DB5E6100E500D9 /* TweetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TweetModel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -59,6 +65,8 @@
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AccessToken.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FC2549B1427D9930035D84B /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccessToken.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1FDEF721164EFE9100F927F3 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
+		1FDEF724164F079800F927F3 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		1FE2FC92117A818D000504B0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1FFA36D21177D879006C8562 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Controller.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FFA36D31177D879006C8562 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Controller.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -81,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FDEF722164EFE9100F927F3 /* Growl.framework in Frameworks */,
 				1FA09847144602530079E258 /* libicucore.dylib in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				1FFA37071177DAF4006C8562 /* WebKit.framework in Frameworks */,
@@ -96,6 +105,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FDEF721164EFE9100F927F3 /* Growl.framework */,
 				1FE2FC92117A818D000504B0 /* Sparkle.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				1FFA37061177DAF4006C8562 /* WebKit.framework */,
@@ -169,11 +179,13 @@
 			children = (
 				1F1C80F816482A250010B409 /* WebKit */,
 				1F122D48118E1DE100E83B77 /* Icon.icns */,
+				1F3F129D164F202000C7C983 /* dsa_pub.pem */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Tentia-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* NewMessageWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				1FDEF724164F079800F927F3 /* Growl Registration Ticket.growlRegDict */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -190,9 +202,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D15AC270486D014006FF6A4 /* Twittia */ = {
+		8D15AC270486D014006FF6A4 /* Tentia */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Twittia" */;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Tentia" */;
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
@@ -203,7 +215,7 @@
 			);
 			dependencies = (
 			);
-			name = Twittia;
+			name = Tentia;
 			productInstallPath = "$(HOME)/Applications";
 			productName = "Twittia 2";
 			productReference = 8D15AC370486D014006FF6A4 /* Tentia.app */;
@@ -231,7 +243,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D15AC270486D014006FF6A4 /* Twittia */,
+				8D15AC270486D014006FF6A4 /* Tentia */,
 			);
 		};
 /* End PBXProject section */
@@ -241,6 +253,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F3F129E164F202000C7C983 /* dsa_pub.pem in Resources */,
+				1FDEF726164F094600F927F3 /* Growl Registration Ticket.growlRegDict in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* NewMessageWindow.xib in Resources */,
@@ -380,7 +394,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Twittia" */ = {
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Tentia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733C808A9546B00998B17 /* Debug */,
