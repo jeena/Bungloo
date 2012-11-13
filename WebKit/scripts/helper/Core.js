@@ -67,6 +67,17 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         var geo = document.createElement("a");
         geo.style.display = "none";
         head.appendChild(geo);
+
+        head.appendChild(space.cloneNode());
+
+        var is_private = document.createElement("span")
+        is_private.className = "is_private";
+        is_private.style.display = "none";
+        is_private.innerHTML = "P";
+        is_private.title = "Private";
+        head.appendChild(is_private);
+
+        head.appendChild(space.cloneNode());
         
         var pin = document.createElement("img");
         pin.src = "img/pin.png";
@@ -104,6 +115,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         this.template = {
             item: item,
             reply_to: reply_to,
+            is_private: is_private,
             retweet: retweet,
             image: image,
             username: username,
@@ -175,6 +187,9 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             });            
         }
 
+        if (status && status.permissions && !status.permissions.public) {
+            template.is_private.style.display = '';
+        }
         
         template.in_reply.parentNode.className = "hidden";
 

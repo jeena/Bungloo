@@ -188,6 +188,15 @@ li:hover .name {
 	background: #b8c1d0;
 }
 
+.is_private {
+	color: white;
+	padding: 0 4px 0 2px;
+	background: #09F;
+	border-radius: 3px;
+	font-style: italic;
+	font-weight: bold;
+}
+
 
 li .date {
 	position: absolute;
