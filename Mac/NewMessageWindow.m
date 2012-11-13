@@ -47,7 +47,11 @@
 {
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
+    [textField becomeFirstResponder];
 
+    // Enable Continous Spelling
+    NSTextView *textView = (NSTextView *)[[[self.windowControllers objectAtIndex:0] window] firstResponder];;
+    [textView setContinuousSpellCheckingEnabled:YES];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
