@@ -74,16 +74,17 @@ function(Core, Paths, HostApp, URI) {
         var http_method = "GET";
         var callback = function(resp) {
 
+            those.reload_blocked = false;
+
             try {
                 var json = JSON.parse(resp.responseText)
+                those.newStatus(json);
+
             } catch (e) {
                 //alert(resp.responseText);
                 alert(url + " JSON parse error");
                 throw e;
             }
-
-            those.newStatus(json);
-            those.reload_blocked = false;
         }
 
         var data = null;

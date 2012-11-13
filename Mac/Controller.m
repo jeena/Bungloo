@@ -22,6 +22,9 @@
 
 - (void)awakeFromNib
 {
+    [timelineViewWindow setExcludedFromWindowsMenu:YES];
+    [mentionsViewWindow setExcludedFromWindowsMenu:YES];
+    
 	[self initHotKeys];
     
     [GrowlApplicationBridge setGrowlDelegate:self];
