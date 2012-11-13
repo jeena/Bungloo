@@ -179,9 +179,13 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         template.in_reply.parentNode.className = "hidden";
 
         var text = status.content.text.replace(/\n/g, "<br>");
+        var entities = [status.entity];
+        status.mentions.map(function (mention) {
+            entities.push(mention.entity)
+        });
 
         template.message.innerHTML = this.replaceUsernamesWithLinks(
-            this.replaceURLWithHTMLLinks(text, status.entities, template.message)
+            this.replaceURLWithHTMLLinks(text, entities, template.message)
         );
 
         this.findMentions(template.message, status.mentions);
@@ -380,17 +384,30 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
     Core.prototype.replaceURLWithHTMLLinks = function(text, entities, message_node) {
 
-        var exp = /(([^\^]https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_()|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-        return text.replace(exp, "<a href='$1'>$1</a>");
+        var callback = function(url) {
+
+            var result;
+
+            if (entities && entities.some(function(x) { return x == url })) {
+                result = url;
+            } else {
+
+                var protocol = "";
+                if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                    protocol = "http://";
+                }
+                result = '<a title="' + protocol + url + '"" href="' + protocol + url + '">' + url + '</a>';
+            }
+
+            return result;
+        }
+
+        return URI.withinString(text, callback);
     }
 
     Core.prototype.replaceUsernamesWithLinks = function(text, mentions) {
-
-        return text; // FIXME!
-        var username = /(^|\s)(\^)(\w+)/ig;
         var hash = /(^|\s)(#)(\w+)/ig;
-        text = text.replace(username, "$1$2<a href='tentia://profile/$3'>$3</a>");
-        return text.replace(hash, "$1$2<a href='http://search.twitter.com/search?q=%23$3'>$3</a>");
+        return text.replace(hash, "$1$2<a href='https://skate.io/search?q=%23$3'>$3</a>");
     }
 
     Core.prototype.replyTo = function(entity, status_id, mentions) {        
