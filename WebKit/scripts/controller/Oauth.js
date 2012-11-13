@@ -52,7 +52,7 @@ function(HostApp, Paths, Hmac) {
         var those = this;
         Paths.findProfileURL(entity,
             function(profile_url) {
-                if (profile_url && (profile_url.startsWith("http://") || profile_url.startsWith("https:(("))) {
+                if (profile_url && (profile_url.startsWith("http://") || profile_url.startsWith("https://"))) {
                     those.register(profile_url);
                 } else {
                     HostApp.authentificationDidNotSucceed("Could not find profile for: " + entity);
