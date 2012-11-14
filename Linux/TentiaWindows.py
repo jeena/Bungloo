@@ -3,57 +3,73 @@ from PyQt4 import QtCore, QtGui, QtWebKit
 class Preferences:
 
 	def __init__(self, app):
+
 		self.app = app
+
+		# window
 		self.window = QtGui.QMainWindow()
 		self.window.setWindowTitle("Preferences")
-		self.window.resize(300, 500)
-		self.window.setMinimumSize(150, 150)
+		self.window.resize(480, 186)
+		self.window.setMinimumSize(480, 186)
+		self.window.setMaximumSize(480, 186)
 		self.window.move(0, 0)
 
-		#hbox1 = QtGui.QHBoxLayout()
-		#self.window.addWidget(hbox1)
-
+		# image view
 		image = QtGui.QPixmap(self.app.resources_path() + "Icon.png")
+		image_view = QtGui.QLabel(self.window)
+		image_view.setGeometry(20, 20, 146, 146)
+		image_view.setPixmap(image)
+		image_view.setScaledContents(True)
 
-		label = QtGui.QLabel(self.window)
-		label.setGeometry(20, 20, 150, 150)
-		label.setPixmap(image)
-		label.setScaledContents(True)
+		# info text
+		info_text = QtGui.QLabel(self.window)
+		info_text.setGeometry(194, 60, 262, 17)
+		info_text.setText("Add your entity to log in:")
 
+		# login button
+		button = QtGui.QPushButton(self.window)
+		button.setText("Login")
+		button.setGeometry(390, 109, 72, 32)
+		button.setAutoDefault(True)
+		self.window.connect(button, QtCore.SIGNAL('clicked()'), self.on_login_button_clicked)
 
+		# text field
+		self.text_field = QtGui.QLineEdit(self.window)
+		self.text_field.setPlaceholderText("https://example.tent.is")
+		self.text_field.setGeometry(194, 84, 262, 22)
+		self.window.connect(self.text_field, QtCore.SIGNAL('returnPressed()'), self.on_login_button_clicked)
+		entity = self.app.controller.stringForKey("entity")
+		if entity:
+			self.text_field.setText(entity)
 
+		# activity_indicator
+		self.activity_indicator = QtGui.QProgressBar(self.window)
+		self.activity_indicator.setMinimum(0)
+		self.activity_indicator.setMaximum(0)
+		self.activity_indicator.setGeometry(310, 114, 72, 22)
 
-		
-		#scaled_buffer = pixbuffer.scale_simple(150, 150, gtk.gdk.INTERP_BILINEAR)
-		#icon.set_from_pixbuf(scaled_buffer)
-		#hbox1.pack_start(icon, False, False, 20)
-#
-		#fix = gtk.Fixed()
-		#hbox1.pack_start(fix, False, False, 20)
-#
-		#label = gtk.Label("Please enter your entity:")
-		#fix.put(label, 0, 30)
-#
-		#self.entity_entry = gtk.Entry()
-		#self.entity_entry.set_width_chars(36)
-		#fix.put(self.entity_entry, 0, 52)
-#
-		#self.login_button = gtk.Button(label="Login")
-		#self.login_button.connect("clicked", self.on_login_button_clicked)
-		#fix.put(self.login_button, 248, 82)
+		self.active(False)
+
 
 	def quit(self, wiget, foo):
 		self.window.hide()
 		self.app.quit(self)
 
-	def on_login_button_clicked(self, widget):
-		self.app.login_with_entity(self.entity_entry.get_text())
+	def on_login_button_clicked(self):
+		self.active(True)
+		self.app.login_with_entity(self.text_field.text())
 
 	def show(self):
 		self.window.show()
 
 	def hide(self):
 		self.window.hide()
+
+	def active(self, active):
+		if active:
+			self.activity_indicator.show()
+		else:
+			self.activity_indicator.hide()
 
 
 class Timeline:
@@ -74,7 +90,6 @@ class Timeline:
 
 		self.web_view = webkit.WebView()
 		scroller.add(self.web_view)
-
 
 	def quit(self, widget, foo):
 		self.window.hide()
@@ -108,13 +123,20 @@ class OauthImplementation:
 
 	def __init__(self, app):
 		self.app = app
-		self.web_view = gtk.WebView()
+		self.web_view = QtWebKit.QWebView()
+		self.web_view.settings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
 		self.init_web_view()
+		frame = self.web_view.page().mainFrame()
+		frame.addToJavaScriptWindowObject("controller", self.app.controller)
+		frame.addToJavaScriptWindowObject("console", self.app.console)
+		insp = QtWebKit.QWebInspector()
+		insp.setPage(self.web_view.page())
+		insp.show()
 
 	def init_web_view(self):
-		self.web_view.connect("load-finished", self.load_finished)
-		self.web_view.open(self.app.resources_path() + "index_oauth.html")
+		self.web_view.loadFinished.connect(self.load_finished)
+		self.web_view.load(QtCore.QUrl(self.app.resources_uri() + "/index.html"))
 
 	def load_finished(self, widget):
-		script = "setTimeout( function() { tentia_oauth = new OauthImplementation(); }, 2);"
-		self.web_view.execute_script(stript)
+		script = "function HostAppGo() { start('oauth'); }"
+		self.web_view.page().mainFrame().evaluateJavaScript(script)
