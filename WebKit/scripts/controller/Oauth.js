@@ -27,13 +27,13 @@ function(HostApp, Paths, Hmac) {
                 "write_followings": "Follow ne entities"
             }
         };
-
         this.register_data = null;
         this.profile = null;
         this.state = null;
     }
 
     Oauth.prototype.authenticate = function() {
+
         var entity = HostApp.stringForKey("entity");
 
         if (entity && (entity.startsWith("http://") || entity.startsWith("https://"))) {

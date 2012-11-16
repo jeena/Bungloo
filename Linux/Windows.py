@@ -1,4 +1,5 @@
 from PyQt4 import QtCore, QtGui, QtWebKit
+import Helper
 
 class Preferences:
 
@@ -12,10 +13,10 @@ class Preferences:
 		self.window.resize(480, 186)
 		self.window.setMinimumSize(480, 186)
 		self.window.setMaximumSize(480, 186)
-		self.window.move(0, 0)
+		self.window.move(1400, 700)
 
 		# image view
-		image = QtGui.QPixmap(self.app.resources_path() + "Icon.png")
+		image = QtGui.QPixmap(self.app.resources_path() + "/Icon.png")
 		image_view = QtGui.QLabel(self.window)
 		image_view.setGeometry(20, 20, 146, 146)
 		image_view.setPixmap(image)
@@ -35,6 +36,7 @@ class Preferences:
 
 		# text field
 		self.text_field = QtGui.QLineEdit(self.window)
+		self.text_field.setText("http://jeena.net")
 		self.text_field.setPlaceholderText("https://example.tent.is")
 		self.text_field.setGeometry(194, 84, 262, 22)
 		self.window.connect(self.text_field, QtCore.SIGNAL('returnPressed()'), self.on_login_button_clicked)
@@ -119,24 +121,14 @@ class Timeline:
 
 		self.web_view.execute_script(script)
 
-class OauthImplementation:
+class Oauth:
 
 	def __init__(self, app):
 		self.app = app
-		self.web_view = QtWebKit.QWebView()
-		self.web_view.settings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
-		self.init_web_view()
-		frame = self.web_view.page().mainFrame()
-		frame.addToJavaScriptWindowObject("controller", self.app.controller)
-		frame.addToJavaScriptWindowObject("console", self.app.console)
-		insp = QtWebKit.QWebInspector()
-		insp.setPage(self.web_view.page())
-		insp.show()
+		self.window = Helper.WebViewCreator(self.app, self)
 
-	def init_web_view(self):
-		self.web_view.loadFinished.connect(self.load_finished)
-		self.web_view.load(QtCore.QUrl(self.app.resources_uri() + "/index.html"))
+	def load_finished(self, ok):
+		if ok:
+			script = "function HostAppGo() { start('oauth'); }"
+			self.window.view.page().mainFrame().evaluateJavaScript(script)
 
-	def load_finished(self, widget):
-		script = "function HostAppGo() { start('oauth'); }"
-		self.web_view.page().mainFrame().evaluateJavaScript(script)

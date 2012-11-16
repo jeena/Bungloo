@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-import os
-import sys
+import os, sys, pickle
 from PyQt4 import QtCore, QtGui
-import TentiaWindows
+import Windows
 
 class Tentia:
 
@@ -19,36 +18,52 @@ class Tentia:
 		print "quit"
 
 	def setup_windows(self):
-		self.preferences = TentiaWindows.Preferences(self)
-		#self.timeline = TentiaWindows.Timeline(self)
-		#self.mentions = TentiaWindows.Timeline(self, action="mentions", title="Mentions")
+		self.preferences = Windows.Preferences(self)
+		#self.timeline = Windows.Timeline(self)
+		#self.mentions = Windows.Timeline(self, action="mentions", title="Mentions")
 
 	def resources_path(self):
-		return "../"
+		return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 	def resources_uri(self):
-		return "file://localhost" + os.path.abspath(os.path.join(os.path.dirname(__file__), '..', "WebKit"))
+		return "file://localhost" + os.path.abspath(os.path.join(self.resources_path(), "WebKit"))
 
 
 	def login_with_entity(self, entity):
-		self.controller.setStringForKey("entity", entity)
-		self.oauth_implementation = TentiaWindows.OauthImplementation(self)
-
-	def controller():
-		return self.controller;
+		self.controller.setStringForKey(entity, "entity")
+		self.oauth_implementation = Windows.Oauth(self)
 
 
 class Controller(QtCore.QObject):
 
-	user_defaults = {}
+	def __init__(self):
+		QtCore.QObject.__init__(self)
+		self.config_path = os.path.expanduser('~/.tentia.cfg')
+		if os.access(self.config_path, os.R_OK):
+			with open(self.config_path, 'r') as f:
+				self.config = pickle.load(f)
+		else:
+			print self.config_path + " is not readable"
+			self.config = {}
 
 	@QtCore.pyqtSlot(str, str)
 	def setStringForKey(self, string, key):
-		self.user_defaults[string] = key
+		string, key = str(string), str(key)
+		self.config[key] = string
+		try:
+			with open(self.config_path, 'w+') as f:
+				pickle.dump(self.config, f)
+		except IOError:
+			print self.config_path + " is not writable"
+			print "I/O error({0}): {1}".format(e.errno, e.strerror)
 
+	@QtCore.pyqtSlot(str, result=str)
 	def stringForKey(self, key):
-		if key in self.user_defaults:
-			return self.user_defaults[key]
+		key = str(key)
+		if key in self.config:
+			return self.config[key]
+		else:
+			return ""
 
 
 class Console(QtCore.QObject):

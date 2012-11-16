@@ -1,6 +1,5 @@
 var tentia_instance;
 var tentia_cache = {};
-var OS_TYPE = "mac";
 
 requirejs.config({
     baseUrl: 'scripts'
@@ -9,7 +8,6 @@ requirejs.config({
 function start(view) {
 
     if (view == "oauth") {
-        
         require(["controller/Oauth"], function(Oauth) {
 
             tentia_instance = new Oauth();
@@ -75,13 +73,13 @@ function debug(string) {
 
 function go() { // wait untill everything is loaded
     setTimeout(function() {
-
-        if (HostAppGo != undefined) {
-
+        
+        if (typeof HostAppGo != typeof __not_defined__) {
+    
             HostAppGo();
 
         } else {
-
+            
             go();
 
         }
@@ -90,4 +88,3 @@ function go() { // wait untill everything is loaded
 }
 
 go();
-
