@@ -34,5 +34,5 @@ class WebViewCreator(QtGui.QWidget):
 
 
     def load_finished(self, ok):
-        self.view.page().mainFrame().evaluateJavaScript("OS_TYPE = 'linux';")
+        self.view.page().mainFrame().evaluateJavaScript("var OS_TYPE = 'linux';")
         self.delegate.load_finished(ok)

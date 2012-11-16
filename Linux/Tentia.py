@@ -10,6 +10,7 @@ class Tentia:
 		self.controller = Controller()
 		self.console = Console()
 
+		self.setup_url_handler()
 		self.setup_windows()
 		self.preferences.show()
 		self.app.exec_()
@@ -28,10 +29,15 @@ class Tentia:
 	def resources_uri(self):
 		return "file://localhost" + os.path.abspath(os.path.join(self.resources_path(), "WebKit"))
 
-
 	def login_with_entity(self, entity):
 		self.controller.setStringForKey(entity, "entity")
 		self.oauth_implementation = Windows.Oauth(self)
+
+	def setup_url_handler(self):
+		QtGui.QDesktopServices.setUrlHandler("tentia://", self.reciveURI)
+
+	def reciveURI(uri):
+		print uri
 
 
 class Controller(QtCore.QObject):
@@ -64,6 +70,12 @@ class Controller(QtCore.QObject):
 			return self.config[key]
 		else:
 			return ""
+
+	@QtCore.pyqtSlot(str)
+	def openURL(self, url):
+		print url
+		print QtCore.QUrl(url)
+		QtGui.QDesktopServices.openUrl(QtCore.QUrl(url));
 
 
 class Console(QtCore.QObject):
