@@ -25,7 +25,7 @@ define(function() {
         if (OS_TYPE == "mac") {
             controller.openURL_(url);
         } else {
-            controller.openURL(URL);
+            controller.openURL(url);
         }
     }
 

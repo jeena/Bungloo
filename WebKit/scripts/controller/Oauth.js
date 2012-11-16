@@ -52,6 +52,7 @@ function(HostApp, Paths, Hmac) {
         var those = this;
         Paths.findProfileURL(entity,
             function(profile_url) {
+
                 if (profile_url && (profile_url.startsWith("http://") || profile_url.startsWith("https://"))) {
                     those.register(profile_url);
                 } else {
@@ -92,7 +93,7 @@ function(HostApp, Paths, Hmac) {
 
         this.state = Hmac.makeid(19);
         var auth = "/oauth/authorize?client_id=" + register_data["id"]
-                    + "&redirect_uri=" + escape(this.app_info["redirect_uris"][0])
+                    + "&redirect_uri=" + this.app_info["redirect_uris"][0] // Check if this still works on mac
                     + "&scope=" + Object.keys(this.app_info["scopes"]).join(",")
                     + "&state=" + this.state
                     + "&tent_post_types=all";

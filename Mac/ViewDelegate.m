@@ -45,6 +45,8 @@
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+    
+    [sender stringByEvaluatingJavaScriptFromString:@"var OS_TYPE = 'mac';"];
 
     if (sender == oauthView) {
         
