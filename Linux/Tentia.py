@@ -17,7 +17,7 @@ class Tentia:
 		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
 
 		if self.controller.stringForKey("user_access_token") != "":
-			self.logged_in_successfully(True)
+			self.authentification_succeded()
 
 		self.app.exec_()
 
@@ -39,15 +39,6 @@ class Tentia:
 	def init_web_views(self):
 		self.timeline.show()
 		self.mentions.show()
-
-	def logged_in_successfully(self, success):
-		self.preferences.active(False)
-		if success:
-			self.preferences.hide()
-			self.timeline = Windows.Timeline(self)
-			self.timeline.show()
-		else:
-			print "not logged in"
 
 
 class Controller(QtCore.QObject):
@@ -109,6 +100,9 @@ class Console(QtCore.QObject):
 	def notice(self, string):
 		print "<js NOTICE>: " + string
 
+	@QtCore.pyqtSlot(str)
+	def debug(self, string):
+		print "<js DEBUG>: " + string
 
 		
 if __name__ == "__main__":

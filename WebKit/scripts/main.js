@@ -83,6 +83,13 @@ var console = {
         } else {
             __console.notice(s);
         }
+    },
+    debug: function(s) {
+        if (OS_TYPE == "mac") {
+            alert("DEBUG: " + s);
+        } else {
+            __console.debug(s);
+        }
     }
 };
 
@@ -99,14 +106,14 @@ function debug(string) {
         string = JSON.stringify(string);
     }
 
-    alert("DEBUG: " + string);
+    console.debug(string);
 }
 
 function go() { // wait untill everything is loaded
     setTimeout(function() {
         
         if (typeof HostAppGo != typeof __not_defined__) {
-    
+
             HostAppGo();
 
         } else {

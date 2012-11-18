@@ -138,5 +138,4 @@ class Oauth:
 
 	def tentia_callback(self, url):
 		script = "tentia_instance.requestAccessToken('" + url.toString() + "');"
-		print script
 		self.core.page().mainFrame().evaluateJavaScript(script)
