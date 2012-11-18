@@ -81,8 +81,7 @@ function(Core, Paths, HostApp, URI) {
                 those.newStatus(json);
 
             } catch (e) {
-                //alert(resp.responseText);
-                alert(url + " JSON parse error");
+                console.error(url + " JSON parse error");
                 throw e;
             }
         }

@@ -130,7 +130,7 @@ function(HostApp, Paths, Hmac) {
                 Paths.getURL(url, http_method, callback, requestBody, auth_header);
 
             } else {
-                alert("State is not the same: {" + this.state + "} vs {" + urlVars["state"] + "}")
+                console.error("State is not the same: {" + this.state + "} vs {" + urlVars["state"] + "}")
             }
 
             this.state = null; // reset the state

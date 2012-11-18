@@ -284,8 +284,8 @@ function(jQuery, Paths, URI, HostApp, Followings) {
                 }
             },
             error:function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
+                console.error(xhr.status);
+                console.error(thrownError);
             }
         });
     }

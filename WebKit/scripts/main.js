@@ -70,13 +70,13 @@ var console = {
             __console.error(s);
         }
     },
-    warning: function (s) {
+    warn: function (s) {
         if (OS_TYPE == "mac") {
             alert("WARNING: " + s);
         } else {
             __console.warning(s);
         }
-    }
+    },
     notice: function(s) {
         if (OS_TYPE == "mac") {
             alert("NOTICE: " + s);
