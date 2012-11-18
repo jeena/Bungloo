@@ -14,7 +14,7 @@ class Tentia:
 		self.preferences.show()
 
 		self.timeline = Windows.Timeline(self)
-		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
+		#self.mentions = Windows.Timeline(self, "mentions", "Mentions")
 
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
@@ -38,7 +38,7 @@ class Tentia:
 
 	def init_web_views(self):
 		self.timeline.show()
-		self.mentions.show()
+		#self.mentions.show()
 
 
 class Controller(QtCore.QObject):

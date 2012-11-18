@@ -18,9 +18,9 @@ function start(view) {
     } else if (view == "timeline") {
 
         require(["controller/Timeline"], function(Timeline) {
-
-            tentia_instance = new Timeline();
-
+ 
+             tentia_instance = new Timeline();
+ 
         });
 
     } else if (view == "mentions") {

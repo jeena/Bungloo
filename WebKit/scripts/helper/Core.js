@@ -4,7 +4,7 @@ define([
     "lib/URI",
     "helper/HostApp",
     "helper/Followings",
-    "lib/vendor/jquery.plugins"
+    "lib/Timeago"
 ],
 
 function(jQuery, Paths, URI, HostApp, Followings) {
