@@ -13,7 +13,6 @@ class Preferences:
 		self.window.resize(480, 186)
 		self.window.setMinimumSize(480, 186)
 		self.window.setMaximumSize(480, 186)
-		self.window.move(1400, 700)
 
 		# image view
 		image = QtGui.QPixmap(self.app.resources_path() + "/Icon.png")
@@ -84,6 +83,9 @@ class Timeline:
 		self.window = Helper.WebViewCreator(self.app)
 		self.window.setWindowTitle(title)
 		self.window.load_local(self.load_finished)
+
+		self.window.resize(380, 600)
+		self.window.setMinimumSize(200, 200)
 
 	def show(self):
 		self.window.show()
