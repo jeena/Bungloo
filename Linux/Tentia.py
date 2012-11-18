@@ -81,6 +81,31 @@ class Controller(QtCore.QObject):
 	def loggedIn(self):
 		self.app.authentification_succeded()
 
+	def unreadMentions(self, count):
+		i = int(count)
+		if i == 0:
+			self.app.timeline.setWindowTitle("Tentia (^" + count + ")")
+		else:
+			self.app.timeline.setWindowTitle("Tentia")
+
+	def notificateUserAboutMention(self, text, name, post_id, entity):
+		print "notificateUserAboutMention is not implemented yet"
+
+	def openNewMessageWidow(self, entity, status_id, string):
+		print "openNewMessageWidow is not implemented yet"
+
+	def showConversation(self, id, entity):
+		print "showConversation is not implemented yet"
+
+	def authentificationDidNotSucceed(self, errorMessage):
+		print "authentificationDidNotSucceed is not implemented yet"
+
+	def alertTitleWithMessage(self, title, message):
+		print "alertTitleWithMessage is not implemented yet"
+
+	def logout(self, sender):
+		print "logout is not implemented yet"
+
 
 class Console(QtCore.QObject):
 
