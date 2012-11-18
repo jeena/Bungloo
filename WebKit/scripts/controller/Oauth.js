@@ -103,6 +103,7 @@ function(HostApp, Paths, Hmac) {
 
     Oauth.prototype.requestAccessToken = function(responseBody) {
             // /oauthtoken?code=51d0115b04d1ed94001dde751c5b360f&state=aQfH1VEohYsQr86qqyv
+
             var urlVars = Paths.getUrlVars(responseBody);
             if(this.state && this.state != "" && urlVars["state"] == this.state) {
 
@@ -145,6 +146,7 @@ function(HostApp, Paths, Hmac) {
         HostApp.setStringForKey(access["token_type"], "user_token_type");
 
         HostApp.loggedIn();
+        console.log("D")
     }
 
     Oauth.prototype.logout = function() {

@@ -55,7 +55,7 @@ function(jQuery, HostApp, Hmac) {
             data: data,
             processData: false,
             error: function(xhr, ajaxOptions, thrownError) {
-                alert("getURL " + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
+                console.error("getURL " + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
             }
         });
     }
@@ -86,7 +86,7 @@ function(jQuery, HostApp, Hmac) {
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {
-                alert("findProfileURL " + xhr.statusText + " (" + entity + "): " + xhr.responseText);
+                console.error("findProfileURL " + xhr.statusText + " (" + entity + "): " + xhr.responseText);
                 if (errorCallback) errorCallback(xhr.statusText + " - " + xhr.responseText)
             }
         });

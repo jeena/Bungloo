@@ -1,27 +1,25 @@
 #!/usr/bin/env python
 import os, sys, pickle
-from PyQt4 import QtCore, QtGui
-import Windows
+from PyQt4 import QtCore, QtGui, QtWebKit
+import Windows, Helper
 
 class Tentia:
 
 	def __init__(self):
 		self.app = QtGui.QApplication(sys.argv)
-		self.controller = Controller()
+		self.controller = Controller(self)
 		self.console = Console()
 
-		self.setup_url_handler()
-		self.setup_windows()
-		self.preferences.show()
-		self.app.exec_()
-
-	def quit(self, sender):
-		print "quit"
-
-	def setup_windows(self):
 		self.preferences = Windows.Preferences(self)
-		#self.timeline = Windows.Timeline(self)
-		#self.mentions = Windows.Timeline(self, action="mentions", title="Mentions")
+		self.preferences.show()
+
+		self.timeline = Windows.Timeline(self)
+		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
+
+		if self.controller.stringForKey("user_access_token") != "":
+			self.logged_in_successfully(True)
+
+		self.app.exec_()
 
 	def resources_path(self):
 		return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -33,17 +31,31 @@ class Tentia:
 		self.controller.setStringForKey(entity, "entity")
 		self.oauth_implementation = Windows.Oauth(self)
 
-	def setup_url_handler(self):
-		QtGui.QDesktopServices.setUrlHandler("tentia://", self.reciveURI)
+	def authentification_succeded(self):
+		self.preferences.active(False)
+		self.preferences.hide()
+		self.init_web_views()
 
-	def reciveURI(uri):
-		print uri
+	def init_web_views(self):
+		self.timeline.show()
+		self.mentions.show()
+
+	def logged_in_successfully(self, success):
+		self.preferences.active(False)
+		if success:
+			self.preferences.hide()
+			self.timeline = Windows.Timeline(self)
+			self.timeline.show()
+		else:
+			print "not logged in"
 
 
 class Controller(QtCore.QObject):
 
-	def __init__(self):
+	def __init__(self, app):
 		QtCore.QObject.__init__(self)
+		self.app = app
+
 		self.config_path = os.path.expanduser('~/.tentia.cfg')
 		if os.access(self.config_path, os.R_OK):
 			with open(self.config_path, 'r') as f:
@@ -73,9 +85,10 @@ class Controller(QtCore.QObject):
 
 	@QtCore.pyqtSlot(str)
 	def openURL(self, url):
-		print url
-		print QtCore.QUrl(url)
-		QtGui.QDesktopServices.openUrl(QtCore.QUrl(url));
+		self.app.oauth_implementation.handle_authentication(str(url))
+
+	def loggedIn(self):
+		self.app.authentification_succeded()
 
 
 class Console(QtCore.QObject):
@@ -85,12 +98,17 @@ class Console(QtCore.QObject):
 		print "<js>: " + string
 
 	@QtCore.pyqtSlot(str)
+	def error(self, string):
+		print "<js ERROR>: " + string
+
+	@QtCore.pyqtSlot(str)
 	def warn(self, string):
 		print "<js WARN>: " + string
 
 	@QtCore.pyqtSlot(str)
-	def error(self, string):
-		print "<js ERROR>: " + string
+	def notice(self, string):
+		print "<js NOTICE>: " + string
+
 
 		
 if __name__ == "__main__":

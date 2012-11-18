@@ -55,6 +55,37 @@ String.prototype.endsWith = function(suffix) {
     return this.match(suffix+"$") == suffix;
 };
 
+var console = {
+    log: function(s) {
+        if (OS_TYPE == "mac") {
+            alert(s)
+        } else {
+            __console.log(s);
+        }
+    },
+    error: function(s) {
+        if (OS_TYPE == "mac") {
+            alert("ERROR: " + s);
+        } else {
+            __console.error(s);
+        }
+    },
+    warning: function (s) {
+        if (OS_TYPE == "mac") {
+            alert("WARNING: " + s);
+        } else {
+            __console.warning(s);
+        }
+    }
+    notice: function(s) {
+        if (OS_TYPE == "mac") {
+            alert("NOTICE: " + s);
+        } else {
+            __console.notice(s);
+        }
+    }
+};
+
 function loadPlugin(url) {
     var plugin = document.createElement("script");
     plugin.type = "text/javascript";

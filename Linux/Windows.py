@@ -1,5 +1,5 @@
 from PyQt4 import QtCore, QtGui, QtWebKit
-import Helper
+import Helper, urllib
 
 class Preferences:
 
@@ -76,26 +76,14 @@ class Preferences:
 
 class Timeline:
 
-	def __init__(self, app, action="home_timeline", title="Tentia"):
+	def __init__(self, app, action="timeline", title="Tentia"):
 		self.app = app
 		self.action = action
 		self.title = title
 
-		self.window = gtk.Window()
-		self.window.connect("delete-event", self.quit)
-		self.window.set_title(self.title)
-		self.window.set_position(gtk.WIN_POS_CENTER)
-		self.window.set_size_request(390, 650)
-
-		scroller = gtk.ScrolledWindow()
-		self.window.add(scroller)
-
-		self.web_view = webkit.WebView()
-		scroller.add(self.web_view)
-
-	def quit(self, widget, foo):
-		self.window.hide()
-		self.app.quit(self)
+		self.window = Helper.WebViewCreator(self.app)
+		self.window.setWindowTitle(title)
+		self.window.load_local(self.load_finished)
 
 	def show(self):
 		self.window.show()
@@ -103,32 +91,52 @@ class Timeline:
 	def hide(self):
 		self.window.hide()
 
-	def init_web_view(self):
-		self.web_view.connect("load-finished", self.load_finished)
-		self.web_view.open(self.app.resources_path() + "index.html")
-
 	def load_finished(self, widget):
-		delay = 1 
-		if self.action == "mentions":
-			delay = 1000
+		script = "function HostAppGo() { start('" + self.action + "'); }"
+		self.window.page().mainFrame().evaluateJavaScript(script)
 
-		script = "setTimeout(\
-			function() {\
-				tentia_instance = new Core('" + self.action + "');\
-				document.getElementsByTagName('body')[0].appendChild(tentia_instance.body);\
-				setTimeout(function(){ loadPlugin(controller.pluginURL()) }, 1); }, " + delay + "\
-			);"
-
-		self.web_view.execute_script(script)
 
 class Oauth:
 
 	def __init__(self, app):
 		self.app = app
-		self.window = Helper.WebViewCreator(self.app, self)
+		self.core = Helper.WebViewCreator(self.app)
+		self.core.load_local(self.load_finished)
 
 	def load_finished(self, ok):
 		if ok:
 			script = "function HostAppGo() { start('oauth'); }"
-			self.window.view.page().mainFrame().evaluateJavaScript(script)
+			self.core.page().mainFrame().evaluateJavaScript(script)
 
+	def handle_authentication(self, url):
+		self.auth_view = Helper.WebViewCreator(self.app)
+		self.auth_view.setWindowTitle("Authentification")
+
+		old_manager = self.auth_view.page().networkAccessManager()
+		new_manager = Helper.NetworkAccessManager(old_manager, self.tentia_callback)
+		self.auth_view.page().setNetworkAccessManager(new_manager)
+
+		self.auth_view.show()
+
+		if self.is_basic_auth(url):
+			print "Basic auth"
+		else:
+			self.auth_view.load_url(url)
+
+
+	def is_basic_auth(self, url):
+	    url_opener = urllib.URLopener()
+
+	    try:
+	        url_opener.open(url)
+	    except IOError, error_code:
+	            if error_code[0] == "http error" :
+	                if error_code[1] == 401:
+	                    return True
+
+	    return False
+
+	def tentia_callback(self, url):
+		script = "tentia_instance.requestAccessToken('" + url.toString() + "');"
+		print script
+		self.core.page().mainFrame().evaluateJavaScript(script)

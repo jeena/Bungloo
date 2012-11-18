@@ -9,12 +9,12 @@
         <title>Version 0.2.4</title>
 		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 		<sparkle:releaseNotesLink>http://jabs.nu/Tentia/download/ReleaseNotes.html</sparkle:releaseNotesLink>
-		<pubDate>Sat, 17 Nov 2012 20:43:06 +0100</pubDate>
+		<pubDate>Sat, 17 Nov 2012 20:45:22 +0100</pubDate>
 		<enclosure	url="http://jabs.nu/Tentia/download/Tentia.app.zip"
 					sparkle:version="0.2.4"
-					length="1069131"
+					length="1069130"
 					type="application/octet-stream"
-					sparkle:dsaSignature="MCwCFFN5Bvd7SsvrHqvnXfFje2lCF+h3AhRs3koGlp6Ze3IedFmMj3l+ZxGSIQ==" />
+					sparkle:dsaSignature="MC0CFCvZgr1pcB0bW0IQ8E7ffqs0SjvpAhUAioix/kjwYUqGqchCTDN6EjncmSE=" />
       </item>
    </channel>
 </rss>
