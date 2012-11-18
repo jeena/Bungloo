@@ -68,12 +68,17 @@ function(HostApp, Paths, Hmac) {
     Oauth.prototype.register = function (url) {
         var those = this;
         Paths.getURL(url, "GET", function(resp) {
+
             those.profile = JSON.parse(resp.responseText);
+            those.entity = those.profile["https://tent.io/types/info/core/v0.1.0"].entity;
+            HostApp.setStringForKey(those.entity, "entity")
             HostApp.setStringForKey(those.apiRoot(), "api_root");
+
             var callback = function(resp) {
                 var data = JSON.parse(resp.responseText);
                 those.authRequest(data);
             }
+
             Paths.getURL(Paths.mkApiRootPath("/apps"), "POST", callback, JSON.stringify(those.app_info));
         });
     }
@@ -146,7 +151,6 @@ function(HostApp, Paths, Hmac) {
         HostApp.setStringForKey(access["token_type"], "user_token_type");
 
         HostApp.loggedIn();
-        console.log("D")
     }
 
     Oauth.prototype.logout = function() {
