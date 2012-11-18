@@ -13,7 +13,7 @@ class Tentia:
 		self.preferences = Windows.Preferences(self)
 		self.preferences.show()
 
-		self.timeline = Windows.Timeline(self)
+		#self.timeline = Windows.Timeline(self)
 		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
 
 		if self.controller.stringForKey("user_access_token") != "":
@@ -37,7 +37,7 @@ class Tentia:
 		self.init_web_views()
 
 	def init_web_views(self):
-		self.timeline.show()
+		#self.timeline.show()
 		self.mentions.show()
 
 
@@ -80,6 +80,31 @@ class Controller(QtCore.QObject):
 
 	def loggedIn(self):
 		self.app.authentification_succeded()
+
+	def unreadMentions(self, count):
+		i = int(count)
+		if i == 0:
+			self.app.timeline.setWindowTitle("Tentia (^" + count + ")")
+		else:
+			self.app.timeline.setWindowTitle("Tentia")
+
+	def notificateUserAboutMention(self, text, name, post_id, entity):
+		print "notificateUserAboutMention is not implemented yet"
+
+	def openNewMessageWidow(self, entity, status_id, string):
+		print "openNewMessageWidow is not implemented yet"
+
+	def showConversation(self, id, entity):
+		print "showConversation is not implemented yet"
+
+	def authentificationDidNotSucceed(self, errorMessage):
+		print "authentificationDidNotSucceed is not implemented yet"
+
+	def alertTitleWithMessage(self, title, message):
+		print "alertTitleWithMessage is not implemented yet"
+
+	def logout(self, sender):
+		print "logout is not implemented yet"
 
 
 class Console(QtCore.QObject):
