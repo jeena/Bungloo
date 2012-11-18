@@ -13,7 +13,7 @@ class Tentia:
 		self.preferences = Windows.Preferences(self)
 		self.preferences.show()
 
-		self.timeline = Windows.Timeline(self)
+		#self.timeline = Windows.Timeline(self)
 		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
 
 		if self.controller.stringForKey("user_access_token") != "":
@@ -37,7 +37,7 @@ class Tentia:
 		self.init_web_views()
 
 	def init_web_views(self):
-		self.timeline.show()
+		#self.timeline.show()
 		self.mentions.show()
 
 

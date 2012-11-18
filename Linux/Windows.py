@@ -1,5 +1,5 @@
 from PyQt4 import QtCore, QtGui, QtWebKit
-import Helper, urllib
+import Helper, urllib, urllib2
 
 class Preferences:
 
@@ -116,28 +116,18 @@ class Oauth:
 
 		old_manager = self.auth_view.page().networkAccessManager()
 		new_manager = Helper.NetworkAccessManager(old_manager, self.tentia_callback)
+		new_manager.authenticationRequired.connect(self.authentication_required)
 		self.auth_view.page().setNetworkAccessManager(new_manager)
-
 		self.auth_view.show()
+		self.auth_view.load_url(url)
+		return False
 
-		if self.is_basic_auth(url):
-			print "Basic auth"
-		else:
-			self.auth_view.load_url(url)
+	def authentication_required(self, reply, authenticator):
 
-
-	def is_basic_auth(self, url):
-	    url_opener = urllib.URLopener()
-
-	    try:
-	        url_opener.open(url)
-	    except IOError, error_code:
-	            if error_code[0] == "http error" :
-	                if error_code[1] == 401:
-	                    return True
-
-	    return False
+		authenticator.setUser("jeena")
+		authenticator.setPassword("")
 
 	def tentia_callback(self, url):
 		script = "tentia_instance.requestAccessToken('" + url.toString() + "');"
 		self.core.page().mainFrame().evaluateJavaScript(script)
+
