@@ -249,6 +249,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         };
 
         var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
+
         if (mentions.length > 0) {
             data["mentions"] = mentions;
         }
@@ -368,7 +369,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             })
         }
         
-        var res = text.match(/(\^\S+)/ig);
+        var res = text.match(/(\^[\w:/.]+)/ig);
 
         if (res) {
             for (var i = 0; i < res.length; i++) {
@@ -381,7 +382,6 @@ function(jQuery, Paths, URI, HostApp, Followings) {
                 }
             }
         }
-
         return mentions;
     }
 
