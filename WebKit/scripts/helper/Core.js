@@ -294,7 +294,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
         var text = node.innerHTML;
         var mentions_in_text = [];
-        var res = text.match(/(\^\S+)/ig);
+        var res = text.match(/(\^[\w:/.]+)/ig);
 
         if (res) {
             for (var i = 0; i < res.length; i++) {
