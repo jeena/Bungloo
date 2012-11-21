@@ -235,6 +235,12 @@
 
 #pragma mark Notifications
 
+-(BOOL)applicationShouldOpenUntitledFile:(NSApplication *)theApplication
+{
+    return NO;
+}
+
+
 - (IBAction)openNewMessageWindow:(id)sender
 {
 	[NSApp activateIgnoringOtherApps:YES]; 
