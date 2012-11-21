@@ -135,6 +135,8 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         var _this = this;
 
         var template = this.getTemplate();
+        
+        template.item.id = "post-" + status.id;
 
         template.reply_to.onclick = function() {
 

@@ -42,14 +42,25 @@ function(Core, Paths, HostApp, URI) {
                 this.since_id = status.id;
                 this.since_id_entity = status.entity;
 
-                if(this.body.childNodes.length > 0) {
-                    if(this.body.childNodes.length > this.max_length) {
-                        this.body.removeChild(this.body.lastChild);
+                if (status.type == "https://tent.io/types/post/status/v0.1.0") {
+
+                    if(this.body.childNodes.length > 0) {
+                        if(this.body.childNodes.length > this.max_length) {
+                            this.body.removeChild(this.body.lastChild);
+                        }
+                        this.body.insertBefore(this.getStatusDOMElement(status), this.body.firstChild);
+                    } else {
+                        this.body.appendChild(this.getStatusDOMElement(status));
                     }
-                    this.body.insertBefore(this.getStatusDOMElement(status), this.body.firstChild);
-                } else {
-                    this.body.appendChild(this.getStatusDOMElement(status));
+
+                } else if (status.type == "https://tent.io/types/post/delete/v0.1.0") {
+
+                    var li = document.getElementById("post-" + status.content.id);
+                    if (li) {
+                        this.body.removeChild(li);
+                    }
                 }
+
             }
         }
     }
@@ -60,7 +71,7 @@ function(Core, Paths, HostApp, URI) {
 
         var those = this;
         var url = URI(Paths.mkApiRootPath("/posts"));
-        url.addSearch("post_types", "https://tent.io/types/post/status/v0.1.0");
+        url.addSearch("post_types", "https://tent.io/types/post/status/v0.1.0,https://tent.io/types/post/delete/v0.1.0");
         url.addSearch("limit", this.max_length);
         if(this.since_id) {
             url.addSearch("since_id", this.since_id);
