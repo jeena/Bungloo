@@ -124,10 +124,47 @@ class Oauth:
 
 	def authentication_required(self, reply, authenticator):
 
-		authenticator.setUser("jeena")
-		authenticator.setPassword("")
+		dialog = Login()
+
+		def callback(ok):
+			authenticator.setUser(dialog.textName.text())
+			authenticator.setPassword(dialog.textPass.text())
+
+		dialog.setInfo(reply.url(), authenticator.realm())
+		#dialog.accepted.connect(callback)
+
+		dialog.exec_()
 
 	def tentia_callback(self, url):
 		script = "tentia_instance.requestAccessToken('" + url.toString() + "');"
 		self.core.page().mainFrame().evaluateJavaScript(script)
+
+
+class Login(QtGui.QDialog):
+	def __init__(self):
+		QtGui.QDialog.__init__(self)
+		#self.setWindowTitle("Login")
+
+		self.label = QtGui.QLabel(self)
+		self.label.setText("The Server requires a username and password.")
+
+		self.textName = QtGui.QLineEdit(self)
+
+		self.textPass = QtGui.QLineEdit(self)
+		self.textPass.setEchoMode(QtGui.QLineEdit.Password);
+    	#self.textPass.setInputMethodHints(Qt.ImhHiddenText | Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase)
+
+		self.buttonLogin = QtGui.QPushButton('Login', self)
+
+		layout = QtGui.QVBoxLayout(self)
+		layout.addWidget(self.label)
+		layout.addWidget(self.textName)
+		layout.addWidget(self.textPass)
+		layout.addWidget(self.buttonLogin)
+
+	def setInfo(self, url, realm):
+		pass
+		#self.buttonLogin.clicked.connect(callback)
+		#self.label.setText("The server " + url.host() + " requires a username and password.")
+
 
