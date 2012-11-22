@@ -59,6 +59,9 @@ function(Core, Paths, HostApp, URI) {
                     if (li) {
                         this.body.removeChild(li);
                     }
+                } else if (status.type == "https://tent.io/types/post/repost/v0.1.0") {
+
+                    //debug(status)
                 }
 
             }
@@ -71,7 +74,14 @@ function(Core, Paths, HostApp, URI) {
 
         var those = this;
         var url = URI(Paths.mkApiRootPath("/posts"));
-        url.addSearch("post_types", "https://tent.io/types/post/status/v0.1.0,https://tent.io/types/post/delete/v0.1.0");
+
+        var post_types = [
+            "https://tent.io/types/post/repost/v0.1.0",
+            "https://tent.io/types/post/status/v0.1.0",
+            "https://tent.io/types/post/delete/v0.1.0"
+        ];
+        url.addSearch("post_types", post_types.join(","));
+
         url.addSearch("limit", this.max_length);
         if(this.since_id) {
             url.addSearch("since_id", this.since_id);

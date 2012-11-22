@@ -55,6 +55,21 @@ String.prototype.endsWith = function(suffix) {
     return this.match(suffix+"$") == suffix;
 };
 
+var entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+};
+
+String.prototype.escapeHTML = function() {
+    return String(this).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
+
 var console = {
     log: function(s) {
         if (OS_TYPE == "mac") {

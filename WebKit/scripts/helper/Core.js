@@ -211,7 +211,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         
         template.in_reply.parentNode.className = "hidden";
 
-        var text = status.content.text.replace(/\n/g, "<br>");
+        var text = status.content.text.escapeHTML().replace(/\n/g, "<br>");
         var entities = [status.entity];
         status.mentions.map(function (mention) {
             entities.push(mention.entity)
