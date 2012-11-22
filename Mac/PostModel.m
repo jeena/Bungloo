@@ -13,7 +13,8 @@
 
 @synthesize text, inReplyTostatusId, inReplyToEntity, location, image;
 
-- (void)dealloc {
+- (void)dealloc
+{
 	[text release];
 	[inReplyTostatusId release];
     [inReplyToEntity release];

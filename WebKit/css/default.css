@@ -249,6 +249,10 @@ li:hover .reply_to, li:hover .retweet, li:hover .remove {
 	top: 20px;
 }
 
-.mentioned {
+li.mentioned {
 	border-right: 5px solid #00317a;
+}
+
+.mentions li.mentioned {
+	border-right: 0;
 }
