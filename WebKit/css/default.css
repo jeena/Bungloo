@@ -248,3 +248,7 @@ li:hover .reply_to, li:hover .retweet, li:hover .remove {
 	background-position: -128px 0;
 	top: 20px;
 }
+
+.mentioned {
+	border-right: 5px solid #00317a;
+}

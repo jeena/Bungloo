@@ -212,6 +212,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         template.in_reply.parentNode.className = "hidden";
 
         var text = status.content.text.escapeHTML().replace(/\n/g, "<br>");
+
         var entities = [status.entity];
         status.mentions.map(function (mention) {
             entities.push(mention.entity)
@@ -222,6 +223,14 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         );
 
         this.findMentions(template.message, status.mentions);
+
+        for (var i = 0; i < status.mentions.length; i++) {
+            var mention = status.mentions[i];
+            if (mention.entity == HostApp.stringForKey("entity")) {
+                this.template.item.className = "mentioned";
+                break;
+            }
+        }
         
         var time = document.createElement("abbr");
         time.innerText = this.ISODateString(new Date(status.published_at * 1000));
