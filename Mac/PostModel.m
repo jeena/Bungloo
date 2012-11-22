@@ -6,17 +6,19 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "TweetModel.h"
+#import "PostModel.h"
 
 
-@implementation TweetModel
+@implementation PostModel
 
-@synthesize text, inReplyTostatusId, inReplyToEntity;
+@synthesize text, inReplyTostatusId, inReplyToEntity, location, image;
 
 - (void)dealloc {
 	[text release];
 	[inReplyTostatusId release];
     [inReplyToEntity release];
+    [location release];
+    [image release];
 	[super dealloc];
 }
 

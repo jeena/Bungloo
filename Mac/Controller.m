@@ -8,7 +8,7 @@
 
 #import "Controller.h"
 #import "NewMessageWindow.h"
-#import "TweetModel.h"
+#import "PostModel.h"
 
 @implementation Controller
 @synthesize loginViewWindow;
@@ -73,6 +73,10 @@
         [self initWebViews];
     }    
 }
+
+# pragma mark Init
+
+
 
 - (void)initOauth
 {
@@ -280,13 +284,19 @@
 
 - (IBAction)sendTweet:(id)sender
 {
-	TweetModel *tweet = (TweetModel *)[sender object];
-    NSString *text = [[tweet.text stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+	PostModel *post = (PostModel *)[sender object];
+    NSString *text = [[post.text stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
     text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
-    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\")",
+    
+    NSString *locationObject = @"null";
+    if (post.location) {
+        locationObject = [NSString stringWithFormat:@"[%f, %f]", post.location.coordinate.latitude, post.location.coordinate.longitude];
+    }
+    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@)",
                       text,
-                      tweet.inReplyTostatusId,
-                      tweet.inReplyToEntity];
+                      post.inReplyTostatusId,
+                      post.inReplyToEntity,
+                      locationObject];
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 

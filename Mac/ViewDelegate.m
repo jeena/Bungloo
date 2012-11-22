@@ -56,6 +56,20 @@
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *pathToJsPlugin = [@"~/Library/Application Support/Tentia/Plugin.js" stringByExpandingTildeInPath];
+	NSString *pathToCssPlugin = [@"~/Library/Application Support/Tentia/Plugin.css" stringByExpandingTildeInPath];
+	
+    if([fileManager fileExistsAtPath:pathToCssPlugin])
+    {
+        [sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"setTimeout(function() { loadCssPlugin('file://localhost%@') }, 1000);", pathToCssPlugin]];
+	}
+    
+    if([fileManager fileExistsAtPath:pathToJsPlugin])
+    {
+        [sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"setTimeout(function() { loadJsPlugin('file://localhost%@') }, 1000);", pathToJsPlugin]];
+	}
+    
     [sender stringByEvaluatingJavaScriptFromString:@"var OS_TYPE = 'mac';"];
 
     if (sender == oauthView) {
@@ -94,6 +108,18 @@
 - (void)reload:(id)sender {
     [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData();"];
     [mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData();"];
+}
+
+- (NSString *)pluginURL
+{
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *pathToPlugin = [@"~/Library/Application Support/Tentia/Plugin.js" stringByExpandingTildeInPath];
+	
+    if([fileManager fileExistsAtPath:pathToPlugin])
+    {
+		return [NSString stringWithFormat:@"%@", [NSURL fileURLWithPath:pathToPlugin]];
+	}
+	return nil;
 }
 
 @end

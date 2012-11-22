@@ -237,7 +237,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         }
         
         // {"type":"Point","coordinates":[57.10803113,12.25854746]}
-        if (status.content && status.content.location && status.content.location.type == "Point") {
+        if (status.content && status.content.location && (typeof status.content.location.type == "undefined" || status.content.location.type == "Point")) {
             template.geo.href = "http://maps.google.com/maps?q=" + status.content.location.coordinates[0] + "," + status.content.location.coordinates[1];
             template.geo.style.display = "";
         }
@@ -249,7 +249,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         return template.item;
     }
 
-    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, callback) {
+    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, callback) {
 
         var url = URI(Paths.mkApiRootPath("/posts"));
 
@@ -265,6 +265,10 @@ function(jQuery, Paths, URI, HostApp, Followings) {
                 "text": content,
             },
         };
+
+        if (location) {
+            data["content"]["location"] = { "type": "Point", "coordinates": location }
+        }
 
         var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
 

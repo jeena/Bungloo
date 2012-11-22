@@ -117,10 +117,10 @@ function(Core, Paths, HostApp, URI) {
         }
     }
 
-    Timeline.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity) {
+    Timeline.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location) {
         var _this = this;
         var callback = function(data) { _this.getNewData(); }
-        Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, callback);
+        Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, location, callback);
     }
 
     Timeline.prototype.remove = function(id) {

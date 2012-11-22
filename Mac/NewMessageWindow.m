@@ -8,22 +8,34 @@
 
 #import "NewMessageWindow.h"
 #import "Constants.h"
-#import "TweetModel.h"
+#import "PostModel.h"
+#import "Controller.h"
 
 @interface NewMessageWindow (private)
 - (BOOL)isCommandEnterEvent:(NSEvent *)e;
+- (void)initLocationManager;
 @end
 
 @implementation NewMessageWindow
 
+@synthesize addMenu;
+@synthesize addMenuButton;
 @synthesize textField, counter;
+@synthesize locationManager, currentLocation;
 
+- (void)dealloc
+{
+    [locationManager stopUpdatingLocation];
+    [locationManager release];
+    [currentLocation release];
+    [super dealloc];
+}
 
 - (id)init
 {
     self = [super init];
-    if (self) {
-    
+    if (self)
+    {
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
 		inReplyTostatusId = @"";
@@ -39,7 +51,8 @@
     return @"NewMessageWindow";
 }
 
-- (NSString *)displayName {
+- (NSString *)displayName
+{
 	return @"New Post";
 }
 
@@ -76,13 +89,15 @@
     
     // For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
     
-    if ( outError != NULL ) {
+    if ( outError != NULL )
+    {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
 	}
     return YES;
 }
 
-- (void)inReplyTo:(NSString *)entity statusId:(NSString *)statusId withString:(NSString *)string {
+- (void)inReplyTo:(NSString *)entity statusId:(NSString *)statusId withString:(NSString *)string
+{
 	[textField setStringValue:string];
 	NSRange range = {[[textField stringValue] length] , 0};
 	[[textField currentEditor] setSelectedRange:range];
@@ -98,12 +113,52 @@
     [self controlTextDidChange:nil];
 }
 
-- (void)withString:(NSString *)aString {
+- (void)withString:(NSString *)aString
+{
 	[textField setStringValue:aString];
 	NSRange range = {[[textField stringValue] length] , 0};
 	[[textField currentEditor] setSelectedRange:range];
     
     [self controlTextDidChange:nil];
+}
+
+- (IBAction)addCurrentLocation:(id)sender
+{
+    NSMenuItem *menuItem = (NSMenuItem *)sender;
+    if (!self.locationManager)
+    {
+        [menuItem setTitle:@"Current location not available"];
+        [self initLocationManager];
+    }
+    else
+    {
+        [self.locationManager stopUpdatingLocation];
+        self.currentLocation = nil;
+        self.locationManager = nil;
+        [menuItem setTitle:@"Add current location"];
+    }
+}
+
+- (IBAction)addImage:(id)sender
+{
+}
+
+- (IBAction)openAddMenu:(id)sender
+{
+    NSRect frame = [(NSButton *)sender frame];
+    NSPoint menuOrigin = [[(NSButton *)sender superview] convertPoint:NSMakePoint(frame.origin.x, frame.origin.y+frame.size.height) toView:nil];
+    
+    NSEvent *event =  [NSEvent mouseEventWithType:NSLeftMouseDown
+                                         location:menuOrigin
+                                    modifierFlags:NSLeftMouseDownMask // 0x100
+                                        timestamp:NSTimeIntervalSince1970
+                                     windowNumber:[[(NSButton *)sender window] windowNumber]
+                                          context:[[(NSButton *)sender window] graphicsContext]
+                                      eventNumber:0
+                                       clickCount:1
+                                         pressure:1];
+    
+    [NSMenu popUpContextMenu:self.addMenu withEvent:event forView:self.addMenuButton];
 }
 
 -(void)controlTextDidChange:(NSNotification *)aNotification {
@@ -116,16 +171,39 @@
 	}
 }
 
+- (void)initLocationManager
+{
+    self.locationManager = [[CLLocationManager alloc] init];
+    [self.locationManager setDelegate:self];
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [self.locationManager setDistanceFilter:kCLDistanceFilterNone];
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    self.currentLocation = newLocation;
+    NSMenuItem *menuItem = [self.addMenu itemAtIndex:0];
+    [menuItem setTitle:@"Remove current location"];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    NSLog(@"CLLocationManager Error: %@", error);
+    
+    NSMenuItem *menuItem = [self.addMenu itemAtIndex:0];
+    [menuItem setTitle:@"Current location not available"];
+}
 
 #pragma mark Keyboard delegate methods
 
 - (IBAction)sendTweet:(NSControl *)control {
 	if ([[control stringValue] length] <= MESSAGE_MAX_LENGTH) {
-		TweetModel *tweet = [[[TweetModel alloc] init] autorelease];
-		tweet.text = [control stringValue];
-		tweet.inReplyTostatusId = inReplyTostatusId;
-        tweet.inReplyToEntity = inReplyToEntity;
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"sendTweet" object:tweet];
+		PostModel *post = [[[PostModel alloc] init] autorelease];
+		post.text = [control stringValue];
+		post.inReplyTostatusId = inReplyTostatusId;
+        post.inReplyToEntity = inReplyToEntity;
+        post.location = self.currentLocation;
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"sendTweet" object:post];
 		[self close];
 	} else {
 		NSBeep();

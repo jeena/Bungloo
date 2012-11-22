@@ -29,6 +29,7 @@
 	ViewDelegate *viewDelegate;
     WebView *oauthView;
     AccessToken *accessToken;
+
 }
 
 @property (retain, nonatomic) IBOutlet WebView *timelineView;
@@ -45,6 +46,7 @@
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
 @property (retain, nonatomic) WebView *oauthView;
 @property (retain, nonatomic) AccessToken *accessToken;
+
 
 - (void)initOauth;
 - (void)authentificationSucceded:(id)sender;

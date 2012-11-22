@@ -105,17 +105,23 @@ var console = {
     }
 };
 
-function loadPlugin(js_url, css_url) {
+function loadJsPlugin(js_url) {
     if (js_url) {
-
+        var js_plugin = document.createElement("script");
+        js_plugin.type = "text/javascript";
+        js_plugin.src = js_url;
+        document.getElementsByTagName("head")[0].appendChild(js_plugin);
     }
-    var plugin = document.createElement("script");
-    plugin.type = "text/javascript";
-    plugin.src = js_url;
-    document.getElementsByTagName("head")[0].appendChild(plugin);
+}
 
-    if (css_url != null) {
+function loadCssPlugin(css_url) {
 
+    if (css_url) {
+        var css_plugin = document.createElement("link");
+        css_plugin.rel = 'stylesheet';
+        css_plugin.type = 'text/css'
+        css_plugin.href = css_url;
+        document.getElementsByTagName("head")[0].appendChild(css_plugin);
     }
 }
 
