@@ -55,20 +55,17 @@ String.prototype.endsWith = function(suffix) {
     return this.match(suffix+"$") == suffix;
 };
 
-var entityMap = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': '&quot;',
-    "'": '&#39;',
-    "/": '&#x2F;'
-};
+    var __entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;"
+    };
 
-String.prototype.escapeHTML = function() {
-    return String(this).replace(/[&<>"'\/]/g, function (s) {
-        return entityMap[s];
-    });
-}
+    String.prototype.escapeHTML = function() {
+        return String(this).replace(/[&<>]/g, function (s) {
+            return __entityMap[s];
+        });
+    }
 
 var console = {
     log: function(s) {
@@ -108,11 +105,18 @@ var console = {
     }
 };
 
-function loadPlugin(url) {
+function loadPlugin(js_url, css_url) {
+    if (js_url) {
+
+    }
     var plugin = document.createElement("script");
     plugin.type = "text/javascript";
-    plugin.src = url;
+    plugin.src = js_url;
     document.getElementsByTagName("head")[0].appendChild(plugin);
+
+    if (css_url != null) {
+
+    }
 }
 
 function debug(string) {
