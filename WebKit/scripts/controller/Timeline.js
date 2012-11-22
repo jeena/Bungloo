@@ -113,6 +113,12 @@ function(Core, Paths, HostApp, URI) {
         Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, callback);
     }
 
+    Timeline.prototype.remove = function(id) {
+        var _this = this;
+        var callback = function(data) { _this.getNewData(); }
+        Core.prototype.remove.call(this, id, callback);   
+    }
+
     return Timeline;
 
 });

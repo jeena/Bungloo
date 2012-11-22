@@ -36,6 +36,12 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         retweet.innerText = " ";
         retweet.href = "#";
         // item.appendChild(retweet); // FIXME
+
+        var remove = a.cloneNode();
+        remove.className = "remove";
+        remove.innerText = " ";
+        remove.href = "#";
+        item.appendChild(remove);
         
         
         var image = document.createElement("img");
@@ -124,7 +130,8 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             ago: ago,
             source: source,
             geo: geo,
-            images: images
+            images: images,
+            remove: remove
         }
 
         return jQuery.extend(true, {}, this.template);
@@ -135,8 +142,17 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         var _this = this;
 
         var template = this.getTemplate();
-        
+
         template.item.id = "post-" + status.id;
+
+        if (HostApp.stringForKey("entity") == status.entity) {
+            template.remove.onclick = function() {
+                _this.remove(status.id);
+                return false;
+            }
+        } else {
+            template.remove.style.display = "none";
+        }
 
         template.reply_to.onclick = function() {
 
@@ -256,7 +272,15 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             data["mentions"] = mentions;
         }
 
-        Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data)); // FIXME: error callback
+        Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data));
+    }
+
+    Core.prototype.remove = function(id, callback) {
+
+        if (confirm("Really delete this post?")) {
+            var url = URI(Paths.mkApiRootPath("/posts/" + id));
+            Paths.getURL(url.toString(), "DELETE", callback);
+        }
     }
 
 

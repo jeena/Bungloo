@@ -134,12 +134,6 @@ p {
     margin-right: 5px;
 }
 
-.delete {
-	font-weight: normal;
-	color: #555;
-	font-size: 1.2em;
-}
-
 .direct-message {
 	color: #555;
 }
@@ -231,7 +225,7 @@ li:first-child:hover .date {
 	border-top: 0;
 }
 
-.reply_to, .retweet {
+.reply_to, .retweet, .remove {
 	width: 15px;
 	height: 12px;
 	position: absolute;
@@ -241,11 +235,16 @@ li:first-child:hover .date {
 	display: none;
 }
 
-li:hover .reply_to, li:hover .retweet {
+li:hover .reply_to, li:hover .retweet, li:hover .remove {
 	display: block;
 }
 
 .retweet {
 	top: 18px;
 	background-position: -192px 0;
+}
+
+.remove {
+	background-position: -128px 0;
+	top: 20px;
 }

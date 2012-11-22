@@ -154,7 +154,7 @@ function(HostApp, Paths, Hmac) {
     }
 
     Oauth.prototype.logout = function() {
-        
+        return false;
     }
 
     return Oauth;

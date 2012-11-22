@@ -39,6 +39,16 @@
 	NSLog(@"jsa<%@>: %@", viewName, message);
 }
 
+- (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
+    NSInteger result = NSRunCriticalAlertPanel(NSLocalizedString(@"Tentia", @""),   // title
+                                        message,                                    // message
+                                        NSLocalizedString(@"OK", @""),              // default button
+                                        NSLocalizedString(@"Cancel", @""),          // alt button
+                                        nil);
+    return NSAlertDefaultReturn == result;  
+    return NO;
+}
+
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
 	[listener ignore];
     [[NSWorkspace sharedWorkspace] openURL:[request URL]];
