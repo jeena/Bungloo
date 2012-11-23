@@ -10,6 +10,23 @@ define(function() {
             controller.setStringForKey(string, key);
         }
     }
+       
+    HostApp.setSecret = function(string) {
+       
+       if (OS_TYPE == "mac") {
+            controller.setSecret_(string);
+       } else {
+            controller.setStringForKey(string, "user_mac_key");
+       }
+    }
+       
+    HostApp.secret = function() {
+       if (OS_TYPE == "mac") {
+            return controller.secret();
+       } else {
+            return controller.stringForKey("user_mac_key");
+       }
+    }
 
     HostApp.stringForKey = function(key) {
 

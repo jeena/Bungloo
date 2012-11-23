@@ -63,6 +63,8 @@
 - (void)openURL:(NSString *)url;
 
 - (void)setString:(NSString *)string forKey:(NSString *)aKey;
+- (void)setSecret:(NSString *)string;
+- (NSString *)secret;
 - (NSString *)stringForKey:(NSString *)aKey;
 - (void)storeAccessToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName;
 - (void)loggedIn;

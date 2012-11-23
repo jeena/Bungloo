@@ -7,6 +7,7 @@
 //
 
 #import "AccessToken.h"
+#include <Security/Security.h>
 
 @implementation AccessToken
 
@@ -45,13 +46,32 @@
 
 - (void)setSecret:(NSString *)_secret
 {
-    [d setObject:_secret forKey:@"secret"];
-    [d synchronize];
+    OSStatus status;
+    void * passwordData = (void*)[_secret cStringUsingEncoding:NSUTF8StringEncoding];
+    UInt32 passwordLength = strlen((char*)passwordData);
+    status = SecKeychainAddGenericPassword (
+                                            NULL,           // default keychain
+                                            6,              // length of service name
+                                            "Tentia",         // service name
+                                            17,             // length of account name
+                                            "TentiaUserAccount",    // account name
+                                            passwordLength,  // length of password
+                                            passwordData,        // pointer to password data
+                                            NULL             // the item reference
+                                            );
+    //NSLog(@"%@",(NSString *)SecCopyErrorMessageString (status,NULL));
 }
 
 - (NSString *)secret
 {
-    return [d objectForKey:@"secret"];
+    UInt32 passwordLength = 0;
+    char *password = nil;
+    SecKeychainItemRef item = nil;
+    SecKeychainFindGenericPassword(NULL, 6, "Tentia", 17, "TentiaUserAccount", &passwordLength, (void **)&password, &item);
+    //Get password
+    NSString *passwordString = [[[NSString alloc] initWithData:[NSData dataWithBytes:password length:passwordLength] encoding:NSUTF8StringEncoding] autorelease];
+    SecKeychainItemFreeContent(NULL, password);
+    return passwordString;
 }
 
 - (void)setUserId:(NSString *)_userId
