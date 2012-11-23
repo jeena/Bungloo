@@ -63,7 +63,13 @@
         [self logout:self];
         [accessToken setString:@"yes" forKey:@"version-0.2.0-new-login"];
     }
-    
+    if (![accessToken stringForKey:@"version-0.3.0-migrated"]) {
+        [accessToken setString:@"yes" forKey:@"version-0.3.0-migrated"];
+        if ([accessToken stringForKey:@"user_mac_key"]){
+            [accessToken setSecret:[accessToken stringForKey:@"user_mac_key"]];
+            [accessToken setString:nil forKey:@"user_mac_key"];
+        }
+    }
     if (![accessToken stringForKey:@"user_access_token"]) {
         [timelineViewWindow performClose:self];
         [mentionsViewWindow performClose:self];
@@ -71,7 +77,7 @@
     } else {
         [timelineViewWindow makeKeyAndOrderFront:self];
         [self initWebViews];
-    }    
+    }
 }
 
 # pragma mark Init
@@ -231,6 +237,15 @@
     [self.accessToken setString:string forKey:aKey];
 }
 
+- (void)setSecret:(NSString *)string
+{
+    [self.accessToken setSecret:string];
+}
+- (NSString *)secret
+{
+    return [self.accessToken secret];
+}
+
 - (NSString *)stringForKey:(NSString *)aKey
 {
     return [self.accessToken stringForKey:aKey];
@@ -352,7 +367,6 @@
     self.accessToken.secret = secret;
     self.accessToken.userId = userId;
     self.accessToken.screenName = screenName;
-    
     [timelineViewWindow makeKeyAndOrderFront:self];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
