@@ -9,6 +9,7 @@
 #import "Controller.h"
 #import "NewMessageWindow.h"
 #import "PostModel.h"
+#import "NSData+Base64.h"
 
 @implementation Controller
 @synthesize loginViewWindow;
@@ -244,7 +245,6 @@
     return NO;
 }
 
-
 - (IBAction)openNewMessageWindow:(id)sender
 {
 	[NSApp activateIgnoringOtherApps:YES]; 
@@ -273,7 +273,6 @@
 		NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
 	}
-	
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
@@ -292,11 +291,24 @@
     if (post.location) {
         locationObject = [NSString stringWithFormat:@"[%f, %f]", post.location.coordinate.latitude, post.location.coordinate.longitude];
     }
-    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@)",
+    
+    NSString *imageFilePath = @"null";
+    if (post.imageFilePath) {
+        NSError *error;
+        NSString *mimeType = [MimeType mimeTypeForFileAtPath:post.imageFilePath error:&error];
+        NSData *data = [[NSData alloc] initWithContentsOfFile:post.imageFilePath];
+        NSString *base64 = [data base64Encoding_xcd];
+        [data release];
+        imageFilePath = [NSString stringWithFormat:@"\"data:%@;base64,%@\"", mimeType, base64];
+    }
+    
+    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@)",
                       text,
                       post.inReplyTostatusId,
                       post.inReplyToEntity,
-                      locationObject];
+                      locationObject,
+                      imageFilePath];
+
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 

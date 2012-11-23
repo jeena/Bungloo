@@ -11,7 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-@interface NewMessageWindow : NSDocument <NSTextFieldDelegate, CLLocationManagerDelegate>
+@interface NewMessageWindow : NSDocument <NSTextFieldDelegate, CLLocationManagerDelegate, NSOpenSavePanelDelegate>
 {
 	IBOutlet NSTextField *textField;
 	IBOutlet NSTextField *counter;
@@ -22,6 +22,7 @@
     NSMenuItem *addImage;
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
+    NSString *imageFilePath;
 }
 
 @property (nonatomic, retain) IBOutlet NSTextField *textField;
@@ -30,6 +31,7 @@
 @property (assign) IBOutlet NSButton *addMenuButton;
 @property (retain, nonatomic) CLLocationManager *locationManager;
 @property (retain, nonatomic) CLLocation *currentLocation;
+@property (retain, nonatomic) NSString *imageFilePath;
 
 - (IBAction)sendTweet:(NSControl *)control;
 - (void)inReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;

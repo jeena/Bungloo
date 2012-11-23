@@ -60,6 +60,44 @@ function(jQuery, HostApp, Hmac) {
         });
     }
 
+    Paths.postMultipart = function(url, callback, data, boundary) {
+        debug(url)
+        debug(data)
+
+        jQuery.ajax({
+
+            beforeSend: function(xhr) {
+   
+                if (data) xhr.setRequestHeader("Content-Length", data.length);
+                debug("Content-Length: " + data.length);
+
+                var user_access_token = HostApp.stringForKey("user_access_token");
+
+                if (user_access_token) {
+
+                    auth_header = Hmac.makeAuthHeader(
+                        url, 
+                        "POST", 
+                        HostApp.stringForKey("user_mac_key"), 
+                        user_access_token
+                    );
+                    debug(auth_header)
+                    xhr.setRequestHeader("Authorization", auth_header);
+                }                
+            },
+            url: url,
+            accepts: "application/vnd.tent.v0+json",
+            contentType: "multipart/form-data;boundary=" + boundary,
+            type: "POST",
+            complete: callback,
+            data: data,
+            processData: false,
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.error("postMultipart " + xhr.statusText + " (" + url + "): '" + xhr.responseText + "'");
+            }
+        });
+    }
+
     Paths.findProfileURL = function(entity, callback, errorCallback) {
         
         jQuery.ajax({

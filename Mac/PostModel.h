@@ -14,13 +14,13 @@
 	NSString *inReplyTostatusId;
     NSString *inReplyToEntity;
     CLLocation *location;
-    NSImage *image;
+    NSString *imageFilePath;
 }
 
 @property (nonatomic, retain) NSString *text;
 @property (nonatomic, retain) NSString *inReplyTostatusId;
 @property (nonatomic, retain) NSString *inReplyToEntity;
 @property (nonatomic, retain) CLLocation *location;
-@property (nonatomic, retain) NSImage *image;
+@property (nonatomic, retain) NSString *imageFilePath;
 
 @end

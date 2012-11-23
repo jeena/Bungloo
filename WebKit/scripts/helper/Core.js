@@ -258,20 +258,54 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         return template.item;
     }
 
-    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, callback) {
+    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, callback) {
+
+        if (image_file_path) {
+
+            this.sendNewMessageWithImage(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, callback);
+
+        } else {
+
+            var url = URI(Paths.mkApiRootPath("/posts"));
+
+            var http_method = "POST";
+
+            var data = {
+                "type": "https://tent.io/types/post/status/v0.1.0",
+                "published_at": parseInt(new Date().getTime() / 1000, 10),
+                "permissions": {
+                    "public": true
+                },
+                "content": {
+                    "text": content,
+                },
+            };
+
+            if (location) {
+                data["content"]["location"] = { "type": "Point", "coordinates": location }
+            }
+
+            var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
+            if (mentions.length > 0) {
+                data["mentions"] = mentions;
+            }
+
+            Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data));
+        }
+    }
+
+    Core.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, callback) {
 
         var url = URI(Paths.mkApiRootPath("/posts"));
 
-        var http_method = "POST";
-
         var data = {
-            "type": "https://tent.io/types/post/status/v0.1.0",
-            "published_at": (new Date().getTime() / 1000),
+            "type": "https://tent.io/types/post/photo/v0.1.0",
+            "published_at": parseInt(new Date().getTime() / 1000, 10),
             "permissions": {
                 "public": true
             },
             "content": {
-                "text": content,
+                "caption": content,
             },
         };
 
@@ -280,12 +314,41 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         }
 
         var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
-
         if (mentions.length > 0) {
             data["mentions"] = mentions;
         }
 
-        Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data));
+        var data_string = JSON.stringify(data);
+
+        var boundary = "-----------TentAttachment";
+        var post = boundary + "\r\n";
+
+        post += 'Content-Disposition: form-data; name="post"; filename="post.json"\r\n';
+        post += 'Content-Length: ' + data_string.length + '\r\n';
+        post += 'Content-Type: application/vnd.tent.v0+json\r\n';
+        post += 'Content-Transfer-Encoding: binary\r\n\r\n';
+        post += data_string;
+
+        post += "\r\n" + boundary + "\r\n";
+
+        var binary_data = this.dataURItoBlob(image_data_uri);
+        var ext = "png";
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+
+            var blob_string = e.target.result;
+            post += 'Content-Disposition: form-data; name="photos[0]"; filename="photo.' + ext + '"\r\n';
+            post += 'Content-Length: ' + blob_string.length + "\r\n";
+            post += 'Content-Type: ' + binary_data.mime_type + "\r\n";
+            post += 'Content-Transfer-Encoding: binary\r\n\r\n';
+            post += image_data_uri.split(',')[1];
+            post += "\r\n" + boundary + "--\r\n";
+
+            Paths.postMultipart(url.toString(), callback, post, boundary);
+        }
+     
+        reader.readAsBinaryString(binary_data.blob)
     }
 
     Core.prototype.remove = function(id, callback) {
@@ -473,6 +536,30 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         }
 
         HostApp.openNewMessageWidow(entity, status_id, string);
+    }
+
+    Core.prototype.dataURItoBlob = function(dataURI) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs
+        var byteString = atob(dataURI.split(',')[1]);
+
+        // separate out the mime component
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+        // write the bytes of the string to an ArrayBuffer
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        // write the ArrayBuffer to a blob, and you're done
+        var blob = new Blob([ab], {type: mimeString});
+        return {
+            mime_type: mimeString,
+            blob: blob,
+            base64: byteString
+        }
     }
 
     return Core;

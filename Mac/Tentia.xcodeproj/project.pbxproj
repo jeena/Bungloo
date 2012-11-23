@@ -17,6 +17,8 @@
 		1F618ECA12DB5E6100E500D9 /* PostModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F618EC912DB5E6100E500D9 /* PostModel.m */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
+		1F880B6B165EE0F60022A84D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F880B6A165EE0F60022A84D /* NSData+Base64.m */; };
+		1F880B6E165FE8890022A84D /* MimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F880B6D165FE8890022A84D /* MimeType.m */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
 		1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2549B1427D9930035D84B /* AccessToken.m */; };
 		1FDEF722164EFE9100F927F3 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FDEF721164EFE9100F927F3 /* Growl.framework */; };
@@ -64,6 +66,10 @@
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		1F77DB45118C5F1C007C7F1E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Constants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1F77DB46118C5F1C007C7F1E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Constants.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1F880B69165EE0F60022A84D /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		1F880B6A165EE0F60022A84D /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		1F880B6C165FE8890022A84D /* MimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MimeType.h; sourceTree = "<group>"; };
+		1F880B6D165FE8890022A84D /* MimeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MimeType.m; sourceTree = "<group>"; };
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AccessToken.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FC2549B1427D9930035D84B /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccessToken.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -165,6 +171,10 @@
 				1F618EC912DB5E6100E500D9 /* PostModel.m */,
 				1FC2549A1427D9930035D84B /* AccessToken.h */,
 				1FC2549B1427D9930035D84B /* AccessToken.m */,
+				1F880B69165EE0F60022A84D /* NSData+Base64.h */,
+				1F880B6A165EE0F60022A84D /* NSData+Base64.m */,
+				1F880B6C165FE8890022A84D /* MimeType.h */,
+				1F880B6D165FE8890022A84D /* MimeType.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -282,6 +292,8 @@
 				1FFA36D81177D879006C8562 /* ViewDelegate.m in Sources */,
 				1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */,
 				1F618ECA12DB5E6100E500D9 /* PostModel.m in Sources */,
+				1F880B6B165EE0F60022A84D /* NSData+Base64.m in Sources */,
+				1F880B6E165FE8890022A84D /* MimeType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
