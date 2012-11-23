@@ -40,7 +40,8 @@ function(jQuery, HostApp, Hmac) {
                         auth_header = Hmac.makeAuthHeader(
                             url, 
                             http_method, 
-                            HostApp.stringForKey("user_mac_key"), 
+                            //HostApp.stringForKey("user_mac_key"),
+                            HostApp.secret(),
                             user_access_token
                         );
                         xhr.setRequestHeader("Authorization", auth_header);

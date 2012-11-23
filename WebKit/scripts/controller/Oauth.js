@@ -146,7 +146,7 @@ function(HostApp, Paths, Hmac) {
         var access = JSON.parse(responseBody); 
         
         HostApp.setStringForKey(access["access_token"], "user_access_token");
-        HostApp.setStringForKey(access["mac_key"], "user_mac_key");
+        HostApp.setSecret(access["mac_key"]);
         HostApp.setStringForKey(access["mac_algorithm"], "user_mac_algorithm");
         HostApp.setStringForKey(access["token_type"], "user_token_type");
 
