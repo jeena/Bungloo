@@ -261,4 +261,5 @@ li.mentioned {
 	margin-top: 10px;
 	max-width: 100%;
 	border-radius: 3px;
+	box-shadow: 0 0 1px black;
 }

@@ -64,14 +64,16 @@ function(jQuery, HostApp, Hmac) {
         });
     }
 
-    Paths.postMultipart = function(url, callback, data, boundary) {
+    Paths.postMultipart = function(url, callback, data, boundary, accepts) {
+
+        accepts = accepts || "application/vnd.tent.v0+json";
 
         jQuery.ajax({
 
             beforeSend: function(xhr) {
-   
+                xhr.setRequestHeader("Accept", accepts);
+
                 if (data) xhr.setRequestHeader("Content-Length", data.length);
-                debug("Content-Length: " + data.length);
 
                 var user_access_token = HostApp.stringForKey("user_access_token");
 
@@ -83,12 +85,11 @@ function(jQuery, HostApp, Hmac) {
                         HostApp.secret(),
                         user_access_token
                     );
-                    debug(auth_header)
+
                     xhr.setRequestHeader("Authorization", auth_header);
                 }                
             },
             url: url,
-            accepts: "application/vnd.tent.v0+json",
             contentType: "multipart/form-data;boundary=" + boundary,
             type: "POST",
             complete: callback,
