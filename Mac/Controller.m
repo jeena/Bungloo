@@ -11,7 +11,15 @@
 #import "PostModel.h"
 #import "NSData+Base64.h"
 
+@implementation NSWindow (FullScreen)
+- (BOOL)mn_isFullScreen
+{
+    return (([self styleMask] & NSFullScreenWindowMask) == NSFullScreenWindowMask);
+}
+@end
+
 @implementation Controller
+@synthesize FullscreenMain;
 @synthesize loginViewWindow;
 @synthesize loginEntityTextField;
 @synthesize loginActivityIndicator;
@@ -423,13 +431,48 @@
     [accessToken setString:nil forKey:@"entity"];
 }
 
-// Mentions window has been visible
+// Mentions window has been visible + Changes for better fullscreen mode
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
 	if ([notification object] == mentionsViewWindow)
     {
-		[self unreadMentions:0];		
-	}	
+		[self unreadMentions:0];
+	}
+    else if (([notification object] == conversationViewWindow) && ((timelineViewWindow.mn_isFullScreen) || (mentionsViewWindow.mn_isFullScreen)))
+    {
+        [conversationViewWindow setLevel:NSModalPanelWindowLevel];
+    }
+}
+
+- (void)windowWillEnterFullScreen:(NSNotification *)notification
+{
+    [TimelineWindowMenuItem setEnabled:NO];
+    [MentionsWindowMenuItem setEnabled:NO];
+    [MinimizeMenuItem setEnabled:NO];
+    if ([notification object] == mentionsViewWindow){
+        [timelineViewWindow close];
+    } else {
+        [mentionsViewWindow close];
+    }
+    [timelineView removeFromSuperview];
+    [mentionsView removeFromSuperview];
+    [FullscreenMain addSubview:timelineView];
+    [FullscreenMain addSubview:mentionsView];
+    [FullscreenMain setFrame:[[[notification object] contentView] bounds]];
+    [[[notification object] contentView] addSubview:FullscreenMain];
+    [FullscreenMain setPosition:([[[notification object] contentView] bounds].size.width/2) ofDividerAtIndex:0];
+}
+
+- (void)windowWillExitFullScreen:(NSNotification *)notification
+{
+    [TimelineWindowMenuItem setEnabled:YES];
+    [MentionsWindowMenuItem setEnabled:YES];
+    [MinimizeMenuItem setEnabled:YES];
+    [timelineView setFrame:[[timelineViewWindow contentView] bounds]];
+    [mentionsView setFrame:[[mentionsViewWindow contentView] bounds]];
+    [FullscreenMain removeFromSuperview];
+    [[timelineViewWindow contentView] addSubview:timelineView];
+    [[mentionsViewWindow contentView] addSubview:mentionsView];
 }
 
 - (void)getTweetUpdates:(id)sender
