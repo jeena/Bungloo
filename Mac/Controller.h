@@ -16,6 +16,10 @@
 #import "NSData+Base64.h"
 #import "MimeType.h"
 
+@interface NSWindow (FullScreen)
+- (BOOL)mn_isFullScreen;
+@end
+
 @interface Controller : NSObject <GrowlApplicationBridgeDelegate> {
 	IBOutlet WebView *timelineView;
 	IBOutlet NSWindow *timelineViewWindow;
@@ -31,7 +35,10 @@
 	ViewDelegate *viewDelegate;
     WebView *oauthView;
     AccessToken *accessToken;
-
+    NSSplitView *FullscreenMain;
+    IBOutlet NSMenuItem *MinimizeMenuItem;
+    IBOutlet NSMenuItem *MentionsWindowMenuItem;
+    IBOutlet NSMenuItem *TimelineWindowMenuItem;
 }
 
 @property (retain, nonatomic) IBOutlet WebView *timelineView;
@@ -48,7 +55,7 @@
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
 @property (retain, nonatomic) WebView *oauthView;
 @property (retain, nonatomic) AccessToken *accessToken;
-
+@property (assign) IBOutlet NSSplitView *FullscreenMain;
 
 - (void)initOauth;
 - (void)authentificationSucceded:(id)sender;
