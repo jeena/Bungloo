@@ -211,7 +211,15 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         
         template.in_reply.parentNode.className = "hidden";
 
-        var text = status.content.text.escapeHTML().replace(/\n/g, "<br>");
+        var text = "";
+        
+        if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
+            text = status.content.caption;
+        } else {
+            text = status.content.text;
+        }
+
+        text = text.escapeHTML().replace(/\n/g, "<br>");
 
         var entities = [status.entity];
         status.mentions.map(function (mention) {
@@ -221,6 +229,25 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         template.message.innerHTML = this.replaceUsernamesWithLinks(
             this.replaceURLWithHTMLLinks(text, entities, template.message)
         );
+
+        if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
+
+            for (var i = 0; i < status.attachments.length; i++) {
+
+                var attachment = status.attachments[i];
+                var img = new Image();
+                img.className = "photo";
+                template.message.parentNode.insertBefore(img, template.message.nextSibling);
+
+                var url = Paths.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
+
+                var callback = function(resp) {
+                    img.src = "data:image/png;base64," + resp.responseText;
+                }
+
+                Paths.getURL(url.toString(), "GET", callback, null, null, attachment.type);
+            };
+        }
 
         this.findMentions(template.message, status.mentions);
 
@@ -320,8 +347,8 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
         var data_string = JSON.stringify(data);
 
-        var boundary = "-----------TentAttachment";
-        var post = boundary + "\r\n";
+        var boundary = "TentAttachment----------TentAttachment";
+        var post = "--" + boundary + "\r\n";
 
         post += 'Content-Disposition: form-data; name="post"; filename="post.json"\r\n';
         post += 'Content-Length: ' + data_string.length + '\r\n';
@@ -329,10 +356,15 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         post += 'Content-Transfer-Encoding: binary\r\n\r\n';
         post += data_string;
 
-        post += "\r\n" + boundary + "\r\n";
+        post += "\r\n--" + boundary + "\r\n";
 
         var binary_data = this.dataURItoBlob(image_data_uri);
         var ext = "png";
+        if (binary_data.mime_type == "image/jpeg") {
+            ext = "jpeg";
+        } else if (binary_data.mime_type == "image/gif") {
+            ext = "gif";
+        }
 
         var reader = new FileReader();
         reader.onload = function(e) {
@@ -341,9 +373,9 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             post += 'Content-Disposition: form-data; name="photos[0]"; filename="photo.' + ext + '"\r\n';
             post += 'Content-Length: ' + blob_string.length + "\r\n";
             post += 'Content-Type: ' + binary_data.mime_type + "\r\n";
-            post += 'Content-Transfer-Encoding: binary\r\n\r\n';
+            post += 'Content-Transfer-Encoding: base64\r\n\r\n';
             post += image_data_uri.split(',')[1];
-            post += "\r\n" + boundary + "--\r\n";
+            post += "\r\n--" + boundary + "--\r\n";
 
             Paths.postMultipart(url.toString(), callback, post, boundary);
         }
