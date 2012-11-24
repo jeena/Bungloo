@@ -13,6 +13,8 @@
 #import "Constants.h"
 #import "AccessToken.h"
 #import <Growl/Growl.h>
+#import "NSData+Base64.h"
+#import "MimeType.h"
 
 @interface Controller : NSObject <GrowlApplicationBridgeDelegate> {
 	IBOutlet WebView *timelineView;

@@ -98,7 +98,7 @@ function(HostApp, Paths, Hmac) {
 
         this.state = Hmac.makeid(19);
         var auth = "/oauth/authorize?client_id=" + register_data["id"]
-                    + "&redirect_uri=" + this.app_info["redirect_uris"][0] // Check if this still works on mac
+                    + "&redirect_uri=" + this.app_info["redirect_uris"][0]
                     + "&scope=" + Object.keys(this.app_info["scopes"]).join(",")
                     + "&state=" + this.state
                     + "&tent_post_types=all";

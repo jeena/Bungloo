@@ -22,12 +22,14 @@
 @synthesize addMenuButton;
 @synthesize textField, counter;
 @synthesize locationManager, currentLocation;
+@synthesize imageFilePath;
 
 - (void)dealloc
 {
     [locationManager stopUpdatingLocation];
     [locationManager release];
     [currentLocation release];
+    [imageFilePath release];
     [super dealloc];
 }
 
@@ -139,10 +141,6 @@
     }
 }
 
-- (IBAction)addImage:(id)sender
-{
-}
-
 - (IBAction)openAddMenu:(id)sender
 {
     NSRect frame = [(NSButton *)sender frame];
@@ -203,6 +201,7 @@
 		post.inReplyTostatusId = inReplyTostatusId;
         post.inReplyToEntity = inReplyToEntity;
         post.location = self.currentLocation;
+        post.imageFilePath = self.imageFilePath;
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"sendTweet" object:post];
 		[self close];
 	} else {
@@ -244,6 +243,68 @@
     }
     
     return retval;
+}
+
+#pragma mark Add images
+
+- (IBAction)addImage:(id)sender
+{
+    NSMenuItem *menuItem = (NSMenuItem *)sender;
+
+    if (!self.imageFilePath)
+    {
+        [menuItem setTitle:@"Remove image"];
+        
+        NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+        [openDlg setPrompt:@"Select"];
+        [openDlg setDelegate:self];
+        
+        // Enable the selection of files in the dialog.
+        [openDlg setCanChooseFiles:YES];
+        
+        // Enable the selection of directories in the dialog.
+        [openDlg setCanChooseDirectories:NO];
+        
+        // Display the dialog.  If the OK button was pressed,
+        // process the files.
+        if ( [openDlg runModalForDirectory:nil file:nil] == NSOKButton )
+        {
+            // Get an array containing the full filenames of all
+            // files and directories selected.
+            NSArray* files = [openDlg filenames];
+            
+            // Loop through all the files and process them.
+            for( int i = 0; i < [files count]; i++ )
+            {
+                self.imageFilePath = [files objectAtIndex:i];
+            }
+        }
+    }
+    else
+    {
+        self.imageFilePath = nil;
+        [menuItem setTitle:@"Add image"];
+    }
+}
+
+-(BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename
+{
+    NSString* ext = [filename pathExtension];
+    if (ext == @"" || ext == @"/" || ext == nil || ext == NULL || [ext length] < 1) {
+        return YES;
+    }
+    
+    NSEnumerator* tagEnumerator = [[NSArray arrayWithObjects:@"png", @"jpg", @"gif", @"jpeg", nil] objectEnumerator];
+    NSString* allowedExt;
+    while ((allowedExt = [tagEnumerator nextObject]))
+    {
+        if ([ext caseInsensitiveCompare:allowedExt] == NSOrderedSame)
+        {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 @end

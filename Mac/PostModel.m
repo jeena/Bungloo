@@ -11,7 +11,7 @@
 
 @implementation PostModel
 
-@synthesize text, inReplyTostatusId, inReplyToEntity, location, image;
+@synthesize text, inReplyTostatusId, inReplyToEntity, location, imageFilePath;
 
 - (void)dealloc
 {
@@ -19,7 +19,7 @@
 	[inReplyTostatusId release];
     [inReplyToEntity release];
     [location release];
-    [image release];
+    [imageFilePath release];
 	[super dealloc];
 }
 

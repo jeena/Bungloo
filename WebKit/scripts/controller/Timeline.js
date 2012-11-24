@@ -42,15 +42,22 @@ function(Core, Paths, HostApp, URI) {
                 this.since_id = status.id;
                 this.since_id_entity = status.entity;
 
-                if (status.type == "https://tent.io/types/post/status/v0.1.0") {
+                if (status.type == "https://tent.io/types/post/status/v0.1.0" || status.type == "https://tent.io/types/post/photo/v0.1.0") {
+
+                    var new_node = this.getStatusDOMElement(status);
 
                     if(this.body.childNodes.length > 0) {
+
                         if(this.body.childNodes.length > this.max_length) {
+
                             this.body.removeChild(this.body.lastChild);
                         }
-                        this.body.insertBefore(this.getStatusDOMElement(status), this.body.firstChild);
+
+                        this.body.insertBefore(new_node, this.body.firstChild);
+
                     } else {
-                        this.body.appendChild(this.getStatusDOMElement(status));
+
+                        this.body.appendChild(new_node);
                     }
 
                 } else if (status.type == "https://tent.io/types/post/delete/v0.1.0") {
@@ -78,7 +85,8 @@ function(Core, Paths, HostApp, URI) {
         var post_types = [
             "https://tent.io/types/post/repost/v0.1.0",
             "https://tent.io/types/post/status/v0.1.0",
-            "https://tent.io/types/post/delete/v0.1.0"
+            "https://tent.io/types/post/delete/v0.1.0",
+            "https://tent.io/types/post/photo/v0.1.0"
         ];
         url.addSearch("post_types", post_types.join(","));
 
@@ -117,10 +125,10 @@ function(Core, Paths, HostApp, URI) {
         }
     }
 
-    Timeline.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location) {
+    Timeline.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri) {
         var _this = this;
         var callback = function(data) { _this.getNewData(); }
-        Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, location, callback);
+        Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, callback);
     }
 
     Timeline.prototype.remove = function(id) {
