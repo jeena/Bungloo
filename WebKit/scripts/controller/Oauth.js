@@ -52,7 +52,6 @@ function(HostApp, Paths, Hmac) {
         var those = this;
         Paths.findProfileURL(entity,
             function(profile_url) {
-
                 if (profile_url && (profile_url.startsWith("http://") || profile_url.startsWith("https://"))) {
                     those.register(profile_url);
                 } else {
@@ -67,6 +66,7 @@ function(HostApp, Paths, Hmac) {
 
     Oauth.prototype.register = function (url) {
         var those = this;
+
         Paths.getURL(url, "GET", function(resp) {
 
             those.profile = JSON.parse(resp.responseText);
@@ -78,7 +78,6 @@ function(HostApp, Paths, Hmac) {
                 var data = JSON.parse(resp.responseText);
                 those.authRequest(data);
             }
-
             Paths.getURL(Paths.mkApiRootPath("/apps"), "POST", callback, JSON.stringify(those.app_info));
         });
     }
@@ -144,7 +143,7 @@ function(HostApp, Paths, Hmac) {
     Oauth.prototype.requestAccessTokenTicketFinished = function(responseBody) {
 
         var access = JSON.parse(responseBody); 
-        
+
         HostApp.setStringForKey(access["access_token"], "user_access_token");
         HostApp.setSecret(access["mac_key"]);
         HostApp.setStringForKey(access["mac_algorithm"], "user_mac_algorithm");

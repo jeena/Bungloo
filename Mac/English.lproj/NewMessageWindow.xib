@@ -195,7 +195,7 @@
 					</object>
 					<object class="NSMenuItem" id="502380341">
 						<reference key="NSMenu" ref="723763594"/>
-						<string key="NSTitle">Add image</string>
+						<string key="NSTitle">Add photo</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="400068421"/>

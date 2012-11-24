@@ -71,7 +71,7 @@
             [accessToken setString:nil forKey:@"user_mac_key"];
         }
     }
-    if (![accessToken stringForKey:@"user_access_token"]) {
+    if (![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
         [timelineViewWindow performClose:self];
         [mentionsViewWindow performClose:self];
         [self.loginViewWindow makeKeyAndOrderFront:self];

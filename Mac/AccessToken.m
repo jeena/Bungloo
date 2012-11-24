@@ -46,20 +46,37 @@
 
 - (void)setSecret:(NSString *)_secret
 {
+    UInt32 _passwordLength = 0;
+    char *_password = nil;
+    SecKeychainItemRef item = nil;
+    SecKeychainFindGenericPassword(NULL, 6, "Tentia", 17, "TentiaUserAccount", &_passwordLength, (void **)&_password, &item);
+    
     OSStatus status;
     void * passwordData = (void*)[_secret cStringUsingEncoding:NSUTF8StringEncoding];
     UInt32 passwordLength = strlen((char*)passwordData);
-    status = SecKeychainAddGenericPassword (
-                                            NULL,           // default keychain
-                                            6,              // length of service name
-                                            "Tentia",         // service name
-                                            17,             // length of account name
-                                            "TentiaUserAccount",    // account name
-                                            passwordLength,  // length of password
-                                            passwordData,        // pointer to password data
-                                            NULL             // the item reference
-                                            );
-    //NSLog(@"%@",(NSString *)SecCopyErrorMessageString (status,NULL));
+    if (!item)
+    {
+        status = SecKeychainAddGenericPassword(
+                                               NULL,           // default keychain
+                                               6,              // length of service name
+                                               "Tentia",         // service name
+                                               17,             // length of account name
+                                               "TentiaUserAccount",    // account name
+                                               passwordLength,  // length of password
+                                               passwordData,        // pointer to password data
+                                               NULL             // the item reference
+                                               );
+    }
+    else
+    {
+        status = SecKeychainItemModifyContent(
+                                              item,
+                                              NULL,
+                                              passwordLength,
+                                              passwordData
+        );
+    }
+    NSLog(@"%@",(NSString *)SecCopyErrorMessageString (status,NULL));
 }
 
 - (NSString *)secret
@@ -68,6 +85,11 @@
     char *password = nil;
     SecKeychainItemRef item = nil;
     SecKeychainFindGenericPassword(NULL, 6, "Tentia", 17, "TentiaUserAccount", &passwordLength, (void **)&password, &item);
+    
+    if (!item) {
+        return nil;
+    }
+    
     //Get password
     NSString *passwordString = [[[NSString alloc] initWithData:[NSData dataWithBytes:password length:passwordLength] encoding:NSUTF8StringEncoding] autorelease];
     SecKeychainItemFreeContent(NULL, password);

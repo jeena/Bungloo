@@ -40,7 +40,7 @@ function(jQuery, HostApp, Hmac) {
 
                     var user_access_token = HostApp.stringForKey("user_access_token");
 
-                    if (auth_header !== false && user_access_token) {
+                    if (auth_header !== false && typeof user_access_token != "undefined") {
 
                         auth_header = Hmac.makeAuthHeader(
                             url, 
@@ -59,7 +59,7 @@ function(jQuery, HostApp, Hmac) {
             data: data,
             processData: false,
             error: function(xhr, ajaxOptions, thrownError) {
-                console.error("getURL " + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
+                console.error("getURL (" + xhr.status + ")" + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
             }
         });
     }

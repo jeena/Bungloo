@@ -358,29 +358,24 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
         post += "\r\n--" + boundary + "\r\n";
 
-        var binary_data = this.dataURItoBlob(image_data_uri);
+        var blob_string = image_data_uri.split(',')[1];
+        var mime_type = image_data_uri.split(',')[0].split(':')[1].split(';')[0];
         var ext = "png";
-        if (binary_data.mime_type == "image/jpeg") {
+        if (mime_type == "image/jpeg") {
             ext = "jpeg";
-        } else if (binary_data.mime_type == "image/gif") {
+        } else if (mime_type == "image/gif") {
             ext = "gif";
         }
 
-        var reader = new FileReader();
-        reader.onload = function(e) {
 
-            var blob_string = e.target.result;
-            post += 'Content-Disposition: form-data; name="photos[0]"; filename="photo.' + ext + '"\r\n';
-            post += 'Content-Length: ' + blob_string.length + "\r\n";
-            post += 'Content-Type: ' + binary_data.mime_type + "\r\n";
-            post += 'Content-Transfer-Encoding: base64\r\n\r\n';
-            post += image_data_uri.split(',')[1];
-            post += "\r\n--" + boundary + "--\r\n";
+        post += 'Content-Disposition: form-data; name="photos[0]"; filename="photo.' + ext + '"\r\n';
+        post += 'Content-Length: ' + blob_string.length + "\r\n";
+        post += 'Content-Type: ' + mime_type + "\r\n";
+        post += 'Content-Transfer-Encoding: base64\r\n\r\n';
+        post += blob_string;
+        post += "\r\n--" + boundary + "--\r\n";
 
-            Paths.postMultipart(url.toString(), callback, post, boundary);
-        }
-     
-        reader.readAsBinaryString(binary_data.blob)
+        Paths.postMultipart(url.toString(), callback, post, boundary);
     }
 
     Core.prototype.remove = function(id, callback) {
@@ -568,30 +563,6 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         }
 
         HostApp.openNewMessageWidow(entity, status_id, string);
-    }
-
-    Core.prototype.dataURItoBlob = function(dataURI) {
-        // convert base64 to raw binary data held in a string
-        // doesn't handle URLEncoded DataURIs
-        var byteString = atob(dataURI.split(',')[1]);
-
-        // separate out the mime component
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-
-        // write the bytes of the string to an ArrayBuffer
-        var ab = new ArrayBuffer(byteString.length);
-        var ia = new Uint8Array(ab);
-        for (var i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-        }
-
-        // write the ArrayBuffer to a blob, and you're done
-        var blob = new Blob([ab], {type: mimeString});
-        return {
-            mime_type: mimeString,
-            blob: blob,
-            base64: byteString
-        }
     }
 
     return Core;

@@ -253,7 +253,7 @@
 
     if (!self.imageFilePath)
     {
-        [menuItem setTitle:@"Remove image"];
+        [menuItem setTitle:@"Remove photo"];
         
         NSOpenPanel* openDlg = [NSOpenPanel openPanel];
         [openDlg setPrompt:@"Select"];
@@ -283,7 +283,7 @@
     else
     {
         self.imageFilePath = nil;
-        [menuItem setTitle:@"Add image"];
+        [menuItem setTitle:@"Add photo"];
     }
 }
 
