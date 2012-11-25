@@ -145,12 +145,12 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
         template.item.id = "post-" + (typeof status.__repost != "undefined" ? status.__repost.id : status.id);
 
-        if (HostApp.stringForKey("entity") == status.entity) {
+        if (HostApp.stringForKey("entity") == status.entity && typeof status.__repost == "undefined") {
             template.remove.onclick = function() {
                 _this.remove(status.id);
                 return false;
             }
-        } else if (status.__repost && HostApp.stringForKey("entity") == status.__repost.entity) {
+        } else if (typeof status.__repost != "undefined" && HostApp.stringForKey("entity") == status.__repost.entity) {
             template.remove.onclick = function() {
                 _this.remove(status.__repost.id);
                 return false;
@@ -162,8 +162,13 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         template.reply_to.onclick = function() {
 
             var mentions = [];
-            for (var i = 0; i < status.mentions.length; i++) {
-                var mention = status.mentions[i];
+            var status_mentions = status.mentions.slice(0);
+
+            if (typeof status.__repost != "undefined") {
+                status_mentions.push({entity:status.__repost.entity});
+            }
+            for (var i = 0; i < status_mentions.length; i++) {
+                var mention = status_mentions[i];
                 if(mention.entity != HostApp.stringForKey("entity"))
                     mentions.push(mention);
             }
@@ -298,8 +303,9 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             }
         }
         
+        var published_at = typeof status.__repost == "undefined" ? status.published_at : status.__repost.published_at;
         var time = document.createElement("abbr");
-        time.innerText = this.ISODateString(new Date(status.published_at * 1000));
+        time.innerText = this.ISODateString(new Date(published_at * 1000));
         time.title = time.innerText;
         time.className = "timeago";
         jQuery(time).timeago();
@@ -317,9 +323,15 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             template.geo.style.display = "";
         }
 
-        template.source.href = status.app.url;
-        template.source.innerHTML = status.app.name;
-        template.source.title = status.app.url;
+        if (typeof status.__repost != "undefined") {
+            template.source.href = status.__repost.app.url;
+            template.source.innerHTML = status.__repost.app.name;
+            template.source.title = status.__repost.app.url;            
+        } else {
+            template.source.href = status.app.url;
+            template.source.innerHTML = status.app.name;
+            template.source.title = status.app.url;
+        }
 
         return template.item;
     }
