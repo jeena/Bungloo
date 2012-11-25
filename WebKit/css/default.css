@@ -22,7 +22,7 @@ ol {
 
 li, .error {
 	clear: both;
-	padding: 8px 16px 8px 8px;
+	padding: 8px;
 	background: #eee;
 	border-top: 1px solid #fefefe;
 	border-bottom: 1px solid #c9c9c9;
@@ -71,13 +71,6 @@ h1 {
 	font-weight: bold;
 	margin: 0;
 	padding: 0;
-	margin-right: -8px;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-h1.favorited:after {
-	content: "*";
 }
 
 h1 img {
@@ -87,13 +80,10 @@ h1 img {
 p {
 	margin: 0;
 	padding: 0;
-	padding-left: 3px;
-	margin-left: -3px;
-	padding-bottom: 2px;
-	margin-bottom: -2px;
+	word-wrap: break-word;
 }
 
-.image, .twitpic {
+.image {
 	float: left;
 	margin-left: 2px;
 	width: 48px;
@@ -106,18 +96,6 @@ p {
 	display: block;
 	width: 48px;
 	height: 48px;
-}
-
-.twitpic {
-	float: right;
-	width: 75px;
-	height: 75px;
-}
-
-.twitpic a {
-	display: block;
-	width: 75px;
-	height: 75px;
 }
 
 .images:empty {
@@ -134,37 +112,16 @@ p {
     margin-right: 5px;
 }
 
-.direct-message {
-	color: #555;
-}
-
-.retweeted span {
-	height: 11px;
-	width: 15px;
-	background: url(../img/sprite-icons.png) no-repeat -192px -1px;
-	display: inline-block;
-	margin: 0 3px 0 4px; 
+.images img.photo {
+	max-width: 100%;
+	max-height: auto;
+	margin-right: 0;
+	border-radius: 3px;
+	box-shadow: 0 0 1px black;
 }
 
 .data {
 	margin-left: 62px;
-}
-
-.message {
-	overflow: hidden;
-}
-
-.reply, .direct-message {
-	display: none;
-	font-weight: normal;
-}
-
-.reply a {
-	font-weight: bold;
-}
-
-li:hover .reply, li:hover .direct-message {
-	display: inline;
 }
 
 li .name:first-child {
@@ -225,28 +182,30 @@ li:first-child:hover .date {
 	border-top: 0;
 }
 
-.reply_to, .retweet, .remove {
+aside {
+	width: 15px;
+	float: right;
+	margin: 0 3px 3px 3px;
+	visibility: hidden;
+}
+
+.reply_to, .repost, .remove {
 	width: 15px;
 	height: 12px;
-	position: absolute;
-	top: 5px;
-	right: 10px;
 	background: url(../img/sprite-icons.png) no-repeat -16px 0;
-	display: none;
+	display: inline-block;
 }
 
-li:hover .reply_to, li:hover .retweet, li:hover .remove {
-	display: block;
+li:hover aside {
+	visibility: visible;
 }
 
-.retweet {
-	top: 18px;
+.repost {
 	background-position: -192px 0;
 }
 
 .remove {
 	background-position: -128px 0;
-	top: 20px;
 }
 
 li.mentioned {
@@ -257,9 +216,11 @@ li.mentioned {
 	border-right: 0;
 }
 
-.photo {
-	margin-top: 10px;
-	max-width: 100%;
-	border-radius: 3px;
-	box-shadow: 0 0 1px black;
+.reposted_by:before {
+	content: " ";
+	display: inline-block;
+	background: url(../img/sprite-icons.png) no-repeat -192px 0;
+	height: 12px;
+	width: 15px;
+	margin-right: 5px;
 }

@@ -24,25 +24,27 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         var a = document.createElement("a");
         
         var item = document.createElement("li");
+
+        var aside = document.createElement("aside");
+        item.appendChild(aside);
         
         var reply_to = a.cloneNode();
         reply_to.className = "reply_to"
         reply_to.innerText = " ";
         reply_to.href = "#";
-        item.appendChild(reply_to);
+        aside.appendChild(reply_to);
         
-        var retweet = a.cloneNode();
-        retweet.className = "retweet";
-        retweet.innerText = " ";
-        retweet.href = "#";
-        // item.appendChild(retweet); // FIXME
+        var repost = a.cloneNode();
+        repost.className = "repost";
+        repost.innerText = " ";
+        repost.href = "#";
+        aside.appendChild(repost);
 
         var remove = a.cloneNode();
         remove.className = "remove";
         remove.innerText = " ";
         remove.href = "#";
-        item.appendChild(remove);
-        
+        aside.appendChild(remove);
         
         var image = document.createElement("img");
         image.className = "image";
@@ -62,10 +64,6 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         
         var username = a.cloneNode();
         head.appendChild(username);
-        
-        var in_reply = document.createElement("span");
-        in_reply.className = "reply";
-        head.appendChild(in_reply);
         
         var space = document.createTextNode(" ");
         head.appendChild(space);
@@ -89,12 +87,14 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         pin.src = "img/pin.png";
         pin.alt = "Map link";
         geo.appendChild(pin);
-        
-        var in_reply_text = document.createTextNode(" in reply to ");
-        in_reply.appendChild(in_reply_text)
-        
-        var in_reply_a = a.cloneNode();
-        in_reply.appendChild(in_reply_a);
+
+        head.appendChild(space.cloneNode());
+
+        var reposted_by = a.cloneNode();
+        reposted_by.className = "reposted_by";
+        reposted_by.style.display = "none";
+        head.appendChild(reposted_by)
+
         
         var message = document.createElement("p");
         message.className = "message";
@@ -122,10 +122,10 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             item: item,
             reply_to: reply_to,
             is_private: is_private,
-            retweet: retweet,
             image: image,
             username: username,
-            in_reply: in_reply_a,
+            repost: repost,
+            reposted_by: reposted_by,
             message: message,
             ago: ago,
             source: source,
@@ -143,11 +143,16 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
         var template = this.getTemplate();
 
-        template.item.id = "post-" + status.id;
+        template.item.id = "post-" + (typeof status.__repost != "undefined" ? status.__repost.id : status.id);
 
         if (HostApp.stringForKey("entity") == status.entity) {
             template.remove.onclick = function() {
                 _this.remove(status.id);
+                return false;
+            }
+        } else if (status.__repost && HostApp.stringForKey("entity") == status.__repost.entity) {
+            template.remove.onclick = function() {
+                _this.remove(status.__repost.id);
                 return false;
             }
         } else {
@@ -168,7 +173,12 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         }
 
         //template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
-        
+        template.repost.onclick = function() {
+            template.repost.className = "hidden";
+            _this.repost(status.id, status.entity);
+            return false;
+        }
+
         template.username.innerText = status.entity;
         template.username.href = status.entity; // FIXME open profile
 
@@ -205,12 +215,39 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             });            
         }
 
+        if (typeof status.__repost != "undefined") {
+
+            template.reposted_by.href = status.__repost.entity;
+            template.reposted_by.innerText = status.__repost.entity;
+            template.reposted_by.title = status.__repost.entity;
+            template.reposted_by.style.display = '';
+
+            if (this.followings.followings[status.__repost.entity]) {
+
+                var basic = this.followings.followings[status.__repost.entity].profile["https://tent.io/types/info/basic/v0.1.0"];
+                template.reposted_by.innerText = basic.name;
+            } else {
+
+                Paths.findProfileURL(status.__repost.entity, function(profile_url) {
+                    if (profile_url) {
+                        Paths.getURL(profile_url, "GET", function(resp) {
+                            var p = JSON.parse(resp.responseText);
+                            var profile = p["https://tent.io/types/info/basic/v0.1.0"];
+                            if (profile && profile.name) {
+                                template.reposted_by.innerText = profile.name;
+                            }
+
+                        }, null, false); // do not send auth-headers
+                    }
+                });  
+
+            }
+        }
+
         if (status && status.permissions && !status.permissions.public) {
             template.is_private.style.display = '';
         }
         
-        template.in_reply.parentNode.className = "hidden";
-
         var text = "";
         
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
@@ -233,17 +270,19 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
             for (var i = 0; i < status.attachments.length; i++) {
+                // closure needed for the callback
+                (function() {
+                    var attachment = status.attachments[i];
+                    var img = new Image();
+                    img.className = "photo";
+                    template.images.append(img);
 
-                var attachment = status.attachments[i];
-                var img = new Image();
-                img.className = "photo";
-                template.message.parentNode.insertBefore(img, template.message.nextSibling);
+                    var url = Paths.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
 
-                var url = Paths.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
-
-                var callback = function(resp) {
-                    img.src = "data:image/png;base64," + resp.responseText;
-                }
+                    var callback = function(resp) {
+                        img.src = "data:image/png;base64," + resp.responseText;
+                    }                    
+                })();
 
                 Paths.getURL(url.toString(), "GET", callback, null, null, attachment.type);
             };
@@ -319,6 +358,25 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
             Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data));
         }
+    }
+
+
+    Core.prototype.repost = function(id, entity, callback) {
+        var url = URI(Paths.mkApiRootPath("/posts"));
+
+        var data = {
+            "type": "https://tent.io/types/post/repost/v0.1.0",
+            "published_at": parseInt(new Date().getTime() / 1000, 10),
+            "permissions": {
+                "public": true
+            },
+            "content": {
+                "entity": entity,
+                "id": id
+            }
+        };
+
+        Paths.getURL(url.toString(), "POST", callback, JSON.stringify(data));
     }
 
     Core.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, callback) {

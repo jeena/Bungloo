@@ -68,7 +68,7 @@ function(Core, Paths, HostApp, URI) {
                     }
                 } else if (status.type == "https://tent.io/types/post/repost/v0.1.0") {
 
-                    //debug(status)
+                    this.getRepost(status, this.body.firstChild);
                 }
 
             }
@@ -125,6 +125,30 @@ function(Core, Paths, HostApp, URI) {
         }
     }
 
+    Timeline.prototype.getRepost = function(repost, before_node) {
+
+        var _this = this;
+        var callback = function(resp) {
+            var status = JSON.parse(resp.responseText);
+            status.__repost = repost;
+            var li = _this.getStatusDOMElement(status);
+            before_node.parentNode.insertBefore(li, before_node);
+        }
+
+        Paths.findProfileURL(repost.content.entity, function(profile_url) {
+            if (profile_url) {
+
+                    Paths.getURL(profile_url, "GET", function(resp) {
+
+                        var profile = JSON.parse(resp.responseText);
+                        var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
+                        Paths.getURL(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
+
+                    }, null, false); // do not send auth-headers
+                }
+        })
+    }
+
     Timeline.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri) {
         var _this = this;
         var callback = function(data) { _this.getNewData(); }
@@ -135,6 +159,14 @@ function(Core, Paths, HostApp, URI) {
         var _this = this;
         var callback = function(data) { _this.getNewData(); }
         Core.prototype.remove.call(this, id, callback);   
+    }
+
+    Timeline.prototype.repost = function(id, entity, callback) {
+        var _this = this;
+        if (!callback) {
+            callback = function(data) { _this.getNewData(); }
+        }
+        Core.prototype.repost.call(this, id, entity, callback);   
     }
 
     return Timeline;
