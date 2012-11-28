@@ -20,6 +20,7 @@
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
 		1F880B6B165EE0F60022A84D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F880B6A165EE0F60022A84D /* NSData+Base64.m */; };
 		1F880B6E165FE8890022A84D /* MimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F880B6D165FE8890022A84D /* MimeType.m */; };
+		1F9C1B7B1666AE5700A185ED /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F9C1B7A1666AE5700A185ED /* send.png */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
 		1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2549B1427D9930035D84B /* AccessToken.m */; };
 		1FDEF722164EFE9100F927F3 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FDEF721164EFE9100F927F3 /* Growl.framework */; };
@@ -73,6 +74,7 @@
 		1F880B6A165EE0F60022A84D /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		1F880B6C165FE8890022A84D /* MimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MimeType.h; sourceTree = "<group>"; };
 		1F880B6D165FE8890022A84D /* MimeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MimeType.m; sourceTree = "<group>"; };
+		1F9C1B7A1666AE5700A185ED /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send.png; sourceTree = "<group>"; };
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AccessToken.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FC2549B1427D9930035D84B /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccessToken.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -154,6 +156,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* Twittia 2 */ = {
 			isa = PBXGroup;
 			children = (
+				1F9C1B7A1666AE5700A185ED /* send.png */,
 				1FA09846144602530079E258 /* libicucore.dylib */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
@@ -275,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9C1B7B1666AE5700A185ED /* send.png in Resources */,
 				1F3F129E164F202000C7C983 /* dsa_pub.pem in Resources */,
 				1FDEF726164F094600F927F3 /* Growl Registration Ticket.growlRegDict in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,

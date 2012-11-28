@@ -33,7 +33,7 @@
 @property (retain, nonatomic) CLLocation *currentLocation;
 @property (retain, nonatomic) NSString *imageFilePath;
 
-- (IBAction)sendTweet:(NSControl *)control;
+- (IBAction)sendPost:(NSControl *)control;
 - (void)inReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;
 - (void)withString:(NSString *)aString;
 - (IBAction)addCurrentLocation:(id)sender;

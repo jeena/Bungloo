@@ -128,6 +128,7 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.gender.parentNode.style.display = "none";
         this.profile_template.url.parentNode.parentNode.style.display = "none";
 
+        this.profile_template.following_button.style.display = "";
         this.setFollowingButton(false);
 
         this.body.innerHTML = "";
@@ -136,6 +137,10 @@ function(HostApp, Core, Paths, URI) {
     Profile.prototype.getProfile = function() {
 
         var _this = this;
+
+        if (HostApp.stringForKey("entity") == this.entity) {
+            this.profile_template.following_button.style.display = "none";
+        }
 
         Paths.findProfileURL(this.entity, function(profile_url) {
 

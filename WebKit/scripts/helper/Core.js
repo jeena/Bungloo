@@ -229,6 +229,10 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             template.reposted_by.innerText = status.__repost.entity;
             template.reposted_by.title = status.__repost.entity;
             template.reposted_by.style.display = '';
+            template.reposted_by.onclick = function(e) {
+                HostApp.showProfileForEntity(status.__repost.entity);
+                return false;
+            }
 
             if (this.followings.followings[status.__repost.entity]) {
 

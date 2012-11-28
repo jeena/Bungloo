@@ -192,9 +192,14 @@
     [menuItem setTitle:@"Current location not available"];
 }
 
+- (IBAction)sendPostButtonPressed:(id)sender
+{
+    [self sendPost:self.textField];
+}
+
 #pragma mark Keyboard delegate methods
 
-- (IBAction)sendTweet:(NSControl *)control {
+- (IBAction)sendPost:(NSControl *)control {
 	if ([[control stringValue] length] <= MESSAGE_MAX_LENGTH) {
 		PostModel *post = [[[PostModel alloc] init] autorelease];
 		post.text = [control stringValue];
@@ -239,7 +244,7 @@
     }
     else if (commandSelector == @selector(noop:)) {
         retval = YES;
-        [self sendTweet:control];
+        [self sendPost:control];
     }
     
     return retval;
