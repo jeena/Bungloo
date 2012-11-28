@@ -10,6 +10,8 @@
 		1DDD582C0DA1D0D100B32029 /* NewMessageWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* NewMessageWindow.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		1F122D49118E1DE100E83B77 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F122D48118E1DE100E83B77 /* Icon.icns */; };
+		1F132C791666CD9700E4E661 /* TB_SendTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F132C781666CD9700E4E661 /* TB_SendTemplate.png */; };
+		1F132C7B1666CF6E00E4E661 /* send2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F132C7A1666CF6E00E4E661 /* send2.png */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
 		1F1C80F916482A250010B409 /* WebKit in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C80F816482A250010B409 /* WebKit */; };
 		1F2D79BD165E8C6B000E8428 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2D79BC165E8C6B000E8428 /* CoreLocation.framework */; };
@@ -20,7 +22,6 @@
 		1F77DB47118C5F1C007C7F1E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77DB46118C5F1C007C7F1E /* Constants.m */; };
 		1F880B6B165EE0F60022A84D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F880B6A165EE0F60022A84D /* NSData+Base64.m */; };
 		1F880B6E165FE8890022A84D /* MimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F880B6D165FE8890022A84D /* MimeType.m */; };
-		1F9C1B7B1666AE5700A185ED /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F9C1B7A1666AE5700A185ED /* send.png */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
 		1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2549B1427D9930035D84B /* AccessToken.m */; };
 		1FDEF722164EFE9100F927F3 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FDEF721164EFE9100F927F3 /* Growl.framework */; };
@@ -60,6 +61,8 @@
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/NewMessageWindow.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1F122D48118E1DE100E83B77 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		1F132C781666CD9700E4E661 /* TB_SendTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TB_SendTemplate.png; sourceTree = "<group>"; };
+		1F132C7A1666CF6E00E4E661 /* send2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send2.png; sourceTree = "<group>"; };
 		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		1F1C80F816482A250010B409 /* WebKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WebKit; path = ../WebKit; sourceTree = "<group>"; };
 		1F2D79BC165E8C6B000E8428 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = /System/Library/Frameworks/CoreLocation.framework; sourceTree = "<absolute>"; };
@@ -74,7 +77,6 @@
 		1F880B6A165EE0F60022A84D /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		1F880B6C165FE8890022A84D /* MimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MimeType.h; sourceTree = "<group>"; };
 		1F880B6D165FE8890022A84D /* MimeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MimeType.m; sourceTree = "<group>"; };
-		1F9C1B7A1666AE5700A185ED /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send.png; sourceTree = "<group>"; };
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AccessToken.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FC2549B1427D9930035D84B /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccessToken.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -156,7 +158,6 @@
 		2A37F4AAFDCFA73011CA2CEA /* Twittia 2 */ = {
 			isa = PBXGroup;
 			children = (
-				1F9C1B7A1666AE5700A185ED /* send.png */,
 				1FA09846144602530079E258 /* libicucore.dylib */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
@@ -204,7 +205,9 @@
 			children = (
 				1F1C80F816482A250010B409 /* WebKit */,
 				1F122D48118E1DE100E83B77 /* Icon.icns */,
+				1F132C7A1666CF6E00E4E661 /* send2.png */,
 				1F3F129D164F202000C7C983 /* dsa_pub.pem */,
+				1F132C781666CD9700E4E661 /* TB_SendTemplate.png */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Tentia-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
@@ -278,7 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F9C1B7B1666AE5700A185ED /* send.png in Resources */,
+				1F132C7B1666CF6E00E4E661 /* send2.png in Resources */,
 				1F3F129E164F202000C7C983 /* dsa_pub.pem in Resources */,
 				1FDEF726164F094600F927F3 /* Growl Registration Ticket.growlRegDict in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
@@ -287,6 +290,7 @@
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				1F122D49118E1DE100E83B77 /* Icon.icns in Resources */,
 				1F1C80F916482A250010B409 /* WebKit in Resources */,
+				1F132C791666CD9700E4E661 /* TB_SendTemplate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -169,7 +169,7 @@
 							<object class="NSButtonCell" key="NSCell" id="978913593">
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents"/>
+								<string key="NSContents">⌘↩</string>
 								<object class="NSFont" key="NSSupport" id="27">
 									<string key="NSName">LucidaGrande-Bold</string>
 									<double key="NSSize">11</double>
@@ -179,10 +179,6 @@
 								<reference key="NSControlView" ref="647941004"/>
 								<int key="NSButtonFlags">-2033434624</int>
 								<int key="NSButtonFlags2">268435623</int>
-								<object class="NSCustomResource" key="NSNormalImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">send</string>
-								</object>
 								<string key="NSAlternateContents"/>
 								<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
 								<int key="NSPeriodicDelay">400</int>
@@ -608,7 +604,6 @@ A</bytes>
 							<string>addImage:</string>
 							<string>openAddMenu:</string>
 							<string>sendPost:</string>
-							<string>sendPostButtonPressed:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -616,7 +611,6 @@ A</bytes>
 							<string>id</string>
 							<string>id</string>
 							<string>NSControl</string>
-							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -627,7 +621,6 @@ A</bytes>
 							<string>addImage:</string>
 							<string>openAddMenu:</string>
 							<string>sendPost:</string>
-							<string>sendPostButtonPressed:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -646,10 +639,6 @@ A</bytes>
 							<object class="IBActionInfo">
 								<string key="name">sendPost:</string>
 								<string key="candidateClassName">NSControl</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">sendPostButtonPressed:</string>
-								<string key="candidateClassName">id</string>
 							</object>
 						</object>
 					</object>
@@ -721,14 +710,12 @@ A</bytes>
 				<string>NSAddTemplate</string>
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
-				<string>send</string>
 			</object>
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{8, 8}</string>
 				<string>{11, 11}</string>
 				<string>{10, 3}</string>
-				<string>{11, 11}</string>
 			</object>
 		</object>
 	</data>

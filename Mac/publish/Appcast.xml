@@ -6,15 +6,15 @@
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
       <item>
-        <title>Version 0.4.2</title>
+        <title>Version 0.5.0</title>
 		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 		<sparkle:releaseNotesLink>http://jabs.nu/Tentia/download/ReleaseNotes.html</sparkle:releaseNotesLink>
-		<pubDate>Sun, 25 Nov 2012 22:20:22 +0100</pubDate>
+		<pubDate>Wed, 28 Nov 2012 22:52:59 +0100</pubDate>
 		<enclosure	url="http://jabs.nu/Tentia/download/Tentia.app.zip"
-					sparkle:version="0.4.2"
-					length="1039533"
+					sparkle:version="0.5.0"
+					length="1082492"
 					type="application/octet-stream"
-					sparkle:dsaSignature="MCwCFE0eeuZIz41lGZ8oBxlWONeymosRAhQ4q4guWi9DX9VfeduTaa57ZPh0HQ==" />
+					sparkle:dsaSignature="MC0CFH2zsZdtjwqOfniJWcskUJcQbBViAhUAiBw2Djx5E23qvsz0pUr72aMKxWk=" />
       </item>
    </channel>
 </rss>

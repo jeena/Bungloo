@@ -226,7 +226,9 @@
 {
     BOOL retval = NO;
     
-    if (commandSelector == @selector(insertNewline:)) {
+    BOOL isEnter = [[NSApp currentEvent] keyCode] == 76;
+    
+    if (commandSelector == @selector(insertNewline:) && !isEnter) {
         
         NSText *text = [[textField window] fieldEditor:YES forObject:nil];
         
@@ -242,7 +244,7 @@
 
         retval = YES; // causes Apple to NOT fire the default enter action
     }
-    else if (commandSelector == @selector(noop:)) {
+    else if (commandSelector == @selector(noop:) || isEnter) {
         retval = YES;
         [self sendPost:control];
     }
