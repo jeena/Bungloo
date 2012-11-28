@@ -958,7 +958,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="469460548">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -988,6 +988,7 @@
 							</object>
 							<string key="NSFrameSize">{376, 581}</string>
 							<reference key="NSSuperview" ref="469460548"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
@@ -997,11 +998,72 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{376, 581}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="352293288"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
-				<string key="NSFrameAutosaveName">conversations</string>
+				<string key="NSFrameAutosaveName">conversation</string>
+				<bool key="NSWindowIsRestorable">YES</bool>
+			</object>
+			<object class="NSWindowTemplate" id="1038715190">
+				<int key="NSWindowStyleMask">15</int>
+				<int key="NSWindowBacking">2</int>
+				<string key="NSWindowRect">{{1292, 328}, {376, 581}}</string>
+				<int key="NSWTFlags">1685586944</int>
+				<string key="NSWindowTitle">Profile</string>
+				<string key="NSWindowClass">NSWindow</string>
+				<nil key="NSViewClass"/>
+				<nil key="NSUserInterfaceItemIdentifier"/>
+				<object class="NSView" key="NSWindowView" id="352860314">
+					<reference key="NSNextResponder"/>
+					<int key="NSvFlags">256</int>
+					<object class="NSMutableArray" key="NSSubviews">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="WebView" id="106985301">
+							<reference key="NSNextResponder" ref="352860314"/>
+							<int key="NSvFlags">274</int>
+							<object class="NSMutableSet" key="NSDragTypes">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="set.sortedObjects">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>Apple HTML pasteboard type</string>
+									<string>Apple PDF pasteboard type</string>
+									<string>Apple PICT pasteboard type</string>
+									<string>Apple URL pasteboard type</string>
+									<string>Apple Web Archive pasteboard type</string>
+									<string>NSColor pasteboard type</string>
+									<string>NSFilenamesPboardType</string>
+									<string>NSStringPboardType</string>
+									<string>NeXT RTFD pasteboard type</string>
+									<string>NeXT Rich Text Format v1.0 pasteboard type</string>
+									<string>NeXT TIFF v4.0 pasteboard type</string>
+									<string>WebURLsWithTitlesPboardType</string>
+									<string>public.png</string>
+									<string>public.url</string>
+									<string>public.url-name</string>
+								</object>
+							</object>
+							<string key="NSFrameSize">{376, 581}</string>
+							<reference key="NSSuperview" ref="352860314"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
+							<string key="FrameName"/>
+							<string key="GroupName"/>
+							<reference key="Preferences" ref="561166140"/>
+							<bool key="UseBackForwardList">NO</bool>
+							<bool key="AllowsUndo">YES</bool>
+						</object>
+					</object>
+					<string key="NSFrameSize">{376, 581}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
+					<reference key="NSNextKeyView" ref="106985301"/>
+				</object>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
+				<string key="NSFrameAutosaveName">profile</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSWindowTemplate" id="842998572">
@@ -1035,7 +1097,6 @@
 							</object>
 							<string key="NSFrame">{{20, 20}, {146, 146}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="215157023"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSImageCell" key="NSCell" id="266676500">
@@ -1058,7 +1119,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{194, 82}, {266, 22}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1063247419"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1105,7 +1165,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{191, 112}, {163, 17}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="643973685"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1139,8 +1198,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{391, 46}, {75, 32}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="54847478">
@@ -1164,7 +1221,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{373, 55}, {16, 16}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="251531186"/>
 							<string key="NSReuseIdentifierKey">_NS:945</string>
 							<int key="NSpiFlags">28938</int>
@@ -1173,7 +1229,6 @@
 					</object>
 					<string key="NSFrameSize">{480, 186}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="433812480"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
@@ -1646,6 +1701,22 @@
 					<int key="connectionID">643</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">profileView</string>
+						<reference key="source" ref="408500656"/>
+						<reference key="destination" ref="106985301"/>
+					</object>
+					<int key="connectionID">662</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">profileViewWindow</string>
+						<reference key="source" ref="408500656"/>
+						<reference key="destination" ref="1038715190"/>
+					</object>
+					<int key="connectionID">663</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">makeKeyAndOrderFront:</string>
 						<reference key="source" ref="1010634651"/>
@@ -1708,6 +1779,14 @@
 						<reference key="destination" ref="408500656"/>
 					</object>
 					<int key="connectionID">631</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="1038715190"/>
+						<reference key="destination" ref="408500656"/>
+					</object>
+					<int key="connectionID">661</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2413,7 +2492,7 @@
 							<reference ref="469460548"/>
 						</object>
 						<reference key="parent" ref="0"/>
-						<string key="objectName">Mentions</string>
+						<string key="objectName">Conversation</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">629</int>
@@ -2487,6 +2566,30 @@
 						<int key="objectID">657</int>
 						<reference key="object" ref="687127612"/>
 						<reference key="parent" ref="730994513"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">658</int>
+						<reference key="object" ref="1038715190"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="352860314"/>
+						</object>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Profile</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">659</int>
+						<reference key="object" ref="352860314"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="106985301"/>
+						</object>
+						<reference key="parent" ref="1038715190"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">660</int>
+						<reference key="object" ref="106985301"/>
+						<reference key="parent" ref="352860314"/>
 					</object>
 				</object>
 			</object>
@@ -2606,6 +2709,11 @@
 					<string>653.IBPluginDependency</string>
 					<string>654.IBPluginDependency</string>
 					<string>657.IBPluginDependency</string>
+					<string>658.IBPluginDependency</string>
+					<string>658.IBWindowTemplateEditedContentRect</string>
+					<string>658.NSWindowTemplate.visibleAtLaunch</string>
+					<string>659.IBPluginDependency</string>
+					<string>660.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>73.IBPluginDependency</string>
 					<string>79.IBPluginDependency</string>
@@ -2728,6 +2836,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{344, 175}, {376, 581}}</string>
+					<boolean value="NO"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.WebKitIBPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2747,7 +2860,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">657</int>
+			<int key="maxID">663</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2800,6 +2913,8 @@
 							<string>logoLayer</string>
 							<string>mentionsView</string>
 							<string>mentionsViewWindow</string>
+							<string>profileView</string>
+							<string>profileViewWindow</string>
 							<string>timelineView</string>
 							<string>timelineViewWindow</string>
 							<string>viewDelegate</string>
@@ -2813,6 +2928,8 @@
 							<string>NSTextField</string>
 							<string>NSWindow</string>
 							<string>NSImageView</string>
+							<string>WebView</string>
+							<string>NSWindow</string>
 							<string>WebView</string>
 							<string>NSWindow</string>
 							<string>WebView</string>
@@ -2833,6 +2950,8 @@
 							<string>logoLayer</string>
 							<string>mentionsView</string>
 							<string>mentionsViewWindow</string>
+							<string>profileView</string>
+							<string>profileViewWindow</string>
 							<string>timelineView</string>
 							<string>timelineViewWindow</string>
 							<string>viewDelegate</string>
@@ -2873,6 +2992,14 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">mentionsViewWindow</string>
+								<string key="candidateClassName">NSWindow</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">profileView</string>
+								<string key="candidateClassName">WebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">profileViewWindow</string>
 								<string key="candidateClassName">NSWindow</string>
 							</object>
 							<object class="IBToOneOutletInfo">

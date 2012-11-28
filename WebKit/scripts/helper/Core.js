@@ -177,7 +177,6 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             return false;
         }
 
-        //template.retweet.onclick = function() { template.retweet.className = "hidden"; _this.retweet(status.id_str, template.item); return false; }
         template.repost.onclick = function() {
             template.repost.className = "hidden";
             _this.repost(status.id, status.entity);
@@ -186,6 +185,10 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
         template.username.innerText = status.entity;
         template.username.href = status.entity; // FIXME open profile
+        template.username.onclick = function() {
+            HostApp.showProfileForEntity(status.entity);
+            return false;
+        }
 
         var profile = function(profile) {
 
@@ -258,7 +261,9 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
             text = status.content.caption;
         } else {
-            text = status.content.text;
+            if (status.content && status.content.text) {
+                text = status.content.text;
+            }
         }
 
         text = text.escapeHTML().replace(/\n/g, "<br>");
@@ -302,7 +307,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
                 break;
             }
         }
-        
+
         var published_at = typeof status.__repost == "undefined" ? status.published_at : status.__repost.published_at;
         var time = document.createElement("abbr");
         time.innerText = this.ISODateString(new Date(published_at * 1000));
@@ -334,6 +339,31 @@ function(jQuery, Paths, URI, HostApp, Followings) {
         }
 
         return template.item;
+    }
+
+
+    Core.prototype.getRepost = function(repost, before_node) {
+
+        var _this = this;
+        var callback = function(resp) {
+            var status = JSON.parse(resp.responseText);
+            status.__repost = repost;
+            var li = _this.getStatusDOMElement(status);
+            before_node.parentNode.insertBefore(li, before_node);
+        }
+
+        Paths.findProfileURL(repost.content.entity, function(profile_url) {
+            if (profile_url) {
+
+                    Paths.getURL(profile_url, "GET", function(resp) {
+
+                        var profile = JSON.parse(resp.responseText);
+                        var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
+                        Paths.getURL(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
+
+                    }, null, false); // do not send auth-headers
+                }
+        })
     }
 
     Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, callback) {
@@ -528,11 +558,16 @@ function(jQuery, Paths, URI, HostApp, Followings) {
                         if(basic.name) {
                             var new_text = node.innerHTML.replace(
                                 mention.text, 
-                                "<strong class='name' title='" + mention.entity + "'" + ">"
+                                "<a href='" + mention.entity + "' class='name' title='" + mention.entity + "'>"
                                 + basic.name
-                                + "</strong>"
+                                + "</a>"
                             );
+
                             node.innerHTML = new_text;
+                            $(node).find("a.name").click(function(e) {
+                                HostApp.showProfileForEntity(e.target.href);
+                                return false;
+                            });
                         }
                     }
                 }

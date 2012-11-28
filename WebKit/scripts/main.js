@@ -33,6 +33,12 @@ function start(view) {
 
     } else if (view == "profile") {
 
+        require(["controller/Profile"], function(Profile) {
+
+            tentia_instance = new Profile();
+
+        });
+
     } else if (view == "follow") {
 
     } else if (view == "conversation") {
@@ -55,17 +61,17 @@ String.prototype.endsWith = function(suffix) {
     return this.match(suffix+"$") == suffix;
 };
 
-    var __entityMap = {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;"
-    };
+var __entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;"
+};
 
-    String.prototype.escapeHTML = function() {
-        return String(this).replace(/[&<>]/g, function (s) {
-            return __entityMap[s];
-        });
-    }
+String.prototype.escapeHTML = function() {
+    return String(this).replace(/[&<>]/g, function (s) {
+        return __entityMap[s];
+    });
+}
 
 var console = {
     log: function(s) {

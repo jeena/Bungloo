@@ -15,8 +15,7 @@
 @synthesize loginViewWindow;
 @synthesize loginEntityTextField;
 @synthesize loginActivityIndicator;
-
-@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, conversationView, conversationViewWindow;
+@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, conversationView, conversationViewWindow, profileView, profileViewWindow;
 @synthesize globalHotkeyMenuItem, viewDelegate;
 @synthesize logoLayer;
 @synthesize oauthView, accessToken;
@@ -136,12 +135,20 @@
         [conversationView setPolicyDelegate:viewDelegate];
         [conversationView setUIDelegate:viewDelegate];
         [[conversationView windowScriptObject] setValue:self forKey:@"controller"];
+        
+        viewDelegate.profileView = profileView;
+        [[profileView mainFrame] loadHTMLString:index_string baseURL:url];
+        [profileView setFrameLoadDelegate:viewDelegate];
+        [profileView setPolicyDelegate:viewDelegate];
+        [profileView setUIDelegate:viewDelegate];
+        [[profileView windowScriptObject] setValue:self forKey:@"controller"];
     }
     else
     {
         [timelineView stringByEvaluatingJavaScriptFromString:@"start('timeline')"];
         [mentionsView stringByEvaluatingJavaScriptFromString:@"start('mentions')"];
         [conversationView stringByEvaluatingJavaScriptFromString:@"start('conversation')"];
+        [profileView stringByEvaluatingJavaScriptFromString:@"start('profile')"];
     }
 }
 
@@ -443,6 +450,13 @@
     NSString *js = [NSString stringWithFormat:@"tentia_instance.showStatus('%@', '%@');", postId, entity];
     [conversationView stringByEvaluatingJavaScriptFromString:js];
     [conversationViewWindow makeKeyAndOrderFront:self];
+}
+
+- (IBAction)showProfileForEntity:(NSString *)entity
+{
+    NSString *js = [NSString stringWithFormat:@"tentia_instance.showProfileForEntity('%@');", entity];
+    [profileView stringByEvaluatingJavaScriptFromString:js];
+    [profileViewWindow makeKeyAndOrderFront:self];
 }
 
 - (void)growlNotificationWasClicked:(id)clickContext

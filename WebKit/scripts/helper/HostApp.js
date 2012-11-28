@@ -87,6 +87,15 @@ define(function() {
         }
     }
 
+    HostApp.showProfileForEntity = function(entity) {
+
+        if (OS_TYPE == "mac") {
+            controller.showProfileForEntity_(entity);
+        } else {
+            controller.showProfileForEntity(entity);
+        }
+    }
+
     HostApp.notificateUserAboutMention = function(text, name, post_id, entity) {
         if (OS_TYPE == "mac") {
             controller.notificateUserAboutMention_fromName_withPostId_andEntity_(text, name, post_id, entity);

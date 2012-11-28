@@ -20,7 +20,7 @@ ol {
 	padding: 0;
 }
 
-li, .error {
+ol li, .error, header.profile {
 	clear: both;
 	padding: 8px;
 	background: #eee;
@@ -37,29 +37,51 @@ li, .error {
 	color: red;
 }
 
-li:first-child {
+ol li:first-child {
 	border-top: 0;
 }
 
-li:nth-child(odd), .error {
+ol li:nth-child(odd), .error, header.profile {
 	background: url(../img/odd-bg.png) repeat-x bottom #fafafa;
 }
 
-li:nth-child(even) {
+ol li:nth-child(even) {
 	background: url(../img/even-bg.png) repeat-x bottom #f2f2f2;
 }
 
-li:hover {
+ol li:hover {
 	background: #dedede;
 }
 
-li:after {
+ol li:after, header.profile:after {
     content: ".";
     display: block;
     clear: both;
     visibility: hidden;
     line-height: 0;
     height: 0;
+}
+
+header.profile img {
+	float: left;
+	margin: 0 10px 10px 0;
+	max-width: 100px;
+	border-radius: 10px;
+}
+
+header.profile table {
+	border-collapse: collapse;
+	margin-top: 10px;
+}
+
+header.profile th {
+	text-align: left;
+	padding-right: 1em;
+}
+
+header.profile h1 + p {
+	color: #aaa;
+	margin-bottom: 10px;
 }
 
 .highlight {

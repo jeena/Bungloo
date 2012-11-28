@@ -5,7 +5,7 @@ define([
     "lib/URI"
 ],
 
-function(HostApp, Core, Paths, URI, Followings) {
+function(HostApp, Core, Paths, URI) {
 
 
     function Conversation() {

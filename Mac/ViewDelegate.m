@@ -11,7 +11,7 @@
 
 @implementation ViewDelegate
 
-@synthesize timelineView, mentionsView, conversationView, oauthView;
+@synthesize timelineView, mentionsView, conversationView, profileView, oauthView;
 
 - (void)webView:(WebView *)sender addMessageToConsole:(NSDictionary *)message;{
 
@@ -21,6 +21,7 @@
     if (sender == mentionsView) viewName = @"MentionsView";
     if (sender == conversationView) viewName = @"ConversationView";
     if (sender == oauthView) viewName = @"OauthView";
+    if (sender == profileView) viewName = @"ProfileView";
     
 	NSLog(@"js<%@>: %@:%@: %@",
         viewName,
@@ -79,7 +80,11 @@
     } else if(sender == conversationView) {
     
         [conversationView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('conversation') }"];
-
+        
+    } else if(sender == profileView) {
+        
+        [profileView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('profile') }"];
+        
     } else {
         
         NSString *action = @"timeline";
