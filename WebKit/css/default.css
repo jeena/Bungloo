@@ -246,3 +246,18 @@ li.mentioned {
 	width: 15px;
 	margin-right: 5px;
 }
+
+header.profile button {
+	background: #09F;
+	float: right;
+	color: white;
+	cursor: pointer;
+	padding: 6px 10px;
+	border: 0;
+	border-radius: 3px;
+	font-weight: bold;
+}
+
+header.profile button.following {
+	background: #D84A38;
+}

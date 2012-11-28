@@ -25,10 +25,15 @@ function(HostApp, Core, Paths, URI) {
         this.entity = entity;
         this.profile_template.entity.innerHTML = entity;
         this.profile_template.entity.href = entity;
+
+        this.setFollowingButton(!!this.followings.followings[this.entity]);
+
         this.getProfile();
     }
 
     Profile.prototype.initProfileTemplate = function() {
+
+        var _this = this;
 
         var header = document.createElement("header");
         header.className = "profile"
@@ -45,14 +50,21 @@ function(HostApp, Core, Paths, URI) {
             birthdate: document.createElement("td"),
             location: document.createElement("td"),
             gender: document.createElement("td"),
-            url: document.createElement("a")
+            url: document.createElement("a"),
+            following_button: document.createElement("button")
         };
 
         header.appendChild(this.profile_template.avatar);
         this.profile_template.avatar.src = "img/default-avatar.png";
+
         var div = document.createElement("div");
         header.appendChild(div);
 
+        this.profile_template.following_button.onclick = function(e) {
+            _this.toggleFollow()
+        }
+
+        div.appendChild(this.profile_template.following_button);
         div.appendChild(this.profile_template.name);
 
         var p = document.createElement("p");
@@ -115,6 +127,8 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.location.parentNode.style.display = "none";
         this.profile_template.gender.parentNode.style.display = "none";
         this.profile_template.url.parentNode.parentNode.style.display = "none";
+
+        this.setFollowingButton(false);
 
         this.body.innerHTML = "";
     };
@@ -262,6 +276,42 @@ function(HostApp, Core, Paths, URI) {
                 }
 
             }
+        }
+    }
+
+    Profile.prototype.mention = function() {
+
+    }
+
+    Profile.prototype.setFollowingButton = function(following) {
+        
+        if (following) {
+            this.profile_template.following_button.className = "following";
+            this.profile_template.following_button.innerText = "Unfollow";
+        } else {
+            this.profile_template.following_button.className = "";
+            this.profile_template.following_button.innerText = "Follow";
+        }
+    }
+
+    Profile.prototype.toggleFollow = function() {
+
+        var _this = this;
+        var callback = function() { _this.followings.getAllFollowings() };
+
+        if (this.followings.followings[this.entity]) {
+
+            var url = URI(Paths.mkApiRootPath("/followings/" + this.followings.followings[this.entity].id));
+            Paths.getURL(url.toString(), "DELETE", callback);
+            this.setFollowingButton(false);
+            delete this.followings.followings[this.entity];
+
+        } else {
+
+            var url = URI(Paths.mkApiRootPath("/followings"));
+            var data = JSON.stringify({"entity": this.entity });
+            Paths.getURL(url.toString(), "POST", callback, data);
+            this.setFollowingButton(true);
         }
     }
 
