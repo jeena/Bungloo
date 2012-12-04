@@ -398,6 +398,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             }
 
             var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
+
             if (mentions.length > 0) {
                 data["mentions"] = mentions;
             }
@@ -569,7 +570,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
                             node.innerHTML = new_text;
                             $(node).find("a.name").click(function(e) {
-                                HostApp.showProfileForEntity(e.target.href);
+                                HostApp.showProfileForEntity(e.target.title);
                                 return false;
                             });
                         }
@@ -600,7 +601,7 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
         var mentions = [];
         
-        if (post_id && entity) {
+        if (post_id && entity && post_id != "(null)" && entity != "(null)") {
             mentions.push({
                 post: post_id,
                 entity: entity

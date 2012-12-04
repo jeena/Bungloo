@@ -33,8 +33,6 @@ function(Paths, URI) {
                 _this.before_id = following.id;
                 _this.followings[following.entity] = following;
             }
-
-            _this.getAllFollowings();
         }
 
         var url = URI(Paths.mkApiRootPath("/followings"));

@@ -23,8 +23,8 @@ function(HostApp, Core, Paths, URI) {
 
         this.clear();
         this.entity = entity;
-        this.profile_template.entity.innerHTML = entity;
-        this.profile_template.entity.href = entity;
+        this.profile_template.entity.innerHTML = this.entity;
+        this.profile_template.entity.href = this.entity;
 
         this.setFollowingButton(!!this.followings.followings[this.entity]);
 
@@ -51,7 +51,8 @@ function(HostApp, Core, Paths, URI) {
             location: document.createElement("td"),
             gender: document.createElement("td"),
             url: document.createElement("a"),
-            following_button: document.createElement("button")
+            following_button: document.createElement("button"),
+            mention_button: document.createElement("button")
         };
 
         header.appendChild(this.profile_template.avatar);
@@ -63,8 +64,18 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.following_button.onclick = function(e) {
             _this.toggleFollow()
         }
-
         div.appendChild(this.profile_template.following_button);
+
+        this.profile_template.mention_button.onclick = function() {
+            var e = _this.entity;
+            if (e.startsWith("https://")) {
+                e = e.substr(8, e.length);
+            }
+            HostApp.openNewMessageWidow(null, null, "^" + e + " ");
+        }
+        div.appendChild(this.profile_template.mention_button);
+        this.profile_template.mention_button.innerHTML = "Mention";
+
         div.appendChild(this.profile_template.name);
 
         var p = document.createElement("p");
@@ -302,7 +313,7 @@ function(HostApp, Core, Paths, URI) {
     Profile.prototype.toggleFollow = function() {
 
         var _this = this;
-        var callback = function() { _this.followings.getAllFollowings() };
+        var callback = function(resp) { _this.followings.getAllFollowings(); debug(resp.responseText) };
 
         if (this.followings.followings[this.entity]) {
 

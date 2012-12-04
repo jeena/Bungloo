@@ -15,6 +15,7 @@ function(HostApp, Timeline) {
 
         this.action = "mentions";
         this.body.className = this.action;
+
     }
 
     Mentions.prototype = Object.create(Timeline.prototype);
@@ -60,6 +61,7 @@ function(HostApp, Timeline) {
             HostApp.unreadMentions(this.unread_mentions);
         }
     }
+
 
     return Mentions;
 

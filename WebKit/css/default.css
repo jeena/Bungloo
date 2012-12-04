@@ -257,6 +257,7 @@ header.profile button {
 	border: 0;
 	border-radius: 3px;
 	font-weight: bold;
+	clear: right;
 }
 
 header.profile button.following {

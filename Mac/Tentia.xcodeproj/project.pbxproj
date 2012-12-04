@@ -11,7 +11,6 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		1F122D49118E1DE100E83B77 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F122D48118E1DE100E83B77 /* Icon.icns */; };
 		1F132C791666CD9700E4E661 /* TB_SendTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F132C781666CD9700E4E661 /* TB_SendTemplate.png */; };
-		1F132C7B1666CF6E00E4E661 /* send2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F132C7A1666CF6E00E4E661 /* send2.png */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
 		1F1C80F916482A250010B409 /* WebKit in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C80F816482A250010B409 /* WebKit */; };
 		1F2D79BD165E8C6B000E8428 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2D79BC165E8C6B000E8428 /* CoreLocation.framework */; };
@@ -62,7 +61,6 @@
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1F122D48118E1DE100E83B77 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		1F132C781666CD9700E4E661 /* TB_SendTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TB_SendTemplate.png; sourceTree = "<group>"; };
-		1F132C7A1666CF6E00E4E661 /* send2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send2.png; sourceTree = "<group>"; };
 		1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		1F1C80F816482A250010B409 /* WebKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WebKit; path = ../WebKit; sourceTree = "<group>"; };
 		1F2D79BC165E8C6B000E8428 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = /System/Library/Frameworks/CoreLocation.framework; sourceTree = "<absolute>"; };
@@ -205,7 +203,6 @@
 			children = (
 				1F1C80F816482A250010B409 /* WebKit */,
 				1F122D48118E1DE100E83B77 /* Icon.icns */,
-				1F132C7A1666CF6E00E4E661 /* send2.png */,
 				1F3F129D164F202000C7C983 /* dsa_pub.pem */,
 				1F132C781666CD9700E4E661 /* TB_SendTemplate.png */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
@@ -281,7 +278,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F132C7B1666CF6E00E4E661 /* send2.png in Resources */,
 				1F3F129E164F202000C7C983 /* dsa_pub.pem in Resources */,
 				1FDEF726164F094600F927F3 /* Growl Registration Ticket.growlRegDict in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
