@@ -267,6 +267,12 @@
     return NO;
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+{
+    [timelineViewWindow makeKeyAndOrderFront:self];
+    return NO;
+}
+
 - (IBAction)openNewMessageWindow:(id)sender
 {
 	[NSApp activateIgnoringOtherApps:YES]; 
