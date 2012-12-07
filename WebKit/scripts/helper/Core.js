@@ -3,15 +3,15 @@ define([
     "helper/Paths",
     "lib/URI",
     "helper/HostApp",
-    "helper/Followings",
+    "helper/Cache",
     "lib/Timeago"
 ],
 
-function(jQuery, Paths, URI, HostApp, Followings) {
+function(jQuery, Paths, URI, HostApp, Cache) {
 
     function Core() {
 
-        this.followings = new Followings();
+        this.cache = new Cache();
 
     }
 
@@ -207,9 +207,9 @@ function(jQuery, Paths, URI, HostApp, Followings) {
 
         }
 
-        if (this.followings.followings[status.entity]) {
+        if (this.cache.followings[status.entity]) {
 
-            profile(this.followings.followings[status.entity].profile);
+            profile(this.cache.followings[status.entity].profile);
 
         } else {
 
@@ -234,9 +234,9 @@ function(jQuery, Paths, URI, HostApp, Followings) {
                 return false;
             }
 
-            if (this.followings.followings[status.__repost.entity]) {
+            if (this.cache.followings[status.__repost.entity]) {
 
-                var basic = this.followings.followings[status.__repost.entity].profile["https://tent.io/types/info/basic/v0.1.0"];
+                var basic = this.cache.followings[status.__repost.entity].profile["https://tent.io/types/info/basic/v0.1.0"];
                 template.reposted_by.innerText = basic.name;
             } else {
 
@@ -420,7 +420,13 @@ function(jQuery, Paths, URI, HostApp, Followings) {
             "content": {
                 "entity": entity,
                 "id": id
-            }
+            },
+            "mentions": [
+                {
+                    "entity": entity,
+                    "post": id
+                }
+            ]
         };
 
         Paths.getURL(url.toString(), "POST", callback, JSON.stringify(data));
@@ -577,9 +583,9 @@ function(jQuery, Paths, URI, HostApp, Followings) {
                     }
                 }
 
-                if (_this.followings.followings[mention.entity]) {
+                if (_this.cache.followings[mention.entity]) {
 
-                    profile(_this.followings.followings[mention.entity].profile)
+                    profile(_this.cache.followings[mention.entity].profile)
 
                 } else {
 

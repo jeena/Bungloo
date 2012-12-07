@@ -26,7 +26,7 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.entity.innerHTML = this.entity;
         this.profile_template.entity.href = this.entity;
 
-        this.setFollowingButton(!!this.followings.followings[this.entity]);
+        this.setFollowingButton(!!this.cache.followings[this.entity]);
 
         this.getProfile();
     }
@@ -313,14 +313,14 @@ function(HostApp, Core, Paths, URI) {
     Profile.prototype.toggleFollow = function() {
 
         var _this = this;
-        var callback = function(resp) { _this.followings.getAllFollowings(); debug(resp.responseText) };
+        var callback = function(resp) { _this.cache.getAllFollowings(); debug(resp.responseText) };
 
-        if (this.followings.followings[this.entity]) {
+        if (this.cache.followings[this.entity]) {
 
-            var url = URI(Paths.mkApiRootPath("/followings/" + this.followings.followings[this.entity].id));
+            var url = URI(Paths.mkApiRootPath("/followings/" + this.cache.followings[this.entity].id));
             Paths.getURL(url.toString(), "DELETE", callback);
             this.setFollowingButton(false);
-            delete this.followings.followings[this.entity];
+            delete this.cache.followings[this.entity];
 
         } else {
 

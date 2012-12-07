@@ -72,9 +72,9 @@ function(HostApp, Core, Paths, URI) {
             var url = URI(Paths.mkApiRootPath("/posts/" + id));
             Paths.getURL(url.toString(), "GET", callback, null);
 
-        } else if(this.followings.followings[entity]) {
+        } else if(this.cache.followings[entity]) {
 
-            getRemoteStatus(this.followings.followings[entity].profile);
+            getRemoteStatus(this.cache.followings[entity].profile);
 
         } else {
 

@@ -33,8 +33,8 @@ function(HostApp, Timeline) {
                 var status = statuses[i];
                 
                 var name;
-                if(this.followings.followings[status.entity]) {
-                    name = this.followings.followings[status.entity].profile["https://tent.io/types/info/basic/v0.1.0"].name;
+                if(this.cache.followings[status.entity]) {
+                    name = this.cache.followings[status.entity].profile["https://tent.io/types/info/basic/v0.1.0"].name;
                 }
                 
                 HostApp.notificateUserAboutMention(status.content.text, name || status.entity, status.id, status.entity);
