@@ -2,10 +2,11 @@ define([
     "helper/HostApp",
     "helper/Core",
     "helper/Paths",
-    "lib/URI"
+    "lib/URI",
+    "helper/Cache"
 ],
 
-function(HostApp, Core, Paths, URI) {
+function(HostApp, Core, Paths, URI, Cache) {
 
 
     function Conversation() {
@@ -66,15 +67,16 @@ function(HostApp, Core, Paths, URI) {
             Paths.getURL(URI(server + "/posts/" + id).toString(), "GET", callback, null, false);
         }
 
+        var profile = JSON.parse(Cache.profiles.getItem(entity));
 
         if (entity == HostApp.stringForKey("entity")) {
 
             var url = URI(Paths.mkApiRootPath("/posts/" + id));
             Paths.getURL(url.toString(), "GET", callback, null);
 
-        } else if(this.cache.followings[entity]) {
+        } else if(profile) {
 
-            getRemoteStatus(this.cache.followings[entity].profile);
+            getRemoteStatus(profile);
 
         } else {
 
@@ -82,11 +84,20 @@ function(HostApp, Core, Paths, URI) {
 
                 if (profile_url) {
 
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    var profile = JSON.parse(Cache.profiles.getItem(entity));
+                    if (profile) {
 
-                        getRemoteStatus(JSON.parse(resp.responseText));
+                        getRemoteStatus(profile);
 
-                    }, null, false); // do not send auth-headers
+                    } else {
+
+                        Paths.getURL(profile_url, "GET", function(resp) {
+
+                            Cache.profiles.setItem(entity, resp.responseText);
+                            getRemoteStatus(JSON.parse(resp.responseText));
+
+                        }, null, false); // do not send auth-headers
+                    }
                 }
             });
         }

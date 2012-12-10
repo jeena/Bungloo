@@ -1,9 +1,10 @@
 define([
     "helper/HostApp",
-    "controller/Timeline"
+    "controller/Timeline",
+    "helper/Cache"
 ],
 
-function(HostApp, Timeline) {
+function(HostApp, Timeline, Cache) {
 
 
     function Mentions() {
@@ -33,8 +34,9 @@ function(HostApp, Timeline) {
                 var status = statuses[i];
                 
                 var name;
-                if(this.cache.followings[status.entity]) {
-                    name = this.cache.followings[status.entity].profile["https://tent.io/types/info/basic/v0.1.0"].name;
+                var profile = JSON.parse(Cache.profiles.getItem(status.entity));
+                if(profile) {
+                    name = profile["https://tent.io/types/info/basic/v0.1.0"].name;
                 }
                 
                 HostApp.notificateUserAboutMention(status.content.text, name || status.entity, status.id, status.entity);

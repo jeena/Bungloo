@@ -11,8 +11,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     function Core() {
 
-        this.cache = new Cache();
-
     }
 
     Core.prototype.getTemplate = function() {
@@ -184,17 +182,17 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }
 
         template.username.innerText = status.entity;
-        template.username.href = status.entity; // FIXME open profile
+        template.username.href = status.entity;
         template.username.onclick = function() {
             HostApp.showProfileForEntity(status.entity);
             return false;
         }
 
-        var profile = function(profile) {
+        function profile(p) {
 
-            var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+            var basic = p["https://tent.io/types/info/basic/v0.1.0"];
 
-            if (profile && basic) {
+            if (p && basic) {
                 if(basic.name) {
                     template.username.title = template.username.innerText;
                     template.username.innerText = basic.name;
@@ -207,17 +205,25 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         }
 
-        if (this.cache.followings[status.entity]) {
+        var p = JSON.parse(Cache.profiles.getItem(status.entity));
 
-            profile(this.cache.followings[status.entity].profile);
+        if (p && p != "null") {
+            profile(p);
 
         } else {
 
             Paths.findProfileURL(status.entity, function(profile_url) {
+
                 if (profile_url) {
+
                     Paths.getURL(profile_url, "GET", function(resp) {
+
                         var p = JSON.parse(resp.responseText);
-                        profile(p)
+                        if (p && p != "null") {
+                            Cache.profiles.setItem(status.entity, resp.responseText);
+                            profile(p);
+                        }
+
                     }, null, false); // do not send auth-headers
                 }
             });            
@@ -234,15 +240,20 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 return false;
             }
 
-            if (this.cache.followings[status.__repost.entity]) {
+            var profile = JSON.parse(Cache.profiles.getItem(status.__repost.entity))
+            if (profile) {
 
-                var basic = this.cache.followings[status.__repost.entity].profile["https://tent.io/types/info/basic/v0.1.0"];
+                var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
                 template.reposted_by.innerText = basic.name;
+
             } else {
 
                 Paths.findProfileURL(status.__repost.entity, function(profile_url) {
                     if (profile_url) {
                         Paths.getURL(profile_url, "GET", function(resp) {
+
+                            Cache.profiles.setItem(status.__repost.entity, resp.responseText);
+
                             var p = JSON.parse(resp.responseText);
                             var profile = p["https://tent.io/types/info/basic/v0.1.0"];
                             if (profile && profile.name) {
@@ -350,24 +361,32 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var _this = this;
         var callback = function(resp) {
-            var status = JSON.parse(resp.responseText);
-            status.__repost = repost;
-            var li = _this.getStatusDOMElement(status);
-            before_node.parentNode.insertBefore(li, before_node);
+            if (resp.status >= 200 && resp.status < 300) {
+                var status = JSON.parse(resp.responseText);
+                status.__repost = repost;
+                var li = _this.getStatusDOMElement(status);
+                before_node.parentNode.insertBefore(li, before_node);                
+            }
         }
 
-        Paths.findProfileURL(repost.content.entity, function(profile_url) {
-            if (profile_url) {
+        var profile = JSON.parse(Cache.profiles.getItem(repost.content.entity));
+        if (profile && profile != "null") {
+            var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
+            Paths.getURL(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
+        } else {
+            Paths.findProfileURL(repost.content.entity, function(profile_url) {
+                if (profile_url) {
 
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                        Paths.getURL(profile_url, "GET", function(resp) {
 
-                        var profile = JSON.parse(resp.responseText);
-                        var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
-                        Paths.getURL(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
+                            var profile = JSON.parse(resp.responseText);
+                            var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
+                            Paths.getURL(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
 
-                    }, null, false); // do not send auth-headers
+                        }, null, false); // do not send auth-headers
                 }
-        })
+            })
+        }
     }
 
     Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, callback) {
@@ -583,15 +602,19 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     }
                 }
 
-                if (_this.cache.followings[mention.entity]) {
+                var p = JSON.parse(Cache.profiles.getItem(mention.entity));
+                if (p) {
 
-                    profile(_this.cache.followings[mention.entity].profile)
+                    profile(p);
 
                 } else {
 
                     Paths.findProfileURL(mention.entity, function(profile_url) {
                         if (profile_url) {
                             Paths.getURL(profile_url, "GET", function(resp) {
+
+                                Cache.profiles.setItem(mention.entity, resp.responseText);
+
                                 var p = JSON.parse(resp.responseText);
                                 profile(p)
                             }, null, false); // do not send auth-headers

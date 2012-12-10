@@ -2,10 +2,11 @@ define([
     "helper/HostApp",
     "helper/Core",
     "helper/Paths",
-    "lib/URI"
+    "lib/URI",
+    "helper/Cache"
 ],
 
-function(HostApp, Core, Paths, URI) {
+function(HostApp, Core, Paths, URI, Cache) {
 
 
     function Profile() {
@@ -15,6 +16,8 @@ function(HostApp, Core, Paths, URI) {
         this.action = "profile";
 
         this.initProfileTemplate();
+
+        //setTimeout(Cache.getFollowings, 1000 * 60 * 5);
     }
 
     Profile.prototype = Object.create(Core.prototype);
@@ -26,7 +29,7 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.entity.innerHTML = this.entity;
         this.profile_template.entity.href = this.entity;
 
-        this.setFollowingButton(!!this.cache.followings[this.entity]);
+        this.setFollowingButton(!!Cache.followings.getItem(this.entity));
 
         this.getProfile();
     }
@@ -153,17 +156,25 @@ function(HostApp, Core, Paths, URI) {
             this.profile_template.following_button.style.display = "none";
         }
 
-        Paths.findProfileURL(this.entity, function(profile_url) {
+        var profile = JSON.parse(Cache.profiles.getItem(this.entity));
+        if (profile && profile != "null") {
 
-            if (profile_url) {
+            this.showProfile(profile);
 
-                Paths.getURL(profile_url, "GET", function(resp) {
+        } else {
+            Paths.findProfileURL(this.entity, function(profile_url) {
 
-                    _this.showProfile(JSON.parse(resp.responseText));
+                if (profile_url) {
 
-                }, null, false); // do not send auth-headers
-            }
-        });
+                    Paths.getURL(profile_url, "GET", function(resp) {
+
+                        _this.showProfile(JSON.parse(resp.responseText));
+
+                    }, null, false); // do not send auth-headers
+                }
+            });
+
+        }
     }
 
     Profile.prototype.showProfile = function(profile) {
@@ -313,21 +324,26 @@ function(HostApp, Core, Paths, URI) {
     Profile.prototype.toggleFollow = function() {
 
         var _this = this;
-        var callback = function(resp) { _this.cache.getAllFollowings(); debug(resp.responseText) };
 
-        if (this.cache.followings[this.entity]) {
-
-            var url = URI(Paths.mkApiRootPath("/followings/" + this.cache.followings[this.entity].id));
-            Paths.getURL(url.toString(), "DELETE", callback);
-            this.setFollowingButton(false);
-            delete this.cache.followings[this.entity];
+        var following = Cache.followings.getItem(this.entity);
+        if (following) {
+            var url = URI(Paths.mkApiRootPath("/followings/" + following.id));
+            Paths.getURL(url.toString(), "DELETE", function(resp) {
+                if (resp.status >= 200 && resp.status < 300) {
+                    Cache.followings.removeItem(_this.entity);
+                    _this.setFollowingButton(false);
+                }
+            });
 
         } else {
 
             var url = URI(Paths.mkApiRootPath("/followings"));
             var data = JSON.stringify({"entity": this.entity });
-            Paths.getURL(url.toString(), "POST", callback, data);
-            this.setFollowingButton(true);
+            Paths.getURL(url.toString(), "POST", function(resp) {
+                debug(resp.responseText)
+                Cache.followings.setItem(_this.entity, resp.responseText);
+                _this.setFollowingButton(true);
+            }, data);
         }
     }
 
