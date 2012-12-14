@@ -3,3 +3,4 @@ Mac/Tentia.xcodeproj/project.xcworkspace/xcuserdata/jeena.xcuserdatad/UserInterf
 dsa_priv.pem
 *.pyc
 Mac/.DS_Store
+build

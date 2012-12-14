@@ -294,23 +294,35 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
+                debug(status.attachments)
+
             for (var i = 0; i < status.attachments.length; i++) {
                 // closure needed for the callback
                 (function() {
+                    
                     var attachment = status.attachments[i];
-                    var img = new Image();
-                    img.className = "photo";
-                    template.images.append(img);
 
-                    var url = Paths.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
+                    var img = new Image();
+
+                    img.className = "photo";
+                    template.images.appendChild(img);
 
                     var callback = function(resp) {
-                        img.src = "data:image/png;base64," + resp.responseText;
-                    }                    
-                })();
+                        img.src = "data:" + attachment.type + ";base64," + resp.responseText;
+                    }
 
-                Paths.getURL(url.toString(), "GET", callback, null, null, attachment.type);
-            };
+                    if (status.entity == HostApp.stringForKey("entity")) {
+                        var url = Paths.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
+                        Paths.getURL(url, "GET", callback, null, null, attachment.type);
+                    } else {
+                        Paths.findProfileURL(status.entity, function(profile_url) {
+                            var url = profile_url + "/posts/" + status.id + "/attachments/" + attachment.name;
+                            debug(url)
+                            Paths.getURL(url, "GET", callback, null, null, attachment.type);
+                        });
+                    }
+                })();
+            }
         }
 
         this.findMentions(template.message, status.mentions);

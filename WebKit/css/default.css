@@ -137,7 +137,7 @@ p {
 
 .images img.photo {
 	max-width: 100%;
-	max-height: auto;
+	max-height: inherit;
 	margin-right: 0;
 	border-radius: 3px;
 	box-shadow: 0 0 1px black;
