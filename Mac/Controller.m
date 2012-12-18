@@ -473,6 +473,7 @@
     NSString *js = [NSString stringWithFormat:@"tentia_instance.showStatus('%@', '%@');", postId, entity];
     [conversationView stringByEvaluatingJavaScriptFromString:js];
     [conversationViewWindow makeKeyAndOrderFront:self];
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 
 - (IBAction)showProfileForEntity:(NSString *)entity
