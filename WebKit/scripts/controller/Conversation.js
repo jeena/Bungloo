@@ -56,9 +56,11 @@ function(HostApp, Core, Paths, URI, Cache) {
                 _this.appendMentioned(id, entity, dom_element);
             }
 
-
-            if (status.mentions && status.mentions.length > 0 && status.mentions[0].post) {
-                _this.append(status.mentions[0].post, status.mentions[0].entity, dom_element);
+            for (var i = 0; i < status.mentions.length; i++) {
+                var mention = status.mentions[i];
+                if(mention.post) {
+                    _this.append(mention.post, mention.entity, dom_element);
+                }
             }
         }
 
