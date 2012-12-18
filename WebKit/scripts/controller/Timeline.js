@@ -106,6 +106,7 @@ function(Core, Paths, HostApp, URI) {
             those.reload_blocked = false;
 
             try {
+
                 var json = JSON.parse(resp.responseText)
                 those.newStatus(json);
 

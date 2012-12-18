@@ -1,22 +1,29 @@
 define([
-    "helper/Paths",
     "lib/URI",
-    "helper/CacheStorage"
+    "helper/CacheStorage",
+    "require"
 ],
 
-function(Paths, URI, CacheStorage) {
+function(URI, CacheStorage, require) {
 
-    var Cache = {};
+    function Cache() {
+        this.timeout = 2 * 60 * 1000;
+        this.followings_before_id = null;
+        this.intervall = null;
 
-    var timeout = 2 * 60 * 1000;
-    var followings_before_id = null;
+        //this.clear()
 
-    Cache.followings = new CacheStorage("followings");
-    Cache.profiles = new CacheStorage("profiles");
-    Cache.profile_urls = new CacheStorage("profile_urls");
+        this.followings = new CacheStorage("followings");
+        this.profiles = new CacheStorage("profiles");
+        this.profile_urls = new CacheStorage("profile_urls");
+    }
 
+    Cache.prototype.clear = function() {
+        localStorage.clear();
+    }
 
-    Cache.getFollowings = function() {
+    Cache.prototype.getFollowings = function() {
+        var _this = this;
         function callback(resp) {
 
             var fs = JSON.parse(resp.responseText)
@@ -26,25 +33,30 @@ function(Paths, URI, CacheStorage) {
             for (var i = 0; i < fs.length; i++) {
 
                 var following = fs[i];
-                followings_before_id = following.id;
+                this.followings_before_id = following.id;
 
-                Cache.followings.setItem(following.entity, following)
-                Cache.profiles.setItem(following.entity, following);
+                _this.followings.setItem(following.entity, following)
+                _this.profiles.setItem(following.entity, following);
             }
         }
 
-        var u = Paths.mkApiRootPath("/followings");
-
-        var url = URI(u);
-        if (followings_before_id) {
-            url.addSearch("before_id", followings_before_id);
+        var url = URI(require("helper/Paths").mkApiRootPath("/followings"));
+        if (this.followings_before_id) {
+            url.addSearch("before_id", this.followings_before_id);
         }
 
-        Paths.getURL(url, "GET", callback);
+        require("helper/Paths").getURL(url, "GET", callback);
+    }
+
+    Cache.prototype.periodicallyGetFollowings = function() {
+        this.getFollowings();
+        this.intervall = setInterval(this.getFollowings, this.timeout);
+    }
+
+    Cache.prototype.stopGettingFollowings = function() {
+        clearTimeout(this.intervall);
     }
     
-    // setTimeout(function(){ Cache.getAllFollowings() }, timeout);
-
     return Cache;
 
 });

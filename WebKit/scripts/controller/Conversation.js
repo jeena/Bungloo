@@ -2,11 +2,10 @@ define([
     "helper/HostApp",
     "helper/Core",
     "helper/Paths",
-    "lib/URI",
-    "helper/Cache"
+    "lib/URI"
 ],
 
-function(HostApp, Core, Paths, URI, Cache) {
+function(HostApp, Core, Paths, URI) {
 
 
     function Conversation() {
@@ -69,7 +68,7 @@ function(HostApp, Core, Paths, URI, Cache) {
             Paths.getURL(URI(server + "/posts/" + id).toString(), "GET", callback, null, false);
         }
 
-        var profile = JSON.parse(Cache.profiles.getItem(entity));
+        var profile = this.cache.profiles.getItem(entity);
 
         if (entity == HostApp.stringForKey("entity")) {
 
@@ -86,7 +85,7 @@ function(HostApp, Core, Paths, URI, Cache) {
 
                 if (profile_url) {
 
-                    var profile = JSON.parse(Cache.profiles.getItem(entity));
+                    var profile = this.cache.profiles.getItem(entity);
                     if (profile) {
 
                         getRemoteStatus(profile);
@@ -95,8 +94,9 @@ function(HostApp, Core, Paths, URI, Cache) {
 
                         Paths.getURL(profile_url, "GET", function(resp) {
 
-                            Cache.profiles.setItem(entity, resp.responseText);
-                            getRemoteStatus(JSON.parse(resp.responseText));
+                            var profile = JSON.parse(resp.responseText)
+                            this.cache.profiles.setItem(entity, profile);
+                            getRemoteStatus(profile);
 
                         }, null, false); // do not send auth-headers
                     }

@@ -2,11 +2,10 @@ define([
     "helper/HostApp",
     "helper/Core",
     "helper/Paths",
-    "lib/URI",
-    "helper/Cache"
+    "lib/URI"
 ],
 
-function(HostApp, Core, Paths, URI, Cache) {
+function(HostApp, Core, Paths, URI) {
 
 
     function Profile() {
@@ -16,8 +15,6 @@ function(HostApp, Core, Paths, URI, Cache) {
         this.action = "profile";
 
         this.initProfileTemplate();
-
-        //setTimeout(Cache.getFollowings, 1000 * 60 * 5);
     }
 
     Profile.prototype = Object.create(Core.prototype);
@@ -26,12 +23,12 @@ function(HostApp, Core, Paths, URI, Cache) {
 
         this.clear();
         this.entity = entity;
+        this.following = null;
+        this.following_id = null;
         this.profile_template.entity.innerHTML = this.entity;
         this.profile_template.entity.href = this.entity;
 
-        this.setFollowingButton(!!Cache.followings.getItem(this.entity));
-
-        this.getProfile();
+        this.getFollowing();
     }
 
     Profile.prototype.initProfileTemplate = function() {
@@ -156,7 +153,7 @@ function(HostApp, Core, Paths, URI, Cache) {
             this.profile_template.following_button.style.display = "none";
         }
 
-        var profile = JSON.parse(Cache.profiles.getItem(this.entity));
+        var profile = this.cache.profiles.getItem(this.entity);
         if (profile && profile != "null") {
 
             this.showProfile(profile);
@@ -175,6 +172,23 @@ function(HostApp, Core, Paths, URI, Cache) {
             });
 
         }
+    }
+
+    Profile.prototype.getFollowing = function() {
+        var url = Paths.mkApiRootPath("/followings") + "/" + encodeURIComponent(this.entity);
+        var _this = this;
+        Paths.getURL(url, "GET", function(resp) {
+            if (resp.status >= 200 && resp.status < 400) {
+                var following = JSON.parse(resp.responseText);
+                _this.following_id = following.id
+                _this.setFollowingButton(true);
+                _this.showProfile(following.profile);
+            } else {
+                _this.setFollowingButton(false);
+                _this.following_id = null;
+                _this.getProfile();
+            }
+        })
     }
 
     Profile.prototype.showProfile = function(profile) {
@@ -311,7 +325,9 @@ function(HostApp, Core, Paths, URI, Cache) {
     }
 
     Profile.prototype.setFollowingButton = function(following) {
-        
+
+        this.following = following;
+
         if (following) {
             this.profile_template.following_button.className = "following";
             this.profile_template.following_button.innerText = "Unfollow";
@@ -325,24 +341,31 @@ function(HostApp, Core, Paths, URI, Cache) {
 
         var _this = this;
 
-        var following = Cache.followings.getItem(this.entity);
-        if (following) {
-            var url = URI(Paths.mkApiRootPath("/followings/" + following.id));
-            Paths.getURL(url.toString(), "DELETE", function(resp) {
+        if (this.following_id) {
+            
+            this.setFollowingButton(false);
+            var url = Paths.mkApiRootPath("/followings/") + this.following_id;
+            Paths.getURL(url, "DELETE", function(resp) {
                 if (resp.status >= 200 && resp.status < 300) {
-                    Cache.followings.removeItem(_this.entity);
                     _this.setFollowingButton(false);
+                    _this.following_id = null;
+                } else {
+                    _this.setFollowingButton(true);
                 }
             });
 
         } else {
 
+            this.setFollowingButton(true);
             var url = URI(Paths.mkApiRootPath("/followings"));
             var data = JSON.stringify({"entity": this.entity });
             Paths.getURL(url.toString(), "POST", function(resp) {
-                debug(resp.responseText)
-                Cache.followings.setItem(_this.entity, resp.responseText);
-                _this.setFollowingButton(true);
+                if (resp.status >= 200 && resp.status < 300) {
+                    _this.following_id = JSON.parse(resp.responseText).id
+                    _this.setFollowingButton(true);
+                } else {
+                    _this.setFollowingButton(false);
+                }
             }, data);
         }
     }

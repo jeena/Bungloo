@@ -8,6 +8,8 @@ define([
 function(jQuery, HostApp, Hmac, Cache) {
     var Paths = {};
 
+    Paths.cache = new Cache();
+
     Paths.getUrlVars = function(url) {
         var vars = [], hash;
         if(url.indexOf("#") > -1) url = url.slice(0, url.indexOf("#"));
@@ -104,7 +106,7 @@ function(jQuery, HostApp, Hmac, Cache) {
 
     Paths.findProfileURL = function(entity, callback, errorCallback) {
 
-        var profile_url = Cache.profile_urls.getItem(entity);
+        var profile_url = Paths.cache.profile_urls.getItem(entity);
 
         if (profile_url && profile_url != "null") {
 
@@ -129,7 +131,7 @@ function(jQuery, HostApp, Hmac, Cache) {
                         }
 
                         if (profile_url) {
-                            Cache.profile_urls.setItem(entity, profile_url);
+                            Paths.cache.profile_urls.setItem(entity, profile_url);
                             callback(profile_url);
                         } else {
                             if(errorCallback) errorCallback(entity + " has no profile URL");

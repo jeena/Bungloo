@@ -10,7 +10,7 @@ define([
 function(jQuery, Paths, URI, HostApp, Cache) {
 
     function Core() {
-
+        this.cache = new Cache();
     }
 
     Core.prototype.getTemplate = function() {
@@ -188,7 +188,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             return false;
         }
 
-        function profile(p) {
+        var profile_callback = function(p) {
 
             var basic = p["https://tent.io/types/info/basic/v0.1.0"];
 
@@ -205,10 +205,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         }
 
-        var p = JSON.parse(Cache.profiles.getItem(status.entity));
+        var p = this.cache.profiles.getItem(status.entity);
 
         if (p && p != "null") {
-            profile(p);
+            profile_callback(p);
 
         } else {
 
@@ -220,8 +220,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
                         var p = JSON.parse(resp.responseText);
                         if (p && p != "null") {
-                            Cache.profiles.setItem(status.entity, resp.responseText);
-                            profile(p);
+                            _this.cache.profiles.setItem(status.entity, p);
+                            profile_callback(p);
                         }
 
                     }, null, false); // do not send auth-headers
@@ -240,26 +240,29 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 return false;
             }
 
-            var profile = JSON.parse(Cache.profiles.getItem(status.__repost.entity))
-            if (profile) {
+            var repost_profile = this.cache.profiles.getItem(status.__repost.entity)
+            if (repost_profile) {
 
-                var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
-                template.reposted_by.innerText = basic.name;
+                var basic = repost_profile["https://tent.io/types/info/basic/v0.1.0"];
+                if (basic) {
+                    template.reposted_by.innerText = basic.name;
+                }
 
             } else {
 
                 Paths.findProfileURL(status.__repost.entity, function(profile_url) {
                     if (profile_url) {
                         Paths.getURL(profile_url, "GET", function(resp) {
+                            if (resp.status >= 200 && resp.status < 400) {
+                                var _p = JSON.parse(resp.responseText);
+                                _this.cache.profiles.setItem(status.__repost.entity, _p);
 
-                            Cache.profiles.setItem(status.__repost.entity, resp.responseText);
+                                var basic = _p["https://tent.io/types/info/basic/v0.1.0"];
+                                if (basic && basic.name) {
+                                    template.reposted_by.innerText = basic.name;
+                                }
 
-                            var p = JSON.parse(resp.responseText);
-                            var profile = p["https://tent.io/types/info/basic/v0.1.0"];
-                            if (profile && profile.name) {
-                                template.reposted_by.innerText = profile.name;
                             }
-
                         }, null, false); // do not send auth-headers
                     }
                 });  
@@ -294,8 +297,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
-                debug(status.attachments)
-
             for (var i = 0; i < status.attachments.length; i++) {
                 // closure needed for the callback
                 (function() {
@@ -315,11 +316,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                         var url = Paths.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
                         Paths.getURL(url, "GET", callback, null, null, attachment.type);
                     } else {
-                        Paths.findProfileURL(status.entity, function(profile_url) {
-                            var url = profile_url + "/posts/" + status.id + "/attachments/" + attachment.name;
-                            debug(url)
-                            Paths.getURL(url, "GET", callback, null, null, attachment.type);
-                        });
+                        var url = Paths.mkApiRootPath("/posts/" + encodeURIComponent(status.entity) + "/" + status.id + "/attachments/" + attachment.name);
+                        Paths.getURL(url, "GET", callback, null, null, attachment.type);
                     }
                 })();
             }
@@ -381,7 +379,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             }
         }
 
-        var profile = JSON.parse(Cache.profiles.getItem(repost.content.entity));
+        var profile = this.cache.profiles.getItem(repost.content.entity);
         if (profile && profile != "null") {
             var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
             Paths.getURL(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
@@ -614,7 +612,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     }
                 }
 
-                var p = JSON.parse(Cache.profiles.getItem(mention.entity));
+                var p = _this.cache.profiles.getItem(mention.entity);
                 if (p) {
 
                     profile(p);
@@ -624,11 +622,11 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     Paths.findProfileURL(mention.entity, function(profile_url) {
                         if (profile_url) {
                             Paths.getURL(profile_url, "GET", function(resp) {
-
-                                Cache.profiles.setItem(mention.entity, resp.responseText);
-
-                                var p = JSON.parse(resp.responseText);
-                                profile(p)
+                                if (resp.status >= 200 && resp.status < 400) {
+                                    var p = JSON.parse(resp.responseText);
+                                    _this.cache.profiles.setItem(mention.entity, p);
+                                    profile(p)                                    
+                                }
                             }, null, false); // do not send auth-headers
                         }
                     });

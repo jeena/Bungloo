@@ -16,13 +16,13 @@ function() {
     };
 
     CacheStorage.prototype.getItem = function(key) {
-        return localStorage.getItem(this.mkPath(key));
+        return JSON.parse(localStorage.getItem(this.mkPath(key)));
     }
 
     CacheStorage.prototype.setItem = function(key, value) {
         var item = this.getItem(key);
 
-        localStorage.setItem(this.mkPath(key), value);
+        localStorage.setItem(this.mkPath(key), JSON.stringify(value));
 
         if (!item) {
             var length_path = this.mkInternalPath("_length");
