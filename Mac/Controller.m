@@ -476,6 +476,11 @@
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 
+- (IBAction)clearCache:(id)sender
+{
+    [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.cache.clear()"];
+}
+
 - (IBAction)showProfileForEntity:(NSString *)entity
 {
     NSString *js = [NSString stringWithFormat:@"tentia_instance.showProfileForEntity('%@');", entity];

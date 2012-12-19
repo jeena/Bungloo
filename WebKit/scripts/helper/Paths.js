@@ -25,13 +25,13 @@ function(jQuery, HostApp, Hmac, Cache) {
 
     Paths.getURL = function(url, http_method, callback, data, auth_header, accepts) {
 
-        accepts = accepts || "application/vnd.tent.v0+json";
+        if(accepts !== false) accepts = accepts || "application/vnd.tent.v0+json; charset=utf-8";
 
-        jQuery.ajax({
+        var options = {
 
             beforeSend: function(xhr) {
 
-                xhr.setRequestHeader("Accept", accepts);
+                if(accepts !== false) xhr.setRequestHeader("Accept", accepts);
 
                 if (data) xhr.setRequestHeader("Content-Length", data.length);
 
@@ -64,7 +64,9 @@ function(jQuery, HostApp, Hmac, Cache) {
             error: function(xhr, ajaxOptions, thrownError) {
                 console.error("getURL (" + xhr.status + ")" + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
             }
-        });
+        }
+
+        jQuery.ajax(options);
     }
 
     Paths.postMultipart = function(url, callback, data, boundary, accepts) {
@@ -105,7 +107,6 @@ function(jQuery, HostApp, Hmac, Cache) {
     }
 
     Paths.findProfileURL = function(entity, callback, errorCallback) {
-
         var profile_url = Paths.cache.profile_urls.getItem(entity);
 
         if (profile_url && profile_url != "null") {
@@ -134,7 +135,31 @@ function(jQuery, HostApp, Hmac, Cache) {
                             Paths.cache.profile_urls.setItem(entity, profile_url);
                             callback(profile_url);
                         } else {
-                            if(errorCallback) errorCallback(entity + " has no profile URL");
+                            Paths.getURL(entity, "GET", function(resp) {
+
+                                if (resp.status >= 200 && resp.status < 300) {
+                                    var div = document.createElement("div");
+                                    div.innerHTML = resp.responseText;
+                                    var links = $(div).find("link[rel='https://tent.io/rels/profile']");
+
+                                    if (links.length > 0) {
+                                        var href = links.get(0).href;
+                                        Paths.cache.profile_urls.setItem(entity, href);
+                                        if (!href.startsWith("http")) {
+                                            href = entity + "/profile";
+                                        }
+                                        callback(href);
+
+                                    } else {
+                                        if(errorCallback) errorCallback(entity + " has no profile URL");
+                                    }
+                                } else {
+                                    if(errorCallback) errorCallback(entity + " has no profile URL");
+                                }
+
+                            }, null, false, false);
+
+                            //if(errorCallback) errorCallback(entity + " has no profile URL");
                         }
                     }
                 },

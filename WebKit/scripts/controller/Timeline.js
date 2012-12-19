@@ -91,6 +91,7 @@ function(Core, Paths, HostApp, URI) {
         url.addSearch("post_types", post_types.join(","));
 
         url.addSearch("limit", this.max_length);
+
         if(this.since_id) {
             url.addSearch("since_id", this.since_id);
             url.addSearch("since_id_entity", this.since_id_entity);
@@ -119,6 +120,7 @@ function(Core, Paths, HostApp, URI) {
         var data = null;
 
         if (HostApp.stringForKey("user_access_token")) {
+
             if (!this.reload_blocked) {
                 this.reload_blocked = true;
                 Paths.getURL(url.toString(), http_method, callback, data); // FIXME: error callback

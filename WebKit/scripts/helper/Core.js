@@ -183,6 +183,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         template.username.innerText = status.entity;
         template.username.href = status.entity;
+        template.username.title = status.entity;
         template.username.onclick = function() {
             HostApp.showProfileForEntity(status.entity);
             return false;
@@ -208,6 +209,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         var p = this.cache.profiles.getItem(status.entity);
 
         if (p && p != "null") {
+
             profile_callback(p);
 
         } else {
@@ -215,9 +217,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             Paths.findProfileURL(status.entity, function(profile_url) {
 
                 if (profile_url) {
-
                     Paths.getURL(profile_url, "GET", function(resp) {
-
                         var p = JSON.parse(resp.responseText);
                         if (p && p != "null") {
                             _this.cache.profiles.setItem(status.entity, p);
@@ -371,7 +371,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var _this = this;
         var callback = function(resp) {
-            if (resp.status >= 200 && resp.status < 300) {
+            if (resp.status >= 200 && resp.status < 300 && before_node) {
                 var status = JSON.parse(resp.responseText);
                 status.__repost = repost;
                 var li = _this.getStatusDOMElement(status);
@@ -522,6 +522,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         if (confirm("Really delete this post?")) {
             var url = URI(Paths.mkApiRootPath("/posts/" + id));
+
             Paths.getURL(url.toString(), "DELETE", callback);
         }
     }
@@ -595,20 +596,24 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
 
                     if (profile && basic) {
-                        if(basic.name) {
-                            var new_text = node.innerHTML.replace(
-                                mention.text, 
-                                "<a href='" + mention.entity + "' class='name' title='" + mention.entity + "'>"
-                                + basic.name
-                                + "</a>"
-                            );
-
-                            node.innerHTML = new_text;
-                            $(node).find("a.name").click(function(e) {
-                                HostApp.showProfileForEntity(e.target.title);
-                                return false;
-                            });
+                        var name = mention.text;
+                        if (basic.name) {
+                            name = basic.name;
                         }
+
+                        var new_text = node.innerHTML.replace(
+                            mention.text, 
+                            "<a href='" + mention.entity + "' class='name' title='" + mention.entity + "'>"
+                            + name
+                            + "</a>"
+                        );
+
+                        node.innerHTML = new_text;
+                        $(node).find("a.name").click(function(e) {
+                            HostApp.showProfileForEntity(e.target.title);
+                            return false;
+                        });
+
                     }
                 }
 

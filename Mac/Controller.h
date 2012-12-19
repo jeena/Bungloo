@@ -81,6 +81,7 @@
 
 - (IBAction)showConversationForPostId:(NSString *)postId andEntity:(NSString *)entity;
 
+- (IBAction)clearCache:(id)sender;
 
 OSStatus handler(EventHandlerCallRef nextHandler, EventRef theEvent, void* userData);
 
