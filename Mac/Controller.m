@@ -296,11 +296,12 @@
 	[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];	
 }
 
-- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string
+- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string isPrivate:(BOOL)isPrivate
 {
 	[NSApp activateIgnoringOtherApps:YES]; 
-	NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
-	[newTweet inReplyTo:userName statusId:statusId withString:string];
+	NewMessageWindow *newMessage = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+	[newMessage inReplyTo:userName statusId:statusId withString:string];
+    [newMessage setIsPrivate:isPrivate];
 }
 
 - (void)openNewMessageWindowWithString:(NSString *)aString
@@ -347,12 +348,18 @@
         imageFilePath = [NSString stringWithFormat:@"\"data:%@;base64,%@\"", mimeType, base64];
     }
     
-    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@)",
+    NSString *isPrivate = @"false";
+    if (post.isPrivate) {
+        isPrivate = @"true";
+    }
+    
+    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@, %@)",
                       text,
                       post.inReplyTostatusId,
                       post.inReplyToEntity,
                       locationObject,
-                      imageFilePath];
+                      imageFilePath,
+                      isPrivate];
 
     [timelineView stringByEvaluatingJavaScriptFromString:func];
 }

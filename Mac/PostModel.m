@@ -11,7 +11,7 @@
 
 @implementation PostModel
 
-@synthesize text, inReplyTostatusId, inReplyToEntity, location, imageFilePath;
+@synthesize text, inReplyTostatusId, inReplyToEntity, location, imageFilePath, isPrivate;
 
 - (void)dealloc
 {

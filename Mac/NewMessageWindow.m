@@ -23,6 +23,7 @@
 @synthesize textField, counter;
 @synthesize locationManager, currentLocation;
 @synthesize imageFilePath;
+@synthesize togglePrivateButton;
 
 - (void)dealloc
 {
@@ -159,6 +160,21 @@
     [NSMenu popUpContextMenu:self.addMenu withEvent:event forView:self.addMenuButton];
 }
 
+- (IBAction)togglePrivate:(id)sender
+{
+    NSImage *image = [NSImage imageNamed:NSImageNameLockLockedTemplate];
+    if (self.togglePrivateButton.image == [NSImage imageNamed:NSImageNameLockLockedTemplate])
+    {
+        image = [NSImage imageNamed:NSImageNameLockUnlockedTemplate];
+    }
+    [self.togglePrivateButton setImage:image];
+}
+
+- (void)setIsPrivate:(BOOL)isPrivate {
+    NSImage *image = [NSImage imageNamed:(isPrivate ? NSImageNameLockLockedTemplate : NSImageNameLockUnlockedTemplate)];
+    [self.togglePrivateButton setImage:image];
+}
+
 -(void)controlTextDidChange:(NSNotification *)aNotification {
 	NSInteger c =  MESSAGE_MAX_LENGTH - [[textField stringValue] length];
 	[counter setIntValue:c];
@@ -207,6 +223,7 @@
         post.inReplyToEntity = inReplyToEntity;
         post.location = self.currentLocation;
         post.imageFilePath = self.imageFilePath;
+        post.isPrivate = self.togglePrivateButton.image == [NSImage imageNamed:NSImageNameLockLockedTemplate];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"sendTweet" object:post];
 		[self close];
 	} else {

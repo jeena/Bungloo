@@ -128,10 +128,10 @@ function(Core, Paths, HostApp, URI) {
         }
     }
 
-    Timeline.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri) {
+    Timeline.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private) {
         var _this = this;
         var callback = function(data) { _this.getNewData(); }
-        Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, callback);
+        Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback);
     }
 
     Timeline.prototype.remove = function(id) {

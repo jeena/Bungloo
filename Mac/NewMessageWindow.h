@@ -23,6 +23,7 @@
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
     NSString *imageFilePath;
+    NSButton *togglePrivateButton;
 }
 
 @property (nonatomic, retain) IBOutlet NSTextField *textField;
@@ -32,6 +33,7 @@
 @property (retain, nonatomic) CLLocationManager *locationManager;
 @property (retain, nonatomic) CLLocation *currentLocation;
 @property (retain, nonatomic) NSString *imageFilePath;
+@property (assign) IBOutlet NSButton *togglePrivateButton;
 
 - (IBAction)sendPost:(NSControl *)control;
 - (void)inReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;
@@ -39,5 +41,7 @@
 - (IBAction)addCurrentLocation:(id)sender;
 - (IBAction)addImage:(id)sender;
 - (IBAction)openAddMenu:(id)sender;
+- (IBAction)togglePrivate:(id)sender;
+- (void)setIsPrivate:(BOOL)isPrivate;
 
 @end

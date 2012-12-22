@@ -69,12 +69,12 @@ define(function() {
         }
     }
 
-    HostApp.openNewMessageWidow = function(entity, status_id, string) {
+    HostApp.openNewMessageWidow = function(entity, status_id, string, is_private) {
 
         if (OS_TYPE == "mac") {
-            controller.openNewMessageWindowInReplyTo_statusId_withString_(entity, status_id, string);
+            controller.openNewMessageWindowInReplyTo_statusId_withString_isPrivate_(entity, status_id, string, is_private);
         } else {
-            controller.openNewMessageWindowInReplyTostatusIdwithString(entity, status_id, string);
+            controller.openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(entity, status_id, string, is_private);
         }
     }
 

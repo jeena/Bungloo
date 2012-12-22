@@ -15,6 +15,7 @@
     NSString *inReplyToEntity;
     CLLocation *location;
     NSString *imageFilePath;
+    BOOL isPrivate;
 }
 
 @property (nonatomic, retain) NSString *text;
@@ -22,5 +23,6 @@
 @property (nonatomic, retain) NSString *inReplyToEntity;
 @property (nonatomic, retain) CLLocation *location;
 @property (nonatomic, retain) NSString *imageFilePath;
+@property (nonatomic) BOOL isPrivate;
 
 @end

@@ -61,7 +61,7 @@
 - (void)initWebViews;
 - (void)initHotKeys;
 - (void)alertTitle:(NSString *)title withMessage:(NSString *)message;
-- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;
+- (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string isPrivate:(BOOL)isPrivate;
 - (NSString *)pluginURL;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)unreadMentions:(int)count;

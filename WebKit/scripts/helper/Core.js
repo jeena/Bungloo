@@ -171,7 +171,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     mentions.push(mention);
             }
 
-            _this.replyTo(status.entity, status.id, mentions);
+            _this.replyTo(status.entity, status.id, mentions, (status && status.permissions && !status.permissions.public));
             return false;
         }
 
@@ -399,11 +399,11 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }
     }
 
-    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, callback) {
+    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, is_private, callback) {
 
         if (image_file_path) {
 
-            this.sendNewMessageWithImage(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, callback);
+            this.sendNewMessageWithImage(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, is_private, callback);
 
         } else {
 
@@ -415,7 +415,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 "type": "https://tent.io/types/post/status/v0.1.0",
                 "published_at": parseInt(new Date().getTime() / 1000, 10),
                 "permissions": {
-                    "public": true
+                    "public": !is_private
                 },
                 "content": {
                     "text": content,
@@ -430,6 +430,15 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
             if (mentions.length > 0) {
                 data["mentions"] = mentions;
+                if (is_private) {
+                    var entities = {};
+                    for (var i = 0; i < mentions.length; i++) {
+                        var entity = mentions[i]["entity"]
+                        entities[entity] = true;
+                    };
+
+                    data["permissions"]["entities"] = entities;
+                }
             }
 
             Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data));
@@ -708,7 +717,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         return text.replace(hash, "$1$2<a href='https://skate.io/search?q=%23$3'>$3</a>");
     }
 
-    Core.prototype.replyTo = function(entity, status_id, mentions) {        
+    Core.prototype.replyTo = function(entity, status_id, mentions, is_private) {        
 
         var string = "^" + entity.replace("https://", "") + " ";
         for (var i = 0; i < mentions.length; i++) {
@@ -716,7 +725,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
           if(string.indexOf(e) == -1) string += "^" + e + " ";
         }
 
-        HostApp.openNewMessageWidow(entity, status_id, string);
+        HostApp.openNewMessageWidow(entity, status_id, string, is_private);
     }
 
     return Core;

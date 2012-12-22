@@ -138,9 +138,9 @@ function(jQuery, HostApp, Hmac, Cache) {
                             Paths.getURL(entity, "GET", function(resp) {
 
                                 if (resp.status >= 200 && resp.status < 300) {
-                                    var div = document.createElement("div");
-                                    div.innerHTML = resp.responseText;
-                                    var links = $(div).find("link[rel='https://tent.io/rels/profile']");
+                                    var doc = document.implementation.createHTMLDocument("");
+                                    doc.documentElement.innerHTML = resp.responseText;
+                                    var links = $(doc).find("link[rel='https://tent.io/rels/profile']");
 
                                     if (links.length > 0) {
                                         var href = links.get(0).href;

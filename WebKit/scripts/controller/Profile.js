@@ -71,7 +71,7 @@ function(HostApp, Core, Paths, URI) {
             if (e.startsWith("https://")) {
                 e = e.substr(8, e.length);
             }
-            HostApp.openNewMessageWidow(null, null, "^" + e + " ");
+            HostApp.openNewMessageWidow(null, null, "^" + e + " ", false);
         }
         div.appendChild(this.profile_template.mention_button);
         this.profile_template.mention_button.innerHTML = "Mention";
