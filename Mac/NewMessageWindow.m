@@ -102,7 +102,15 @@
 - (void)inReplyTo:(NSString *)entity statusId:(NSString *)statusId withString:(NSString *)string
 {
 	[textField setStringValue:string];
-	NSRange range = {[[textField stringValue] length] , 0};
+    
+    NSInteger location = [string rangeOfString:@" "].location;
+    NSInteger length = 0;
+    if (location != NSNotFound) {
+        length = [[textField stringValue] length] -  location - 1;
+    }
+    
+    
+	NSRange range = {location + 1, length};
 	[[textField currentEditor] setSelectedRange:range];
     
 	[inReplyTostatusId release];
@@ -121,6 +129,7 @@
 	[textField setStringValue:aString];
 	NSRange range = {[[textField stringValue] length] , 0};
 	[[textField currentEditor] setSelectedRange:range];
+    NSLog(@"BB");
     
     [self controlTextDidChange:nil];
 }
