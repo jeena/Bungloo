@@ -208,9 +208,9 @@ function(HostApp, Core, Paths, URI) {
             this.populate(this.profile_template.gender, basic.gender);
             this.populate(this.profile_template.bio, basic.bio);
             
-            if(basic.url) {
+            if(basic.website_url) {
 
-                var url = basic.url;
+                var url = basic.website_url;
                 this.profile_template.url.innerText = url;
                 this.profile_template.url.parentNode.parentNode.style.display = "";
 
