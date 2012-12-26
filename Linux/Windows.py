@@ -72,7 +72,6 @@ class Preferences:
 		else:
 			self.activity_indicator.hide()
 
-
 class Timeline:
 
 	def __init__(self, app, action="timeline", title="Tentia"):
@@ -80,12 +79,29 @@ class Timeline:
 		self.action = action
 		self.title = title
 
-		self.window = Helper.WebViewCreator(self.app)
+		self.window = QtGui.QMainWindow()
+
 		self.window.setWindowTitle(title)
-		self.window.load_local(self.load_finished)
 
 		self.window.resize(380, 600)
 		self.window.setMinimumSize(200, 200)
+
+		self.webView = Helper.WebViewCreator(self.app, True, self.window)
+		self.webView.load_local(self.load_finished)
+		self.window.setCentralWidget(self.webView)
+
+		# self.window.addWidget(self.webView)
+		self.initUI()
+
+	def initUI(self):
+		newPostAction = QtGui.QAction("&New Post", self.window)        
+		newPostAction.setShortcut("Ctrl+N")
+		newPostAction.setStatusTip("Open new post window")
+		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
+
+		menubar = self.window.menuBar()
+		fileMenu = menubar.addMenu("&File")
+		fileMenu.addAction(newPostAction)
 
 	def show(self):
 		self.window.show()
@@ -95,7 +111,7 @@ class Timeline:
 
 	def load_finished(self, widget):
 		script = "function HostAppGo() { start('" + self.action + "'); }"
-		self.window.page().mainFrame().evaluateJavaScript(script)
+		self.webView.page().mainFrame().evaluateJavaScript(script)
 
 	def set_window_title(self, title):
 		self.window.setWindowTitle(title)
@@ -174,17 +190,41 @@ class Login(QtGui.QDialog):
 		#self.buttonLogin.clicked.connect(callback)
 		#self.label.setText("The server " + url.host() + " requires a username and password.")
 
-class NewPost(QtGui.QPlainTextEdit):
-	def __init__(self):
+class NewPost(QtGui.QMainWindow):
+	def __init__(self, app):
+		self.app = app
 		QtGui.QPlainTextEdit.__init__(self)
+
+		self.textInput = QtGui.QPlainTextEdit(self)
+		self.setCentralWidget(self.textInput)
+		self.textInput.textChanged.connect(self.onChanged)
+
 		self.setWindowTitle("New Post")
 		self.resize(300, 150)
 		self.setMinimumSize(100, 100)
-
-		self.statusBar = QtGui.QStatusBar(self)
-		self.statusBar.showMessage("256")
+		self.initUI()
 
 		self.isPrivate = False
+		self.status_id = None
+		self.reply_to_entity = None
+
+	def initUI(self):
+		newPostAction = QtGui.QAction("&New Post", self)        
+		newPostAction.setShortcut("Ctrl+N")
+		newPostAction.setStatusTip("Open new post window")
+		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
+
+		sendPostAction = QtGui.QAction("&Send Post", self)        
+		sendPostAction.setShortcut("Ctrl+Return")
+		sendPostAction.setStatusTip("Send post")
+		sendPostAction.triggered.connect(self.sendMessage)
+
+		self.statusBar().showMessage('256')
+
+		menubar = self.menuBar()
+		fileMenu = menubar.addMenu("&File")
+		fileMenu.addAction(newPostAction)
+		fileMenu.addAction(sendPostAction)
 
 	def setIsPrivate(self, is_private):
 		self.isPrivate = is_private
@@ -195,8 +235,23 @@ class NewPost(QtGui.QPlainTextEdit):
 	def inReplyToStatusIdWithString(self, reply_to, status_id, string):
 		self.reply_to_entity = reply_to
 		self.status_id = status_id
-		self.setPlainText(string)
+		self.textInput.setPlainText(string)
 
-		cursor = self.textCursor()
+		cursor = self.textInput.textCursor()
 		cursor.movePosition(QtGui.QTextCursor.End, QtGui.QTextCursor.MoveAnchor)
-		self.setTextCursor(cursor)
+		self.textInput.setTextCursor(cursor)
+
+	def onChanged(self):
+		count = 256 - len(self.textInput.toPlainText())
+		self.statusBar().showMessage(str(count))
+
+	def sendMessage(self):
+		message = Helper.PostModel()
+		message.text = self.textInput.toPlainText()
+		message.inReplyTostatusId = self.status_id
+		message.inReplyToEntity = self.reply_to_entity
+		message.location = None
+		message.imageFilePath = None
+		message.isPrivate = self.isPrivate
+		self.app.controller.sendMessage(message)
+		self.close()

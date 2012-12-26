@@ -89,7 +89,7 @@ class Controller(QtCore.QObject):
 	def unreadMentions(self, count):
 		i = int(count)
 		if i > 0:
-			self.app.timeline.set_window_title("Tentia (^" + count + ")")
+			self.app.timeline.set_window_title("Tentia (^" + str(i) + ")")
 		else:
 			self.app.timeline.set_window_title("Tentia")
 
@@ -97,18 +97,56 @@ class Controller(QtCore.QObject):
 	def notificateUserAboutMention(self, text, name, post_id, entity):
 		print "notificateUserAboutMention is not implemented yet"
 
-	@QtCore.pyqtSlot(str, str, str)
+	@QtCore.pyqtSlot(str)
 	def openNewMessageWidow(self, string):
-		print "openNewMessageWidow is not implemented yet"
+		new_message_window = Windows.NewPost(self.app)
+		new_message_window.show()
+		new_message_window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+		self.app.new_message_windows.append(new_message_window)
 
 	@QtCore.pyqtSlot(str, str, str, bool)
 	def openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(self, entity, status_id, string, is_private):
-		new_message_window = Windows.NewPost()
+		new_message_window = Windows.NewPost(self.app)
 		new_message_window.inReplyToStatusIdWithString(entity, status_id, string)
 		new_message_window.setIsPrivate(is_private)
 		new_message_window.show()
 		new_message_window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 		self.app.new_message_windows.append(new_message_window)
+
+	def sendMessage(self, message):
+		text = str.replace(str(message.text), "\\", "\\\\")
+		text = str.replace(text, "\"", "\\\"")
+		text = str.replace(text, "\n", "\\n")
+
+		in_reply_to_status_id = ""
+		if message.inReplyTostatusId is not None:
+			in_reply_to_status_id = message.inReplyTostatusId
+
+		in_reply_to_entity = ""
+		if message.inReplyToEntity is not None:
+			in_reply_to_entity = message.inReplyToEntity
+
+		locationObject = "null"
+		#if (post.location) {
+		#    locationObject = [NSString stringWithFormat:@"[%f, %f]", post.location.coordinate.latitude, post.location.coordinate.longitude];
+		#}
+
+		imageFilePath = "null"
+		#if (post.imageFilePath) {
+		#    NSError *error;
+		#    NSString *mimeType = [MimeType mimeTypeForFileAtPath:post.imageFilePath error:&error];
+		#    NSData *data = [[NSData alloc] initWithContentsOfFile:post.imageFilePath];
+		#    NSString *base64 = [data base64Encoding_xcd];
+		#    [data release];
+		#    imageFilePath = [NSString stringWithFormat:@"\"data:%@;base64,%@\"", mimeType, base64];
+		#}
+
+		isPrivate = "false";
+		if message.isPrivate:
+			isPrivate = "true"
+
+		func = "tentia_instance.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
+		self.app.timeline.webView.page().mainFrame().evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)
 	def showConversation(self, id, entity):

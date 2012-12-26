@@ -18,8 +18,11 @@ class WebPage(QtWebKit.QWebPage):
 
 
 class WebViewCreator(QtWebKit.QWebView):
-    def __init__(self, app, local=True):
-        QtGui.QWidget.__init__(self)
+    def __init__(self, app, local=True, parent=None):
+        if parent != None:
+            QtGui.QWidget.__init__(self)
+        else:
+            QtGui.QWidget.__init__(self)
 
         self.app = app
         self.is_local = local
@@ -68,4 +71,12 @@ class NetworkAccessManager(QNetworkAccessManager):
             self.tentia_callback(request.url())
             return QNetworkAccessManager.createRequest(self, QNetworkAccessManager.GetOperation, QNetworkRequest(QtCore.QUrl()))
         
-        
+class PostModel:
+
+    def __init__(self):
+        self.text = None
+        self.inReplyTostatusId = None
+        self.inReplyToEntity = None
+        self.location = None
+        self.imageFilePath = None
+        self.isPrivate = False
