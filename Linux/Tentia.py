@@ -39,9 +39,15 @@ class Tentia:
 	def init_web_views(self):
 		self.timeline = Windows.Timeline(self)
 		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
-
 		self.timeline.show()
-		#self.mentions.show()
+		self.conversation = Windows.Timeline(self, "conversation", "Conversation")
+		self.profile = Windows.Timeline(self, "profile", "Profile")
+
+	def timeline_show(self):
+		self.timeline.show()
+
+	def mentions_show(self):
+		self.mentions.show()
 
 
 class Controller(QtCore.QObject):
@@ -146,11 +152,20 @@ class Controller(QtCore.QObject):
 			isPrivate = "true"
 
 		func = "tentia_instance.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
-		self.app.timeline.webView.page().mainFrame().evaluateJavaScript(func)
+		self.app.timeline.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)
-	def showConversation(self, id, entity):
-		print "showConversation is not implemented yet"
+	def showConversationForPostIdandEntity(self, postId, entity):
+		func = "tentia_instance.showStatus('{}', '{}');".format(postId, entity)
+		self.app.conversation.evaluateJavaScript(func)
+		self.app.conversation.show()
+
+	@QtCore.pyqtSlot(str)
+	def showProfileForEntity(self, entity):
+		func = "tentia_instance.showProfileForEntity('{}');".format(entity)
+		self.app.profile.evaluateJavaScript(func)
+		self.app.profile.show()
+		
 
 	@QtCore.pyqtSlot(str)
 	def authentificationDidNotSucceed(self, errorMessage):

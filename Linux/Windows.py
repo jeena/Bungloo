@@ -86,6 +86,16 @@ class Timeline:
 		self.window.resize(380, 600)
 		self.window.setMinimumSize(200, 200)
 
+		x, y = 0, 0
+		if action == "mentions":
+			x, y = 20, 20
+		elif action == "conversation":
+			x, y = 40, 20
+		elif action == "profile":
+			x, y = 40, 40
+
+		self.moveWindow(x, y)
+
 		self.webView = Helper.WebViewCreator(self.app, True, self.window)
 		self.webView.load_local(self.load_finished)
 		self.window.setCentralWidget(self.webView)
@@ -93,18 +103,53 @@ class Timeline:
 		# self.window.addWidget(self.webView)
 		self.initUI()
 
+	def moveWindow(self, x=0, y=0):
+		self.show()
+		geo = self.window.geometry()
+		self.window.move(geo.x() + x, geo.y() + y)
+		self.hide()
+
+
 	def initUI(self):
 		newPostAction = QtGui.QAction("&New Post", self.window)        
 		newPostAction.setShortcut("Ctrl+N")
 		newPostAction.setStatusTip("Open new post window")
-		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
+		newPostAction.triggered.connect(QtGui.qApp.quit)
+
+		exitAction = QtGui.QAction("&Exit", self.window)
+		exitAction.setShortcut("Ctrl+Q")
+		exitAction.setStatusTip("Exit Tentia")
+		exitAction.triggered.connect(QtGui.qApp.quit)
 
 		menubar = self.window.menuBar()
 		fileMenu = menubar.addMenu("&File")
 		fileMenu.addAction(newPostAction)
+		fileMenu.addAction(exitAction)
+
+		timelineAction = QtGui.QAction("&Timeline", self.window)
+		timelineAction.setShortcut("Ctrl+1")
+		timelineAction.setStatusTip("Show Timeline")
+		timelineAction.triggered.connect(self.app.timeline_show)
+
+		mentionsAction = QtGui.QAction("&Mentions", self.window)
+		mentionsAction.setShortcut("Ctrl+2")
+		mentionsAction.setStatusTip("Show Mentions")
+		mentionsAction.triggered.connect(self.app.mentions_show)
+
+		hideAction = QtGui.QAction("&Hide window", self.window)
+		hideAction.setShortcut("Ctrl+W")
+		hideAction.setStatusTip("Hide this window")
+		hideAction.triggered.connect(self.hide)
+
+		windowMenu = menubar.addMenu("&Windows")
+		windowMenu.addAction(timelineAction)
+		windowMenu.addAction(mentionsAction)
+		windowMenu.addAction(hideAction)
 
 	def show(self):
 		self.window.show()
+		self.window.raise_()
+		QtGui.qApp.setActiveWindow(self.window)
 
 	def hide(self):
 		self.window.hide()
@@ -115,6 +160,9 @@ class Timeline:
 
 	def set_window_title(self, title):
 		self.window.setWindowTitle(title)
+
+	def evaluateJavaScript(self, func):
+		return self.webView.page().mainFrame().evaluateJavaScript(func)
 
 
 class Oauth:
@@ -225,6 +273,26 @@ class NewPost(QtGui.QMainWindow):
 		fileMenu = menubar.addMenu("&File")
 		fileMenu.addAction(newPostAction)
 		fileMenu.addAction(sendPostAction)
+
+		timelineAction = QtGui.QAction("&Timeline", self.window)
+		timelineAction.setShortcut("Ctrl+1")
+		timelineAction.setStatusTip("Show Timeline")
+		timelineAction.triggered.connect(self.app.timeline_show)
+
+		mentionsAction = QtGui.QAction("&Mentions", self.window)
+		mentionsAction.setShortcut("Ctrl+2")
+		mentionsAction.setStatusTip("Show Mentions")
+		mentionsAction.triggered.connect(self.app.mentions_show)
+
+		hideAction = QtGui.QAction("&Hide window", self.window)
+		hideAction.setShortcut("Ctrl+W")
+		hideAction.setStatusTip("Hide this window")
+		hideAction.triggered.connect(self.close)
+
+		windowMenu = menubar.addMenu("&Windows")
+		windowMenu.addAction(timelineAction)
+		windowMenu.addAction(mentionsAction)
+		windowMenu.addAction(hideAction)
 
 	def setIsPrivate(self, is_private):
 		self.isPrivate = is_private
