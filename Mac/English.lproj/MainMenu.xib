@@ -226,7 +226,7 @@
 								</object>
 								<object class="NSMenuItem" id="722745758">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">New global</string>
+									<string key="NSTitle">Global New Post Key</string>
 									<string key="NSKeyEquiv">t</string>
 									<int key="NSKeyEquivModMask">1835008</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -859,6 +859,7 @@
 							</object>
 							<string key="NSFrameSize">{397, 581}</string>
 							<reference key="NSSuperview" ref="332867700"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
@@ -878,6 +879,7 @@
 					</object>
 					<string key="NSFrameSize">{397, 581}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="690752143"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
@@ -928,6 +930,7 @@
 							</object>
 							<string key="NSFrameSize">{376, 581}</string>
 							<reference key="NSSuperview" ref="438898709"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
@@ -945,6 +948,7 @@
 					</object>
 					<string key="NSFrameSize">{376, 581}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="126069112"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
@@ -992,6 +996,7 @@
 							</object>
 							<string key="NSFrameSize">{376, 581}</string>
 							<reference key="NSSuperview" ref="469460548"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
@@ -1002,6 +1007,7 @@
 					</object>
 					<string key="NSFrameSize">{376, 581}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="352293288"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
@@ -1049,6 +1055,7 @@
 							</object>
 							<string key="NSFrameSize">{376, 581}</string>
 							<reference key="NSSuperview" ref="352860314"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
@@ -1059,6 +1066,7 @@
 					</object>
 					<string key="NSFrameSize">{376, 581}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="106985301"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
@@ -2890,20 +2898,12 @@
 							<string>clearCache:</string>
 							<string>login:</string>
 							<string>logout:</string>
-							<string>openNewMessageWindow:</string>
-							<string>sendTweet:</string>
-							<string>showConversationForPostId:andEntity:</string>
-							<string>showProfileForEntity:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>NSString</string>
-							<string>NSString</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -2913,10 +2913,6 @@
 							<string>clearCache:</string>
 							<string>login:</string>
 							<string>logout:</string>
-							<string>openNewMessageWindow:</string>
-							<string>sendTweet:</string>
-							<string>showConversationForPostId:andEntity:</string>
-							<string>showProfileForEntity:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2931,22 +2927,6 @@
 							<object class="IBActionInfo">
 								<string key="name">logout:</string>
 								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">openNewMessageWindow:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">sendTweet:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showConversationForPostId:andEntity:</string>
-								<string key="candidateClassName">NSString</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showProfileForEntity:</string>
-								<string key="candidateClassName">NSString</string>
 							</object>
 						</object>
 					</object>

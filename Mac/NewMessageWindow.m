@@ -106,7 +106,7 @@
     NSInteger location = [string rangeOfString:@" "].location;
     NSInteger length = 0;
     if (location != NSNotFound) {
-        length = [[textField stringValue] length] -  location - 1;
+        length = [[textField stringValue] length] - location - 1;
     }
     
     
