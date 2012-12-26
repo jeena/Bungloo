@@ -7,14 +7,12 @@ class Tentia:
 
 	def __init__(self):
 		self.app = QtGui.QApplication(sys.argv)
+		self.new_message_windows = []
 		self.controller = Controller(self)
 		self.console = Console()
 
 		self.preferences = Windows.Preferences(self)
 		self.preferences.show()
-
-		#self.timeline = Windows.Timeline(self)
-		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
 
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
@@ -32,13 +30,18 @@ class Tentia:
 		self.oauth_implementation = Windows.Oauth(self)
 
 	def authentification_succeded(self):
-		self.preferences.active(False)
 		self.preferences.hide()
+		if hasattr(self, "oauth_implementation"):
+			self.oauth_implementation.hide()
+		self.preferences.active(False)
 		self.init_web_views()
 
 	def init_web_views(self):
-		#self.timeline.show()
-		self.mentions.show()
+		self.timeline = Windows.Timeline(self)
+		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
+
+		self.timeline.show()
+		#self.mentions.show()
 
 
 class Controller(QtCore.QObject):
@@ -78,30 +81,51 @@ class Controller(QtCore.QObject):
 	def openURL(self, url):
 		self.app.oauth_implementation.handle_authentication(str(url))
 
+	@QtCore.pyqtSlot()
 	def loggedIn(self):
 		self.app.authentification_succeded()
 
+	@QtCore.pyqtSlot(int)
 	def unreadMentions(self, count):
 		i = int(count)
-		if i == 0:
-			self.app.timeline.setWindowTitle("Tentia (^" + count + ")")
+		if i > 0:
+			self.app.timeline.set_window_title("Tentia (^" + count + ")")
 		else:
-			self.app.timeline.setWindowTitle("Tentia")
+			self.app.timeline.set_window_title("Tentia")
 
+	@QtCore.pyqtSlot(str, str, str, str)
 	def notificateUserAboutMention(self, text, name, post_id, entity):
 		print "notificateUserAboutMention is not implemented yet"
 
-	def openNewMessageWidow(self, entity, status_id, string):
+	@QtCore.pyqtSlot(str, str, str)
+	def openNewMessageWidow(self, string):
 		print "openNewMessageWidow is not implemented yet"
 
+	@QtCore.pyqtSlot(str, str, str, bool)
+	def openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(self, entity, status_id, string, is_private):
+		new_message_window = Windows.NewPost()
+		new_message_window.inReplyToStatusIdWithString(entity, status_id, string)
+		new_message_window.setIsPrivate(is_private)
+		new_message_window.show()
+		new_message_window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+		self.app.new_message_windows.append(new_message_window)
+
+	@QtCore.pyqtSlot(str, str)
 	def showConversation(self, id, entity):
 		print "showConversation is not implemented yet"
 
+	@QtCore.pyqtSlot(str)
 	def authentificationDidNotSucceed(self, errorMessage):
-		print "authentificationDidNotSucceed is not implemented yet"
-
+		msgBox = QtGui.QMessageBox()
+		msgBox.setText(errorMessage)
+		msgBox.exec_()
+	
+	@QtCore.pyqtSlot(str, str)
 	def alertTitleWithMessage(self, title, message):
-		print "alertTitleWithMessage is not implemented yet"
+		msgBox = QtGui.QMessageBox()
+		msgBox.setText(title)
+		msgBox.setInformativeText(message)
+		msgBox.exec_()
 
 	def logout(self, sender):
 		print "logout is not implemented yet"

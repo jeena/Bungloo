@@ -9,7 +9,7 @@ function start(view) {
 
     if (view == "oauth") {
         require(["controller/Oauth"], function(Oauth) {
-
+            
             tentia_instance = new Oauth();
             tentia_instance.authenticate();
 

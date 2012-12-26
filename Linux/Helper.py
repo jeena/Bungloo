@@ -27,6 +27,7 @@ class WebViewCreator(QtWebKit.QWebView):
         
     def load_local(self, callback=None):
         self.page().settings().setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
+        self.page().settings().setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)
         self.loadFinished.connect(lambda ok: self.load_finished(ok, callback))
 
         frame = self.page().mainFrame()

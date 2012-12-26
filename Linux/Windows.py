@@ -97,6 +97,9 @@ class Timeline:
 		script = "function HostAppGo() { start('" + self.action + "'); }"
 		self.window.page().mainFrame().evaluateJavaScript(script)
 
+	def set_window_title(self, title):
+		self.window.setWindowTitle(title)
+
 
 class Oauth:
 
@@ -126,12 +129,12 @@ class Oauth:
 
 		dialog = Login()
 
-		def callback(ok):
+		def callback():
 			authenticator.setUser(dialog.textName.text())
 			authenticator.setPassword(dialog.textPass.text())
 
 		dialog.setInfo(reply.url(), authenticator.realm())
-		#dialog.accepted.connect(callback)
+		dialog.accepted.connect(callback)
 
 		dialog.exec_()
 
@@ -139,11 +142,14 @@ class Oauth:
 		script = "tentia_instance.requestAccessToken('" + url.toString() + "');"
 		self.core.page().mainFrame().evaluateJavaScript(script)
 
+	def hide(self):
+		self.auth_view.hide()
+
 
 class Login(QtGui.QDialog):
 	def __init__(self):
 		QtGui.QDialog.__init__(self)
-		#self.setWindowTitle("Login")
+		self.setWindowTitle("Login")
 
 		self.label = QtGui.QLabel(self)
 		self.label.setText("The Server requires a username and password.")
@@ -154,17 +160,43 @@ class Login(QtGui.QDialog):
 		self.textPass.setEchoMode(QtGui.QLineEdit.Password);
     	#self.textPass.setInputMethodHints(Qt.ImhHiddenText | Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase)
 
-		self.buttonLogin = QtGui.QPushButton('Login', self)
+		self.buttons = QtGui.QDialogButtonBox(QtGui.QDialogButtonBox.Ok)
+		self.buttons.accepted.connect(self.accept)
 
 		layout = QtGui.QVBoxLayout(self)
 		layout.addWidget(self.label)
 		layout.addWidget(self.textName)
 		layout.addWidget(self.textPass)
-		layout.addWidget(self.buttonLogin)
+		layout.addWidget(self.buttons)
 
 	def setInfo(self, url, realm):
 		pass
 		#self.buttonLogin.clicked.connect(callback)
 		#self.label.setText("The server " + url.host() + " requires a username and password.")
 
+class NewPost(QtGui.QPlainTextEdit):
+	def __init__(self):
+		QtGui.QPlainTextEdit.__init__(self)
+		self.setWindowTitle("New Post")
+		self.resize(300, 150)
+		self.setMinimumSize(100, 100)
 
+		self.statusBar = QtGui.QStatusBar(self)
+		self.statusBar.showMessage("256")
+
+		self.isPrivate = False
+
+	def setIsPrivate(self, is_private):
+		self.isPrivate = is_private
+
+	def toggle_is_private(self):
+		self.isPrivate = not self.isPrivate
+
+	def inReplyToStatusIdWithString(self, reply_to, status_id, string):
+		self.reply_to_entity = reply_to
+		self.status_id = status_id
+		self.setPlainText(string)
+
+		cursor = self.textCursor()
+		cursor.movePosition(QtGui.QTextCursor.End, QtGui.QTextCursor.MoveAnchor)
+		self.setTextCursor(cursor)

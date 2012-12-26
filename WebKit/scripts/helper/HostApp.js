@@ -47,7 +47,6 @@ define(function() {
     }
 
     HostApp.loggedIn = function() {
-
         controller.loggedIn();
     }
 

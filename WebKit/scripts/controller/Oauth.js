@@ -78,8 +78,8 @@ function(HostApp, Paths, Hmac) {
                 var data = JSON.parse(resp.responseText);
                 those.authRequest(data);
             }
-            Paths.getURL(Paths.mkApiRootPath("/apps"), "POST", callback, JSON.stringify(those.app_info));
-        });
+            Paths.getURL(Paths.mkApiRootPath("/apps"), "POST", callback, JSON.stringify(those.app_info), false);
+        }, null, false);
     }
 
     Oauth.prototype.authRequest = function(register_data) {
@@ -148,7 +148,7 @@ function(HostApp, Paths, Hmac) {
         HostApp.setSecret(access["mac_key"]);
         HostApp.setStringForKey(access["mac_algorithm"], "user_mac_algorithm");
         HostApp.setStringForKey(access["token_type"], "user_token_type");
-
+        
         HostApp.loggedIn();
     }
 
