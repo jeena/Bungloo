@@ -35,7 +35,7 @@ class Preferences:
 
 		# text field
 		self.text_field = QtGui.QLineEdit(self.window)
-		self.text_field.setText("http://jeena.net")
+		# self.text_field.setText("http://jeena.net")
 		self.text_field.setPlaceholderText("https://example.tent.is")
 		self.text_field.setGeometry(194, 84, 262, 22)
 		self.window.connect(self.text_field, QtCore.SIGNAL('returnPressed()'), self.on_login_button_clicked)
@@ -85,16 +85,16 @@ class Timeline:
 
 		self.window.resize(380, 600)
 		self.window.setMinimumSize(200, 200)
+#
+		#x, y = 0, 0
+		#if action == "mentions":
+		#	x, y = 20, 20
+		#elif action == "conversation":
+		#	x, y = 40, 20
+		#elif action == "profile":
+		#	x, y = 40, 40
 
-		x, y = 0, 0
-		if action == "mentions":
-			x, y = 20, 20
-		elif action == "conversation":
-			x, y = 40, 20
-		elif action == "profile":
-			x, y = 40, 40
-
-		self.moveWindow(x, y)
+		#self.moveWindow(x, y)
 
 		self.webView = Helper.WebViewCreator(self.app, True, self.window)
 		self.webView.load_local(self.load_finished)
@@ -114,7 +114,7 @@ class Timeline:
 		newPostAction = QtGui.QAction("&New Post", self.window)        
 		newPostAction.setShortcut("Ctrl+N")
 		newPostAction.setStatusTip("Open new post window")
-		newPostAction.triggered.connect(QtGui.qApp.quit)
+		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
 
 		exitAction = QtGui.QAction("&Exit", self.window)
 		exitAction.setShortcut("Ctrl+Q")
@@ -148,8 +148,8 @@ class Timeline:
 
 	def show(self):
 		self.window.show()
-		self.window.raise_()
-		QtGui.qApp.setActiveWindow(self.window)
+		#self.window.raise_()
+		#QtGui.qApp.setActiveWindow(self.window)
 
 	def hide(self):
 		self.window.hide()
@@ -274,17 +274,17 @@ class NewPost(QtGui.QMainWindow):
 		fileMenu.addAction(newPostAction)
 		fileMenu.addAction(sendPostAction)
 
-		timelineAction = QtGui.QAction("&Timeline", self.window)
+		timelineAction = QtGui.QAction("&Timeline", self)
 		timelineAction.setShortcut("Ctrl+1")
 		timelineAction.setStatusTip("Show Timeline")
 		timelineAction.triggered.connect(self.app.timeline_show)
 
-		mentionsAction = QtGui.QAction("&Mentions", self.window)
+		mentionsAction = QtGui.QAction("&Mentions", self)
 		mentionsAction.setShortcut("Ctrl+2")
 		mentionsAction.setStatusTip("Show Mentions")
 		mentionsAction.triggered.connect(self.app.mentions_show)
 
-		hideAction = QtGui.QAction("&Hide window", self.window)
+		hideAction = QtGui.QAction("&Hide window", self)
 		hideAction.setShortcut("Ctrl+W")
 		hideAction.setStatusTip("Hide this window")
 		hideAction.triggered.connect(self.close)
@@ -314,12 +314,16 @@ class NewPost(QtGui.QMainWindow):
 		self.statusBar().showMessage(str(count))
 
 	def sendMessage(self):
-		message = Helper.PostModel()
-		message.text = self.textInput.toPlainText()
-		message.inReplyTostatusId = self.status_id
-		message.inReplyToEntity = self.reply_to_entity
-		message.location = None
-		message.imageFilePath = None
-		message.isPrivate = self.isPrivate
-		self.app.controller.sendMessage(message)
-		self.close()
+		count = 256 - len(self.textInput.toPlainText())
+		if count >= 0:
+			message = Helper.PostModel()
+			message.text = self.textInput.toPlainText()
+			message.inReplyTostatusId = self.status_id
+			message.inReplyToEntity = self.reply_to_entity
+			message.location = None
+			message.imageFilePath = None
+			message.isPrivate = self.isPrivate
+			self.app.controller.sendMessage(message)
+			self.close()
+		else:
+			 QtGui.qApp.beep()
