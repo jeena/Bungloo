@@ -399,11 +399,11 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }
     }
 
-    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, is_private, callback) {
+    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
 
-        if (image_file_path) {
+        if (image_data_uri) {
 
-            this.sendNewMessageWithImage(content, in_reply_to_status_id, in_reply_to_entity, location, image_file_path, is_private, callback);
+            this.sendNewMessageWithImage(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback);
 
         } else {
 
@@ -470,7 +470,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         Paths.getURL(url.toString(), "POST", callback, JSON.stringify(data));
     }
 
-    Core.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, callback) {
+    Core.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
 
         var url = URI(Paths.mkApiRootPath("/posts"));
 
@@ -478,7 +478,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             "type": "https://tent.io/types/post/photo/v0.1.0",
             "published_at": parseInt(new Date().getTime() / 1000, 10),
             "permissions": {
-                "public": true
+                "public": !is_private
             },
             "content": {
                 "caption": content,
@@ -492,6 +492,15 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
         if (mentions.length > 0) {
             data["mentions"] = mentions;
+            if (is_private) {
+                var entities = {};
+                for (var i = 0; i < mentions.length; i++) {
+                    var entity = mentions[i]["entity"]
+                    entities[entity] = true;
+                };
+
+                data["permissions"]["entities"] = entities;
+            }
         }
 
         var data_string = JSON.stringify(data);
