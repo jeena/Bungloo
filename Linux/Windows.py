@@ -179,7 +179,7 @@ class Oauth:
 
 	def handle_authentication(self, url):
 		self.auth_view = Helper.WebViewCreator(self.app)
-		self.auth_view.setWindowTitle("Authentification")
+		self.auth_view.setWindowTitle("Authentication")
 
 		old_manager = self.auth_view.page().networkAccessManager()
 		new_manager = Helper.NetworkAccessManager(old_manager, self.tentia_callback)
