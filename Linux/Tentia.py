@@ -86,8 +86,15 @@ class Controller(QtCore.QObject):
 			return ""
 
 	@QtCore.pyqtSlot(str)
-	def openURL(self, url):
+	def openAuthorizationURL(self, url):
 		self.app.oauth_implementation.handle_authentication(str(url))
+
+	@QtCore.pyqtSlot(str)
+	def openURL(self, url):
+		QtGui.QDesktopServices.openUrl(QtCore.QUrl(url, QtCore.QUrl.TolerantMode))
+
+	def openQURL(self, url):
+		QtGui.QDesktopServices.openUrl(url)
 
 	@QtCore.pyqtSlot()
 	def loggedIn(self):

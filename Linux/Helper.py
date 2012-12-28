@@ -8,6 +8,7 @@ from PyQt4.QtWebKit import QWebView
 class WebPage(QtWebKit.QWebPage):
     def __init__(self, parent=0, app=None):
         super(QtWebKit.QWebPage, self).__init__(parent)
+        self.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateExternalLinks)
         self.app = app
 
     def javaScriptConsoleMessage(self, message, lineNumber, sourceId):
@@ -26,6 +27,7 @@ class WebViewCreator(QtWebKit.QWebView):
 
         self.app = app
         self.is_local = local
+        self.connect(self, SIGNAL("linkClicked (const QUrl&)"), self.app.controller.openQURL)
         self.setPage(WebPage(self, self.app))
         
     def load_local(self, callback=None):
