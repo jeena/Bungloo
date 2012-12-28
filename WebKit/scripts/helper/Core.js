@@ -189,6 +189,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             return false;
         }
 
+        template.image.onclick = template.username.onclick;
+
         var profile_callback = function(p) {
 
             var basic = p["https://tent.io/types/info/basic/v0.1.0"];
