@@ -106,7 +106,7 @@ function(HostApp, Paths, Hmac) {
                     + "&state=" + this.state
                     + "&tent_post_types=all";
 
-        HostApp.openURL(this.apiRoot() + auth);
+        HostApp.openAuthorizationURL(this.apiRoot() + auth);
     }
 
     Oauth.prototype.requestAccessToken = function(responseBody) {
