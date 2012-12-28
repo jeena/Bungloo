@@ -56,21 +56,16 @@
     
     viewDelegate = [[ViewDelegate alloc] init];
     accessToken = [[AccessToken alloc] init];
-
     
-    //[accessToken setString:nil forKey:@"user_access_token"];
-    if (![accessToken stringForKey:@"version-0.2.0-new-login"]) {
+    BOOL forceLogin = NO;
+    if (![accessToken stringForKey:@"version-0.5.2-new-login"]) {
         [self logout:self];
-        [accessToken setString:@"yes" forKey:@"version-0.2.0-new-login"];
+        forceLogin = YES;
+        [accessToken setString:nil forKey:@"entity"];        
+        [accessToken setString:@"yes" forKey:@"version-0.5.2-new-login"];
     }
-    if (![accessToken stringForKey:@"version-0.3.0-migrated"]) {
-        [accessToken setString:@"yes" forKey:@"version-0.3.0-migrated"];
-        if ([accessToken stringForKey:@"user_mac_key"]){
-            [accessToken setSecret:[accessToken stringForKey:@"user_mac_key"]];
-            [accessToken setString:nil forKey:@"user_mac_key"];
-        }
-    }
-    if (![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
+    
+    if (forceLogin || ![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
         [timelineViewWindow performClose:self];
         [mentionsViewWindow performClose:self];
         [self.loginViewWindow makeKeyAndOrderFront:self];
