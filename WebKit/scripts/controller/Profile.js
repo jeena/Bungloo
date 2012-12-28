@@ -268,7 +268,7 @@ function(HostApp, Core, Paths, URI) {
             "https://tent.io/types/post/repost/v0.1.0",
             "https://tent.io/types/post/status/v0.1.0",
             "https://tent.io/types/post/delete/v0.1.0",
-            //"https://tent.io/types/post/photo/v0.1.0"
+            "https://tent.io/types/post/photo/v0.1.0"
         ];
         url.addSearch("post_types", post_types.join(","));
 
