@@ -117,6 +117,10 @@ define(function() {
         }
     }
 
+    HostApp.osType = function() {
+        return OS_TYPE == "mac" ? "OS X" : "Linux";
+    }
+
     return HostApp;    
 
 });

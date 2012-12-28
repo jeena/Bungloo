@@ -52,12 +52,12 @@
 						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
 						 forEventClass:kInternetEventClass
 							andEventID:kAEGetURL];
-	 
+
+    
     viewDelegate = [[ViewDelegate alloc] init];
-    
-    
     accessToken = [[AccessToken alloc] init];
 
+    
     //[accessToken setString:nil forKey:@"user_access_token"];
     if (![accessToken stringForKey:@"version-0.2.0-new-login"]) {
         [self logout:self];
@@ -74,6 +74,7 @@
         [timelineViewWindow performClose:self];
         [mentionsViewWindow performClose:self];
         [self.loginViewWindow makeKeyAndOrderFront:self];
+        [self initOauth];
     } else {
         [timelineViewWindow makeKeyAndOrderFront:self];
         [self initWebViews];
@@ -104,15 +105,17 @@
         //[oauthView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('oauth'); };"];
 
     } else {
-        [oauthView stringByEvaluatingJavaScriptFromString:@"start('oauth');"];
+        //[oauthView stringByEvaluatingJavaScriptFromString:@"start('oauth');"];
     }
 }
 
 - (void)initWebViews
 {
 
-    if (YES) //viewDelegate.timelineView != timelineView)
+    if (viewDelegate.timelineView != timelineView)
     {
+        [self initOauth];
+        
         NSString *localStoragePath = @"~/Library/Application Support/Tentia";
         
         NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
@@ -409,7 +412,7 @@
 {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
 }
-
+/*
 - (void)storeAccessToken:(NSString *)_accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName
 {
     self.accessToken.accessToken = _accessToken;
@@ -419,12 +422,14 @@
     [timelineViewWindow makeKeyAndOrderFront:self];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
-}
+}*/
 
 - (void)loggedIn
 {
+    [loginActivityIndicator stopAnimation:self];
+	[self initWebViews];
+    [loginViewWindow performClose:self];
     [timelineViewWindow makeKeyAndOrderFront:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }
 
 - (IBAction)login:(id)sender
@@ -432,32 +437,22 @@
     if ([[loginEntityTextField stringValue] length] > 0) {
         [[loginEntityTextField window] makeFirstResponder:nil];
         [loginActivityIndicator startAnimation:self];
-        [self initOauth];
+        [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_instance.authenticate();"];
     }
 }
 
 - (IBAction)logout:(id)sender
 {
+    [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    
     [timelineViewWindow performClose:self];
     [mentionsViewWindow performClose:self];
+    [conversationViewWindow performClose:self];
+    [profileViewWindow performClose:self];
     [self.loginViewWindow makeKeyAndOrderFront:self];
     
     [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
     [mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
-    if (oauthView) {
-        [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
-    }
-    
-    [accessToken setString:nil forKey:@"app_mac_key"];
-    [accessToken setString:nil forKey:@"app_mac_key_id"];
-    [accessToken setString:nil forKey:@"app_id"];
-    [accessToken setString:nil forKey:@"app_mac_algorithm"];
-    [accessToken setString:nil forKey:@"user_access_token"];
-    [accessToken setString:nil forKey:@"user_mac_key"];
-    [accessToken setString:nil forKey:@"user_mac_algorithm"];
-    [accessToken setString:nil forKey:@"user_token_type"];
-    [accessToken setString:nil forKey:@"api_root"];
-    [accessToken setString:nil forKey:@"entity"];
 }
 
 // Mentions window has been visible

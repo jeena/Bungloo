@@ -9,7 +9,7 @@ function(HostApp, Paths, Hmac) {
     function Oauth() {
         this.app_info = {
             "id": null,
-            "name": "Tentia",
+            "name": "Tentia on " + HostApp.osType(),
             "description": "A small TentStatus client.",
             "url": "http://jabs.nu/Tentia/",
             "icon": "http://jabs.nu/Tentia/icon.png",
@@ -30,6 +30,10 @@ function(HostApp, Paths, Hmac) {
         this.register_data = null;
         this.profile = null;
         this.state = null;
+    }
+
+    Oauth.prototype.isAuthenticated = function() {
+        return HostApp.stringForKey("user_access_token") != null;
     }
 
     Oauth.prototype.authenticate = function() {
@@ -153,7 +157,28 @@ function(HostApp, Paths, Hmac) {
     }
 
     Oauth.prototype.logout = function() {
-        return false;
+
+        var url = Paths.mkApiRootPath("/apps/" + HostApp.stringForKey("app_id"));
+        var http_method = "DELETE";
+        var auth_header = Hmac.makeAuthHeader(
+            url, 
+            http_method, 
+            HostApp.stringForKey("app_mac_key"), 
+            HostApp.stringForKey("app_mac_key_id")
+        );
+
+        Paths.getURL(url, http_method, function(resp) {
+            HostApp.setStringForKey(null, "app_mac_key");
+            HostApp.setStringForKey(null, "app_mac_key_id");
+            HostApp.setStringForKey(null, "app_id");
+            HostApp.setStringForKey(null, "app_mac_algorithm");
+            HostApp.setStringForKey(null, "user_access_token");
+            HostApp.setStringForKey(null, "user_mac_key");
+            HostApp.setStringForKey(null, "user_mac_algorithm");
+            HostApp.setStringForKey(null, "user_token_type");
+            HostApp.setStringForKey(null, "api_root");
+            HostApp.setStringForKey(null, "entity");            
+        }, null, auth_header);
     }
     
 

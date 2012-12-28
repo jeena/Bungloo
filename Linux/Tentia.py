@@ -14,6 +14,8 @@ class Tentia:
 		self.preferences = Windows.Preferences(self)
 		self.preferences.show()
 
+		self.oauth_implementation = Windows.Oauth(self)
+
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
 
@@ -27,7 +29,7 @@ class Tentia:
 
 	def login_with_entity(self, entity):
 		self.controller.setStringForKey(entity, "entity")
-		self.oauth_implementation = Windows.Oauth(self)
+		self.oauth_implementation.login()
 
 	def authentification_succeded(self):
 		self.preferences.hide()

@@ -14,6 +14,8 @@ function(HostApp, Core, Paths, URI) {
 
         this.action = "profile";
 
+        document.body.innerHTML = "";
+
         this.initProfileTemplate();
     }
 

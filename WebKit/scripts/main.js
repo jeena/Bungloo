@@ -11,7 +11,6 @@ function start(view) {
         require(["controller/Oauth"], function(Oauth) {
             
             tentia_instance = new Oauth();
-            tentia_instance.authenticate();
 
         });
 

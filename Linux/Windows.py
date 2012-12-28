@@ -35,7 +35,6 @@ class Preferences:
 
 		# text field
 		self.text_field = QtGui.QLineEdit(self.window)
-		# self.text_field.setText("http://jeena.net")
 		self.text_field.setPlaceholderText("https://example.tent.is")
 		self.text_field.setGeometry(194, 84, 262, 22)
 		self.window.connect(self.text_field, QtCore.SIGNAL('returnPressed()'), self.on_login_button_clicked)
@@ -177,6 +176,10 @@ class Oauth:
 			script = "function HostAppGo() { start('oauth'); }"
 			self.core.page().mainFrame().evaluateJavaScript(script)
 
+	def login(self):
+		script = "tentia_instance.authenticate();"
+		self.core.page().mainFrame().evaluateJavaScript(script)
+
 	def handle_authentication(self, url):
 		self.auth_view = Helper.WebViewCreator(self.app)
 		self.auth_view.setWindowTitle("Authentication")
@@ -207,7 +210,8 @@ class Oauth:
 		self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def hide(self):
-		self.auth_view.hide()
+		if hasattr(self, "auth_view"):
+			self.auth_view.hide()
 
 
 class Login(QtGui.QDialog):

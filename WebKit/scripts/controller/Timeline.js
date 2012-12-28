@@ -148,6 +148,11 @@ function(Core, Paths, HostApp, URI) {
         Core.prototype.repost.call(this, id, entity, callback);   
     }
 
+    Timeline.prototype.logout = function() {
+        clearInterval(this.reloadIntervall);
+        Core.prototype.logout.call(this);
+    }
+
     return Timeline;
 
 });

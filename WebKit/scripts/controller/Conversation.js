@@ -14,6 +14,8 @@ function(HostApp, Core, Paths, URI) {
 
         this.action = "conversation";
 
+        document.body.innerHTML = "";
+
         this.body = document.createElement("ol");
         this.body.className = this.action;
         document.body.appendChild(this.body);
