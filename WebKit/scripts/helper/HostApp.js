@@ -46,6 +46,15 @@ define(function() {
         }
     }
 
+    HostApp.openAuthorizationURL = function(url) {
+
+        if (OS_TYPE == "mac") {
+            controller.openURL_(url);
+        } else {
+            controller.openAuthorizationURL(url);
+        }
+    }
+
     HostApp.loggedIn = function() {
         controller.loggedIn();
     }
@@ -103,9 +112,9 @@ define(function() {
 
     HostApp.alertTitleWithMessage = function(title, message) {
         if (OS_TYPE == "mac") {
-            controller.alertTitle_withMessage_(message);
+            controller.alertTitle_withMessage_(title, message);
         } else {
-            controller.alertTitleWithMessage(message);
+            controller.alertTitleWithMessage(title, message);
         }
     }
 

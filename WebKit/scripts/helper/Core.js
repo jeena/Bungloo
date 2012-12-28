@@ -533,7 +533,15 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         post += blob_string;
         post += "\r\n--" + boundary + "--\r\n";
 
-        Paths.postMultipart(url.toString(), callback, post, boundary);
+        var newCallback = function(resp) {
+            if (resp.status == 403) {
+                var err = JSON.parse(resp.responseText);
+                HostApp.alertTitleWithMessage(resp.statusText, err.error);
+            }
+            callback(resp);
+        }
+
+        Paths.postMultipart(url.toString(), newCallback, post, boundary);
     }
 
     Core.prototype.remove = function(id, callback) {

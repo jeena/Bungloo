@@ -101,7 +101,7 @@ function(jQuery, HostApp, Hmac, Cache) {
             data: data,
             processData: false,
             error: function(xhr, ajaxOptions, thrownError) {
-                console.error("postMultipart " + xhr.statusText + " (" + url + "): '" + xhr.responseText + "'");
+                console.error("postMultipart (" + xhr.status + ")" + xhr.statusText + " (" + url + "): '" + xhr.responseText + "'");
             }
         });
     }
