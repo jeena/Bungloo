@@ -49,6 +49,7 @@ class Tentia:
 		self.timeline.show()
 
 	def mentions_show(self):
+		self.controller.unreadMentions(0)
 		self.mentions.show()
 
 
