@@ -16,3 +16,6 @@ Thanks everyone in the Open Source community! Tentia is using:
 - Tent - https://tent.io/
 - timeago - http://timeago.yarp.com/
 - sparkle - http://sparkle.andymatuschak.org/
+- Qt - http://qt.digia.com/
+- python - http://www.python.org/
+- PyQt - http://wiki.python.org/moin/PyQt
