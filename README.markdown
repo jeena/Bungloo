@@ -19,3 +19,4 @@ Thanks everyone in the Open Source community! Tentia is using:
 - Qt - http://qt.digia.com/
 - python - http://www.python.org/
 - PyQt - http://wiki.python.org/moin/PyQt
+- test
