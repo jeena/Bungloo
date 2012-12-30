@@ -4,3 +4,4 @@ dsa_priv.pem
 *.pyc
 Mac/.DS_Store
 build
+.DS_Store

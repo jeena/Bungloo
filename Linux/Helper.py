@@ -53,6 +53,7 @@ class WebViewCreator(QtWebKit.QWebView):
         if callback:
             callback(ok)
 
+
 class NetworkAccessManager(QNetworkAccessManager):
 
     def __init__(self, old_manager, tentia_callback):
@@ -82,3 +83,4 @@ class PostModel:
         self.location = None
         self.imageFilePath = None
         self.isPrivate = False
+

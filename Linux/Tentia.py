@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os, sys, pickle
+import os, sys, pickle, subprocess
 from PyQt4 import QtCore, QtGui, QtWebKit
 import Windows, Helper
 
@@ -108,6 +108,7 @@ class Controller(QtCore.QObject):
 			self.app.timeline.set_window_title("Tentia (^" + str(i) + ")")
 		else:
 			self.app.timeline.set_window_title("Tentia")
+			self.app.mentions.evaluateJavaScript("tentia_instance.unread_mentions = 0;")
 
 	@QtCore.pyqtSlot(str, str, str, str)
 	def notificateUserAboutMention(self, text, name, post_id, entity):
@@ -148,7 +149,11 @@ class Controller(QtCore.QObject):
 		#}
 
 		imageFilePath = "null"
-		#if (post.imageFilePath) {
+		if message.imageFilePath is not None:
+			mimeType = subprocess.check_output(['file', '-b', '--mime', message.imageFilePath]).split(";")[0]
+			base64 = open(message.imageFilePath, "rb").read().encode("base64").replace("\n", "")
+			imageFilePath = "\"data:{};base64,{}\"".format(mimeType, base64)
+
 		#    NSError *error;
 		#    NSString *mimeType = [MimeType mimeTypeForFileAtPath:post.imageFilePath error:&error];
 		#    NSData *data = [[NSData alloc] initWithContentsOfFile:post.imageFilePath];
@@ -162,6 +167,7 @@ class Controller(QtCore.QObject):
 			isPrivate = "true"
 
 		func = "tentia_instance.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
+		print func
 		self.app.timeline.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)

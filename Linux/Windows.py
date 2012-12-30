@@ -15,11 +15,13 @@ class Preferences:
 		self.window.setMaximumSize(480, 186)
 
 		# image view
-		image = QtGui.QPixmap(self.app.resources_path() + "/Icon.png")
+		image = QtGui.QPixmap(self.app.resources_path() + "/images/Icon.png")
 		image_view = QtGui.QLabel(self.window)
 		image_view.setGeometry(20, 20, 146, 146)
 		image_view.setPixmap(image)
 		image_view.setScaledContents(True)
+
+		self.window.setWindowIcon(QtGui.QIcon(image))
 
 		# info text
 		info_text = QtGui.QLabel(self.window)
@@ -71,6 +73,7 @@ class Preferences:
 		else:
 			self.activity_indicator.hide()
 
+
 class Timeline:
 
 	def __init__(self, app, action="timeline", title="Tentia"):
@@ -101,6 +104,8 @@ class Timeline:
 
 		# self.window.addWidget(self.webView)
 		self.initUI()
+
+		self.window.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
 
 	def moveWindow(self, x=0, y=0):
 		self.show()
@@ -247,6 +252,8 @@ class NewPost(QtGui.QMainWindow):
 		self.app = app
 		QtGui.QPlainTextEdit.__init__(self)
 
+		self.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
+
 		self.textInput = QtGui.QPlainTextEdit(self)
 		self.setCentralWidget(self.textInput)
 		self.textInput.textChanged.connect(self.onChanged)
@@ -256,9 +263,10 @@ class NewPost(QtGui.QMainWindow):
 		self.setMinimumSize(100, 100)
 		self.initUI()
 
-		self.isPrivate = False
+		self.setIsPrivate(False)
 		self.status_id = None
 		self.reply_to_entity = None
+		self.imageFilePath = None
 
 	def initUI(self):
 		newPostAction = QtGui.QAction("&New Post", self)        
@@ -271,12 +279,33 @@ class NewPost(QtGui.QMainWindow):
 		sendPostAction.setStatusTip("Send post")
 		sendPostAction.triggered.connect(self.sendMessage)
 
+		exitAction = QtGui.QAction("&Exit", self)
+		exitAction.setShortcut("Ctrl+Q")
+		exitAction.setStatusTip("Exit Tentia")
+		exitAction.triggered.connect(QtGui.qApp.quit)
+
 		self.statusBar().showMessage('256')
+
+		self.addButton = QtGui.QToolButton()
+		self.addButton.clicked.connect(self.openFileDialog)
+		self.addButton.setAutoRaise(True)
+		addIcon = QtGui.QIcon.fromTheme("insert-image", QtGui.QIcon(self.app.resources_path() + "/images/Actions-insert-image-icon.png"));
+		self.addButton.setIcon(addIcon)
+		self.statusBar().addPermanentWidget(self.addButton)
+
+		self.isPrivateButton = QtGui.QToolButton()
+		self.isPrivateButton.clicked.connect(self.toggleIsPrivate)
+		self.isPrivateButton.setAutoRaise(True)
+		self.isPrivateIcon = QtGui.QIcon.fromTheme("mail-unread", QtGui.QIcon(self.app.resources_path() + "/images/Lock-Lock-icon.png"))
+		self.isNotPrivateIcon = QtGui.QIcon.fromTheme("mail-signet-verified", QtGui.QIcon(self.app.resources_path() + "/images/Lock-Unlock-icon.png"))
+		self.isPrivateButton.setIcon(self.isNotPrivateIcon)
+		self.statusBar().addPermanentWidget(self.isPrivateButton)
 
 		menubar = self.menuBar()
 		fileMenu = menubar.addMenu("&File")
 		fileMenu.addAction(newPostAction)
 		fileMenu.addAction(sendPostAction)
+		fileMenu.addAction(exitAction)
 
 		timelineAction = QtGui.QAction("&Timeline", self)
 		timelineAction.setShortcut("Ctrl+1")
@@ -300,9 +329,14 @@ class NewPost(QtGui.QMainWindow):
 
 	def setIsPrivate(self, is_private):
 		self.isPrivate = is_private
+		icon = self.isNotPrivateIcon
+		if self.isPrivate:
+			icon = self.isPrivateIcon
 
-	def toggle_is_private(self):
-		self.isPrivate = not self.isPrivate
+		self.isPrivateButton.setIcon(icon)
+
+	def toggleIsPrivate(self):
+		self.setIsPrivate(not self.isPrivate)
 
 	def inReplyToStatusIdWithString(self, reply_to, status_id, string):
 		self.reply_to_entity = reply_to
@@ -325,9 +359,19 @@ class NewPost(QtGui.QMainWindow):
 			message.inReplyTostatusId = self.status_id
 			message.inReplyToEntity = self.reply_to_entity
 			message.location = None
-			message.imageFilePath = None
+			message.imageFilePath = self.imageFilePath
 			message.isPrivate = self.isPrivate
 			self.app.controller.sendMessage(message)
 			self.close()
 		else:
 			 QtGui.qApp.beep()
+
+	def openFileDialog(self):
+		fileNamePath = QtGui.QFileDialog.getOpenFileName(self, "Choose a image", "", "Images (*.png *.gif *.jpg *.jpeg)")
+		if len(fileNamePath) > 0:
+			self.imageFilePath = str(fileNamePath)
+		else:
+			self.imageFilePath = None
+
+
+
