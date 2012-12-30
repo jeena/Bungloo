@@ -167,7 +167,6 @@ class Controller(QtCore.QObject):
 			isPrivate = "true"
 
 		func = "tentia_instance.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
-		print func
 		self.app.timeline.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)
