@@ -107,7 +107,9 @@ define(function() {
     HostApp.notificateUserAboutMention = function(text, name, post_id, entity) {
         if (OS_TYPE == "mac") {
             controller.notificateUserAboutMention_fromName_withPostId_andEntity_(text, name, post_id, entity);
-        }
+        } else {
+            controller.notificateUserAboutMentionFromNameWithPostIdAndEntity(text, name, post_id, entity);
+	}
     }
 
     HostApp.alertTitleWithMessage = function(title, message) {

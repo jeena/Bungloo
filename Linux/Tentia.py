@@ -14,7 +14,7 @@ class Tentia:
 		self.preferences = Windows.Preferences(self)
 		self.preferences.show()
 
-		self.oauth_implementation = Windows.Oauth(self)
+		self.oauth_implementation = Windows.Oauth(self)	
 
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
@@ -111,8 +111,14 @@ class Controller(QtCore.QObject):
 			self.app.mentions.evaluateJavaScript("tentia_instance.unread_mentions = 0;")
 
 	@QtCore.pyqtSlot(str, str, str, str)
-	def notificateUserAboutMention(self, text, name, post_id, entity):
-		print "notificateUserAboutMention is not implemented yet"
+	def notificateUserAboutMentionFromNameWithPostIdAndEntity(self, text, name, post_id, entity):
+		try:
+			subprocess.check_output(['kdialog', '--passivepopup', name + ' mentioned you: ' + text])
+		except OSError:
+			try:
+				subprocess.check_output(['notify-send', '-i', 'dialog-information', name + 'mentioned you on Tent', text])
+			except OSError:
+				pass
 
 	@QtCore.pyqtSlot(str)
 	def openNewMessageWidow(self, string):
