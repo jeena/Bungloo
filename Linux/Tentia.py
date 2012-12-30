@@ -116,7 +116,7 @@ class Controller(QtCore.QObject):
 			subprocess.check_output(['kdialog', '--passivepopup', name + ' mentioned you: ' + text])
 		except OSError:
 			try:
-				subprocess.check_output(['notify-send', '-i', 'dialog-information', name + 'mentioned you on Tent', text])
+				subprocess.check_output(['notify-send', '-i', 'dialog-information', name + ' mentioned you on Tent', text])
 			except OSError:
 				pass
 
