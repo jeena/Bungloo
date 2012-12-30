@@ -5,3 +5,4 @@ dsa_priv.pem
 Mac/.DS_Store
 build
 .DS_Store
+*~

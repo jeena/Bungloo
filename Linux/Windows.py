@@ -81,31 +81,15 @@ class Timeline:
 		self.action = action
 		self.title = title
 
-		self.window = QtGui.QMainWindow()
-
+		self.window = Helper.RestorableWindow(action, self.app)
 		self.window.setWindowTitle(title)
-
-		self.window.resize(380, 600)
-		self.window.setMinimumSize(200, 200)
-#
-		#x, y = 0, 0
-		#if action == "mentions":
-		#	x, y = 20, 20
-		#elif action == "conversation":
-		#	x, y = 40, 20
-		#elif action == "profile":
-		#	x, y = 40, 40
-
-		#self.moveWindow(x, y)
+		self.window.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
 
 		self.webView = Helper.WebViewCreator(self.app, True, self.window)
 		self.webView.load_local(self.load_finished)
 		self.window.setCentralWidget(self.webView)
 
-		# self.window.addWidget(self.webView)
 		self.initUI()
-
-		self.window.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
 
 	def moveWindow(self, x=0, y=0):
 		self.show()
@@ -247,10 +231,10 @@ class Login(QtGui.QDialog):
 		#self.buttonLogin.clicked.connect(callback)
 		#self.label.setText("The server " + url.host() + " requires a username and password.")
 
-class NewPost(QtGui.QMainWindow):
+class NewPost(Helper.RestorableWindow):
 	def __init__(self, app):
 		self.app = app
-		QtGui.QPlainTextEdit.__init__(self)
+		Helper.RestorableWindow.__init__(self, "newpost", self.app)
 
 		self.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
 

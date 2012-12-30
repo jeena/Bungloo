@@ -5,6 +5,8 @@ from PyQt4.QtGui import *
 from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from PyQt4.QtWebKit import QWebView
 
+import array
+
 class WebPage(QtWebKit.QWebPage):
     def __init__(self, parent=0, app=None):
         super(QtWebKit.QWebPage, self).__init__(parent)
@@ -84,3 +86,30 @@ class PostModel:
         self.imageFilePath = None
         self.isPrivate = False
 
+class RestorableWindow(QtGui.QMainWindow):
+
+    def __init__(self, action, app):
+        self.action = action
+        self.app = app
+        QtGui.QMainWindow.__init__(self)
+        self.restoreGeometry(QtCore.QByteArray.fromRawData(self.app.controller.stringForKey("mainWindowGeometry-" + self.action)))
+        self.restoreState(QtCore.QByteArray.fromRawData(self.app.controller.stringForKey("mainWindowState-" + self.action)))
+
+    def closeEvent(self, event):
+        self._saveGeometry()
+
+    def _saveGeometry(self):
+        self.app.controller.setStringForKey(self.saveGeometry(), "mainWindowGeometry-" + self.action)
+        self.app.controller.setStringForKey(self.saveState(), "mainWindowState-" + self.action)
+
+    def hide(self):
+        self._saveGeometry()
+        QtGui.QMainWindow.hide(self)
+
+    def sizeHint(self):
+        return QtCore.QSize(300, 500)
+
+    def show(self):
+        QtGui.QMainWindow.show(self)
+        self.activateWindow()
+        self.raise_()
