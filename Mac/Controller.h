@@ -25,6 +25,7 @@
     IBOutlet NSWindow *conversationViewWindow;
     WebView *profileView;
     NSWindow *profileViewWindow;
+    NSPanel *openProfileWindow;
     NSWindow *loginViewWindow;
     NSTextField *loginEntityTextField;
     NSProgressIndicator *loginActivityIndicator;
@@ -33,6 +34,7 @@
 	ViewDelegate *viewDelegate;
     WebView *oauthView;
     AccessToken *accessToken;
+    NSTextField *showProfileTextField;
 
 }
 
@@ -44,6 +46,7 @@
 @property (assign) IBOutlet NSWindow *conversationViewWindow;
 @property (assign) IBOutlet WebView *profileView;
 @property (assign) IBOutlet NSWindow *profileViewWindow;
+@property (assign) IBOutlet NSPanel *openProfileWindow;
 
 @property (assign) IBOutlet NSWindow *loginViewWindow;
 @property (assign) IBOutlet NSTextField *loginEntityTextField;
@@ -53,6 +56,7 @@
 @property (retain, nonatomic) IBOutlet ViewDelegate *viewDelegate;
 @property (retain, nonatomic) WebView *oauthView;
 @property (retain, nonatomic) AccessToken *accessToken;
+@property (assign) IBOutlet NSTextField *showProfileTextField;
 
 
 - (void)initOauth;
@@ -68,6 +72,7 @@
 - (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity;
 
 - (void)openURL:(NSString *)url;
+- (IBAction)showProfile:(id)sender;
 
 - (void)setString:(NSString *)string forKey:(NSString *)aKey;
 - (void)setSecret:(NSString *)string;

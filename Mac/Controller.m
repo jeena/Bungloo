@@ -12,6 +12,8 @@
 #import "NSData+Base64.h"
 
 @implementation Controller
+@synthesize showProfileTextField;
+@synthesize openProfileWindow;
 @synthesize loginViewWindow;
 @synthesize loginEntityTextField;
 @synthesize loginActivityIndicator;
@@ -407,6 +409,19 @@
 {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
 }
+
+- (IBAction)showProfile:(id)sender
+{
+    NSString *entity = [self.showProfileTextField stringValue];
+    if ([entity rangeOfString:@"."].location != NSNotFound && ([entity hasPrefix:@"http://"] || [entity hasPrefix:@"https://"])) {
+        NSString *func = [NSString stringWithFormat:@"tentia_instance.showProfileForEntity('%@')", entity];
+        [profileView stringByEvaluatingJavaScriptFromString:func];
+        [profileViewWindow makeKeyAndOrderFront:self];
+        [openProfileWindow performClose:self];
+    }
+}
+
+
 /*
 - (void)storeAccessToken:(NSString *)_accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName
 {
