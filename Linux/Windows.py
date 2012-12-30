@@ -284,23 +284,6 @@ class NewPost(QtGui.QMainWindow):
 		exitAction.setStatusTip("Exit Tentia")
 		exitAction.triggered.connect(QtGui.qApp.quit)
 
-		self.statusBar().showMessage('256')
-
-		self.addButton = QtGui.QToolButton()
-		self.addButton.clicked.connect(self.openFileDialog)
-		self.addButton.setAutoRaise(True)
-		addIcon = QtGui.QIcon.fromTheme("insert-image", QtGui.QIcon(self.app.resources_path() + "/images/Actions-insert-image-icon.png"));
-		self.addButton.setIcon(addIcon)
-		self.statusBar().addPermanentWidget(self.addButton)
-
-		self.isPrivateButton = QtGui.QToolButton()
-		self.isPrivateButton.clicked.connect(self.toggleIsPrivate)
-		self.isPrivateButton.setAutoRaise(True)
-		self.isPrivateIcon = QtGui.QIcon.fromTheme("mail-unread", QtGui.QIcon(self.app.resources_path() + "/images/Lock-Lock-icon.png"))
-		self.isNotPrivateIcon = QtGui.QIcon.fromTheme("mail-signet-verified", QtGui.QIcon(self.app.resources_path() + "/images/Lock-Unlock-icon.png"))
-		self.isPrivateButton.setIcon(self.isNotPrivateIcon)
-		self.statusBar().addPermanentWidget(self.isPrivateButton)
-
 		menubar = self.menuBar()
 		fileMenu = menubar.addMenu("&File")
 		fileMenu.addAction(newPostAction)
@@ -326,6 +309,33 @@ class NewPost(QtGui.QMainWindow):
 		windowMenu.addAction(timelineAction)
 		windowMenu.addAction(mentionsAction)
 		windowMenu.addAction(hideAction)
+
+		self.statusBar().showMessage('256')
+
+		self.addButton = QtGui.QToolButton()
+		self.addButton.setToolTip("Add photo")
+		self.addButton.clicked.connect(self.openFileDialog)
+		self.addButton.setAutoRaise(True)
+		addIcon = QtGui.QIcon.fromTheme("insert-image", QtGui.QIcon(self.app.resources_path() + "/images/Actions-insert-image-icon.png"));
+		self.addButton.setIcon(addIcon)
+		self.statusBar().addPermanentWidget(self.addButton)
+
+		self.isPrivateButton = QtGui.QToolButton()
+		self.isPrivateButton.setToolTip("Make private")
+		self.isPrivateButton.clicked.connect(self.toggleIsPrivate)
+		self.isPrivateButton.setAutoRaise(True)
+		self.isPrivateIcon = QtGui.QIcon.fromTheme("mail-unread", QtGui.QIcon(self.app.resources_path() + "/images/Lock-Lock-icon.png"))
+		self.isNotPrivateIcon = QtGui.QIcon.fromTheme("mail-signet-verified", QtGui.QIcon(self.app.resources_path() + "/images/Lock-Unlock-icon.png"))
+		self.isPrivateButton.setIcon(self.isNotPrivateIcon)
+		self.statusBar().addPermanentWidget(self.isPrivateButton)
+
+		self.sendButton = QtGui.QToolButton()
+		self.sendButton.setToolTip("Send")
+		self.sendButton.clicked.connect(self.sendMessage)
+		self.sendButton.setAutoRaise(True)
+		sendIcon = QtGui.QIcon.fromTheme("mail-send", QtGui.QIcon(self.app.resources_path() + "/images/send-icon.png"))
+		self.sendButton.setIcon(sendIcon)
+		self.statusBar().addPermanentWidget(self.sendButton)
 
 	def setIsPrivate(self, is_private):
 		self.isPrivate = is_private
