@@ -207,7 +207,6 @@ li:first-child:hover .date {
 }
 
 aside {
-	width: 15px;
 	float: right;
 	margin: 0 3px 3px 3px;
 	visibility: hidden;
@@ -217,7 +216,8 @@ aside {
 	width: 15px;
 	height: 12px;
 	background: url(../img/sprite-icons.png) no-repeat -16px 0;
-	display: inline-block;
+	float: right;
+	margin-left: 2px;
 }
 
 li:hover aside {
