@@ -747,6 +747,13 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         HostApp.openNewMessageWidow(entity, status_id, string, is_private);
     }
 
+    Core.prototype.postDeleted = function(post_id, entity) {
+        var li = document.getElementById("post-" + post_id);
+        if (li) {
+            this.body.removeChild(li);
+        }
+    };
+
     return Core;
 
 });

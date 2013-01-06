@@ -99,13 +99,20 @@
     }
 }
 
-- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems {
+- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems
+{
+    // FIXME
+    /*
+    NSMutableArray *menuItems = [NSMutableArray arrayWithArray:defaultMenuItems];
+    
     for (NSMenuItem*item in defaultMenuItems) {
         if ([[item title] isEqualToString:@"Reload"]) {
-            [item setAction:@selector(reload:)];
-            [item setTarget:self];
+            //[item setAction:@selector(reload:)];
+            //[item setTarget:self];
+        } else {
+            [menuItems addObject:item];
         }
-    }
+    }*/
     
     return defaultMenuItems;
 }

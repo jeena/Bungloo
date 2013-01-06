@@ -90,9 +90,9 @@
         NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
         
         oauthView = [[WebView alloc] init];
-        WebPreferences* prefs = [oauthView preferences];
-        [prefs _setLocalStorageDatabasePath:@"~/Library/Application Support/Tentia"];
-        [prefs setLocalStorageEnabled:YES];
+        //WebPreferences* prefs = [oauthView preferences];
+        //[prefs _setLocalStorageDatabasePath:@"~/Library/Application Support/Tentia"];
+        //[prefs setLocalStorageEnabled:YES];
         viewDelegate.oauthView = oauthView;
         [[oauthView mainFrame] loadHTMLString:index_string baseURL:url];
         [oauthView setFrameLoadDelegate:viewDelegate];
@@ -113,7 +113,7 @@
     {
         [self initOauth];
         
-        NSString *localStoragePath = @"~/Library/Application Support/Tentia";
+        //NSString *localStoragePath = @"~/Library/Application Support/Tentia";
         
         NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
         NSURL *url = [NSURL fileURLWithPath:path];
@@ -125,9 +125,9 @@
         [timelineView setPolicyDelegate:viewDelegate];
         [timelineView setUIDelegate:viewDelegate];
         [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
-        WebPreferences* prefs = [timelineView preferences];
-        [prefs _setLocalStorageDatabasePath:localStoragePath];
-        [prefs setLocalStorageEnabled:YES];
+        //WebPreferences* prefs = [timelineView preferences];
+        //[prefs _setLocalStorageDatabasePath:localStoragePath];
+        //[prefs setLocalStorageEnabled:YES];
         
         viewDelegate.mentionsView = mentionsView;
         [[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
@@ -135,9 +135,9 @@
         [mentionsView setPolicyDelegate:viewDelegate];
         [mentionsView setUIDelegate:viewDelegate];
         [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
-        prefs = [mentionsView preferences];
-        [prefs _setLocalStorageDatabasePath:localStoragePath];
-        [prefs setLocalStorageEnabled:YES];
+        //prefs = [mentionsView preferences];
+        //[prefs _setLocalStorageDatabasePath:localStoragePath];
+        //[prefs setLocalStorageEnabled:YES];
         
         viewDelegate.conversationView = conversationView;
         [[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
@@ -145,9 +145,9 @@
         [conversationView setPolicyDelegate:viewDelegate];
         [conversationView setUIDelegate:viewDelegate];
         [[conversationView windowScriptObject] setValue:self forKey:@"controller"];
-        prefs = [conversationView preferences];
-        [prefs _setLocalStorageDatabasePath:localStoragePath];
-        [prefs setLocalStorageEnabled:YES];
+        //prefs = [conversationView preferences];
+        //[prefs _setLocalStorageDatabasePath:localStoragePath];
+        //[prefs setLocalStorageEnabled:YES];
         
         viewDelegate.profileView = profileView;
         [[profileView mainFrame] loadHTMLString:index_string baseURL:url];
@@ -155,9 +155,9 @@
         [profileView setPolicyDelegate:viewDelegate];
         [profileView setUIDelegate:viewDelegate];
         [[profileView windowScriptObject] setValue:self forKey:@"controller"];
-        prefs = [profileView preferences];
-        [prefs _setLocalStorageDatabasePath:localStoragePath];
-        [prefs setLocalStorageEnabled:YES];
+        //prefs = [profileView preferences];
+        //[prefs _setLocalStorageDatabasePath:localStoragePath];
+        //[prefs setLocalStorageEnabled:YES];
 
     }
     else
@@ -419,6 +419,15 @@
         [profileViewWindow makeKeyAndOrderFront:self];
         [openProfileWindow performClose:self];
     }
+}
+
+- (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity
+{
+    NSString *fun = [NSString stringWithFormat:@"tentia_instance.postDeleted('%@', '%@')", postId, entity];
+    [timelineView stringByEvaluatingJavaScriptFromString:fun];
+    [mentionsView stringByEvaluatingJavaScriptFromString:fun];
+    [conversationView stringByEvaluatingJavaScriptFromString:fun];
+    [profileView stringByEvaluatingJavaScriptFromString:fun];
 }
 
 

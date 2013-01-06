@@ -132,6 +132,14 @@ define(function() {
         return OS_TYPE == "mac" ? "OS X" : "Linux";
     }
 
+    HostApp.notificateViewsAboutDeletedPost = function(postId, entity) {
+        if (OS_TYPE == "mac") {
+            controller.notificateViewsAboutDeletedPostWithId_byEntity_(postId, entity);
+        } else {
+            controller.notificateViewsAboutDeletedPostWithIdbyEntity(postId, entity);
+        }
+    }
+
     return HostApp;    
 
 });

@@ -62,10 +62,8 @@ function(Core, Paths, HostApp, URI) {
 
                 } else if (status.type == "https://tent.io/types/post/delete/v0.1.0") {
 
-                    var li = document.getElementById("post-" + status.content.id);
-                    if (li) {
-                        this.body.removeChild(li);
-                    }
+                    HostApp.notificateViewsAboutDeletedPost(status.content.id, status.entity);
+
                 } else if (status.type == "https://tent.io/types/post/repost/v0.1.0") {
 
                     this.getRepost(status, this.body.firstChild);

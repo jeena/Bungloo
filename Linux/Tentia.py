@@ -186,7 +186,14 @@ class Controller(QtCore.QObject):
 		func = "tentia_instance.showProfileForEntity('{}');".format(entity)
 		self.app.profile.evaluateJavaScript(func)
 		self.app.profile.show()
-		
+
+	@QtCore.pyqtSlot(str, str)
+	def notificateViewsAboutDeletedPostWithIdbyEntity(self, post_id, entity):
+		func = "tentia_instance.postDeleted('{}', '{}')".format(post_id, entity);
+		self.app.timelineView.evaluateJavaScript(func)
+		self.app.mentionsView.evaluateJavaScript(func)
+		self.app.conversationView.evaluateJavaScript(func)
+		self.app.profileView.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str)
 	def authentificationDidNotSucceed(self, errorMessage):

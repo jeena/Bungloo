@@ -73,6 +73,7 @@
 
 - (void)openURL:(NSString *)url;
 - (IBAction)showProfile:(id)sender;
+- (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity;
 
 - (void)setString:(NSString *)string forKey:(NSString *)aKey;
 - (void)setSecret:(NSString *)string;
