@@ -160,14 +160,6 @@ class Controller(QtCore.QObject):
 			base64 = open(message.imageFilePath, "rb").read().encode("base64").replace("\n", "")
 			imageFilePath = "\"data:{};base64,{}\"".format(mimeType, base64)
 
-		#    NSError *error;
-		#    NSString *mimeType = [MimeType mimeTypeForFileAtPath:post.imageFilePath error:&error];
-		#    NSData *data = [[NSData alloc] initWithContentsOfFile:post.imageFilePath];
-		#    NSString *base64 = [data base64Encoding_xcd];
-		#    [data release];
-		#    imageFilePath = [NSString stringWithFormat:@"\"data:%@;base64,%@\"", mimeType, base64];
-		#}
-
 		isPrivate = "false";
 		if message.isPrivate:
 			isPrivate = "true"
@@ -190,10 +182,10 @@ class Controller(QtCore.QObject):
 	@QtCore.pyqtSlot(str, str)
 	def notificateViewsAboutDeletedPostWithIdbyEntity(self, post_id, entity):
 		func = "tentia_instance.postDeleted('{}', '{}')".format(post_id, entity);
-		self.app.timelineView.evaluateJavaScript(func)
-		self.app.mentionsView.evaluateJavaScript(func)
-		self.app.conversationView.evaluateJavaScript(func)
-		self.app.profileView.evaluateJavaScript(func)
+		self.app.timeline.evaluateJavaScript(func)
+		self.app.mentions.evaluateJavaScript(func)
+		self.app.conversation.evaluateJavaScript(func)
+		self.app.profile.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str)
 	def authentificationDidNotSucceed(self, errorMessage):
