@@ -308,8 +308,8 @@ class NewPost(Helper.RestorableWindow):
 		self.isPrivateButton.setToolTip("Make private")
 		self.isPrivateButton.clicked.connect(self.toggleIsPrivate)
 		self.isPrivateButton.setAutoRaise(True)
-		self.isPrivateIcon = QtGui.QIcon.fromTheme("mail-unread", QtGui.QIcon(self.app.resources_path() + "/images/Lock-Lock-icon.png"))
-		self.isNotPrivateIcon = QtGui.QIcon.fromTheme("mail-signet-verified", QtGui.QIcon(self.app.resources_path() + "/images/Lock-Unlock-icon.png"))
+		self.isPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/Lock-Lock-icon.png")
+		self.isNotPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/Lock-Unlock-icon.png")
 		self.isPrivateButton.setIcon(self.isNotPrivateIcon)
 		self.statusBar().addPermanentWidget(self.isPrivateButton)
 
