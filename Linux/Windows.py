@@ -349,7 +349,7 @@ class NewPost(Helper.RestorableWindow):
 		count = 256 - len(self.textInput.toPlainText())
 		if count >= 0:
 			message = Helper.PostModel()
-			message.text = self.textInput.toPlainText()
+			message.text = unicode(self.textInput.toPlainText().toUtf8(), "utf-8")
 			message.inReplyTostatusId = self.status_id
 			message.inReplyToEntity = self.reply_to_entity
 			message.location = None

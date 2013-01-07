@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import os, sys, pickle, subprocess
 from PyQt4 import QtCore, QtGui, QtWebKit
 import Windows, Helper
@@ -137,9 +138,10 @@ class Controller(QtCore.QObject):
 		self.app.new_message_windows.append(new_message_window)
 
 	def sendMessage(self, message):
-		text = str.replace(str(message.text), "\\", "\\\\")
-		text = str.replace(text, "\"", "\\\"")
-		text = str.replace(text, "\n", "\\n")
+		text = message.text
+		text = unicode.replace(text, "\\", "\\\\")
+		text = unicode.replace(text, "\"", "\\\"")
+		text = unicode.replace(text, "\n", "\\n")
 
 		in_reply_to_status_id = ""
 		if message.inReplyTostatusId is not None:
@@ -164,7 +166,7 @@ class Controller(QtCore.QObject):
 		if message.isPrivate:
 			isPrivate = "true"
 
-		func = "tentia_instance.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
+		func = ("tentia_instance.sendNewMessage(\"" + text + "\", \"{}\", \"{}\", {}, {}, {});").format( in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
 		self.app.timeline.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)
