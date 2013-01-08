@@ -104,7 +104,7 @@ class RestorableWindow(QtGui.QMainWindow):
 
     def hide(self):
         self._saveGeometry()
-        QtGui.QMainWindow.hide(self)
+        QtGui.QMainWindow.close(self)
 
     def sizeHint(self):
         return QtCore.QSize(300, 500)
