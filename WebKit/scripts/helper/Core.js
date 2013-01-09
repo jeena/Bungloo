@@ -593,7 +593,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var text = node.innerHTML;
         var mentions_in_text = [];
-        var res = text.match(/(\^[\w]+\.[\w:/.]+)/ig);
+        var res = text.match(/(\^[\w:/.]+)/ig);
 
         if (res) {
             for (var i = 0; i < res.length; i++) {
@@ -680,7 +680,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             })
         }
         
-        var res = text.match(/(\^[\w]+\.[\w:/.]+)/ig);
+        var res = text.match(/(\^[\w:/]+\.[\w:/.]+)/ig);
 
         if (res) {
             for (var i = 0; i < res.length; i++) {
@@ -693,6 +693,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 }
             }
         }
+
         return mentions;
     }
 
