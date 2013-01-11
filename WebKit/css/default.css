@@ -38,23 +38,23 @@ ol li, .error, header.profile {
 	color: red;
 }
 
-ol li:first-child {
+body > ol > li:first-child {
 	border-top: 0;
 }
 
-ol li:nth-child(odd), .error, header.profile {
+body > ol > li:nth-child(odd), .error, header.profile {
 	background: url(../img/odd-bg.png) repeat-x bottom #fafafa;
 }
 
-ol li:nth-child(even) {
+body > ol > li:nth-child(even) {
 	background: url(../img/even-bg.png) repeat-x bottom #f2f2f2;
 }
 
-ol li:hover {
+body > ol > li:hover {
 	background: #dedede;
 }
 
-ol li:after, header.profile:after {
+body > ol > li:after, header.profile:after {
     content: ".";
     display: block;
     clear: both;
@@ -247,6 +247,70 @@ li.mentioned {
 	height: 12px;
 	width: 15px;
 	margin-right: 5px;
+}
+
+.reposted_by {
+	position: relative;
+	color: #00317a;
+}
+
+.reposted_by ul {
+	display: none;
+	position: absolute;
+	list-style-type: none;
+	margin: 0;
+	padding: 3px 6px;
+	background: black;
+	border-radius: 3px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.7);
+	z-index: 2;
+}
+
+.reposted_by:hover ul {
+	display: block;
+}
+
+.reposted_by:hover ul:empty {
+	display: none;
+}
+
+.reposted_by li {
+	margin: 0;
+	padding: 0;
+	background: black;
+	text-align: center;
+	border: 0;
+}
+
+.reposted_by li:hover {
+	background: black;
+} 
+
+.reposted_by li a {
+	color: white;
+	background: black;
+	font-weight: normal;
+	text-decoration: none;
+	border: none;
+	white-space: nowrap;
+}
+
+.reposted_by ul:after {
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.reposted_by ul:after {
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: #000000;
+	border-width: 5px;
+	left: 50%;
+	margin-left: -5px;
 }
 
 header.profile button {
