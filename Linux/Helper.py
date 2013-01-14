@@ -5,6 +5,8 @@ from PyQt4.QtGui import *
 from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from PyQt4.QtWebKit import QWebView
 
+import os
+
 import array
 
 class WebPage(QtWebKit.QWebPage):
@@ -49,8 +51,19 @@ class WebViewCreator(QtWebKit.QWebView):
         self.load(QtCore.QUrl(url))
 
     def load_finished(self, ok, callback=None):
+        frame = self.page().mainFrame()
         if self.is_local:
-            self.page().mainFrame().evaluateJavaScript("var OS_TYPE = 'linux';")
+            frame.evaluateJavaScript("var OS_TYPE = 'linux';")
+
+            js_plugin_path = os.path.expanduser('~/.tentia/Plugin.js')
+            if os.access(js_plugin_path, os.R_OK):
+                func = "setTimeout(function() { loadJsPlugin('file://localhost" + js_plugin_path + "') }, 1000);"
+                frame.evaluateJavaScript(func)
+
+            css_plugin_path = os.path.expanduser('~/.tentia/Plugin.css')
+            if os.access(css_plugin_path, os.R_OK):
+                func = "setTimeout(function() { loadCssPlugin('file://localhost" + css_plugin_path + "') }, 1000);"
+                frame.evaluateJavaScript(func)
 
         if callback:
             callback(ok)
