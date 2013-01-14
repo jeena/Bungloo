@@ -351,7 +351,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         
         // {"type":"Point","coordinates":[57.10803113,12.25854746]}
         if (status.content && status.content.location && (typeof status.content.location.type == "undefined" || status.content.location.type == "Point")) {
-            template.geo.href = "http://maps.google.com/maps?q=" + status.content.location.coordinates[0] + "," + status.content.location.coordinates[1];
+            var href = "http://www.openstreetmap.org/?mlat=" + status.content.location.coordinates[0] + "&mlon=" + status.content.location.coordinates[1] + "&zoom=12"
+            template.geo.href = href;
             template.geo.style.display = "";
         }
 
@@ -375,11 +376,12 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         if (post) {
 
             var reposted_count = $(post).find(".reposted_by ul li").length + 1;
+            
+            var a = $("<a/>");
 
             if (reposted_count == 1) {
 
                 $(post).find(".reposted_by").show();
-                var a = $("<a/>");
                 a.attr("href", repost.entity);
                 a.attr("title", repost.entity);
                 a.html(repost.entity);
@@ -393,7 +395,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 $(post).find(".reposted_by").show();
 
                 var li = $("<li/>");
-                var a = $("<a/>");
                 a.attr("href", repost.entity);
                 a.attr("title", repost.entity);
                 a.html(repost.entity);
@@ -423,7 +424,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                         }
                     }, null, false); // do not send auth-headers
                 }
-            });  
+            });
 
         } else {
             var _this = this;
