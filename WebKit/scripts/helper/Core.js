@@ -673,11 +673,12 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             (function(mention) { // need this closure
 
                 var profile = function(profile) {
+                    
                     var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
 
-                    if (profile && basic) {
+                    if (profile) {
                         var name = mention.text;
-                        if (basic.name) {
+                        if (basic && basic.name) {
                             name = basic.name;
                         }
 
