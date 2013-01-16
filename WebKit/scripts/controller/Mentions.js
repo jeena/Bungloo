@@ -1,9 +1,11 @@
 define([
     "helper/HostApp",
-    "controller/Timeline"
+    "controller/Timeline",
+    "lib/URI",
+    "helper/Paths"
 ],
 
-function(HostApp, Timeline) {
+function(HostApp, Timeline, URI, Paths) {
 
 
     function Mentions() {
@@ -60,6 +62,37 @@ function(HostApp, Timeline) {
         if (this.unread_mentions > 0) {
             this.unread_mentions--;
             HostApp.unreadMentions(this.unread_mentions);
+        }
+    }
+
+    Mentions.prototype.setAllMentionsRead = function() {
+        this.unread_mentions = 0;
+        HostApp.unreadMentions(this.unread_mentions);
+        this.updateLatestMentionRead();
+    }
+
+    Mentions.prototype.updateLatestMentionRead = function() {
+        var status = this.body.firstChild.status;
+
+        if (status && status.type == "https://tent.io/types/post/status/v0.1.0") {
+
+            var url = URI(Paths.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
+            var body = {
+                "https://tent.io/types/info/cursor/v0.1.0": {
+                    "mentions": {
+                        "https://tent.io/types/post/status/v0.1.0": {
+                            "post_id": status.id,
+                            "post_entity": status.entity
+                        }
+                    }
+                }
+            }
+
+            var callback = function(resp) {
+                //debug(resp)
+            }
+
+            Paths.getURL(url.toString(), "PUT", callback, JSON.stringify(body));
         }
     }
 

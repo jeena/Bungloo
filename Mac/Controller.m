@@ -60,11 +60,11 @@
     accessToken = [[AccessToken alloc] init];
     
     BOOL forceLogin = NO;
-    if (![accessToken stringForKey:@"version-0.5.2-new-login"]) {
+    if (![accessToken stringForKey:@"version-0.6.0-new-login"]) {
         [self logout:self];
         forceLogin = YES;
         [accessToken setString:nil forKey:@"entity"];        
-        [accessToken setString:@"yes" forKey:@"version-0.5.2-new-login"];
+        [accessToken setString:@"yes" forKey:@"version-0.6.0-new-login"];
     }
     
     if (forceLogin || ![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
@@ -479,7 +479,8 @@
 {
 	if ([notification object] == mentionsViewWindow)
     {
-		[self unreadMentions:0];		
+		//[self unreadMentions:0];
+		[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.setAllMentionsRead();"];
 	}	
 }
 
