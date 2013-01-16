@@ -236,7 +236,7 @@
 								<object class="NSMenuItem" id="361695239">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Open Profile ...</string>
-									<string key="NSKeyEquiv">p</string>
+									<string key="NSKeyEquiv">u</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="1033313550"/>
@@ -838,7 +838,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="332867700">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -886,7 +886,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{397, 581}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="690752143"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
@@ -937,6 +936,7 @@
 							</object>
 							<string key="NSFrameSize">{376, 581}</string>
 							<reference key="NSSuperview" ref="438898709"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
@@ -954,6 +954,7 @@
 					</object>
 					<string key="NSFrameSize">{376, 581}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="126069112"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
@@ -971,7 +972,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="469460548">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1010,7 +1011,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{376, 581}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="352293288"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
@@ -1028,7 +1028,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="352860314">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1067,7 +1067,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{376, 581}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="106985301"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
@@ -1211,7 +1210,6 @@
 							<string key="NSFrame">{{391, 46}, {75, 32}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="54847478">
@@ -1320,7 +1318,6 @@
 							<string key="NSFrame">{{285, 13}, {74, 32}}</string>
 							<reference key="NSSuperview" ref="997375509"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="302504138">
@@ -3129,7 +3126,11 @@
 							<string>clearCache:</string>
 							<string>login:</string>
 							<string>logout:</string>
+							<string>openNewMessageWindow:</string>
+							<string>sendTweet:</string>
+							<string>showConversationForPostId:andEntity:</string>
 							<string>showProfile:</string>
+							<string>showProfileForEntity:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3137,6 +3138,10 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>NSString</string>
+							<string>id</string>
+							<string>NSString</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -3146,7 +3151,11 @@
 							<string>clearCache:</string>
 							<string>login:</string>
 							<string>logout:</string>
+							<string>openNewMessageWindow:</string>
+							<string>sendTweet:</string>
+							<string>showConversationForPostId:andEntity:</string>
 							<string>showProfile:</string>
+							<string>showProfileForEntity:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3163,8 +3172,24 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">openNewMessageWindow:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">sendTweet:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showConversationForPostId:andEntity:</string>
+								<string key="candidateClassName">NSString</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">showProfile:</string>
 								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showProfileForEntity:</string>
+								<string key="candidateClassName">NSString</string>
 							</object>
 						</object>
 					</object>
@@ -3181,6 +3206,7 @@
 							<string>logoLayer</string>
 							<string>mentionsView</string>
 							<string>mentionsViewWindow</string>
+							<string>openProfileWindow</string>
 							<string>profileView</string>
 							<string>profileViewWindow</string>
 							<string>showProfileTextField</string>
@@ -3199,6 +3225,7 @@
 							<string>NSImageView</string>
 							<string>WebView</string>
 							<string>NSWindow</string>
+							<string>NSPanel</string>
 							<string>WebView</string>
 							<string>NSWindow</string>
 							<string>NSTextField</string>
@@ -3220,6 +3247,7 @@
 							<string>logoLayer</string>
 							<string>mentionsView</string>
 							<string>mentionsViewWindow</string>
+							<string>openProfileWindow</string>
 							<string>profileView</string>
 							<string>profileViewWindow</string>
 							<string>showProfileTextField</string>
@@ -3264,6 +3292,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">mentionsViewWindow</string>
 								<string key="candidateClassName">NSWindow</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">openProfileWindow</string>
+								<string key="candidateClassName">NSPanel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">profileView</string>

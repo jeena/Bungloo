@@ -150,6 +150,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         var template = this.getTemplate();
 
         template.item.id = "post-" + (typeof status.__repost != "undefined" ? status.__repost.id : status.id);
+        template.item.status = status;
 
         if (HostApp.stringForKey("entity") == status.entity && typeof status.__repost == "undefined") {
             template.remove.onclick = function() {
@@ -644,7 +645,9 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var text = node.innerHTML;
         var mentions_in_text = [];
-        var res = text.match(/(\^[\w:/]+\.[\w:/.]+(?:[\w]))/ig);
+        
+        var res = text.match(/(\^[\w:/.]+(?:[\w]))/ig);
+
         if (res) {
             for (var i = 0; i < res.length; i++) {
                 var name = res[i];
@@ -671,11 +674,12 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             (function(mention) { // need this closure
 
                 var profile = function(profile) {
+                    
                     var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
 
-                    if (profile && basic) {
+                    if (profile) {
                         var name = mention.text;
-                        if (basic.name) {
+                        if (basic && basic.name) {
                             name = basic.name;
                         }
 

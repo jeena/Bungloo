@@ -104,7 +104,8 @@ function(HostApp, Paths, Hmac) {
                     + "&redirect_uri=" + this.app_info["redirect_uris"][0]
                     + "&scope=" + Object.keys(this.app_info["scopes"]).join(",")
                     + "&state=" + this.state
-                    + "&tent_post_types=all";
+                    + "&tent_post_types=all"
+                    + "&tent_profile_info_types=all";
 
         HostApp.openAuthorizationURL(this.apiRoot() + auth);
     }
