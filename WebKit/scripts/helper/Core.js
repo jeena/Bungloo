@@ -150,6 +150,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         var template = this.getTemplate();
 
         template.item.id = "post-" + (typeof status.__repost != "undefined" ? status.__repost.id : status.id);
+        template.item.status = status;
 
         if (HostApp.stringForKey("entity") == status.entity && typeof status.__repost == "undefined") {
             template.remove.onclick = function() {
