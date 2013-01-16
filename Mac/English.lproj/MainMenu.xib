@@ -236,7 +236,7 @@
 								<object class="NSMenuItem" id="361695239">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Open Profile ...</string>
-									<string key="NSKeyEquiv">O</string>
+									<string key="NSKeyEquiv">u</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="1033313550"/>
@@ -906,7 +906,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="438898709">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -936,6 +936,7 @@
 							</object>
 							<string key="NSFrameSize">{376, 581}</string>
 							<reference key="NSSuperview" ref="438898709"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
 							<string key="GroupName"/>
@@ -952,6 +953,8 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{376, 581}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="126069112"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
