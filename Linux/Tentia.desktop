@@ -1,0 +1,20 @@
+[Desktop Entry]
+Comment[en_US]=Client for the new cool Tent social protocol
+Comment=Client for the new cool Tent social protocol
+Exec=./Tentia.py
+GenericName[en_US]=Tent client
+GenericName=Tent client
+Icon=/home/jeena/Projects/Tentia/images/Icon.png
+MimeType=
+Name[en_US]=Tentia
+Name=Tentia
+NoDisplay=false
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
