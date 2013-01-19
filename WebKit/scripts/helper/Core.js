@@ -97,6 +97,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         reposted_by.appendChild(reposted_count)
 
         var reposted_list = document.createElement("ul");
+        reposted_list.className = "reposted_list";
         reposted_by.appendChild(reposted_list);
 
         head.appendChild(reposted_by)
@@ -149,7 +150,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var template = this.getTemplate();
 
-        template.item.id = "post-" + (typeof status.__repost != "undefined" ? status.__repost.id : status.id);
+        template.item.id = "post-" + status.id;
         template.item.status = status;
 
         if (HostApp.stringForKey("entity") == status.entity && typeof status.__repost == "undefined") {
@@ -185,7 +186,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }
 
         template.repost.onclick = function() {
-            template.repost.className = "hidden";
+            $(template.repost).hide();
             _this.repost(status.id, status.entity);
             return false;
         }
@@ -238,39 +239,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     }, null, false); // do not send auth-headers
                 }
             });            
-        }
-
-        if (typeof status.__repost != "undefined") {
-
-            $(template.reposted_by).show();
-            var a = $("<a/>");
-            $(template.reposted_by).find("span").html(a)
-
-            a.attr("href", status.__repost.entity)
-            a.html(status.__repost.entity);
-            a.attr("title", status.__repost.entity);
-            a.click(function(e) {
-                HostApp.showProfileForEntity(status.__repost.entity);
-                return false;
-            });
-
-            Paths.findProfileURL(status.__repost.entity, function(profile_url) {
-                if (profile_url) {
-                    Paths.getURL(profile_url, "GET", function(resp) {
-                        if (resp.status >= 200 && resp.status < 400) {
-                            var _p = JSON.parse(resp.responseText);
-                            _this.cache.profiles.setItem(status.__repost.entity, _p);
-
-                            var basic = _p["https://tent.io/types/info/basic/v0.1.0"];
-                            if (basic && basic.name) {
-                                a.html("by " + basic.name);
-                            }
-
-                        }
-                    }, null, false); // do not send auth-headers
-                }
-            });  
-
         }
 
         if (status && status.permissions && !status.permissions.public) {
@@ -374,34 +342,41 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     Core.prototype.getRepost = function(repost, before_node) {
 
         var post = document.getElementById("post-" + repost.content.id);
+
         if (post) {
+
+            if (repost.entity == HostApp.stringForKey("entity")) {
+                var remove = $(post).find(".remove");
+                remove.show();
+
+                var _this = this;
+                remove.get(0).onclick = function(e) {
+                    var callback = function() {
+                        remove.hide();
+                        $(post).find(".repost").show();
+                    }
+
+                    _this.remove(repost.id, callback);
+                    return false;
+                };
+            }
 
             var reposted_count = $(post).find(".reposted_by ul li").length + 1;
             
+            var people_person = reposted_count == 1 ? "person" : "people";
+
+            $(post).find(".reposted_by span").html("by " + reposted_count + " " + people_person);
+            $(post).find(".reposted_by").show();
+
+            var li = $("<li/>");
+            li.attr("id", "post-" + repost.id)
             var a = $("<a/>");
-
-            if (reposted_count == 1) {
-
-                $(post).find(".reposted_by").show();
-                a.attr("href", repost.entity);
-                a.attr("title", repost.entity);
-                a.html(repost.entity);
-                $(post).find(".reposted_by span").html(a);                
-
-
-            } else {
-                var people_person = reposted_count == 1 ? "person" : "people";
-
-                $(post).find(".reposted_by span").html("by " + reposted_count + " " + people_person);
-                $(post).find(".reposted_by").show();
-
-                var li = $("<li/>");
-                a.attr("href", repost.entity);
-                a.attr("title", repost.entity);
-                a.html(repost.entity);
-                li.append(a);
-                $(post).find(".reposted_by ul").append(li);                
-            }
+            
+            a.attr("href", repost.entity);
+            a.attr("title", repost.entity);
+            a.html(repost.entity);
+            li.append(a);
+            $(post).find(".reposted_by ul").append(li);   
 
 
             a.click(function(e) {
@@ -435,6 +410,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     status.__repost = repost;
                     var li = _this.getStatusDOMElement(status);
                     before_node.parentNode.insertBefore(li, before_node);
+                    _this.getRepost(repost, before_node); // call this recursive because we now have the repost
                 }
             }
 
@@ -602,7 +578,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         if (confirm("Really delete this post?")) {
             var url = URI(Paths.mkApiRootPath("/posts/" + id));
-
             Paths.getURL(url.toString(), "DELETE", callback);
         }
     }
@@ -805,7 +780,16 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     Core.prototype.postDeleted = function(post_id, entity) {
         var li = document.getElementById("post-" + post_id);
         if (li) {
-            this.body.removeChild(li);
+            if (li.parentNode == this.body) {
+                this.body.removeChild(li);
+            } else if($(li).parent().hasClass("reposted_list")) { // if it is a repost we are removing
+                var ul = $(li).parent();
+                ul.get(0).removeChild(li);
+                if (ul.find("li").length == 0) {
+                    ul.parent(".reposted_by").hide();
+                }
+            }
+            
         }
     };
 
