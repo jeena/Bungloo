@@ -787,6 +787,13 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 ul.get(0).removeChild(li);
                 if (ul.find("li").length == 0) {
                     ul.parent(".reposted_by").hide();
+                } else {
+                    var reposted_by = ul.parent(".reposted_by");
+                    var reposted_count = reposted_by.find("ul li").length;
+            
+                    var people_person = reposted_count == 1 ? "person" : "people";
+
+                    reposted_by.find("span").html("by " + reposted_count + " " + people_person);
                 }
             }
             
