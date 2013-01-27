@@ -5,14 +5,16 @@ html, body {
 }
 
 body {
-	font-family: "Lucida Grande", Tahoma, sans-serif;
+	font-family: "Open Sans", Tahoma, sans-serif;
 	font-size: 11px;
 	background: #dedede url(../img/background.png) center center no-repeat;
+	border-right: 1px solid #ddd;
 }
 
 a {
 	text-decoration: none;
 	color: #00317a;
+	text-shadow: 1px 1px white;
 }
 
 ol {
@@ -43,15 +45,17 @@ body > ol > li:first-child {
 }
 
 body > ol > li:nth-child(odd), .error, header.profile {
-	background: url(../img/odd-bg.png) repeat-x bottom #fafafa;
+	background: #fafafa;
+	border-right: 1px solid #fafafa;
 }
 
 body > ol > li:nth-child(even) {
-	background: url(../img/even-bg.png) repeat-x bottom #f2f2f2;
+	background: #f2f2f2;
+	border-right: 1px solid #f2f2f2;
 }
 
 body > ol > li:hover {
-	background: #dedede;
+	border-right: 1px solid #ccc;
 }
 
 body > ol > li:after, header.profile:after {
@@ -86,7 +90,7 @@ header.profile h1 + p {
 }
 
 .highlight {
-	border-right: 5px solid #f17779;
+	border-right: 3px solid #f17779;
 }
 
 h1 {
@@ -153,39 +157,33 @@ li .name:first-child {
 }
 
 .name {
-	background: #d8dfea;
 	font-weight: normal;
-	padding: 0 3px 2px 3px;
-	border-radius: 5px;
+	text-shadow: none;
+	padding-left: 2px;
 }
 
 li:hover .name {
-	background: #b8c1d0;
 }
 
 .is_private {
 	color: white;
-	padding: 0 4px 0 2px;
+	font-size: 8px;
+	padding: 0 3px 0 3px;
 	background: #09F;
 	border-radius: 3px;
-	font-style: italic;
 	font-weight: bold;
+	text-align: center;
 }
 
 
 li .date {
 	position: absolute;
-	top: -1.8em;
-	right: 10px;
+	top: 5px;
+	right: 3px;
 	display: none;
 	padding: 0.3em 0.9em;
-	-webkit-border-top-left-radius: 8px;
-	-webkit-border-top-right-radius: 8px;
-	-webkit-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.1);
-	border: 1px solid white;
 	border-bottom: 0;
-	background: #ddd;
-	font-size: 0.9em;
+	font-size: 10px;
 }
 
 li:hover .date {
@@ -194,21 +192,22 @@ li:hover .date {
 
 
 li:first-child:hover .date {
-	top: auto;
-	bottom: -1.6em;
-	z-index: 2;
-	-webkit-border-top-left-radius: 0;
-	-webkit-border-top-right-radius: 0;
-	-webkit-border-bottom-left-radius: 8px;
-	-webkit-border-bottom-right-radius: 8px;
-	-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-	border: 1px solid #b9b9b9;
-	border-top: 0;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	display: none;
+	padding: 0.3em 0.9em;
+	border-bottom: 0;
+	font-size: 10px;
 }
 
 aside {
+	width: 15px;
 	float: right;
-	margin: 0 3px 3px 3px;
+	margin-top: 20px;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-bottom: 3px;
 	visibility: hidden;
 }
 
@@ -216,8 +215,7 @@ aside {
 	width: 15px;
 	height: 12px;
 	background: url(../img/sprite-icons.png) no-repeat -16px 0;
-	float: right;
-	margin-left: 2px;
+	display: inline-block;
 }
 
 li:hover aside {
@@ -233,7 +231,7 @@ li:hover aside {
 }
 
 li.mentioned {
-	border-right: 5px solid #00317a;
+	border-right: 1px solid #00317a;
 }
 
 .mentions li.mentioned {
@@ -264,6 +262,7 @@ li.mentioned {
 	border-radius: 3px;
 	box-shadow: 0 0 5px rgba(0,0,0,0.7);
 	z-index: 2;
+	text-shadow: none;
 }
 
 .reposted_by:hover ul {
