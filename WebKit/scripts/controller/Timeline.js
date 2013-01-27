@@ -134,7 +134,10 @@ function(Core, Paths, HostApp, URI) {
 
     Timeline.prototype.remove = function(id, callback) {
         var _this = this;
-        var new_callback = function(data) { callback(data); _this.getNewData(); }
+        var new_callback = function(data) {
+            if(callback) callback(data);
+            _this.getNewData();
+        }
         Core.prototype.remove.call(this, id, new_callback);
     }
 
