@@ -665,12 +665,21 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                             + "</a>"
                         );
 
+                        // adding show profile on click
                         node.innerHTML = new_text;
                         $(node).find("a.name").click(function(e) {
                             HostApp.showProfileForEntity(e.target.title);
                             return false;
                         });
 
+                        // adding comma between names when there is only
+                        // a space in between.
+                        var names = $(node).find("a.name");
+                        names.each(function(i) {
+                            if(this.nextSibling && $(this.nextSibling.nextSibling).hasClass("name") && this.nextSibling.nodeValue == " " ) {
+                                $(this).after(",")
+                            }
+                        });
                     }
                 }
 
