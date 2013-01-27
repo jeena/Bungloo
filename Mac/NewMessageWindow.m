@@ -270,7 +270,7 @@
 
         retval = YES; // causes Apple to NOT fire the default enter action
     }
-    else if (commandSelector == @selector(noop:) || isEnter) {
+    else if (commandSelector == @selector(noop:) && isEnter) {
         retval = YES;
         [self sendPost:control];
     }
