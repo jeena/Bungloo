@@ -21,6 +21,13 @@ function(HostApp, Core, Paths, URI) {
 
     Profile.prototype = Object.create(Core.prototype);
 
+    Profile.prototype.showList = function(list) {
+        $(this.body).hide();
+        $(this.followingsBody).hide();
+        $(this.followersBody).hide();
+        $(list).show();
+    };
+
     Profile.prototype.showProfileForEntity = function(entity) {
 
         this.clear();
@@ -46,9 +53,9 @@ function(HostApp, Core, Paths, URI) {
             name: document.createElement("h1"),
             entity: document.createElement("a"),
             bio: document.createElement("p"),
-            posts: document.createElement("td"),
-            following: document.createElement("td"),
-            followed: document.createElement("td"),
+            posts: document.createElement("a"),
+            following: document.createElement("a"),
+            followed: document.createElement("a"),
             birthdate: document.createElement("td"),
             location: document.createElement("td"),
             gender: document.createElement("td"),
@@ -107,17 +114,42 @@ function(HostApp, Core, Paths, URI) {
         td.appendChild(this.profile_template.url);
         mkLi("Homepage", td);
 
-        mkLi("Posts", this.profile_template.posts);
-        mkLi("Following", this.profile_template.following);
-        mkLi("Followed by", this.profile_template.followed);
+        td = document.createElement("td");
+        td.appendChild(this.profile_template.posts);
+        this.profile_template.posts.href = "#";
+        this.profile_template.posts.onclick = function() { _this.showPosts(); return false; };
+        mkLi("Posts", td);
+
+        td = document.createElement("td");
+        td.appendChild(this.profile_template.following);
+        this.profile_template.following.href = "#";
+        this.profile_template.following.onclick = function() { _this.showFollowings(); return false; };
+        mkLi("Following", td);
+
+        td = document.createElement("td");
+        td.appendChild(this.profile_template.followed);
+        this.profile_template.followed.href = "#";
+        this.profile_template.followed.onclick = function() { _this.showFollowers(); return false; };
+        mkLi("Followed by", td);
 
 
         this.body = document.createElement("ol");
         this.body.className = this.action;
         document.body.appendChild(this.body);
+
+        this.followingsBody = document.createElement("ol");
+        this.followingsBody.className = this.action + " followings";
+        document.body.appendChild(this.followingsBody);
+
+        this.followersBody = document.createElement("ol");
+        this.followersBody.className = this.action + " folloewds";
+        document.body.appendChild(this.followersBody);
+
     }
 
     Profile.prototype.clear = function() {
+
+        this.server = null;
 
         this.profile_template.avatar.src = "img/default-avatar.png";
 
@@ -133,9 +165,9 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.url.innerText = "";
         this.profile_template.url.href = "";
 
-        this.profile_template.posts.parentNode.style.display = "none";
-        this.profile_template.following.parentNode.style.display = "none";
-        this.profile_template.followed.parentNode.style.display = "none";
+        this.profile_template.posts.parentNode.parentNode.style.display = "none";
+        this.profile_template.following.parentNode.parentNode.style.display = "none";
+        this.profile_template.followed.parentNode.parentNode.style.display = "none";
         this.profile_template.birthdate.parentNode.style.display = "none";
         this.profile_template.location.parentNode.style.display = "none";
         this.profile_template.gender.parentNode.style.display = "none";
@@ -145,6 +177,10 @@ function(HostApp, Core, Paths, URI) {
         this.setFollowingButton(false);
 
         this.body.innerHTML = "";
+        this.followingsBody.innerHTML = "";
+        this.followersBody.innerHTML = "";
+
+        this.showList(this.body);
     };
 
     Profile.prototype.getProfile = function() {
@@ -156,9 +192,11 @@ function(HostApp, Core, Paths, URI) {
         }
 
         var profile = this.cache.profiles.getItem(this.entity);
+
         if (profile && profile != "null") {
 
             this.showProfile(profile);
+            this.profile = profile;
 
         } else {
             Paths.findProfileURL(this.entity, function(profile_url) {
@@ -167,7 +205,9 @@ function(HostApp, Core, Paths, URI) {
 
                     Paths.getURL(profile_url, "GET", function(resp) {
 
-                        _this.showProfile(JSON.parse(resp.responseText));
+                        profile = JSON.parse(resp.responseText);
+                        _this.showProfile(profile);
+                        _this.profile = profile;
 
                     }, null, false); // do not send auth-headers
                 }
@@ -225,9 +265,9 @@ function(HostApp, Core, Paths, URI) {
         }
 
         if (profile) {
-            var server = profile["https://tent.io/types/info/core/v0.1.0"]["servers"][0];
-            this.getMeta(server);
-            this.getStatuses(server);
+            this.server = profile["https://tent.io/types/info/core/v0.1.0"]["servers"][0];
+            this.getMeta(this.server);
+            this.getStatuses(this.server);
         }
     }
 
@@ -235,6 +275,7 @@ function(HostApp, Core, Paths, URI) {
         if (v) {
             t.innerText = v;
             t.parentNode.style.display = "";
+            t.parentNode.parentNode.style.display = "";
         }
     }
 
@@ -371,6 +412,135 @@ function(HostApp, Core, Paths, URI) {
             }, data);
         }
     }
+
+    Profile.prototype.showPosts = function() {
+        this.showList(this.body);
+    }
+
+    Profile.prototype.showFollowings = function() {
+
+        this.showList(this.followingsBody);
+        this.followingsBody.innerHTML = "";
+
+        var _this = this;
+        var callback = function(resp) {
+            var followings = JSON.parse(resp.responseText);
+            for (var i = 0; i < followings.length; i++) {
+                var li = _this.getDOMSmallProfile(followings[i]);
+                _this.followingsBody.appendChild(li);
+            }
+        }
+
+        var url = URI(this.server + "/followings");
+        url.addSearch("limit", 200);
+        Paths.getURL(url.toString(), "GET", callback, null, false);
+    }
+
+    Profile.prototype.showFollowers = function() {
+
+        this.showList(this.followersBody);
+        this.followersBody.innerHTML = "";
+
+        var _this = this;
+        var callback = function(resp) {
+            var followers = JSON.parse(resp.responseText);
+            for (var i = 0; i < followers.length; i++) {
+                var li = _this.getDOMSmallProfile(followers[i]);
+                _this.followersBody.appendChild(li);
+            }
+        }
+
+        var url = URI(this.server + "/followers");
+        url.addSearch("limit", 200);
+        Paths.getURL(url.toString(), "GET", callback, null, false);
+    }
+
+    Profile.prototype.getDOMSmallProfile = function(profile) {
+
+        var li = document.createElement("li");
+
+        var image = document.createElement("img");
+        image.title = profile.entity;
+        image.className = "image";
+        image.src = 'img/default-avatar.png';
+        li.appendChild(image);
+        image.onclick = function(e) {
+            HostApp.showProfileForEntity(e.target.title);
+            return false;
+        }
+
+        var div = document.createElement("div");
+        div.className = "data"
+
+        var h1 = document.createElement("h1");
+        var username = document.createElement("a");
+        username.title = profile.entity;
+        username.className = "name";
+        username.href = profile.entity;
+        username.onclick = function(e) {
+            HostApp.showProfileForEntity(profile.entity);
+            return false;
+        }
+
+        h1.appendChild(username)
+        div.appendChild(h1);
+        li.appendChild(div);
+
+        var p = document.createElement("p");
+        p.className = "message";
+
+        var entity_tag = document.createElement("a");
+        entity_tag.innerText = profile.entity;
+        entity_tag.href = profile.entity;
+        entity_tag.title = profile.entity;
+
+        p.appendChild(entity_tag);
+        div.appendChild(p);
+
+        var profile_callback = function(p) {
+
+            var basic = p["https://tent.io/types/info/basic/v0.1.0"];
+
+            if (p && basic) {
+                if(basic.name) {
+                    username.title = username.innerText;
+                    username.innerText = basic.name;
+                }
+                if(basic.avatar_url) {
+                    image.onerror = function() { image.src = 'img/default-avatar.png'; };
+                    image.src = basic.avatar_url;
+                }
+            }
+
+        }
+
+        var p = this.cache.profiles.getItem(profile.entity);
+
+        if (p && p != "null") {
+
+            profile_callback(p);
+
+        } else {
+
+            var _this = this;
+            Paths.findProfileURL(profile.entity, function(profile_url) {
+
+                if (profile_url) {
+                    Paths.getURL(profile_url, "GET", function(resp) {
+                        var p = JSON.parse(resp.responseText);
+                        if (p && p != "null") {
+                            _this.cache.profiles.setItem(profile.entity, p);
+                            profile_callback(p);
+                        }
+
+                    }, null, false); // do not send auth-headers
+                }
+            });            
+        }
+
+        return li;
+    }
+
 
     return Profile;
 
