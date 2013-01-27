@@ -43,11 +43,11 @@ body > ol > li:first-child {
 }
 
 body > ol > li:nth-child(odd), .error, header.profile {
-	background: url(../img/odd-bg.png) repeat-x bottom #fafafa;
+	background: #fafafa;
 }
 
 body > ol > li:nth-child(even) {
-	background: url(../img/even-bg.png) repeat-x bottom #f2f2f2;
+	background: #f2f2f2;
 }
 
 body > ol > li:hover {
@@ -157,6 +157,7 @@ li .name:first-child {
 	font-weight: normal;
 	padding: 0 3px 2px 3px;
 	border-radius: 5px;
+	text-shadow: none;
 }
 
 li:hover .name {
@@ -293,6 +294,7 @@ li.mentioned {
 	text-decoration: none;
 	border: none;
 	white-space: nowrap;
+	text-shadow: none;
 }
 
 .reposted_by ul:after {
