@@ -329,6 +329,7 @@ function(HostApp, Core, Paths, URI) {
         }, null, false);
     }
 
+
     Profile.prototype.newStatus = function(statuses) {
         if(statuses != null && statuses.length > 0) {
             for(var i = statuses.length-1, c=0; i>=c; --i) {
@@ -501,7 +502,18 @@ function(HostApp, Core, Paths, URI) {
         entity_tag.href = profile.entity;
         entity_tag.title = profile.entity;
 
+        var follows_since = document.createElement("p");
+        follows_since.innerText = "follows since ";
+
+        var follows_since_time = document.createElement("span");
+        follows_since_time.innerText = this.ISODateString(new Date(profile.created_at * 1000));
+        follows_since_time.title = follows_since_time.innerText;
+        follows_since_time.className = "timeago";
+        jQuery(follows_since_time).timeago();
+
         p.appendChild(entity_tag);
+        follows_since.appendChild(follows_since_time);
+        p.appendChild(follows_since);
         div.appendChild(p);
 
         var profile_callback = function(p) {
