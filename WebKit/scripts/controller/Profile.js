@@ -292,7 +292,15 @@ function(HostApp, Core, Paths, URI) {
             _this.populate(_this.profile_template.followed, resp.responseText);
         }, null, false);
 
-        Paths.getURL(URI(root_url + "/posts/count").toString(), "GET", function(resp) {
+        var url = URI(root_url + "/posts/count");
+        var post_types = [
+            "https://tent.io/types/post/repost/v0.1.0",
+            "https://tent.io/types/post/status/v0.1.0",
+            "https://tent.io/types/post/photo/v0.1.0"
+        ];
+        url.addSearch("post_types", post_types.join(","));
+
+        Paths.getURL(url.toString(), "GET", function(resp) {
 
             _this.populate(_this.profile_template.posts, resp.responseText);
         }, null, false);
@@ -308,7 +316,6 @@ function(HostApp, Core, Paths, URI) {
         var post_types = [
             "https://tent.io/types/post/repost/v0.1.0",
             "https://tent.io/types/post/status/v0.1.0",
-            "https://tent.io/types/post/delete/v0.1.0",
             "https://tent.io/types/post/photo/v0.1.0"
         ];
         url.addSearch("post_types", post_types.join(","));
