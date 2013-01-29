@@ -292,7 +292,15 @@ function(HostApp, Core, Paths, URI) {
             _this.populate(_this.profile_template.followed, resp.responseText);
         }, null, false);
 
-        Paths.getURL(URI(root_url + "/posts/count").toString(), "GET", function(resp) {
+        var url = URI(root_url + "/posts/count");
+        var post_types = [
+            "https://tent.io/types/post/repost/v0.1.0",
+            "https://tent.io/types/post/status/v0.1.0",
+            "https://tent.io/types/post/photo/v0.1.0"
+        ];
+        url.addSearch("post_types", post_types.join(","));
+
+        Paths.getURL(url.toString(), "GET", function(resp) {
 
             _this.populate(_this.profile_template.posts, resp.responseText);
         }, null, false);
@@ -308,7 +316,6 @@ function(HostApp, Core, Paths, URI) {
         var post_types = [
             "https://tent.io/types/post/repost/v0.1.0",
             "https://tent.io/types/post/status/v0.1.0",
-            "https://tent.io/types/post/delete/v0.1.0",
             "https://tent.io/types/post/photo/v0.1.0"
         ];
         url.addSearch("post_types", post_types.join(","));
@@ -321,6 +328,7 @@ function(HostApp, Core, Paths, URI) {
 
         }, null, false);
     }
+
 
     Profile.prototype.newStatus = function(statuses) {
         if(statuses != null && statuses.length > 0) {
@@ -494,7 +502,18 @@ function(HostApp, Core, Paths, URI) {
         entity_tag.href = profile.entity;
         entity_tag.title = profile.entity;
 
+        var new_line = document.createElement("br");
+        var follows_since = document.createTextNode("follows since ");
+        var follows_since_time = document.createElement("span");
+        follows_since_time.innerText = this.ISODateString(new Date(profile.created_at * 1000));
+        follows_since_time.title = follows_since_time.innerText;
+        follows_since_time.className = "timeago";
+        jQuery(follows_since_time).timeago();
+
         p.appendChild(entity_tag);
+        p.appendChild(new_line);
+        p.appendChild(follows_since);
+        p.appendChild(follows_since_time);
         div.appendChild(p);
 
         var profile_callback = function(p) {
