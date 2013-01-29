@@ -502,9 +502,8 @@ function(HostApp, Core, Paths, URI) {
         entity_tag.href = profile.entity;
         entity_tag.title = profile.entity;
 
-        var follows_since = document.createElement("p");
-        follows_since.innerText = "follows since ";
-
+        var new_line = document.createElement("br");
+        var follows_since = document.createTextNode("follows since ");
         var follows_since_time = document.createElement("span");
         follows_since_time.innerText = this.ISODateString(new Date(profile.created_at * 1000));
         follows_since_time.title = follows_since_time.innerText;
@@ -512,8 +511,9 @@ function(HostApp, Core, Paths, URI) {
         jQuery(follows_since_time).timeago();
 
         p.appendChild(entity_tag);
-        follows_since.appendChild(follows_since_time);
+        p.appendChild(new_line);
         p.appendChild(follows_since);
+        p.appendChild(follows_since_time);
         div.appendChild(p);
 
         var profile_callback = function(p) {
