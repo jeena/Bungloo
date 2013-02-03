@@ -352,7 +352,17 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 var _this = this;
                 remove.get(0).onclick = function(e) {
                     var callback = function() {
-                        remove.hide();
+
+                        if(post.status.entity == HostApp.stringForKey("entity")) {
+                            remove.get(0).onclick = function(e) {
+                                _this.remove(post.status.id);
+                                return false;
+                            }
+                        } else {
+                            remove.hide();
+                        }
+
+
                         $(post).find(".repost").show();
                     }
 
