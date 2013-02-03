@@ -132,13 +132,13 @@ function(Core, Paths, HostApp, URI) {
         Core.prototype.sendNewMessage.call(this, content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback);
     }
 
-    Timeline.prototype.remove = function(id, callback) {
+    Timeline.prototype.remove = function(id, callback, type) {
         var _this = this;
         var new_callback = function(data) {
             if(callback) callback(data);
             _this.getNewData();
         }
-        Core.prototype.remove.call(this, id, new_callback);
+        Core.prototype.remove.call(this, id, new_callback, type);
     }
 
     Timeline.prototype.repost = function(id, entity, callback) {

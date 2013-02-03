@@ -160,7 +160,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             }
         } else if (typeof status.__repost != "undefined" && HostApp.stringForKey("entity") == status.__repost.entity) {
             template.remove.onclick = function() {
-                _this.remove(status.__repost.id);
+                _this.remove(status.__repost.id, null, "repost");
                 return false;
             }
         } else {
@@ -356,7 +356,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                         $(post).find(".repost").show();
                     }
 
-                    _this.remove(repost.id, callback);
+                    _this.remove(repost.id, callback, "repost");
                     return false;
                 };
             }
@@ -574,9 +574,9 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         Paths.postMultipart(url.toString(), newCallback, post, boundary);
     }
 
-    Core.prototype.remove = function(id, callback) {
-
-        if (confirm("Really delete this post?")) {
+    Core.prototype.remove = function(id, callback, type) {
+        type = type || "post";
+        if (confirm("Really delete this " + type + "?")) {
             var url = URI(Paths.mkApiRootPath("/posts/" + id));
             Paths.getURL(url.toString(), "DELETE", callback);
         }
