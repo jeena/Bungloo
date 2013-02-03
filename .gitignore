@@ -2,7 +2,6 @@ Mac/build/
 Mac/Tentia.xcodeproj/project.xcworkspace/xcuserdata/jeena.xcuserdatad/UserInterfaceState.xcuserstate
 dsa_priv.pem
 *.pyc
-Mac/.DS_Store
 build
 .DS_Store
 *~
