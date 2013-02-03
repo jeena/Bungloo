@@ -346,8 +346,8 @@ class NewPost(Helper.RestorableWindow):
 		self.statusBar().showMessage(str(count))
 
 	def sendMessage(self):
-		count = 256 - len(self.textInput.toPlainText())
-		if count >= 0:
+		count = len(self.textInput.toPlainText())
+		if count > 0 and count <= 256:
 			message = Helper.PostModel()
 			message.text = unicode(self.textInput.toPlainText().toUtf8(), "utf-8")
 			message.inReplyTostatusId = self.status_id

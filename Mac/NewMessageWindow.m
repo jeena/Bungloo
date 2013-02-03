@@ -225,7 +225,7 @@
 #pragma mark Keyboard delegate methods
 
 - (IBAction)sendPost:(NSControl *)control {
-	if ([[control stringValue] length] <= MESSAGE_MAX_LENGTH) {
+	if ([[control stringValue] length] <= MESSAGE_MAX_LENGTH && [[control stringValue] length] > 0) {
 		PostModel *post = [[[PostModel alloc] init] autorelease];
 		post.text = [control stringValue];
 		post.inReplyTostatusId = inReplyTostatusId;
