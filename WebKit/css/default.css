@@ -312,6 +312,10 @@ li.mentioned {
 	margin-left: -5px;
 }
 
+.name {
+	font-weight: bold;
+}
+
 header.profile button {
 	background: #09F;
 	float: right;
