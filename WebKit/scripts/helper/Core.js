@@ -353,6 +353,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 remove.get(0).onclick = function(e) {
                     var callback = function() {
 
+                        // make remove button to remove post if it is the entities
                         if(post.status.entity == HostApp.stringForKey("entity")) {
                             remove.get(0).onclick = function(e) {
                                 _this.remove(post.status.id);
@@ -361,7 +362,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                         } else {
                             remove.hide();
                         }
-
 
                         $(post).find(".repost").show();
                     }
@@ -507,7 +507,13 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             ]
         };
 
-        Paths.getURL(url.toString(), "POST", callback, JSON.stringify(data));
+        var _this = this;
+        var new_callback = function(resp) {
+            if (callback) callback(resp);
+            _this.highlight(id);
+        }
+
+        Paths.getURL(url.toString(), "POST", new_callback, JSON.stringify(data));
     }
 
     Core.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
@@ -815,9 +821,18 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     reposted_by.find("span").html("by " + reposted_count + " " + people_person);
                 }
             }
-            
         }
     };
+
+    Core.prototype.highlight = function(id) {
+
+        $("#post-" + id).addClass("highlighteffect");
+        setTimeout(function() {
+            $("#post-" + id).removeClass("highlighteffect");
+        }, 4000);
+
+    }
+
 
     return Core;
 

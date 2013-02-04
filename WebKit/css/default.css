@@ -38,6 +38,10 @@ ol li, .error, header.profile {
 	color: red;
 }
 
+body > ol > li {
+	-webkit-transition: background-color 1000ms linear;
+}
+
 body > ol > li:first-child {
 	border-top: 0;
 }
@@ -52,6 +56,11 @@ body > ol > li:nth-child(even) {
 
 body > ol > li:hover {
 	background: #dedede;
+}
+
+body > ol > li.highlighteffect {
+	background-color: #FFFBD0;
+	-webkit-transition: background-color 200ms linear;
 }
 
 body > ol > li:after, header.profile:after {
