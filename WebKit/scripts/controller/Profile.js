@@ -53,6 +53,7 @@ function(HostApp, Core, Paths, URI) {
             name: document.createElement("h1"),
             entity: document.createElement("a"),
             bio: document.createElement("p"),
+            following_you: document.createElement("td"),
             posts: document.createElement("a"),
             following: document.createElement("a"),
             followed: document.createElement("a"),
@@ -114,6 +115,8 @@ function(HostApp, Core, Paths, URI) {
         td.appendChild(this.profile_template.url);
         mkLi("Homepage", td);
 
+        mkLi("Following you", this.profile_template.following_you);
+
         td = document.createElement("td");
         td.appendChild(this.profile_template.posts);
         this.profile_template.posts.href = "#";
@@ -156,6 +159,7 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.name.innerText = "";
         this.profile_template.entity.innerText = "";
         this.profile_template.bio.innerText = "";
+        this.profile_template.following_you.innerText = "";
         this.profile_template.posts.innerText = "";
         this.profile_template.following.innerText = "";
         this.profile_template.followed.innerText = "";
@@ -290,6 +294,14 @@ function(HostApp, Core, Paths, URI) {
         Paths.getURL(URI(root_url + "/followers/count").toString(), "GET", function(resp) {
 
             _this.populate(_this.profile_template.followed, resp.responseText);
+        }, null, false);
+
+        Paths.getURL(URI(root_url + "/followers/" + encodeURIComponent(HostApp.stringForKey("entity"))).toString(), "GET", function(resp) {
+            if (resp.status == 200) {
+                _this.populate(_this.profile_template.following_you, "Yes");
+            } else {
+                _this.populate(_this.profile_template.following_you, "No");
+            }
         }, null, false);
 
         var url = URI(root_url + "/posts/count");

@@ -829,6 +829,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         $("#post-" + id).addClass("highlighteffect");
         setTimeout(function() {
             $("#post-" + id).removeClass("highlighteffect");
+            $("#post-" + id).addClass("highlighteffect-after");
+            setTimeout(function() {
+                $("#post-" + id).removeClass("highlighteffect-after");
+            }, 1000);
         }, 4000);
 
     }

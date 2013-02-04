@@ -39,7 +39,7 @@ ol li, .error, header.profile {
 }
 
 body > ol > li {
-	-webkit-transition: background-color 1000ms linear;
+	
 }
 
 body > ol > li:first-child {
@@ -62,6 +62,11 @@ body > ol > li.highlighteffect {
 	background-color: #FFFBD0;
 	-webkit-transition: background-color 200ms linear;
 }
+
+body > ol > li.highlighteffect-after {
+	-webkit-transition: background-color 1000ms linear;
+}
+
 
 body > ol > li:after, header.profile:after {
     content: ".";
