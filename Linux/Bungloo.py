@@ -106,9 +106,9 @@ class Controller(QtCore.QObject):
 	def unreadMentions(self, count):
 		i = int(count)
 		if i > 0:
-			self.app.timeline.set_window_title("bungloo (^" + str(i) + ")")
+			self.app.timeline.set_window_title("Bungloo (^" + str(i) + ")")
 		else:
-			self.app.timeline.set_window_title("bungloo")
+			self.app.timeline.set_window_title("Bungloo")
 			self.app.mentions.evaluateJavaScript("bungloo_instance.unread_mentions = 0;")
 
 	@QtCore.pyqtSlot(str, str, str, str)

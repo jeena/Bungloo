@@ -373,12 +373,12 @@
 {
 	if (![mentionsViewWindow isVisible] && count > 0)
     {
-		[timelineViewWindow setTitle:[NSString stringWithFormat:@"bungloo (^%i)", count]];
+		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Bungloo (^%i)", count]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
 	}
     else
     {
-		[timelineViewWindow setTitle:[NSString stringWithFormat:@"bungloo"]];
+		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Bungloo"]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.unread_mentions = 0;"];
 	}
@@ -517,7 +517,7 @@
 
 - (NSString *) applicationNameForGrowl
 {
-    return @"bungloo";
+    return @"Bungloo";
 }
 
 /* CARBON */

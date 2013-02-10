@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8D15AC270486D014006FF6A4"
                BuildableName = "bungloo.app"
-               BlueprintName = "bungloo"
-               ReferencedContainer = "container:bungloo.xcodeproj">
+               BlueprintName = "Bungloo"
+               ReferencedContainer = "container:Bungloo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
             BuildableName = "bungloo.app"
-            BlueprintName = "bungloo"
-            ReferencedContainer = "container:bungloo.xcodeproj">
+            BlueprintName = "Bungloo"
+            ReferencedContainer = "container:Bungloo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,8 +53,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
             BuildableName = "bungloo.app"
-            BlueprintName = "bungloo"
-            ReferencedContainer = "container:bungloo.xcodeproj">
+            BlueprintName = "Bungloo"
+            ReferencedContainer = "container:Bungloo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,8 +71,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
             BuildableName = "bungloo.app"
-            BlueprintName = "bungloo"
-            ReferencedContainer = "container:bungloo.xcodeproj">
+            BlueprintName = "Bungloo"
+            ReferencedContainer = "container:Bungloo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

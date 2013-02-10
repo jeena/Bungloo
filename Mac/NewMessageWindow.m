@@ -324,7 +324,7 @@
 -(BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename
 {
     NSString* ext = [filename pathExtension];
-    if (ext == @"" || ext == @"/" || ext == nil || ext == NULL || [ext length] < 1) {
+    if ([ext isEqualToString:@""] || [ext isEqualToString:@"/"] || ext == nil || ext == NULL || [ext length] < 1) {
         return YES;
     }
     

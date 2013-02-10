@@ -14,7 +14,7 @@
 
 }
 
-#define APP_NAME @"bungloo"
+#define APP_NAME @"Bungloo"
 #define MESSAGE_MAX_LENGTH 256
 
 + (NSString *)stringFromVirtualKeyCode:(NSInteger)code;

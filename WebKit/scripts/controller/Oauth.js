@@ -9,7 +9,7 @@ function(HostApp, Paths, Hmac) {
     function Oauth() {
         this.app_info = {
             "id": null,
-            "name": "bungloo on " + HostApp.osType(),
+            "name": "Bungloo on " + HostApp.osType(),
             "description": "A small TentStatus client.",
             "url": "http://jabs.nu/bungloo/",
             "icon": "http://jabs.nu/bungloo/icon.png",

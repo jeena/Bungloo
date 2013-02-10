@@ -66,6 +66,7 @@
 		1F2D79BC165E8C6B000E8428 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = /System/Library/Frameworks/CoreLocation.framework; sourceTree = "<absolute>"; };
 		1F303BE21660752700891D71 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
 		1F3F129D164F202000C7C983 /* dsa_pub.pem */ = {isa = PBXFileReference; lastKnownFileType = text; name = dsa_pub.pem; path = publish/dsa_pub.pem; sourceTree = "<group>"; };
+		1F55BA1216C852FB009F0306 /* Bungloo_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bungloo_Prefix.pch; sourceTree = "<group>"; };
 		1F618EC812DB5E6100E500D9 /* PostModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PostModel.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1F618EC912DB5E6100E500D9 /* PostModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PostModel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1F70619E1178FBB300C85707 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -86,7 +87,7 @@
 		1FFA36D41177D879006C8562 /* ViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDelegate.h; sourceTree = "<group>"; };
 		1FFA36D51177D879006C8562 /* ViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDelegate.m; sourceTree = "<group>"; };
 		1FFA37061177DAF4006C8562 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		2564AD2C0F5327BB00F57823 /* bungloo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = bungloo_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2564AD2C0F5327BB00F57823 /* Bungloo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Bungloo_Prefix.pch; sourceTree = "<group>"; };
 		2A37F4ACFDCFA73011CA2CEA /* NewMessageWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NewMessageWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2A37F4AEFDCFA73011CA2CEA /* NewMessageWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NewMessageWindow.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -94,8 +95,8 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		6B68359A166015C4004F4732 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
-		8D15AC360486D014006FF6A4 /* bungloo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "bungloo-Info.plist"; sourceTree = "<group>"; };
-		8D15AC370486D014006FF6A4 /* bungloo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bungloo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D15AC360486D014006FF6A4 /* Bungloo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Bungloo-Info.plist"; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* Bungloo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bungloo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +149,7 @@
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D15AC370486D014006FF6A4 /* bungloo.app */,
+				8D15AC370486D014006FF6A4 /* Bungloo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,7 +193,8 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2564AD2C0F5327BB00F57823 /* bungloo_Prefix.pch */,
+				2564AD2C0F5327BB00F57823 /* Bungloo_Prefix.pch */,
+				1F55BA1216C852FB009F0306 /* Bungloo_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -206,7 +208,7 @@
 				1F3F129D164F202000C7C983 /* dsa_pub.pem */,
 				1F132C781666CD9700E4E661 /* TB_SendTemplate.png */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
-				8D15AC360486D014006FF6A4 /* bungloo-Info.plist */,
+				8D15AC360486D014006FF6A4 /* Bungloo-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* NewMessageWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
@@ -227,9 +229,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D15AC270486D014006FF6A4 /* bungloo */ = {
+		8D15AC270486D014006FF6A4 /* Bungloo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "bungloo" */;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Bungloo" */;
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
@@ -240,10 +242,10 @@
 			);
 			dependencies = (
 			);
-			name = bungloo;
+			name = Bungloo;
 			productInstallPath = "$(HOME)/Applications";
 			productName = "Twittia 2";
-			productReference = 8D15AC370486D014006FF6A4 /* bungloo.app */;
+			productReference = 8D15AC370486D014006FF6A4 /* Bungloo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -254,7 +256,7 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 			};
-			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "bungloo" */;
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Bungloo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -268,7 +270,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D15AC270486D014006FF6A4 /* bungloo */,
+				8D15AC270486D014006FF6A4 /* Bungloo */,
 			);
 		};
 /* End PBXProject section */
@@ -361,11 +363,11 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = bungloo_Prefix.pch;
-				INFOPLIST_FILE = "bungloo-Info.plist";
+				GCC_PREFIX_HEADER = Bungloo_Prefix.pch;
+				INFOPLIST_FILE = "Bungloo-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = bungloo;
+				PRODUCT_NAME = Bungloo;
 				SDKROOT = "";
 			};
 			name = Debug;
@@ -383,11 +385,11 @@
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = bungloo_Prefix.pch;
-				INFOPLIST_FILE = "bungloo-Info.plist";
+				GCC_PREFIX_HEADER = Bungloo_Prefix.pch;
+				INFOPLIST_FILE = "Bungloo-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = bungloo;
+				PRODUCT_NAME = Bungloo;
 				SDKROOT = "";
 			};
 			name = Release;
@@ -402,6 +404,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Bungloo;
 				SDKROOT = "";
 			};
 			name = Debug;
@@ -415,6 +418,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = Bungloo;
 				SDKROOT = "";
 			};
 			name = Release;
@@ -422,7 +426,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "bungloo" */ = {
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Bungloo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733C808A9546B00998B17 /* Debug */,
@@ -431,7 +435,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "bungloo" */ = {
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Bungloo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,

@@ -41,7 +41,7 @@
 }
 
 - (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
-    NSInteger result = NSRunCriticalAlertPanel(NSLocalizedString(@"bungloo", @""),   // title
+    NSInteger result = NSRunCriticalAlertPanel(NSLocalizedString(@"Bungloo", @""),   // title
                                         message,                                    // message
                                         NSLocalizedString(@"OK", @""),              // default button
                                         NSLocalizedString(@"Cancel", @""),          // alt button
