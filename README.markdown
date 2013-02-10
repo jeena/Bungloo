@@ -19,3 +19,4 @@ Thanks everyone in the Open Source community! bungloo is using:
 - Qt - http://qt.digia.com/
 - python - http://www.python.org/
 - PyQt - http://wiki.python.org/moin/PyQt
+- Icon - http://www.fasticon.com
