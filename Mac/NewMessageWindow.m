@@ -1,6 +1,6 @@
 //
 //  NewTweetWindow.m
-//  Tentia
+//  bungloo
 //
 //  Created by Jeena on 16.04.10.
 //  Licence: BSD (see attached LICENCE.txt file).

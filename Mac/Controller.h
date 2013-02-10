@@ -1,6 +1,6 @@
 //
 //  Controller.h
-//  Tentia
+//  bungloo
 //
 //  Created by Jeena on 15.04.10.
 //  Licence: BSD (see attached LICENCE.txt file).

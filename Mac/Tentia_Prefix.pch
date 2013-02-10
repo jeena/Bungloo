@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'Tentia' target in the 'Tentia' project
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif

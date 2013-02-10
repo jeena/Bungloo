@@ -55,12 +55,12 @@ class WebViewCreator(QtWebKit.QWebView):
         if self.is_local:
             frame.evaluateJavaScript("var OS_TYPE = 'linux';")
 
-            js_plugin_path = os.path.expanduser('~/.tentia/Plugin.js')
+            js_plugin_path = os.path.expanduser('~/.bungloo/Plugin.js')
             if os.access(js_plugin_path, os.R_OK):
                 func = "setTimeout(function() { loadJsPlugin('file://localhost" + js_plugin_path + "') }, 1000);"
                 frame.evaluateJavaScript(func)
 
-            css_plugin_path = os.path.expanduser('~/.tentia/Plugin.css')
+            css_plugin_path = os.path.expanduser('~/.bungloo/Plugin.css')
             if os.access(css_plugin_path, os.R_OK):
                 func = "setTimeout(function() { loadCssPlugin('file://localhost" + css_plugin_path + "') }, 1000);"
                 frame.evaluateJavaScript(func)
@@ -71,10 +71,10 @@ class WebViewCreator(QtWebKit.QWebView):
 
 class NetworkAccessManager(QNetworkAccessManager):
 
-    def __init__(self, old_manager, tentia_callback):
+    def __init__(self, old_manager, bungloo_callback):
         QNetworkAccessManager.__init__(self)
 
-        self.tentia_callback = tentia_callback
+        self.bungloo_callback = bungloo_callback
 
         self.old_manager = old_manager
         self.setCache(old_manager.cache())
@@ -83,10 +83,10 @@ class NetworkAccessManager(QNetworkAccessManager):
         self.setProxyFactory(old_manager.proxyFactory())
     
     def createRequest(self, operation, request, data):
-        if request.url().scheme() != "tentia":
+        if request.url().scheme() != "bungloo":
             return QNetworkAccessManager.createRequest(self, operation, request, data)
         else:
-            self.tentia_callback(request.url())
+            self.bungloo_callback(request.url())
             return QNetworkAccessManager.createRequest(self, QNetworkAccessManager.GetOperation, QNetworkRequest(QtCore.QUrl()))
         
 class PostModel:

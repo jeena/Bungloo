@@ -1,6 +1,6 @@
 //
 //  MimeType.m
-//  Tentia
+//  bungloo
 //
 //  Created by Jeena on 23/11/2012.
 //

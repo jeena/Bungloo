@@ -1,6 +1,6 @@
 //
 //  TweetModel.h
-//  Tentia
+//  bungloo
 //
 //  Created by Jeena on 10.01.11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.

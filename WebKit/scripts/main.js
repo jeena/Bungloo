@@ -1,5 +1,5 @@
-var tentia_instance;
-var tentia_cache = {};
+var bungloo_instance;
+var bungloo_cache = {};
 
 requirejs.config({
     baseUrl: 'scripts'
@@ -10,7 +10,7 @@ function start(view) {
     if (view == "oauth") {
         require(["controller/Oauth"], function(Oauth) {
             
-            tentia_instance = new Oauth();
+            bungloo_instance = new Oauth();
 
         });
 
@@ -18,7 +18,7 @@ function start(view) {
 
         require(["controller/Timeline"], function(Timeline) {
  
-             tentia_instance = new Timeline();
+             bungloo_instance = new Timeline();
  
         });
 
@@ -26,7 +26,7 @@ function start(view) {
 
         require(["controller/Mentions"], function(Mentions) {
 
-            tentia_instance = new Mentions();
+            bungloo_instance = new Mentions();
 
         });
 
@@ -34,7 +34,7 @@ function start(view) {
 
         require(["controller/Profile"], function(Profile) {
 
-            tentia_instance = new Profile();
+            bungloo_instance = new Profile();
 
         });
 
@@ -44,7 +44,7 @@ function start(view) {
 
         require(["controller/Conversation"], function(Conversation) {
 
-            tentia_instance = new Conversation();
+            bungloo_instance = new Conversation();
 
         });
 

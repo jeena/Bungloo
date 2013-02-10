@@ -1,6 +1,6 @@
 //
 //  ViewDelegate.m
-//  Tentia
+//  bungloo
 //
 //  Created by Jeena on 15.04.10.
 //  Licence: BSD (see attached LICENCE.txt file).
@@ -41,7 +41,7 @@
 }
 
 - (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
-    NSInteger result = NSRunCriticalAlertPanel(NSLocalizedString(@"Tentia", @""),   // title
+    NSInteger result = NSRunCriticalAlertPanel(NSLocalizedString(@"bungloo", @""),   // title
                                         message,                                    // message
                                         NSLocalizedString(@"OK", @""),              // default button
                                         NSLocalizedString(@"Cancel", @""),          // alt button
@@ -58,8 +58,8 @@
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSString *pathToJsPlugin = [@"~/Library/Application Support/Tentia/Plugin.js" stringByExpandingTildeInPath];
-	NSString *pathToCssPlugin = [@"~/Library/Application Support/Tentia/Plugin.css" stringByExpandingTildeInPath];
+	NSString *pathToJsPlugin = [@"~/Library/Application Support/bungloo/Plugin.js" stringByExpandingTildeInPath];
+	NSString *pathToCssPlugin = [@"~/Library/Application Support/bungloo/Plugin.css" stringByExpandingTildeInPath];
 	
     if([fileManager fileExistsAtPath:pathToCssPlugin])
     {
@@ -118,14 +118,14 @@
 }
 
 - (void)reload:(id)sender {
-    [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData();"];
-    [mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData();"];
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData();"];
+    [mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData();"];
 }
 
 - (NSString *)pluginURL
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSString *pathToPlugin = [@"~/Library/Application Support/Tentia/Plugin.js" stringByExpandingTildeInPath];
+	NSString *pathToPlugin = [@"~/Library/Application Support/bungloo/Plugin.js" stringByExpandingTildeInPath];
 	
     if([fileManager fileExistsAtPath:pathToPlugin])
     {

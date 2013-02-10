@@ -12,7 +12,7 @@ function() {
     }
 
     CacheStorage.prototype.mkInternalPath = function(key) {
-        return "tentia-cache-" + this.name + key;
+        return "bungloo-cache-" + this.name + key;
     };
 
     CacheStorage.prototype.getItem = function(key) {

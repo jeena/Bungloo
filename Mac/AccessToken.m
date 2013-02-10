@@ -1,6 +1,6 @@
 //
 //  AccessToken.m
-//  Tentia
+//  bungloo
 //
 //  Created by Jeena Paradies on 19/09/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
@@ -49,7 +49,7 @@
     UInt32 _passwordLength = 0;
     char *_password = nil;
     SecKeychainItemRef item = nil;
-    SecKeychainFindGenericPassword(NULL, 6, "Tentia", 17, "TentiaUserAccount", &_passwordLength, (void **)&_password, &item);
+    SecKeychainFindGenericPassword(NULL, 6, "bungloo", 17, "bunglooUserAccount", &_passwordLength, (void **)&_password, &item);
     
     OSStatus status;
     void * passwordData = (void*)[_secret cStringUsingEncoding:NSUTF8StringEncoding];
@@ -59,9 +59,9 @@
         status = SecKeychainAddGenericPassword(
                                                NULL,           // default keychain
                                                6,              // length of service name
-                                               "Tentia",         // service name
+                                               "bungloo",         // service name
                                                17,             // length of account name
-                                               "TentiaUserAccount",    // account name
+                                               "bunglooUserAccount",    // account name
                                                passwordLength,  // length of password
                                                passwordData,        // pointer to password data
                                                NULL             // the item reference
@@ -84,7 +84,7 @@
     UInt32 passwordLength = 0;
     char *password = nil;
     SecKeychainItemRef item = nil;
-    SecKeychainFindGenericPassword(NULL, 6, "Tentia", 17, "TentiaUserAccount", &passwordLength, (void **)&password, &item);
+    SecKeychainFindGenericPassword(NULL, 6, "bungloo", 17, "bunglooUserAccount", &passwordLength, (void **)&password, &item);
     
     if (!item) {
         return nil;

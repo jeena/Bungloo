@@ -9,12 +9,12 @@ function(HostApp, Paths, Hmac) {
     function Oauth() {
         this.app_info = {
             "id": null,
-            "name": "Tentia on " + HostApp.osType(),
+            "name": "bungloo on " + HostApp.osType(),
             "description": "A small TentStatus client.",
-            "url": "http://jabs.nu/Tentia/",
-            "icon": "http://jabs.nu/Tentia/icon.png",
+            "url": "http://jabs.nu/bungloo/",
+            "icon": "http://jabs.nu/bungloo/icon.png",
             "redirect_uris": [
-                "tentia://oauthtoken"
+                "bungloo://oauthtoken"
             ],
             "scopes": {
                 "read_posts": "Uses posts to show them in a list",

@@ -1,6 +1,6 @@
 //
 //  Controller.m
-//  Tentia
+//  bungloo
 //
 //  Created by Jeena on 15.04.10.
 //  Licence: BSD (see attached LICENCE.txt file).
@@ -90,19 +90,13 @@
         NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
         
         oauthView = [[WebView alloc] init];
-        //WebPreferences* prefs = [oauthView preferences];
-        //[prefs _setLocalStorageDatabasePath:@"~/Library/Application Support/Tentia"];
-        //[prefs setLocalStorageEnabled:YES];
         viewDelegate.oauthView = oauthView;
         [[oauthView mainFrame] loadHTMLString:index_string baseURL:url];
         [oauthView setFrameLoadDelegate:viewDelegate];
         [oauthView setPolicyDelegate:viewDelegate];
         [oauthView setUIDelegate:viewDelegate];
         [[oauthView windowScriptObject] setValue:self forKey:@"controller"];
-        //[oauthView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('oauth'); };"];
 
-    } else {
-        //[oauthView stringByEvaluatingJavaScriptFromString:@"start('oauth');"];
     }
 }
 
@@ -112,8 +106,6 @@
     if (viewDelegate.timelineView != timelineView)
     {
         [self initOauth];
-        
-        //NSString *localStoragePath = @"~/Library/Application Support/Tentia";
         
         NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
         NSURL *url = [NSURL fileURLWithPath:path];
@@ -312,7 +304,7 @@
 	
 	if (range.length > 0)
     {
-        [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"tentia_instance.requestAccessToken('%@')", aString]];
+        [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bungloo_instance.requestAccessToken('%@')", aString]];
 	}
     else
     {
@@ -353,7 +345,7 @@
         isPrivate = @"true";
     }
     
-    NSString *func = [NSString stringWithFormat:@"tentia_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@, %@)",
+    NSString *func = [NSString stringWithFormat:@"bungloo_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@, %@)",
                       text,
                       post.inReplyTostatusId,
                       post.inReplyToEntity,
@@ -367,7 +359,7 @@
 - (NSString *)pluginURL
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSString *pathToPlugin = [@"~/Library/Application Support/Tentia/Plugin.js" stringByExpandingTildeInPath];
+	NSString *pathToPlugin = [@"~/Library/Application Support/bungloo/Plugin.js" stringByExpandingTildeInPath];
 	
     if([fileManager fileExistsAtPath:pathToPlugin])
     {
@@ -380,14 +372,14 @@
 {
 	if (![mentionsViewWindow isVisible] && count > 0)
     {
-		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia (^%i)", count]];
+		[timelineViewWindow setTitle:[NSString stringWithFormat:@"bungloo (^%i)", count]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
 	}
     else
     {
-		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Tentia"]];
+		[timelineViewWindow setTitle:[NSString stringWithFormat:@"bungloo"]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
-		[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.unread_mentions = 0;"];
+		[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.unread_mentions = 0;"];
 	}
 }
 
@@ -414,7 +406,7 @@
 {
     NSString *entity = [self.showProfileTextField stringValue];
     if ([entity rangeOfString:@"."].location != NSNotFound && ([entity hasPrefix:@"http://"] || [entity hasPrefix:@"https://"])) {
-        NSString *func = [NSString stringWithFormat:@"tentia_instance.showProfileForEntity('%@')", entity];
+        NSString *func = [NSString stringWithFormat:@"bungloo_instance.showProfileForEntity('%@')", entity];
         [profileView stringByEvaluatingJavaScriptFromString:func];
         [profileViewWindow makeKeyAndOrderFront:self];
         [openProfileWindow performClose:self];
@@ -423,7 +415,7 @@
 
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity
 {
-    NSString *fun = [NSString stringWithFormat:@"tentia_instance.postDeleted('%@', '%@')", postId, entity];
+    NSString *fun = [NSString stringWithFormat:@"bungloo_instance.postDeleted('%@', '%@')", postId, entity];
     [timelineView stringByEvaluatingJavaScriptFromString:fun];
     [mentionsView stringByEvaluatingJavaScriptFromString:fun];
     [conversationView stringByEvaluatingJavaScriptFromString:fun];
@@ -456,13 +448,13 @@
     if ([[loginEntityTextField stringValue] length] > 0) {
         [[loginEntityTextField window] makeFirstResponder:nil];
         [loginActivityIndicator startAnimation:self];
-        [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_instance.authenticate();"];
+        [oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.authenticate();"];
     }
 }
 
 - (IBAction)logout:(id)sender
 {
-    [oauthView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    [oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
     
     [timelineViewWindow performClose:self];
     [mentionsViewWindow performClose:self];
@@ -470,8 +462,8 @@
     [profileViewWindow performClose:self];
     [self.loginViewWindow makeKeyAndOrderFront:self];
     
-    [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
-    [mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.logout();"];
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
+    [mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
 }
 
 // Mentions window has been visible
@@ -480,19 +472,19 @@
 	if ([notification object] == mentionsViewWindow)
     {
 		//[self unreadMentions:0];
-		[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.setAllMentionsRead();"];
+		[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.setAllMentionsRead();"];
 	}	
 }
 
 - (void)getTweetUpdates:(id)sender
 {
-	[timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData(true)"];
-	[mentionsView stringByEvaluatingJavaScriptFromString:@"tentia_instance.getNewData(true)"];
+	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData(true)"];
+	[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData(true)"];
 }
 
 - (IBAction)showConversationForPostId:(NSString *)postId andEntity:(NSString *)entity
 {
-    NSString *js = [NSString stringWithFormat:@"tentia_instance.showStatus('%@', '%@');", postId, entity];
+    NSString *js = [NSString stringWithFormat:@"bungloo_instance.showStatus('%@', '%@');", postId, entity];
     [conversationView stringByEvaluatingJavaScriptFromString:js];
     [conversationViewWindow makeKeyAndOrderFront:self];
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
@@ -500,12 +492,12 @@
 
 - (IBAction)clearCache:(id)sender
 {
-    [timelineView stringByEvaluatingJavaScriptFromString:@"tentia_instance.cache.clear()"];
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.cache.clear()"];
 }
 
 - (IBAction)showProfileForEntity:(NSString *)entity
 {
-    NSString *js = [NSString stringWithFormat:@"tentia_instance.showProfileForEntity('%@');", entity];
+    NSString *js = [NSString stringWithFormat:@"bungloo_instance.showProfileForEntity('%@');", entity];
     [profileView stringByEvaluatingJavaScriptFromString:js];
     [profileViewWindow makeKeyAndOrderFront:self];
 }
@@ -518,13 +510,13 @@
     
     [self showConversationForPostId:postId andEntity:entity];
     
-    NSString *js = [NSString stringWithFormat:@"tentia_instance.mentionRead('%@', '%@');", postId, entity];
+    NSString *js = [NSString stringWithFormat:@"bungloo_instance.mentionRead('%@', '%@');", postId, entity];
     [mentionsView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (NSString *) applicationNameForGrowl
 {
-    return @"Tentia";
+    return @"bungloo";
 }
 
 /* CARBON */

@@ -166,7 +166,7 @@ class Oauth:
 			self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def login(self):
-		script = "tentia_instance.authenticate();"
+		script = "bugloo_instance.authenticate();"
 		self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def handle_authentication(self, url):
@@ -174,7 +174,7 @@ class Oauth:
 		self.auth_view.setWindowTitle("Authentication")
 
 		old_manager = self.auth_view.page().networkAccessManager()
-		new_manager = Helper.NetworkAccessManager(old_manager, self.tentia_callback)
+		new_manager = Helper.NetworkAccessManager(old_manager, self.bungloo_callback)
 		new_manager.authenticationRequired.connect(self.authentication_required)
 		self.auth_view.page().setNetworkAccessManager(new_manager)
 		self.auth_view.show()
@@ -194,8 +194,8 @@ class Oauth:
 
 		dialog.exec_()
 
-	def tentia_callback(self, url):
-		script = "tentia_instance.requestAccessToken('" + url.toString() + "');"
+	def bungloo_callback(self, url):
+		script = "bungloo_instance.requestAccessToken('" + url.toString() + "');"
 		self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def hide(self):

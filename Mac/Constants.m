@@ -1,6 +1,6 @@
 //
 //  Constants.m
-//  Tentia
+//  bungloo
 //
 //  Created by Jeena on 01.05.10.
 //  Licence: BSD (see attached LICENCE.txt file).
