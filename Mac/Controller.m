@@ -360,7 +360,7 @@
 - (NSString *)pluginURL
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSString *pathToPlugin = [@"~/Library/Application Support/bungloo/Plugin.js" stringByExpandingTildeInPath];
+	NSString *pathToPlugin = [@"~/Library/Application Support/Bungloo/Plugin.js" stringByExpandingTildeInPath];
 	
     if([fileManager fileExistsAtPath:pathToPlugin])
     {

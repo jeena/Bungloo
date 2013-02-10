@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0450"
+   LastUpgradeVersion = "0460"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8D15AC270486D014006FF6A4"
-               BuildableName = "bungloo.app"
+               BuildableName = "Bungloo.app"
                BlueprintName = "Bungloo"
                ReferencedContainer = "container:Bungloo.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
-            BuildableName = "bungloo.app"
+            BuildableName = "Bungloo.app"
             BlueprintName = "Bungloo"
             ReferencedContainer = "container:Bungloo.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
-            BuildableName = "bungloo.app"
+            BuildableName = "Bungloo.app"
             BlueprintName = "Bungloo"
             ReferencedContainer = "container:Bungloo.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D15AC270486D014006FF6A4"
-            BuildableName = "bungloo.app"
+            BuildableName = "Bungloo.app"
             BlueprintName = "Bungloo"
             ReferencedContainer = "container:Bungloo.xcodeproj">
          </BuildableReference>

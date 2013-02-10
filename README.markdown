@@ -1,12 +1,12 @@
-bungloo
+Bungloo
 =======
 
-bungloo is a slim Tent client for OS X and Linux written in mostly JavaScript.
+Bungloo is a slim Tent client for OS X and Linux written in mostly JavaScript.
 
 For more info check out the Wiki page: https://github.com/jeena/bungloo/wiki
 
 
-Thanks everyone in the Open Source community! bungloo is using:
+Thanks everyone in the Open Source community! Bungloo is using:
 
 - RequireJS - http://requirejs.org
 - URI.js - http://medialize.github.com/URI.js/
