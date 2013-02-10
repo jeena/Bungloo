@@ -76,7 +76,7 @@ class Preferences:
 
 class Timeline:
 
-	def __init__(self, app, action="timeline", title="Tentia"):
+	def __init__(self, app, action="timeline", title="bungloo"):
 		self.app = app
 		self.action = action
 		self.title = title
@@ -106,7 +106,7 @@ class Timeline:
 
 		exitAction = QtGui.QAction("&Exit", self.window)
 		exitAction.setShortcut("Ctrl+Q")
-		exitAction.setStatusTip("Exit Tentia")
+		exitAction.setStatusTip("Exit bungloo")
 		exitAction.triggered.connect(QtGui.qApp.quit)
 
 		menubar = self.window.menuBar()
@@ -166,7 +166,7 @@ class Oauth:
 			self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def login(self):
-		script = "bugloo_instance.authenticate();"
+		script = "bungloo_instance.authenticate();"
 		self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def handle_authentication(self, url):
@@ -265,7 +265,7 @@ class NewPost(Helper.RestorableWindow):
 
 		exitAction = QtGui.QAction("&Exit", self)
 		exitAction.setShortcut("Ctrl+Q")
-		exitAction.setStatusTip("Exit Tentia")
+		exitAction.setStatusTip("Exit bungloo")
 		exitAction.triggered.connect(QtGui.qApp.quit)
 
 		menubar = self.menuBar()
