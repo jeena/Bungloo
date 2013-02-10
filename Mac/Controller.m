@@ -60,12 +60,13 @@
     accessToken = [[AccessToken alloc] init];
     
     BOOL forceLogin = NO;
+    /*
     if (![accessToken stringForKey:@"version-0.6.0-new-login"]) {
         [self logout:self];
         forceLogin = YES;
         [accessToken setString:nil forKey:@"entity"];        
         [accessToken setString:@"yes" forKey:@"version-0.6.0-new-login"];
-    }
+    }*/
     
     if (forceLogin || ![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
         [timelineViewWindow performClose:self];
