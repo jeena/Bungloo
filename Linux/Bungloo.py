@@ -77,7 +77,7 @@ class Controller(QtCore.QObject):
 		try:
 			with open(self.config_path, 'w+') as f:
 				pickle.dump(self.config, f)
-		except IOError:
+		except IOError as e:
 			print self.config_path + " is not writable"
 			print "I/O error({0}): {1}".format(e.errno, e.strerror)
 
