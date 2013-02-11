@@ -99,7 +99,7 @@ class Timeline:
 
 
 	def initUI(self):
-		newPostAction = QtGui.QAction("&New Post", self.window)        
+		newPostAction = QtGui.QAction("&New Post", self.window)
 		newPostAction.setShortcut("Ctrl+N")
 		newPostAction.setStatusTip("Open new post window")
 		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
@@ -215,7 +215,7 @@ class Login(QtGui.QDialog):
 
 		self.textPass = QtGui.QLineEdit(self)
 		self.textPass.setEchoMode(QtGui.QLineEdit.Password);
-    	#self.textPass.setInputMethodHints(Qt.ImhHiddenText | Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase)
+		#self.textPass.setInputMethodHints(Qt.ImhHiddenText | Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase)
 
 		self.buttons = QtGui.QDialogButtonBox(QtGui.QDialogButtonBox.Ok)
 		self.buttons.accepted.connect(self.accept)
@@ -253,12 +253,12 @@ class NewPost(Helper.RestorableWindow):
 		self.imageFilePath = None
 
 	def initUI(self):
-		newPostAction = QtGui.QAction("&New Post", self)        
+		newPostAction = QtGui.QAction("&New Post", self)
 		newPostAction.setShortcut("Ctrl+N")
 		newPostAction.setStatusTip("Open new post window")
 		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
 
-		sendPostAction = QtGui.QAction("&Send Post", self)        
+		sendPostAction = QtGui.QAction("&Send Post", self)
 		sendPostAction.setShortcut("Ctrl+Return")
 		sendPostAction.setStatusTip("Send post")
 		sendPostAction.triggered.connect(self.sendMessage)

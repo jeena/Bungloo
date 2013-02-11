@@ -33,13 +33,13 @@ function(HostApp, Timeline, URI, Paths) {
 
             for (var i = 0; i < statuses.length; i++) {
                 var status = statuses[i];
-                
+               
                 var name;
                 var profile = this.cache.profiles.getItem(status.entity);
                 if(profile) {
                     name = profile["https://tent.io/types/info/basic/v0.1.0"].name;
                 }
-                
+               
                 HostApp.notificateUserAboutMention(status.content.text, name || status.entity, status.id, status.entity);
             };
         }
@@ -52,7 +52,7 @@ function(HostApp, Timeline, URI, Paths) {
         add_to_search = add_to_search || {};
 
         if (!add_to_search["mentioned_entity"]) {
-            add_to_search["mentioned_entity"] = HostApp.stringForKey("entity");            
+            add_to_search["mentioned_entity"] = HostApp.stringForKey("entity");
         }
 
         Timeline.prototype.getNewData.call(this, add_to_search);

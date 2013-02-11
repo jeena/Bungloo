@@ -12,10 +12,10 @@
 @interface PostModel : NSObject {
 	NSString *text;
 	NSString *inReplyTostatusId;
-    NSString *inReplyToEntity;
-    CLLocation *location;
-    NSString *imageFilePath;
-    BOOL isPrivate;
+	NSString *inReplyToEntity;
+	CLLocation *location;
+	NSString *imageFilePath;
+	BOOL isPrivate;
 }
 
 @property (nonatomic, retain) NSString *text;

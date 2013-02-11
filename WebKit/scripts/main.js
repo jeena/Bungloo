@@ -9,7 +9,7 @@ function start(view) {
 
     if (view == "oauth") {
         require(["controller/Oauth"], function(Oauth) {
-            
+           
             bungloo_instance = new Oauth();
 
         });
@@ -17,9 +17,9 @@ function start(view) {
     } else if (view == "timeline") {
 
         require(["controller/Timeline"], function(Timeline) {
- 
+
              bungloo_instance = new Timeline();
- 
+
         });
 
     } else if (view == "mentions") {
@@ -131,7 +131,7 @@ function loadCssPlugin(css_url) {
 }
 
 function debug(string) {
-    
+   
     if (typeof string != "string") {
         string = JSON.stringify(string);
     }
@@ -141,18 +141,18 @@ function debug(string) {
 
 function go() { // wait untill everything is loaded
     setTimeout(function() {
-        
+       
         if (typeof HostAppGo != typeof __not_defined__) {
 
             HostAppGo();
 
         } else {
-            
+           
             go();
 
         }
 
-    }, 500);    
+    }, 500);
 }
 
 go();
