@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
    <channel>
-      <title>Tentia's Changelog</title>
-      <link>http://jabs.nu/Tentia/download/Appcast.xml</link>
+      <title>Bungloo's Changelog</title>
+      <link>http://jabs.nu/Bungloo/download/Appcast.xml</link>
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
       <item>
-        <title>Version 0.6.2</title>
+        <title>Version 1.0.0</title>
 		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
-		<sparkle:releaseNotesLink>http://jabs.nu/Tentia/download/ReleaseNotes.html</sparkle:releaseNotesLink>
-		<pubDate>Sun, 27 Jan 2013 17:55:18 +0100</pubDate>
-		<enclosure	url="http://jabs.nu/Tentia/download/Tentia.app.zip"
-					sparkle:version="0.6.2"
-					length="1093078"
+		<sparkle:releaseNotesLink>http://jabs.nu/bungloo/download/ReleaseNotes.html</sparkle:releaseNotesLink>
+		<pubDate>Mon, 11 Feb 2013 00:29:41 +0100</pubDate>
+		<enclosure	url="http://jabs.nu/bungloo/download/Bungloo.app.zip"
+					sparkle:version="1.0.0"
+					length="1101694"
 					type="application/octet-stream"
-					sparkle:dsaSignature="MC4CFQCA7q7VG5aSt6yMxiNC3SYQHGtt8QIVAIbPnWFSXu4u0L7XT5Jelm16H77w" />
+					sparkle:dsaSignature="MCwCFB1JIQINycvbZblob0PHy6Be1nVzAhQ2zkoVqoOjJsDjcnZYjI1qY7oX1Q==" />
       </item>
    </channel>
 </rss>
