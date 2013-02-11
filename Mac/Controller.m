@@ -24,12 +24,12 @@
 
 - (void)awakeFromNib
 {
-    [timelineViewWindow setExcludedFromWindowsMenu:YES];
-    [mentionsViewWindow setExcludedFromWindowsMenu:YES];
-    
+	[timelineViewWindow setExcludedFromWindowsMenu:YES];
+	[mentionsViewWindow setExcludedFromWindowsMenu:YES];
+	
 	[self initHotKeys];
-    
-    [GrowlApplicationBridge setGrowlDelegate:self];
+	
+	[GrowlApplicationBridge setGrowlDelegate:self];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self 
@@ -55,28 +55,28 @@
 						 forEventClass:kInternetEventClass
 							andEventID:kAEGetURL];
 
-    
-    viewDelegate = [[ViewDelegate alloc] init];
-    accessToken = [[AccessToken alloc] init];
-    
-    BOOL forceLogin = NO;
-    /*
-    if (![accessToken stringForKey:@"version-0.6.0-new-login"]) {
-        [self logout:self];
-        forceLogin = YES;
-        [accessToken setString:nil forKey:@"entity"];        
-        [accessToken setString:@"yes" forKey:@"version-0.6.0-new-login"];
-    }*/
-    
-    if (forceLogin || ![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
-        [timelineViewWindow performClose:self];
-        [mentionsViewWindow performClose:self];
-        [self.loginViewWindow makeKeyAndOrderFront:self];
-        [self initOauth];
-    } else {
-        [timelineViewWindow makeKeyAndOrderFront:self];
-        [self initWebViews];
-    }
+	
+	viewDelegate = [[ViewDelegate alloc] init];
+	accessToken = [[AccessToken alloc] init];
+	
+	BOOL forceLogin = NO;
+	/*
+	if (![accessToken stringForKey:@"version-0.6.0-new-login"]) {
+		[self logout:self];
+		forceLogin = YES;
+		[accessToken setString:nil forKey:@"entity"];		
+		[accessToken setString:@"yes" forKey:@"version-0.6.0-new-login"];
+	}*/
+	
+	if (forceLogin || ![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
+		[timelineViewWindow performClose:self];
+		[mentionsViewWindow performClose:self];
+		[self.loginViewWindow makeKeyAndOrderFront:self];
+		[self initOauth];
+	} else {
+		[timelineViewWindow makeKeyAndOrderFront:self];
+		[self initWebViews];
+	}
 }
 
 # pragma mark Init
@@ -85,81 +85,81 @@
 
 - (void)initOauth
 {
-    if (!oauthView) {
-        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
-        NSURL *url = [NSURL fileURLWithPath:path];
-        NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
-        
-        oauthView = [[WebView alloc] init];
-        viewDelegate.oauthView = oauthView;
-        [[oauthView mainFrame] loadHTMLString:index_string baseURL:url];
-        [oauthView setFrameLoadDelegate:viewDelegate];
-        [oauthView setPolicyDelegate:viewDelegate];
-        [oauthView setUIDelegate:viewDelegate];
-        [[oauthView windowScriptObject] setValue:self forKey:@"controller"];
+	if (!oauthView) {
+		NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
+		NSURL *url = [NSURL fileURLWithPath:path];
+		NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
+		
+		oauthView = [[WebView alloc] init];
+		viewDelegate.oauthView = oauthView;
+		[[oauthView mainFrame] loadHTMLString:index_string baseURL:url];
+		[oauthView setFrameLoadDelegate:viewDelegate];
+		[oauthView setPolicyDelegate:viewDelegate];
+		[oauthView setUIDelegate:viewDelegate];
+		[[oauthView windowScriptObject] setValue:self forKey:@"controller"];
 
-    }
+	}
 }
 
 - (void)initWebViews
 {
 
-    if (viewDelegate.timelineView != timelineView)
-    {
-        [self initOauth];
-        
-        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
-        NSURL *url = [NSURL fileURLWithPath:path];
-        NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
-        
-        viewDelegate.timelineView = timelineView;
-        [[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
-        [timelineView setFrameLoadDelegate:viewDelegate];
-        [timelineView setPolicyDelegate:viewDelegate];
-        [timelineView setUIDelegate:viewDelegate];
-        [[timelineView windowScriptObject] setValue:self forKey:@"controller"];
-        //WebPreferences* prefs = [timelineView preferences];
-        //[prefs _setLocalStorageDatabasePath:localStoragePath];
-        //[prefs setLocalStorageEnabled:YES];
-        
-        viewDelegate.mentionsView = mentionsView;
-        [[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
-        [mentionsView setFrameLoadDelegate:viewDelegate];
-        [mentionsView setPolicyDelegate:viewDelegate];
-        [mentionsView setUIDelegate:viewDelegate];
-        [[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
-        //prefs = [mentionsView preferences];
-        //[prefs _setLocalStorageDatabasePath:localStoragePath];
-        //[prefs setLocalStorageEnabled:YES];
-        
-        viewDelegate.conversationView = conversationView;
-        [[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
-        [conversationView setFrameLoadDelegate:viewDelegate];
-        [conversationView setPolicyDelegate:viewDelegate];
-        [conversationView setUIDelegate:viewDelegate];
-        [[conversationView windowScriptObject] setValue:self forKey:@"controller"];
-        //prefs = [conversationView preferences];
-        //[prefs _setLocalStorageDatabasePath:localStoragePath];
-        //[prefs setLocalStorageEnabled:YES];
-        
-        viewDelegate.profileView = profileView;
-        [[profileView mainFrame] loadHTMLString:index_string baseURL:url];
-        [profileView setFrameLoadDelegate:viewDelegate];
-        [profileView setPolicyDelegate:viewDelegate];
-        [profileView setUIDelegate:viewDelegate];
-        [[profileView windowScriptObject] setValue:self forKey:@"controller"];
-        //prefs = [profileView preferences];
-        //[prefs _setLocalStorageDatabasePath:localStoragePath];
-        //[prefs setLocalStorageEnabled:YES];
+	if (viewDelegate.timelineView != timelineView)
+	{
+		[self initOauth];
+		
+		NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
+		NSURL *url = [NSURL fileURLWithPath:path];
+		NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
+		
+		viewDelegate.timelineView = timelineView;
+		[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
+		[timelineView setFrameLoadDelegate:viewDelegate];
+		[timelineView setPolicyDelegate:viewDelegate];
+		[timelineView setUIDelegate:viewDelegate];
+		[[timelineView windowScriptObject] setValue:self forKey:@"controller"];
+		//WebPreferences* prefs = [timelineView preferences];
+		//[prefs _setLocalStorageDatabasePath:localStoragePath];
+		//[prefs setLocalStorageEnabled:YES];
+		
+		viewDelegate.mentionsView = mentionsView;
+		[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
+		[mentionsView setFrameLoadDelegate:viewDelegate];
+		[mentionsView setPolicyDelegate:viewDelegate];
+		[mentionsView setUIDelegate:viewDelegate];
+		[[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
+		//prefs = [mentionsView preferences];
+		//[prefs _setLocalStorageDatabasePath:localStoragePath];
+		//[prefs setLocalStorageEnabled:YES];
+		
+		viewDelegate.conversationView = conversationView;
+		[[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
+		[conversationView setFrameLoadDelegate:viewDelegate];
+		[conversationView setPolicyDelegate:viewDelegate];
+		[conversationView setUIDelegate:viewDelegate];
+		[[conversationView windowScriptObject] setValue:self forKey:@"controller"];
+		//prefs = [conversationView preferences];
+		//[prefs _setLocalStorageDatabasePath:localStoragePath];
+		//[prefs setLocalStorageEnabled:YES];
+		
+		viewDelegate.profileView = profileView;
+		[[profileView mainFrame] loadHTMLString:index_string baseURL:url];
+		[profileView setFrameLoadDelegate:viewDelegate];
+		[profileView setPolicyDelegate:viewDelegate];
+		[profileView setUIDelegate:viewDelegate];
+		[[profileView windowScriptObject] setValue:self forKey:@"controller"];
+		//prefs = [profileView preferences];
+		//[prefs _setLocalStorageDatabasePath:localStoragePath];
+		//[prefs setLocalStorageEnabled:YES];
 
-    }
-    else
-    {
-        [timelineView stringByEvaluatingJavaScriptFromString:@"start('timeline')"];
-        [mentionsView stringByEvaluatingJavaScriptFromString:@"start('mentions')"];
-        [conversationView stringByEvaluatingJavaScriptFromString:@"start('conversation')"];
-        [profileView stringByEvaluatingJavaScriptFromString:@"start('profile')"];
-    }
+	}
+	else
+	{
+		[timelineView stringByEvaluatingJavaScriptFromString:@"start('timeline')"];
+		[mentionsView stringByEvaluatingJavaScriptFromString:@"start('mentions')"];
+		[conversationView stringByEvaluatingJavaScriptFromString:@"start('conversation')"];
+		[profileView stringByEvaluatingJavaScriptFromString:@"start('profile')"];
+	}
 }
 
 - (void)initHotKeys
@@ -172,21 +172,21 @@
 	NSInteger defaultsNewTweetKey = (NSInteger)[defaults integerForKey:@"newTweetKey"];
 
 	if ([defaults objectForKey:@"newTweetKey"] != nil)
-    {
+	{
 		newTweetKey = defaultsNewTweetKey;
 	}
-    else
-    {
+	else
+	{
 		[defaults setInteger:newTweetKey forKey:@"newTweetKey"];
 	}
 	
 	NSInteger defaultsNewTweetModifierKey = (NSInteger)[defaults integerForKey:@"newTweetModifierKey"];
 	if ([defaults objectForKey:@"newTweetModifierKey"] != nil)
-    {
+	{
 		newTweetModifierKey = defaultsNewTweetModifierKey;
 	}
-    else
-    {
+	else
+	{
 		[defaults setInteger:newTweetModifierKey forKey:@"newTweetModifierKey"];
 	}
 	
@@ -221,23 +221,23 @@
 
 - (void)alertTitle:(NSString *)title withMessage:(NSString *)message
 {
-    NSAlert *alert = [NSAlert alertWithMessageText:title
-                                     defaultButton:@"OK" alternateButton:nil otherButton:nil
-                         informativeTextWithFormat:@"%@", message];
-    [alert runModal];
+	NSAlert *alert = [NSAlert alertWithMessageText:title
+									 defaultButton:@"OK" alternateButton:nil otherButton:nil
+						 informativeTextWithFormat:@"%@", message];
+	[alert runModal];
 }
 
 - (void)authentificationSucceded:(id)sender
 {
-    [loginActivityIndicator stopAnimation:self];
+	[loginActivityIndicator stopAnimation:self];
 	[self initWebViews];
-    [loginViewWindow performClose:self];
+	[loginViewWindow performClose:self];
 }
 
 - (void)authentificationDidNotSucceed:(NSString *)errorMessage
 {
-    [loginActivityIndicator stopAnimation:self];
-    [self alertTitle:@"Authenication error" withMessage:errorMessage];
+	[loginActivityIndicator stopAnimation:self];
+	[self alertTitle:@"Authenication error" withMessage:errorMessage];
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector
@@ -252,21 +252,21 @@
 
 - (void)setString:(NSString *)string forKey:(NSString *)aKey
 {
-    [self.accessToken setString:string forKey:aKey];
+	[self.accessToken setString:string forKey:aKey];
 }
 
 - (void)setSecret:(NSString *)string
 {
-    [self.accessToken setSecret:string];
+	[self.accessToken setSecret:string];
 }
 - (NSString *)secret
 {
-    return [self.accessToken secret];
+	return [self.accessToken secret];
 }
 
 - (NSString *)stringForKey:(NSString *)aKey
 {
-    return [self.accessToken stringForKey:aKey];
+	return [self.accessToken stringForKey:aKey];
 }
 
 
@@ -274,13 +274,13 @@
 
 -(BOOL)applicationShouldOpenUntitledFile:(NSApplication *)theApplication
 {
-    return NO;
+	return NO;
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
-    [timelineViewWindow makeKeyAndOrderFront:self];
-    return NO;
+	[timelineViewWindow makeKeyAndOrderFront:self];
+	return NO;
 }
 
 - (IBAction)openNewMessageWindow:(id)sender
@@ -294,7 +294,7 @@
 	[NSApp activateIgnoringOtherApps:YES]; 
 	NewMessageWindow *newMessage = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 	[newMessage inReplyTo:userName statusId:statusId withString:string];
-    [newMessage setIsPrivate:isPrivate];
+	[newMessage setIsPrivate:isPrivate];
 }
 
 - (void)openNewMessageWindowWithString:(NSString *)aString
@@ -304,11 +304,11 @@
 	NSRange range = [aString rangeOfString:@"oauthtoken"];
 	
 	if (range.length > 0)
-    {
-        [oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bungloo_instance.requestAccessToken('%@')", aString]];
+	{
+		[oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bungloo_instance.requestAccessToken('%@')", aString]];
 	}
-    else
-    {
+	else
+	{
 		NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 		[newTweet withString:aString];		
 	}
@@ -323,38 +323,38 @@
 - (IBAction)sendTweet:(id)sender
 {
 	PostModel *post = (PostModel *)[sender object];
-    NSString *text = [[post.text stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
-    
-    NSString *locationObject = @"null";
-    if (post.location) {
-        locationObject = [NSString stringWithFormat:@"[%f, %f]", post.location.coordinate.latitude, post.location.coordinate.longitude];
-    }
-    
-    NSString *imageFilePath = @"null";
-    if (post.imageFilePath) {
-        NSError *error;
-        NSString *mimeType = [MimeType mimeTypeForFileAtPath:post.imageFilePath error:&error];
-        NSData *data = [[NSData alloc] initWithContentsOfFile:post.imageFilePath];
-        NSString *base64 = [data base64Encoding_xcd];
-        [data release];
-        imageFilePath = [NSString stringWithFormat:@"\"data:%@;base64,%@\"", mimeType, base64];
-    }
-    
-    NSString *isPrivate = @"false";
-    if (post.isPrivate) {
-        isPrivate = @"true";
-    }
-    
-    NSString *func = [NSString stringWithFormat:@"bungloo_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@, %@)",
-                      text,
-                      post.inReplyTostatusId,
-                      post.inReplyToEntity,
-                      locationObject,
-                      imageFilePath,
-                      isPrivate];
+	NSString *text = [[post.text stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+	text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+	
+	NSString *locationObject = @"null";
+	if (post.location) {
+		locationObject = [NSString stringWithFormat:@"[%f, %f]", post.location.coordinate.latitude, post.location.coordinate.longitude];
+	}
+	
+	NSString *imageFilePath = @"null";
+	if (post.imageFilePath) {
+		NSError *error;
+		NSString *mimeType = [MimeType mimeTypeForFileAtPath:post.imageFilePath error:&error];
+		NSData *data = [[NSData alloc] initWithContentsOfFile:post.imageFilePath];
+		NSString *base64 = [data base64Encoding_xcd];
+		[data release];
+		imageFilePath = [NSString stringWithFormat:@"\"data:%@;base64,%@\"", mimeType, base64];
+	}
+	
+	NSString *isPrivate = @"false";
+	if (post.isPrivate) {
+		isPrivate = @"true";
+	}
+	
+	NSString *func = [NSString stringWithFormat:@"bungloo_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@, %@)",
+					  text,
+					  post.inReplyTostatusId,
+					  post.inReplyToEntity,
+					  locationObject,
+					  imageFilePath,
+					  isPrivate];
 
-    [timelineView stringByEvaluatingJavaScriptFromString:func];
+	[timelineView stringByEvaluatingJavaScriptFromString:func];
 }
 
 - (NSString *)pluginURL
@@ -362,8 +362,8 @@
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *pathToPlugin = [@"~/Library/Application Support/Bungloo/Plugin.js" stringByExpandingTildeInPath];
 	
-    if([fileManager fileExistsAtPath:pathToPlugin])
-    {
+	if([fileManager fileExistsAtPath:pathToPlugin])
+	{
 		return [NSString stringWithFormat:@"%@", [NSURL fileURLWithPath:pathToPlugin]];
 	}
 	return nil;
@@ -372,12 +372,12 @@
 - (void)unreadMentions:(int)count
 {
 	if (![mentionsViewWindow isVisible] && count > 0)
-    {
+	{
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Bungloo (^%i)", count]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
 	}
-    else
-    {
+	else
+	{
 		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Bungloo"]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.unread_mentions = 0;"];
@@ -386,92 +386,92 @@
 
 - (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity
 {
-    [GrowlApplicationBridge
-        notifyWithTitle:[NSString stringWithFormat:@"Mentioned by %@ on Tent", name]
-        description:text
-        notificationName:@"Mention"
-        iconData:nil
-        priority:0
-        isSticky:NO
-        clickContext:[NSDictionary dictionaryWithObjectsAndKeys:
-                      entity, @"entity",
-                      postId, @"postId", nil]];
+	[GrowlApplicationBridge
+		notifyWithTitle:[NSString stringWithFormat:@"Mentioned by %@ on Tent", name]
+		description:text
+		notificationName:@"Mention"
+		iconData:nil
+		priority:0
+		isSticky:NO
+		clickContext:[NSDictionary dictionaryWithObjectsAndKeys:
+					  entity, @"entity",
+					  postId, @"postId", nil]];
 }
 
 - (void)openURL:(NSString *)url
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
 }
 
 - (IBAction)showProfile:(id)sender
 {
-    NSString *entity = [self.showProfileTextField stringValue];
-    if ([entity rangeOfString:@"."].location != NSNotFound && ([entity hasPrefix:@"http://"] || [entity hasPrefix:@"https://"])) {
-        NSString *func = [NSString stringWithFormat:@"bungloo_instance.showProfileForEntity('%@')", entity];
-        [profileView stringByEvaluatingJavaScriptFromString:func];
-        [profileViewWindow makeKeyAndOrderFront:self];
-        [openProfileWindow performClose:self];
-    }
+	NSString *entity = [self.showProfileTextField stringValue];
+	if ([entity rangeOfString:@"."].location != NSNotFound && ([entity hasPrefix:@"http://"] || [entity hasPrefix:@"https://"])) {
+		NSString *func = [NSString stringWithFormat:@"bungloo_instance.showProfileForEntity('%@')", entity];
+		[profileView stringByEvaluatingJavaScriptFromString:func];
+		[profileViewWindow makeKeyAndOrderFront:self];
+		[openProfileWindow performClose:self];
+	}
 }
 
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity
 {
-    NSString *fun = [NSString stringWithFormat:@"bungloo_instance.postDeleted('%@', '%@')", postId, entity];
-    [timelineView stringByEvaluatingJavaScriptFromString:fun];
-    [mentionsView stringByEvaluatingJavaScriptFromString:fun];
-    [conversationView stringByEvaluatingJavaScriptFromString:fun];
-    [profileView stringByEvaluatingJavaScriptFromString:fun];
+	NSString *fun = [NSString stringWithFormat:@"bungloo_instance.postDeleted('%@', '%@')", postId, entity];
+	[timelineView stringByEvaluatingJavaScriptFromString:fun];
+	[mentionsView stringByEvaluatingJavaScriptFromString:fun];
+	[conversationView stringByEvaluatingJavaScriptFromString:fun];
+	[profileView stringByEvaluatingJavaScriptFromString:fun];
 }
 
 
 /*
 - (void)storeAccessToken:(NSString *)_accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName
 {
-    self.accessToken.accessToken = _accessToken;
-    self.accessToken.secret = secret;
-    self.accessToken.userId = userId;
-    self.accessToken.screenName = screenName;
-    [timelineViewWindow makeKeyAndOrderFront:self];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
+	self.accessToken.accessToken = _accessToken;
+	self.accessToken.secret = secret;
+	self.accessToken.userId = userId;
+	self.accessToken.screenName = screenName;
+	[timelineViewWindow makeKeyAndOrderFront:self];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }*/
 
 - (void)loggedIn
 {
-    [loginActivityIndicator stopAnimation:self];
+	[loginActivityIndicator stopAnimation:self];
 	[self initWebViews];
-    [loginViewWindow performClose:self];
-    [timelineViewWindow makeKeyAndOrderFront:self];
+	[loginViewWindow performClose:self];
+	[timelineViewWindow makeKeyAndOrderFront:self];
 }
 
 - (IBAction)login:(id)sender
 {
-    if ([[loginEntityTextField stringValue] length] > 0) {
-        [[loginEntityTextField window] makeFirstResponder:nil];
-        [loginActivityIndicator startAnimation:self];
-        [oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.authenticate();"];
-    }
+	if ([[loginEntityTextField stringValue] length] > 0) {
+		[[loginEntityTextField window] makeFirstResponder:nil];
+		[loginActivityIndicator startAnimation:self];
+		[oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.authenticate();"];
+	}
 }
 
 - (IBAction)logout:(id)sender
 {
-    [oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
-    
-    [timelineViewWindow performClose:self];
-    [mentionsViewWindow performClose:self];
-    [conversationViewWindow performClose:self];
-    [profileViewWindow performClose:self];
-    [self.loginViewWindow makeKeyAndOrderFront:self];
-    
-    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
-    [mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
+	[oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
+	
+	[timelineViewWindow performClose:self];
+	[mentionsViewWindow performClose:self];
+	[conversationViewWindow performClose:self];
+	[profileViewWindow performClose:self];
+	[self.loginViewWindow makeKeyAndOrderFront:self];
+	
+	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
+	[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
 }
 
 // Mentions window has been visible
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
 	if ([notification object] == mentionsViewWindow)
-    {
+	{
 		//[self unreadMentions:0];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.setAllMentionsRead();"];
 	}	
@@ -485,39 +485,39 @@
 
 - (IBAction)showConversationForPostId:(NSString *)postId andEntity:(NSString *)entity
 {
-    NSString *js = [NSString stringWithFormat:@"bungloo_instance.showStatus('%@', '%@');", postId, entity];
-    [conversationView stringByEvaluatingJavaScriptFromString:js];
-    [conversationViewWindow makeKeyAndOrderFront:self];
-    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+	NSString *js = [NSString stringWithFormat:@"bungloo_instance.showStatus('%@', '%@');", postId, entity];
+	[conversationView stringByEvaluatingJavaScriptFromString:js];
+	[conversationViewWindow makeKeyAndOrderFront:self];
+	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 
 - (IBAction)clearCache:(id)sender
 {
-    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.cache.clear()"];
+	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.cache.clear()"];
 }
 
 - (IBAction)showProfileForEntity:(NSString *)entity
 {
-    NSString *js = [NSString stringWithFormat:@"bungloo_instance.showProfileForEntity('%@');", entity];
-    [profileView stringByEvaluatingJavaScriptFromString:js];
-    [profileViewWindow makeKeyAndOrderFront:self];
+	NSString *js = [NSString stringWithFormat:@"bungloo_instance.showProfileForEntity('%@');", entity];
+	[profileView stringByEvaluatingJavaScriptFromString:js];
+	[profileViewWindow makeKeyAndOrderFront:self];
 }
 
 - (void)growlNotificationWasClicked:(id)clickContext
 {
-    NSDictionary *userInfo = (NSDictionary *)clickContext;
-    NSString *postId = [userInfo objectForKey:@"postId"];
-    NSString *entity = [userInfo objectForKey:@"entity"];
-    
-    [self showConversationForPostId:postId andEntity:entity];
-    
-    NSString *js = [NSString stringWithFormat:@"bungloo_instance.mentionRead('%@', '%@');", postId, entity];
-    [mentionsView stringByEvaluatingJavaScriptFromString:js];
+	NSDictionary *userInfo = (NSDictionary *)clickContext;
+	NSString *postId = [userInfo objectForKey:@"postId"];
+	NSString *entity = [userInfo objectForKey:@"entity"];
+	
+	[self showConversationForPostId:postId andEntity:entity];
+	
+	NSString *js = [NSString stringWithFormat:@"bungloo_instance.mentionRead('%@', '%@');", postId, entity];
+	[mentionsView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (NSString *) applicationNameForGrowl
 {
-    return @"Bungloo";
+	return @"Bungloo";
 }
 
 /* CARBON */

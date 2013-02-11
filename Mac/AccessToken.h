@@ -9,7 +9,7 @@
 
 
 @interface AccessToken : NSObject {
-    NSUserDefaults *d;
+	NSUserDefaults *d;
 }
 
 - (void)setString:(NSString *)string forKey:(NSString *)aKey;

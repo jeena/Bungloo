@@ -17,9 +17,9 @@
 {
 	[text release];
 	[inReplyTostatusId release];
-    [inReplyToEntity release];
-    [location release];
-    [imageFilePath release];
+	[inReplyToEntity release];
+	[location release];
+	[imageFilePath release];
 	[super dealloc];
 }
 
