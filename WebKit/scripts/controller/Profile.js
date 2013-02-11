@@ -253,7 +253,7 @@ function(HostApp, Core, Paths, URI) {
             this.populate(this.profile_template.location, basic.location);
             this.populate(this.profile_template.gender, basic.gender);
             this.populate(this.profile_template.bio, basic.bio);
-            
+
             if(basic.website_url) {
 
                 var url = basic.website_url;
@@ -405,7 +405,7 @@ function(HostApp, Core, Paths, URI) {
         var _this = this;
 
         if (this.following_id) {
-            
+
             this.setFollowingButton(false);
             var url = Paths.mkApiRootPath("/followings/") + this.following_id;
             Paths.getURL(url, "DELETE", function(resp) {
@@ -566,7 +566,7 @@ function(HostApp, Core, Paths, URI) {
 
                     }, null, false); // do not send auth-headers
                 }
-            });            
+            });
         }
 
         return li;

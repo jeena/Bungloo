@@ -46,7 +46,7 @@
 										NSLocalizedString(@"OK", @""),				 // default button
 										NSLocalizedString(@"Cancel", @""),			 // alt button
 										nil);
-	return NSAlertDefaultReturn == result;  
+	return NSAlertDefaultReturn == result;
 	return NO;
 }
 

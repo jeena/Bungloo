@@ -39,7 +39,7 @@ ol li, .error, header.profile {
 }
 
 body > ol > li {
-	
+
 }
 
 body > ol > li:first-child {
@@ -282,7 +282,7 @@ li.mentioned {
 
 .reposted_by li:hover {
 	background: black;
-} 
+}
 
 .reposted_by li a {
 	color: white;

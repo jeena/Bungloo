@@ -99,7 +99,7 @@ class Timeline:
 
 
 	def initUI(self):
-		newPostAction = QtGui.QAction("&New Post", self.window)		
+		newPostAction = QtGui.QAction("&New Post", self.window)
 		newPostAction.setShortcut("Ctrl+N")
 		newPostAction.setStatusTip("Open new post window")
 		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
@@ -253,12 +253,12 @@ class NewPost(Helper.RestorableWindow):
 		self.imageFilePath = None
 
 	def initUI(self):
-		newPostAction = QtGui.QAction("&New Post", self)		
+		newPostAction = QtGui.QAction("&New Post", self)
 		newPostAction.setShortcut("Ctrl+N")
 		newPostAction.setStatusTip("Open new post window")
 		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
 
-		sendPostAction = QtGui.QAction("&Send Post", self)		
+		sendPostAction = QtGui.QAction("&Send Post", self)
 		sendPostAction.setShortcut("Ctrl+Return")
 		sendPostAction.setStatusTip("Send post")
 		sendPostAction.triggered.connect(self.sendMessage)

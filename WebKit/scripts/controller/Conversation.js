@@ -47,7 +47,7 @@ function(HostApp, Core, Paths, URI) {
             var dom_element = _this.getStatusDOMElement(status);
 
             if (node) {
-                
+               
                 node.parentNode.insertBefore(dom_element, node);
 
             } else {
@@ -115,7 +115,7 @@ function(HostApp, Core, Paths, URI) {
 
         var _this = this;
         var callback = function(resp) {
-            
+           
             var statuses = JSON.parse(resp.responseText);
 
             for (var i = 0; i < statuses.length; i++) {

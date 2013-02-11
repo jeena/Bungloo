@@ -26,48 +26,48 @@
 {
 	[timelineViewWindow setExcludedFromWindowsMenu:YES];
 	[mentionsViewWindow setExcludedFromWindowsMenu:YES];
-	
+
 	[self initHotKeys];
-	
+
 	[GrowlApplicationBridge setGrowlDelegate:self];
-	
+
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self 
-		   selector:@selector(openNewMessageWindow:) 
+	[nc addObserver:self
+		   selector:@selector(openNewMessageWindow:)
 			   name:@"openNewMessageWindow"
 			 object:nil];
-	[nc addObserver:self 
-		   selector:@selector(sendTweet:) 
+	[nc addObserver:self
+		   selector:@selector(sendTweet:)
 			   name:@"sendTweet"
 			 object:nil];
-	[nc addObserver:self 
-		   selector:@selector(authentificationSucceded:) 
+	[nc addObserver:self
+		   selector:@selector(authentificationSucceded:)
 			   name:@"authentificationSucceded"
 			 object:nil];
-	[nc addObserver:self 
-		   selector:@selector(getTweetUpdates:) 
+	[nc addObserver:self
+		   selector:@selector(getTweetUpdates:)
 			   name:@"getTweetUpdates"
 			 object:nil];
-	
+
 	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
 	[appleEventManager setEventHandler:self
 						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
 						 forEventClass:kInternetEventClass
 							andEventID:kAEGetURL];
 
-	
+
 	viewDelegate = [[ViewDelegate alloc] init];
 	accessToken = [[AccessToken alloc] init];
-	
+
 	BOOL forceLogin = NO;
 	/*
 	if (![accessToken stringForKey:@"version-0.6.0-new-login"]) {
 		[self logout:self];
 		forceLogin = YES;
-		[accessToken setString:nil forKey:@"entity"];		
+		[accessToken setString:nil forKey:@"entity"];
 		[accessToken setString:@"yes" forKey:@"version-0.6.0-new-login"];
 	}*/
-	
+
 	if (forceLogin || ![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
 		[timelineViewWindow performClose:self];
 		[mentionsViewWindow performClose:self];
@@ -89,7 +89,7 @@
 		NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
 		NSURL *url = [NSURL fileURLWithPath:path];
 		NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
-		
+
 		oauthView = [[WebView alloc] init];
 		viewDelegate.oauthView = oauthView;
 		[[oauthView mainFrame] loadHTMLString:index_string baseURL:url];
@@ -107,11 +107,11 @@
 	if (viewDelegate.timelineView != timelineView)
 	{
 		[self initOauth];
-		
+
 		NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
 		NSURL *url = [NSURL fileURLWithPath:path];
 		NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
-		
+
 		viewDelegate.timelineView = timelineView;
 		[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];
 		[timelineView setFrameLoadDelegate:viewDelegate];
@@ -121,7 +121,7 @@
 		//WebPreferences* prefs = [timelineView preferences];
 		//[prefs _setLocalStorageDatabasePath:localStoragePath];
 		//[prefs setLocalStorageEnabled:YES];
-		
+
 		viewDelegate.mentionsView = mentionsView;
 		[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
 		[mentionsView setFrameLoadDelegate:viewDelegate];
@@ -131,7 +131,7 @@
 		//prefs = [mentionsView preferences];
 		//[prefs _setLocalStorageDatabasePath:localStoragePath];
 		//[prefs setLocalStorageEnabled:YES];
-		
+
 		viewDelegate.conversationView = conversationView;
 		[[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
 		[conversationView setFrameLoadDelegate:viewDelegate];
@@ -141,7 +141,7 @@
 		//prefs = [conversationView preferences];
 		//[prefs _setLocalStorageDatabasePath:localStoragePath];
 		//[prefs setLocalStorageEnabled:YES];
-		
+
 		viewDelegate.profileView = profileView;
 		[[profileView mainFrame] loadHTMLString:index_string baseURL:url];
 		[profileView setFrameLoadDelegate:viewDelegate];
@@ -166,8 +166,8 @@
 {
 
 	NSInteger newTweetKey = kVK_ANSI_M; // http://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
-	NSInteger newTweetModifierKey = controlKey + cmdKey + optionKey; // cmdKey 256, shitfKey 512, optionKey 2048, controlKey 4096 
-	
+	NSInteger newTweetModifierKey = controlKey + cmdKey + optionKey; // cmdKey 256, shitfKey 512, optionKey 2048, controlKey 4096
+
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger defaultsNewTweetKey = (NSInteger)[defaults integerForKey:@"newTweetKey"];
 
@@ -179,7 +179,7 @@
 	{
 		[defaults setInteger:newTweetKey forKey:@"newTweetKey"];
 	}
-	
+
 	NSInteger defaultsNewTweetModifierKey = (NSInteger)[defaults integerForKey:@"newTweetModifierKey"];
 	if ([defaults objectForKey:@"newTweetModifierKey"] != nil)
 	{
@@ -189,9 +189,9 @@
 	{
 		[defaults setInteger:newTweetModifierKey forKey:@"newTweetModifierKey"];
 	}
-	
+
 	[defaults synchronize];
-	
+
 	NSUInteger cocoaModifiers = 0;
 	if (newTweetModifierKey & shiftKey) cocoaModifiers = cocoaModifiers | NSShiftKeyMask;
 	if (newTweetModifierKey & optionKey) cocoaModifiers = cocoaModifiers | NSAlternateKeyMask;
@@ -200,22 +200,22 @@
 
 	[globalHotkeyMenuItem setKeyEquivalent:[Constants stringFromVirtualKeyCode:newTweetKey]];
 	[globalHotkeyMenuItem setKeyEquivalentModifierMask:cocoaModifiers];
-	
+
 	/* CARBON from http://github.com/Xjs/drama-button/blob/carbon/Drama_ButtonAppDelegate.m */
-	
+
 	EventTypeSpec eventType;
 	eventType.eventClass = kEventClassKeyboard;
 	eventType.eventKind  = kEventHotKeyPressed;
-	
+
 	InstallApplicationEventHandler(&handler, 1, &eventType, NULL, NULL);
-	
+
 	EventHotKeyID g_HotKeyID;
 	g_HotKeyID.id = 1;
-	
+
 	EventHotKeyRef g_HotKeyRef;
-	
+
 	RegisterEventHotKey(newTweetKey, newTweetModifierKey, g_HotKeyID, GetApplicationEventTarget(), 0, &g_HotKeyRef);
-	
+
 	/* end CARBON */
 }
 
@@ -285,13 +285,13 @@
 
 - (IBAction)openNewMessageWindow:(id)sender
 {
-	[NSApp activateIgnoringOtherApps:YES]; 
-	[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];	
+	[NSApp activateIgnoringOtherApps:YES];
+	[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 }
 
 - (void)openNewMessageWindowInReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string isPrivate:(BOOL)isPrivate
 {
-	[NSApp activateIgnoringOtherApps:YES]; 
+	[NSApp activateIgnoringOtherApps:YES];
 	NewMessageWindow *newMessage = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
 	[newMessage inReplyTo:userName statusId:statusId withString:string];
 	[newMessage setIsPrivate:isPrivate];
@@ -300,9 +300,9 @@
 - (void)openNewMessageWindowWithString:(NSString *)aString
 {
 	[NSApp activateIgnoringOtherApps:YES];
-	
+
 	NSRange range = [aString rangeOfString:@"oauthtoken"];
-	
+
 	if (range.length > 0)
 	{
 		[oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bungloo_instance.requestAccessToken('%@')", aString]];
@@ -310,7 +310,7 @@
 	else
 	{
 		NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
-		[newTweet withString:aString];		
+		[newTweet withString:aString];
 	}
 }
 
@@ -325,12 +325,12 @@
 	PostModel *post = (PostModel *)[sender object];
 	NSString *text = [[post.text stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
 	text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
-	
+
 	NSString *locationObject = @"null";
 	if (post.location) {
 		locationObject = [NSString stringWithFormat:@"[%f, %f]", post.location.coordinate.latitude, post.location.coordinate.longitude];
 	}
-	
+
 	NSString *imageFilePath = @"null";
 	if (post.imageFilePath) {
 		NSError *error;
@@ -340,12 +340,12 @@
 		[data release];
 		imageFilePath = [NSString stringWithFormat:@"\"data:%@;base64,%@\"", mimeType, base64];
 	}
-	
+
 	NSString *isPrivate = @"false";
 	if (post.isPrivate) {
 		isPrivate = @"true";
 	}
-	
+
 	NSString *func = [NSString stringWithFormat:@"bungloo_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@, %@)",
 					  text,
 					  post.inReplyTostatusId,
@@ -361,7 +361,7 @@
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *pathToPlugin = [@"~/Library/Application Support/Bungloo/Plugin.js" stringByExpandingTildeInPath];
-	
+
 	if([fileManager fileExistsAtPath:pathToPlugin])
 	{
 		return [NSString stringWithFormat:@"%@", [NSURL fileURLWithPath:pathToPlugin]];
@@ -432,7 +432,7 @@
 	self.accessToken.userId = userId;
 	self.accessToken.screenName = screenName;
 	[timelineViewWindow makeKeyAndOrderFront:self];
-	
+
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
 }*/
 
@@ -456,13 +456,13 @@
 - (IBAction)logout:(id)sender
 {
 	[oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
-	
+
 	[timelineViewWindow performClose:self];
 	[mentionsViewWindow performClose:self];
 	[conversationViewWindow performClose:self];
 	[profileViewWindow performClose:self];
 	[self.loginViewWindow makeKeyAndOrderFront:self];
-	
+
 	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
 	[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
 }
@@ -474,7 +474,7 @@
 	{
 		//[self unreadMentions:0];
 		[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.setAllMentionsRead();"];
-	}	
+	}
 }
 
 - (void)getTweetUpdates:(id)sender
@@ -508,9 +508,9 @@
 	NSDictionary *userInfo = (NSDictionary *)clickContext;
 	NSString *postId = [userInfo objectForKey:@"postId"];
 	NSString *entity = [userInfo objectForKey:@"entity"];
-	
+
 	[self showConversationForPostId:postId andEntity:entity];
-	
+
 	NSString *js = [NSString stringWithFormat:@"bungloo_instance.mentionRead('%@', '%@');", postId, entity];
 	[mentionsView stringByEvaluatingJavaScriptFromString:js];
 }
