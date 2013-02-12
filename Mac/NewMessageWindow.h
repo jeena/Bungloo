@@ -15,15 +15,15 @@
 {
 	IBOutlet NSTextField *textField;
 	IBOutlet NSTextField *counter;
-    NSMenu *addMenu;
-    NSButton *addMenuButton;
+	NSMenu *addMenu;
+	NSButton *addMenuButton;
 	NSString *inReplyTostatusId;
-    NSString *inReplyToEntity;
-    NSMenuItem *addImage;
-    CLLocationManager *locationManager;
-    CLLocation *currentLocation;
-    NSString *imageFilePath;
-    NSButton *togglePrivateButton;
+	NSString *inReplyToEntity;
+	NSMenuItem *addImage;
+	CLLocationManager *locationManager;
+	CLLocation *currentLocation;
+	NSString *imageFilePath;
+	NSButton *togglePrivateButton;
 }
 
 @property (nonatomic, retain) IBOutlet NSTextField *textField;

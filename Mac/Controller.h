@@ -21,20 +21,20 @@
 	IBOutlet NSWindow *timelineViewWindow;
 	IBOutlet WebView *mentionsView;
 	IBOutlet NSWindow *mentionsViewWindow;
-    IBOutlet WebView *conversationView;
-    IBOutlet NSWindow *conversationViewWindow;
-    WebView *profileView;
-    NSWindow *profileViewWindow;
-    NSPanel *openProfileWindow;
-    NSWindow *loginViewWindow;
-    NSTextField *loginEntityTextField;
-    NSProgressIndicator *loginActivityIndicator;
+	IBOutlet WebView *conversationView;
+	IBOutlet NSWindow *conversationViewWindow;
+	WebView *profileView;
+	NSWindow *profileViewWindow;
+	NSPanel *openProfileWindow;
+	NSWindow *loginViewWindow;
+	NSTextField *loginEntityTextField;
+	NSProgressIndicator *loginActivityIndicator;
 	IBOutlet NSMenuItem *globalHotkeyMenuItem;
 	IBOutlet NSImageView *logoLayer;
 	ViewDelegate *viewDelegate;
-    WebView *oauthView;
-    AccessToken *accessToken;
-    NSTextField *showProfileTextField;
+	WebView *oauthView;
+	AccessToken *accessToken;
+	NSTextField *showProfileTextField;
 
 }
 

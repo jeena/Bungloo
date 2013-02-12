@@ -213,7 +213,7 @@
             string = nil;
 			break;
 	}
-	
+
 	return string;
 }
 

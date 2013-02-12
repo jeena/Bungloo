@@ -15,7 +15,7 @@ class Bungloo:
 		self.preferences = Windows.Preferences(self)
 		self.preferences.show()
 
-		self.oauth_implementation = Windows.Oauth(self)	
+		self.oauth_implementation = Windows.Oauth(self)
 
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
@@ -61,7 +61,7 @@ class Controller(QtCore.QObject):
 		self.app = app
 
 		os.path.expanduser("~/.bungloo/")
-		
+
 		self.config_path = os.path.expanduser('~/.bungloo/bungloo.cfg')
 		if os.access(self.config_path, os.R_OK):
 			with open(self.config_path, 'r') as f:
@@ -196,7 +196,7 @@ class Controller(QtCore.QObject):
 		msgBox = QtGui.QMessageBox()
 		msgBox.setText(errorMessage)
 		msgBox.exec_()
-	
+
 	@QtCore.pyqtSlot(str, str)
 	def alertTitleWithMessage(self, title, message):
 		msgBox = QtGui.QMessageBox()
@@ -230,6 +230,6 @@ class Console(QtCore.QObject):
 	def debug(self, string):
 		print "<js DEBUG>: " + string
 
-		
+
 if __name__ == "__main__":
 	Bungloo()

@@ -18,20 +18,20 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         if(this.template == "undefined") {
             return jQuery.extend(true, {}, this.template);
         }
-        
+
         var a = document.createElement("a");
-        
+
         var item = document.createElement("li");
 
         var aside = document.createElement("aside");
         item.appendChild(aside);
-        
+
         var reply_to = a.cloneNode();
         reply_to.className = "reply_to"
         reply_to.innerText = " ";
         reply_to.href = "#";
         aside.appendChild(reply_to);
-        
+
         var repost = a.cloneNode();
         repost.className = "repost";
         repost.innerText = " ";
@@ -43,29 +43,29 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         remove.innerText = " ";
         remove.href = "#";
         aside.appendChild(remove);
-        
+
         var image = document.createElement("img");
         image.className = "image";
         image.src = "img/default-avatar.png";
         image.onmousedown = function(e) { e.preventDefault(); };
         item.appendChild(image);
-        
+
         var image_username = a.cloneNode();
         image.appendChild(image_username);
-        
+
         var data = document.createElement("div");
         data.className = "data";
         item.appendChild(data);
-        
+
         var head = document.createElement("h1");
         data.appendChild(head);
-        
+
         var username = a.cloneNode();
         head.appendChild(username);
-        
+
         var space = document.createTextNode(" ");
         head.appendChild(space);
-        
+
         var geo = document.createElement("a");
         geo.style.display = "none";
         head.appendChild(geo);
@@ -80,7 +80,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         head.appendChild(is_private);
 
         head.appendChild(space.cloneNode());
-        
+
         var pin = document.createElement("img");
         pin.src = "img/pin.png";
         pin.alt = "Map link";
@@ -102,29 +102,29 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         head.appendChild(reposted_by)
 
-        
+
         var message = document.createElement("p");
         message.className = "message";
         data.appendChild(message);
-        
+
         var images = document.createElement("p")
         images.className = "images";
         data.appendChild(images);
-        
+
         var date = message.cloneNode();
         date.className = "date";
         data.appendChild(date);
-        
+
         var ago = a.cloneNode();
         date.appendChild(ago);
-        
+
         var from = document.createTextNode(" from ");
         date.appendChild(from)
-        
+
         var source = document.createElement("a");
         source.className = "source";
         date.appendChild(source)
-        
+
         this.template = {
             item: item,
             reply_to: reply_to,
@@ -238,15 +238,15 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
                     }, null, false); // do not send auth-headers
                 }
-            });            
+            });
         }
 
         if (status && status.permissions && !status.permissions.public) {
             template.is_private.style.display = '';
         }
-        
+
         var text = "";
-        
+
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
             text = status.content.caption;
         } else {
@@ -271,7 +271,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             for (var i = 0; i < status.attachments.length; i++) {
                 // closure needed for the callback
                 (function() {
-                    
+
                     var attachment = status.attachments[i];
 
                     var img = new Image();
@@ -317,7 +317,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             HostApp.showConversation(status.id, status.entity);
             return false;
         }
-        
+
         // {"type":"Point","coordinates":[57.10803113,12.25854746]}
         if (status.content && status.content.location && (typeof status.content.location.type == "undefined" || status.content.location.type == "Point")) {
             var href = "http://www.openstreetmap.org/?mlat=" + status.content.location.coordinates[0] + "&mlon=" + status.content.location.coordinates[1] + "&zoom=12"
@@ -328,7 +328,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         if (typeof status.__repost != "undefined") {
             template.source.href = status.__repost.app.url;
             template.source.innerHTML = status.__repost.app.name;
-            template.source.title = status.__repost.app.url;            
+            template.source.title = status.__repost.app.url;
         } else {
             template.source.href = status.app.url;
             template.source.innerHTML = status.app.name;
@@ -372,7 +372,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             }
 
             var reposted_count = $(post).find(".reposted_by ul li").length + 1;
-            
+
             var people_person = reposted_count == 1 ? "person" : "people";
 
             $(post).find(".reposted_by span").html("by " + reposted_count + " " + people_person);
@@ -381,12 +381,12 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             var li = $("<li/>");
             li.attr("id", "post-" + repost.id)
             var a = $("<a/>");
-            
+
             a.attr("href", repost.entity);
             a.attr("title", repost.entity);
             a.html(repost.entity);
             li.append(a);
-            $(post).find(".reposted_by ul").append(li);   
+            $(post).find(".reposted_by ul").append(li);
 
 
             a.click(function(e) {
@@ -600,10 +600,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
 
     Core.prototype.logout = function() {
-        
+
         this.body.innerHTML = "";
     }
-        
+
 
     // Helper functions
 
@@ -613,9 +613,9 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         if(url.startsWith("http://j.mp/")) {
            api = "http://api.j.mp";
         }
-        
+
         var api_url = api + "/v3/expand?format=json&apiKey=R_4fc2a1aa461d076556016390fa6400f6&login=twittia&shortUrl=" + url; // FIXME: new api key
-        
+
         jQuery.ajax({
             url: api_url,
             success: function(data) {
@@ -636,7 +636,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var text = node.innerHTML;
         var mentions_in_text = [];
-        
+
         var res = text.match(/(\^[\w:/.]+(?:[\w]))/ig);
 
         if (res) {
@@ -665,7 +665,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             (function(mention) { // need this closure
 
                 var profile = function(profile) {
-                    
+
                     var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
 
                     if (profile) {
@@ -675,7 +675,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                         }
 
                         var new_text = node.innerHTML.replace(
-                            mention.text, 
+                            mention.text,
                             "<a href='" + mention.entity + "' class='name' title='" + mention.entity + "'>"
                             + name
                             + "</a>"
@@ -712,7 +712,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                                 if (resp.status >= 200 && resp.status < 400) {
                                     var p = JSON.parse(resp.responseText);
                                     _this.cache.profiles.setItem(mention.entity, p);
-                                    profile(p)                                    
+                                    profile(p)
                                 }
                             }, null, false); // do not send auth-headers
                         }
@@ -726,16 +726,16 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     Core.prototype.parseMentions = function(text, post_id, entity) {
 
         var mentions = [];
-        
+
         if (post_id && entity && post_id != "(null)" && entity != "(null)") {
             mentions.push({
                 post: post_id,
                 entity: entity
             })
         }
-        
+
         var res = text.match(/(\^[\w:/]+\.[\w:/.]+(?:[\w]))/ig);
-       
+
         if (res) {
             for (var i = 0; i < res.length; i++) {
                 var e = res[i].substring(1);
@@ -791,7 +791,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         return text.replace(hash, "$1$2<a href='https://skate.io/search?q=%23$3'>$3</a>");
     }
 
-    Core.prototype.replyTo = function(entity, status_id, mentions, is_private) {        
+    Core.prototype.replyTo = function(entity, status_id, mentions, is_private) {
 
         var string = "^" + entity.replace("https://", "") + " ";
         for (var i = 0; i < mentions.length; i++) {
@@ -815,7 +815,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 } else {
                     var reposted_by = ul.parent(".reposted_by");
                     var reposted_count = reposted_by.find("ul li").length;
-            
+
                     var people_person = reposted_count == 1 ? "person" : "people";
 
                     reposted_by.find("span").html("by " + reposted_count + " " + people_person);
