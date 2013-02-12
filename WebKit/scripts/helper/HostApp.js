@@ -1,5 +1,5 @@
 define(function() {
-    
+
     var HostApp = {};
 
     HostApp.setStringForKey = function(string, key) {
@@ -10,16 +10,16 @@ define(function() {
             controller.setStringForKey(string, key);
         }
     }
-       
+
     HostApp.setSecret = function(string) {
-       
+
        if (OS_TYPE == "mac") {
             controller.setSecret_(string);
        } else {
             controller.setStringForKey(string, "user_mac_key");
        }
     }
-       
+
     HostApp.secret = function() {
        if (OS_TYPE == "mac") {
             return controller.secret();
@@ -140,6 +140,6 @@ define(function() {
         }
     }
 
-    return HostApp;    
+    return HostApp;
 
 });

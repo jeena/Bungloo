@@ -88,10 +88,10 @@
 {
 	// Insert code here to read your document from the given data of the specified type.  If the given outError != NULL, ensure that you set *outError when returning NO.
 
-	// You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead. 
-	
+	// You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
+
 	// For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
-	
+
 	if ( outError != NULL )
 	{
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -102,25 +102,25 @@
 - (void)inReplyTo:(NSString *)entity statusId:(NSString *)statusId withString:(NSString *)string
 {
 	[textField setStringValue:string];
-	
+
 	NSInteger location = [string rangeOfString:@" "].location;
 	NSInteger length = 0;
 	if (location != NSNotFound) {
 		length = [[textField stringValue] length] - location - 1;
 	}
-	
-	
+
+
 	NSRange range = {location + 1, length};
 	[[textField currentEditor] setSelectedRange:range];
-	
+
 	[inReplyTostatusId release];
 	inReplyTostatusId = statusId;
 	[inReplyTostatusId retain];
-	
+
 	[inReplyToEntity release];
 	inReplyToEntity = entity;
 	[inReplyToEntity retain];
-	
+
 	[self controlTextDidChange:nil];
 }
 
@@ -130,7 +130,7 @@
 	NSRange range = {[[textField stringValue] length] , 0};
 	[[textField currentEditor] setSelectedRange:range];
 	NSLog(@"BB");
-	
+
 	[self controlTextDidChange:nil];
 }
 
@@ -155,7 +155,7 @@
 {
 	NSRect frame = [(NSButton *)sender frame];
 	NSPoint menuOrigin = [[(NSButton *)sender superview] convertPoint:NSMakePoint(frame.origin.x, frame.origin.y+frame.size.height) toView:nil];
-	
+
 	NSEvent *event =  [NSEvent mouseEventWithType:NSLeftMouseDown
 										 location:menuOrigin
 									modifierFlags:NSLeftMouseDownMask // 0x100
@@ -165,7 +165,7 @@
 									  eventNumber:0
 									   clickCount:1
 										 pressure:1];
-	
+
 	[NSMenu popUpContextMenu:self.addMenu withEvent:event forView:self.addMenuButton];
 }
 
@@ -190,7 +190,7 @@
 	if(c < 0) {
 		[counter setTextColor:[NSColor redColor]];
 	} else {
-		[counter setTextColor:[NSColor controlTextColor]];	
+		[counter setTextColor:[NSColor controlTextColor]];
 	}
 }
 
@@ -212,7 +212,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
 	NSLog(@"CLLocationManager Error: %@", error);
-	
+
 	NSMenuItem *menuItem = [self.addMenu itemAtIndex:0];
 	[menuItem setTitle:@"Current location not available"];
 }
@@ -252,17 +252,17 @@
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)commandSelector
 {
 	BOOL retval = NO;
-	
+
 	BOOL isEnter = [[NSApp currentEvent] keyCode] == 76;
-	
+
 	if (commandSelector == @selector(insertNewline:) && !isEnter) {
-		
+
 		NSText *text = [[textField window] fieldEditor:YES forObject:nil];
-		
+
 		NSRange range = [text selectedRange];
 		NSString *stringBefore = [textField.stringValue substringToIndex:range.location];
 		NSString *stringAfter =  [textField.stringValue substringFromIndex:range.location + range.length];
-		
+
 		textField.stringValue = [NSString stringWithFormat:@"%@\n%@", stringBefore, stringAfter];
 
 		NSRange r = NSMakeRange(range.location + 1, 0);
@@ -275,7 +275,7 @@
 		retval = YES;
 		[self sendPost:control];
 	}
-	
+
 	return retval;
 }
 
@@ -288,17 +288,17 @@
 	if (!self.imageFilePath)
 	{
 		[menuItem setTitle:@"Remove photo"];
-		
+
 		NSOpenPanel* openDlg = [NSOpenPanel openPanel];
 		[openDlg setPrompt:@"Select"];
 		[openDlg setDelegate:self];
-		
+
 		// Enable the selection of files in the dialog.
 		[openDlg setCanChooseFiles:YES];
-		
+
 		// Enable the selection of directories in the dialog.
 		[openDlg setCanChooseDirectories:NO];
-		
+
 		// Display the dialog.  If the OK button was pressed,
 		// process the files.
 		if ( [openDlg runModalForDirectory:nil file:nil] == NSOKButton )
@@ -306,7 +306,7 @@
 			// Get an array containing the full filenames of all
 			// files and directories selected.
 			NSArray* files = [openDlg filenames];
-			
+
 			// Loop through all the files and process them.
 			for( int i = 0; i < [files count]; i++ )
 			{
@@ -327,7 +327,7 @@
 	if ([ext isEqualToString:@""] || [ext isEqualToString:@"/"] || ext == nil || ext == NULL || [ext length] < 1) {
 		return YES;
 	}
-	
+
 	NSEnumerator* tagEnumerator = [[NSArray arrayWithObjects:@"png", @"jpg", @"gif", @"jpeg", nil] objectEnumerator];
 	NSString* allowedExt;
 	while ((allowedExt = [tagEnumerator nextObject]))
@@ -337,7 +337,7 @@
 			return YES;
 		}
 	}
-	
+
 	return NO;
 }
 

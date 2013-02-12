@@ -92,7 +92,7 @@ function(HostApp, Paths, Hmac) {
         // mac_key
         // mac_algorithm
         this.register_data = register_data;
-        
+
         // Needed for later App Registration Modification
         HostApp.setStringForKey(register_data["mac_key"], "app_mac_key");
         HostApp.setStringForKey(register_data["mac_key_id"], "app_mac_key_id");
@@ -130,9 +130,9 @@ function(HostApp, Paths, Hmac) {
                 };
 
                 var auth_header = Hmac.makeAuthHeader(
-                        url, 
-                        http_method, 
-                        HostApp.stringForKey("app_mac_key"), 
+                        url,
+                        http_method,
+                        HostApp.stringForKey("app_mac_key"),
                         HostApp.stringForKey("app_mac_key_id")
                     );
 
@@ -147,13 +147,13 @@ function(HostApp, Paths, Hmac) {
 
     Oauth.prototype.requestAccessTokenTicketFinished = function(responseBody) {
 
-        var access = JSON.parse(responseBody); 
+        var access = JSON.parse(responseBody);
 
         HostApp.setStringForKey(access["access_token"], "user_access_token");
         HostApp.setSecret(access["mac_key"]);
         HostApp.setStringForKey(access["mac_algorithm"], "user_mac_algorithm");
         HostApp.setStringForKey(access["token_type"], "user_token_type");
-        
+
         HostApp.loggedIn();
     }
 
@@ -162,9 +162,9 @@ function(HostApp, Paths, Hmac) {
         var url = Paths.mkApiRootPath("/apps/" + HostApp.stringForKey("app_id"));
         var http_method = "DELETE";
         var auth_header = Hmac.makeAuthHeader(
-            url, 
-            http_method, 
-            HostApp.stringForKey("app_mac_key"), 
+            url,
+            http_method,
+            HostApp.stringForKey("app_mac_key"),
             HostApp.stringForKey("app_mac_key_id")
         );
 
@@ -178,10 +178,10 @@ function(HostApp, Paths, Hmac) {
             HostApp.setStringForKey(null, "user_mac_algorithm");
             HostApp.setStringForKey(null, "user_token_type");
             HostApp.setStringForKey(null, "api_root");
-            HostApp.setStringForKey(null, "entity");            
+            HostApp.setStringForKey(null, "entity");
         }, null, auth_header);
     }
-    
+
 
     return Oauth;
 

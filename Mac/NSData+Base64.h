@@ -15,7 +15,7 @@
 {
 	if ([base64Encoding length] % 4 != 0)
 		return nil;
-	
+
 	NSString *plist = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\"><data>%@</data></plist>", base64Encoding];
 	return [NSPropertyListSerialization propertyListWithData:[plist dataUsingEncoding:NSASCIIStringEncoding] options:0 format:NULL error:NULL];
 }
@@ -28,14 +28,14 @@
 	NSRange endRange = [plist rangeOfData:[@"</data>" dataUsingEncoding:NSASCIIStringEncoding] options:NSDataSearchBackwards range:fullRange];
 	if (startRange.location == NSNotFound || endRange.location == NSNotFound)
 		return nil;
-	
+
 	NSUInteger base64Location = startRange.location + startRange.length;
 	NSUInteger base64length = endRange.location - base64Location;
 	NSData *base64Data = [NSData dataWithBytesNoCopy:(void *)((uintptr_t)base64Location + (uintptr_t)[plist bytes]) length:base64length freeWhenDone:NO];
 	NSString *base64Encoding = [[NSString alloc] initWithData:base64Data encoding:NSASCIIStringEncoding];
 	base64Encoding = [base64Encoding stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	base64Encoding = [base64Encoding stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-	
+
 #if __has_feature(objc_arc)
 	return base64Encoding;
 #else

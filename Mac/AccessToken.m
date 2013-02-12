@@ -19,7 +19,7 @@
 		d = [NSUserDefaults standardUserDefaults];
 		//[d removeObjectForKey:@"user_access_token"];
 	}
-	
+
 	return self;
 }
 
@@ -50,7 +50,7 @@
 	char *_password = nil;
 	SecKeychainItemRef item = nil;
 	SecKeychainFindGenericPassword(NULL, 6, "Bungloo", 17, "BunglooUserAccount", &_passwordLength, (void **)&_password, &item);
-	
+
 	OSStatus status;
 	void * passwordData = (void*)[_secret cStringUsingEncoding:NSUTF8StringEncoding];
 	UInt32 passwordLength = strlen((char*)passwordData);
@@ -85,11 +85,11 @@
 	char *password = nil;
 	SecKeychainItemRef item = nil;
 	SecKeychainFindGenericPassword(NULL, 6, "Bungloo", 17, "BunglooUserAccount", &passwordLength, (void **)&password, &item);
-	
+
 	if (!item) {
 		return nil;
 	}
-	
+
 	//Get password
 	NSString *passwordString = [[[NSString alloc] initWithData:[NSData dataWithBytes:password length:passwordLength] encoding:NSUTF8StringEncoding] autorelease];
 	SecKeychainItemFreeContent(NULL, password);

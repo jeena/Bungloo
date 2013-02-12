@@ -33,7 +33,7 @@ class WebViewCreator(QtWebKit.QWebView):
 		self.is_local = local
 		self.connect(self, SIGNAL("linkClicked (const QUrl&)"), self.app.controller.openQURL)
 		self.setPage(WebPage(self, self.app))
-		
+
 	def load_local(self, callback=None):
 		self.page().settings().setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
 		self.page().settings().setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)
@@ -47,7 +47,7 @@ class WebViewCreator(QtWebKit.QWebView):
 		self.load(QtCore.QUrl(url))
 
 	def load_url(self, url, callback=None):
-		self.loadFinished.connect(lambda ok: self.load_finished(ok, callback))		
+		self.loadFinished.connect(lambda ok: self.load_finished(ok, callback))
 		self.load(QtCore.QUrl(url))
 
 	def load_finished(self, ok, callback=None):
@@ -81,14 +81,14 @@ class NetworkAccessManager(QNetworkAccessManager):
 		self.setCookieJar(old_manager.cookieJar())
 		self.setProxy(old_manager.proxy())
 		self.setProxyFactory(old_manager.proxyFactory())
-	
+
 	def createRequest(self, operation, request, data):
 		if request.url().scheme() != "bungloo":
 			return QNetworkAccessManager.createRequest(self, operation, request, data)
 		else:
 			self.bungloo_callback(request.url())
 			return QNetworkAccessManager.createRequest(self, QNetworkAccessManager.GetOperation, QNetworkRequest(QtCore.QUrl()))
-		
+
 class PostModel:
 
 	def __init__(self):

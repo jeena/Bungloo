@@ -390,8 +390,8 @@
 /*!	@brief	Tries to fill in missing keys in a notification dictionary.
  *	@param	notifDict	The dictionary to fill in.
  *	@return	The dictionary with the keys filled in. This will be a separate instance from \a notifDict.
- *	@discussion	This function examines the \a notifDict for missing keys, and 
- *	 tries to get them from the last known registration dictionary. As of 1.1, 
+ *	@discussion	This function examines the \a notifDict for missing keys, and
+ *	 tries to get them from the last known registration dictionary. As of 1.1,
  *	 the keys that it will look for are:
  *
  *	 \li <code>GROWL_APP_NAME</code>
@@ -410,8 +410,8 @@
  *@abstract Lets the app know whether growl:// is registered on the system, used for certain methods below this
  *@return Returns whether growl:// is registered on the system
  *@discussion Methods such as openGrowlPreferences rely on the growl:// URL scheme to function
- * Further, this method can provide a check on whether Growl is installed, 
- * however, the framework will not be relying on this method for choosing when/how to notify, 
+ * Further, this method can provide a check on whether Growl is installed,
+ * however, the framework will not be relying on this method for choosing when/how to notify,
  * and it is not recommended that the app rely on it for other than whether to use growl:// methods
  *@since Growl.framework 1.4
  */
@@ -421,7 +421,7 @@
  * @method openGrowlPreferences:
  * @abstract Open Growl preferences, optionally to this app's settings, growl:// method
  * @param showApp Whether to show the application's settings, otherwise just opens to the last position
- * @return Return's whether opening the URL was succesfull or not.  
+ * @return Return's whether opening the URL was succesfull or not.
  * @discussion Will launch if Growl is installed, but not running, and open the preferences window
  * Uses growl:// URL scheme
  * @since Growl.framework 1.4

@@ -18,7 +18,7 @@ function(URI, CryptoJS) {
             port = url.protocol() == "https" ? "443" : "80";
         }
 
-        var normalizedRequestString = "" 
+        var normalizedRequestString = ""
                                     + time_stamp + '\n'
                                     + nonce + '\n'
                                     + http_method + '\n'
