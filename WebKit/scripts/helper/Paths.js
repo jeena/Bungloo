@@ -46,13 +46,13 @@ function(jQuery, HostApp, Hmac, Cache) {
                     if (auth_header !== false && typeof user_access_token != "undefined") {
 
                         auth_header = Hmac.makeAuthHeader(
-                            url, 
-                            http_method, 
+                            url,
+                            http_method,
                             HostApp.secret(),
                             user_access_token
                         );
                         xhr.setRequestHeader("Authorization", auth_header);
-                    }                
+                    }
                 }
             },
             url: url,
@@ -85,14 +85,14 @@ function(jQuery, HostApp, Hmac, Cache) {
                 if (user_access_token) {
 
                     auth_header = Hmac.makeAuthHeader(
-                        url, 
-                        "POST", 
+                        url,
+                        "POST",
                         HostApp.secret(),
                         user_access_token
                     );
 
                     xhr.setRequestHeader("Authorization", auth_header);
-                }                
+                }
             },
             url: url,
             contentType: "multipart/form-data;boundary=" + boundary,

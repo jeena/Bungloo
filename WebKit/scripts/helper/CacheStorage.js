@@ -17,9 +17,9 @@ function() {
 
     CacheStorage.prototype.getItem = function(key) {
         var item = null;
-        
+
         try { // If localStorage doesn't work then just leave it empty
-            item = JSON.parse(localStorage.getItem(this.mkPath(key)));  
+            item = JSON.parse(localStorage.getItem(this.mkPath(key)));
         } catch(e) {}
 
         return item;
@@ -35,7 +35,7 @@ function() {
                 var length_path = this.mkInternalPath("_length");
                 var length = parseInt(localStorage.getItem(length_path), 10) + 1;
                 localStorage.setItem(length_path, length);
-            }        
+            }
         } catch(e) {}
     }
 
@@ -49,7 +49,7 @@ function() {
                 var length_path = this.mkInternalPath("_length");
                 var length = parseInt(localStorage.getItem(length_path), 10) - 1;
                 localStorage.setItem(length_path, length);
-            }            
+            }
         } catch(e) {}
     };
 
@@ -62,7 +62,7 @@ function() {
                 }
             }
 
-            localStorage.setItem(this.mkInternalPath("_length"), 0);            
+            localStorage.setItem(this.mkInternalPath("_length"), 0);
         } catch(e) {}
     }
 

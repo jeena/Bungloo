@@ -146,7 +146,7 @@ function(Core, Paths, HostApp, URI) {
         if (!callback) {
             callback = function(data) { _this.getNewData(); }
         }
-        Core.prototype.repost.call(this, id, entity, callback);   
+        Core.prototype.repost.call(this, id, entity, callback);
     }
 
     Timeline.prototype.logout = function() {

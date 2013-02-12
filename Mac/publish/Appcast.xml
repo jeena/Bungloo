@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
-   <channel>
-      <title>Bungloo's Changelog</title>
-      <link>http://jabs.nu/Bungloo/download/Appcast.xml</link>
-      <description>Most recent changes with links to updates.</description>
-      <language>en</language>
-      <item>
-        <title>Version 1.0.0</title>
+	<channel>
+		<title>Bungloo's Changelog</title>
+		<link>http://jabs.nu/Bungloo/download/Appcast.xml</link>
+		<description>Most recent changes with links to updates.</description>
+		<language>en</language>
+		<item>
+		  <title>Version 1.0.0</title>
 		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 		<sparkle:releaseNotesLink>http://jabs.nu/bungloo/download/ReleaseNotes.html</sparkle:releaseNotesLink>
 		<pubDate>Mon, 11 Feb 2013 00:29:41 +0100</pubDate>
@@ -15,6 +15,6 @@
 					length="1101694"
 					type="application/octet-stream"
 					sparkle:dsaSignature="MCwCFB1JIQINycvbZblob0PHy6Be1nVzAhQ2zkoVqoOjJsDjcnZYjI1qY7oX1Q==" />
-      </item>
-   </channel>
+		</item>
+	</channel>
 </rss>
