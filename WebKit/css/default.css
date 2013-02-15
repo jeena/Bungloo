@@ -173,7 +173,7 @@ p {
 	font-weight: bold;
 }
 
-li .date {
+li .from {
 	position: absolute;
 	top: -1.8em;
 	right: 10px;
@@ -188,12 +188,12 @@ li .date {
 	font-size: 0.9em;
 }
 
-li:hover .date {
+li:hover .from {
 	display: block;
 }
 
 
-li:first-child:hover .date {
+li:first-child:hover .from {
 	top: auto;
 	bottom: -1.6em;
 	z-index: 2;
@@ -209,7 +209,6 @@ li:first-child:hover .date {
 aside {
 	float: right;
 	margin: 0 3px 3px 3px;
-	visibility: hidden;
 }
 
 .reply_to, .repost, .remove {
@@ -218,10 +217,26 @@ aside {
 	background: url(../img/sprite-icons.png) no-repeat -16px 0;
 	float: right;
 	margin-left: 2px;
+	visibility: hidden;
 }
 
-li:hover aside {
+li:hover aside .reply_to, li:hover aside .repost, li:hover aside .remove, li:hover aside .ago:before {
 	visibility: visible;
+}
+
+.ago {
+	float: right;
+	color: #666;
+}
+
+.ago:before {
+	content: " ";
+	display: inline-block;
+	background: url(../img/conversation.png) no-repeat;
+	height: 12px;
+	width: 15px;
+	margin-right: 5px;
+	visibility: hidden;
 }
 
 .repost {

@@ -26,6 +26,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         var aside = document.createElement("aside");
         item.appendChild(aside);
 
+        var ago = a.cloneNode();
+        ago.className = "ago";
+        aside.appendChild(ago);
+
         var reply_to = a.cloneNode();
         reply_to.className = "reply_to"
         reply_to.innerText = " ";
@@ -111,19 +115,16 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         images.className = "images";
         data.appendChild(images);
 
-        var date = message.cloneNode();
-        date.className = "date";
-        data.appendChild(date);
+        var from = message.cloneNode();
+        from.className = "from";
+        data.appendChild(from);
 
-        var ago = a.cloneNode();
-        date.appendChild(ago);
-
-        var from = document.createTextNode(" from ");
-        date.appendChild(from)
+        var from_text = document.createTextNode("from ");
+        from.appendChild(from_text)
 
         var source = document.createElement("a");
         source.className = "source";
-        date.appendChild(source)
+        from.appendChild(source)
 
         this.template = {
             item: item,
