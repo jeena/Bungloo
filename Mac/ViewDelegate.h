@@ -13,9 +13,9 @@
 @interface ViewDelegate : NSObject {
 	WebView *timelineView;
 	WebView *mentionsView;
-    WebView *conversationView;
-    WebView *profileView;
-    WebView *oauthView;
+	WebView *conversationView;
+	WebView *profileView;
+	WebView *oauthView;
 }
 
 @property (nonatomic, assign) WebView *timelineView;

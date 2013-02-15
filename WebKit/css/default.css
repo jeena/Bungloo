@@ -13,6 +13,7 @@ body {
 a {
 	text-decoration: none;
 	color: #00317a;
+        outline: 0;
 }
 
 ol {
@@ -39,7 +40,7 @@ ol li, .error, header.profile {
 }
 
 body > ol > li {
-	
+
 }
 
 body > ol > li:first-child {
@@ -80,6 +81,7 @@ body > ol > li:after, header.profile:after {
 header.profile img {
 	float: left;
 	margin: 0 10px 10px 0;
+	max-height: 100px;
 	max-width: 100px;
 	border-radius: 10px;
 }
@@ -282,7 +284,7 @@ li.mentioned {
 
 .reposted_by li:hover {
 	background: black;
-} 
+}
 
 .reposted_by li a {
 	color: white;

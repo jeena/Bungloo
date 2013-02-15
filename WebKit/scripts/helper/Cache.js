@@ -56,7 +56,7 @@ function(URI, CacheStorage, require) {
     Cache.prototype.stopGettingFollowings = function() {
         clearTimeout(this.intervall);
     }
-    
+
     return Cache;
 
 });
