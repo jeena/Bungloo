@@ -41,7 +41,7 @@ function($) {
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
-        suffixAgo: "",
+        suffixAgo: null,
         suffixFromNow: "from now",
         seconds: "%d sec",
         minute: "1 min",
