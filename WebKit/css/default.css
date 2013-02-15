@@ -5,7 +5,7 @@ html, body {
 }
 
 body {
-	font-family: "Lucida Grande", Tahoma, sans-serif;
+	font-family: "Lucida Grande", "Open Sans", "Ubuntu", Tahoma, sans-serif;
 	font-size: 11px;
 	background: #dedede url(../img/background.png) center center no-repeat;
 }
