@@ -320,9 +320,21 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         // {"type":"Point","coordinates":[57.10803113,12.25854746]}
         if (status.content && status.content.location && (typeof status.content.location.type == "undefined" || status.content.location.type == "Point")) {
-            var href = "http://www.openstreetmap.org/?mlat=" + status.content.location.coordinates[0] + "&mlon=" + status.content.location.coordinates[1] + "&zoom=12"
+            var lat = status.content.location.coordinates[0];
+            var lng = status.content.location.coordinates[1];
+
+            var href = "http://www.openstreetmap.org/?mlat=" + lat + "&mlon=" + lng + "&zoom=12"
             template.geo.href = href;
             template.geo.style.display = "";
+
+            var a = document.createElement("a");
+            a.className = "map";
+            a.href = href;
+            var img = document.createElement("img");
+            img.src = "http://staticmap.openstreetmap.de/staticmap.php?center=" + lat + "," + lng + "&zoom=3&size=75x75&markers=" + lat + "," + lng + ",red-pushpin"
+            a.appendChild(img);
+
+            template.images.appendChild(a);
         }
 
         if (typeof status.__repost != "undefined") {
