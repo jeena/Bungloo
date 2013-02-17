@@ -53,7 +53,7 @@ function(HostApp, Core, Paths, URI) {
             name: document.createElement("h1"),
             entity: document.createElement("a"),
             bio: document.createElement("p"),
-            following_you: document.createElement("td"),
+            relationships: document.createElement("td"),
             posts: document.createElement("a"),
             following: document.createElement("a"),
             followed: document.createElement("a"),
@@ -115,7 +115,7 @@ function(HostApp, Core, Paths, URI) {
         td.appendChild(this.profile_template.url);
         mkLi("Homepage", td);
 
-        mkLi("Relationships", this.profile_template.following_you);
+        mkLi("Relationships", this.profile_template.relationships);
 
         td = document.createElement("td");
         td.appendChild(this.profile_template.posts);
@@ -165,7 +165,7 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.name.innerText = "";
         this.profile_template.entity.innerText = "";
         this.profile_template.bio.innerText = "";
-        this.profile_template.following_you.innerText = "";
+        this.profile_template.relationships.innerText = "";
         this.profile_template.posts.innerText = "";
         this.profile_template.following.innerText = "";
         this.profile_template.followed.innerText = "";
@@ -346,7 +346,7 @@ function(HostApp, Core, Paths, URI) {
                 relation = "being followed by you";
             }
         }
-        this.populate(this.profile_template.following_you, relation);
+        this.populate(this.profile_template.relationships, relation);
     }
 
 
