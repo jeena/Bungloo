@@ -43,7 +43,7 @@ function($) {
         prefixFromNow: null,
         suffixAgo: null,
         suffixFromNow: "from now",
-        seconds: "%ds",
+        seconds: "<1m",
         minute: "1m",
         minutes: "%dm",
         hour: "1h",

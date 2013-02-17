@@ -208,7 +208,7 @@ li:first-child:hover .from {
 
 aside {
 	float: right;
-	margin: 0 3px 3px 3px;
+	margin: 0 0 0 3px;
 }
 
 .reply_to, .repost, .remove {
@@ -216,7 +216,7 @@ aside {
 	height: 12px;
 	background: url(../img/sprite-icons.png) no-repeat -16px 0;
 	float: right;
-	margin-left: 2px;
+	margin-left: 3px;
 	visibility: hidden;
 }
 
@@ -235,7 +235,7 @@ li:hover aside .reply_to, li:hover aside .repost, li:hover aside .remove, li:hov
 	background: url(../img/conversation.png) no-repeat;
 	height: 12px;
 	width: 15px;
-	margin-right: 5px;
+	margin-right: 3px;
 	visibility: hidden;
 }
 
@@ -331,6 +331,10 @@ li.mentioned {
 
 .name {
 	font-weight: bold;
+}
+
+.message {
+	clear: right;
 }
 
 header.profile button {
