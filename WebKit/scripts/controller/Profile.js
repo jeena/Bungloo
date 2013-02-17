@@ -115,7 +115,7 @@ function(HostApp, Core, Paths, URI) {
         td.appendChild(this.profile_template.url);
         mkLi("Homepage", td);
 
-        mkLi("Following you", this.profile_template.following_you);
+        mkLi("Relationships", this.profile_template.following_you);
 
         td = document.createElement("td");
         td.appendChild(this.profile_template.posts);
@@ -156,6 +156,12 @@ function(HostApp, Core, Paths, URI) {
 
         this.profile_template.avatar.src = "img/default-avatar.png";
 
+        this.relationships = {
+            following_you: false,
+            followed_by_you: false,
+            it_is_you: false
+        }
+
         this.profile_template.name.innerText = "";
         this.profile_template.entity.innerText = "";
         this.profile_template.bio.innerText = "";
@@ -192,6 +198,7 @@ function(HostApp, Core, Paths, URI) {
         var _this = this;
 
         if (HostApp.stringForKey("entity") == this.entity) {
+            this.relationships.it_is_you = true;
             this.profile_template.following_button.style.display = "none";
         }
 
@@ -298,11 +305,19 @@ function(HostApp, Core, Paths, URI) {
 
         Paths.getURL(URI(root_url + "/followers/" + encodeURIComponent(HostApp.stringForKey("entity"))).toString(), "GET", function(resp) {
             if (resp.status == 200) {
-                _this.populate(_this.profile_template.following_you, "Yes");
-            } else {
-                _this.populate(_this.profile_template.following_you, "No");
+                _this.relationships.following_you = true;
             }
+            _this.setRelationships();
+
         }, null, false);
+
+        Paths.getURL(URI(Paths.mkApiRootPath("/followings/" + encodeURIComponent(this.entity))), "GET", function(resp) {
+            if (resp.status == 200) {
+                _this.relationships.followed_by_you = true;
+            }
+            _this.setRelationships();
+            
+        });
 
         var url = URI(root_url + "/posts/count");
         var post_types = [
@@ -316,6 +331,22 @@ function(HostApp, Core, Paths, URI) {
 
             _this.populate(_this.profile_template.posts, resp.responseText);
         }, null, false);
+    }
+
+    Profile.prototype.setRelationships = function() {
+        var relation = "none";
+        if (this.relationships.it_is_you) {
+            relation = "it's you";
+        } else {
+            if (this.relationships.following_you && !this.relationships.followed_by_you) {
+                relation = "is following you";
+            } else if (this.relationships.following_you && this.relationships.followed_by_you) {
+                relation = "you both follow each other";
+            } else if (!this.relationships.following_you && this.relationships.followed_by_you) {
+                relation = "being followed by you";
+            }
+        }
+        this.populate(this.profile_template.following_you, relation);
     }
 
 
