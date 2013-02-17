@@ -37,16 +37,16 @@
 			   name:@"openNewMessageWindow"
 			 object:nil];
 	[nc addObserver:self
-		   selector:@selector(sendTweet:)
-			   name:@"sendTweet"
+		   selector:@selector(sendPost:)
+			   name:@"sendPost"
 			 object:nil];
 	[nc addObserver:self
 		   selector:@selector(authentificationSucceded:)
 			   name:@"authentificationSucceded"
 			 object:nil];
 	[nc addObserver:self
-		   selector:@selector(getTweetUpdates:)
-			   name:@"getTweetUpdates"
+		   selector:@selector(getPostUpdates:)
+			   name:@"getPostUpdates"
 			 object:nil];
 
 	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
@@ -165,40 +165,40 @@
 - (void)initHotKeys
 {
 
-	NSInteger newTweetKey = kVK_ANSI_M; // http://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
-	NSInteger newTweetModifierKey = controlKey + cmdKey + optionKey; // cmdKey 256, shitfKey 512, optionKey 2048, controlKey 4096
+	NSInteger newPostKey = kVK_ANSI_M; // http://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
+	NSInteger newPostModifierKey = controlKey + cmdKey + optionKey; // cmdKey 256, shitfKey 512, optionKey 2048, controlKey 4096
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSInteger defaultsNewTweetKey = (NSInteger)[defaults integerForKey:@"newTweetKey"];
+	NSInteger defaultsNewPostKey = (NSInteger)[defaults integerForKey:@"newPostKey"];
 
-	if ([defaults objectForKey:@"newTweetKey"] != nil)
+	if ([defaults objectForKey:@"newPostKey"] != nil)
 	{
-		newTweetKey = defaultsNewTweetKey;
+		newPostKey = defaultsNewPostKey;
 	}
 	else
 	{
-		[defaults setInteger:newTweetKey forKey:@"newTweetKey"];
+		[defaults setInteger:newPostKey forKey:@"newPostKey"];
 	}
 
-	NSInteger defaultsNewTweetModifierKey = (NSInteger)[defaults integerForKey:@"newTweetModifierKey"];
-	if ([defaults objectForKey:@"newTweetModifierKey"] != nil)
+	NSInteger defaultsNewPostModifierKey = (NSInteger)[defaults integerForKey:@"newPostModifierKey"];
+	if ([defaults objectForKey:@"newPostModifierKey"] != nil)
 	{
-		newTweetModifierKey = defaultsNewTweetModifierKey;
+		newPostModifierKey = defaultsNewPostModifierKey;
 	}
 	else
 	{
-		[defaults setInteger:newTweetModifierKey forKey:@"newTweetModifierKey"];
+		[defaults setInteger:newPostModifierKey forKey:@"newPostModifierKey"];
 	}
 
 	[defaults synchronize];
 
 	NSUInteger cocoaModifiers = 0;
-	if (newTweetModifierKey & shiftKey) cocoaModifiers = cocoaModifiers | NSShiftKeyMask;
-	if (newTweetModifierKey & optionKey) cocoaModifiers = cocoaModifiers | NSAlternateKeyMask;
-	if (newTweetModifierKey & controlKey) cocoaModifiers = cocoaModifiers | NSControlKeyMask;
-	if (newTweetModifierKey & cmdKey) cocoaModifiers = cocoaModifiers | NSCommandKeyMask;
+	if (newPostModifierKey & shiftKey) cocoaModifiers = cocoaModifiers | NSShiftKeyMask;
+	if (newPostModifierKey & optionKey) cocoaModifiers = cocoaModifiers | NSAlternateKeyMask;
+	if (newPostModifierKey & controlKey) cocoaModifiers = cocoaModifiers | NSControlKeyMask;
+	if (newPostModifierKey & cmdKey) cocoaModifiers = cocoaModifiers | NSCommandKeyMask;
 
-	[globalHotkeyMenuItem setKeyEquivalent:[Constants stringFromVirtualKeyCode:newTweetKey]];
+	[globalHotkeyMenuItem setKeyEquivalent:[Constants stringFromVirtualKeyCode:newPostKey]];
 	[globalHotkeyMenuItem setKeyEquivalentModifierMask:cocoaModifiers];
 
 	/* CARBON from http://github.com/Xjs/drama-button/blob/carbon/Drama_ButtonAppDelegate.m */
@@ -214,7 +214,7 @@
 
 	EventHotKeyRef g_HotKeyRef;
 
-	RegisterEventHotKey(newTweetKey, newTweetModifierKey, g_HotKeyID, GetApplicationEventTarget(), 0, &g_HotKeyRef);
+	RegisterEventHotKey(newPostKey, newPostModifierKey, g_HotKeyID, GetApplicationEventTarget(), 0, &g_HotKeyRef);
 
 	/* end CARBON */
 }
@@ -309,8 +309,8 @@
 	}
 	else
 	{
-		NewMessageWindow *newTweet = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
-		[newTweet withString:aString];
+		NewMessageWindow *newPost = (NewMessageWindow *)[[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
+		[newPost withString:aString];
 	}
 }
 
@@ -320,7 +320,7 @@
 	[self openNewMessageWindowWithString:[text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (IBAction)sendTweet:(id)sender
+- (IBAction)sendPost:(id)sender
 {
 	PostModel *post = (PostModel *)[sender object];
 	NSString *text = [[post.text stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
@@ -477,7 +477,7 @@
 	}
 }
 
-- (void)getTweetUpdates:(id)sender
+- (void)getPostUpdates:(id)sender
 {
 	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData(true)"];
 	[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData(true)"];

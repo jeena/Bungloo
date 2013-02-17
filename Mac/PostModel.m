@@ -1,5 +1,5 @@
 //
-//  TweetModel.m
+//  PostModel.m
 //  bungloo
 //
 //  Created by Jeena on 10.01.11.

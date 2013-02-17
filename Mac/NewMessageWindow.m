@@ -1,5 +1,5 @@
 //
-//  NewTweetWindow.m
+//  NewPostWindow.m
 //  bungloo
 //
 //  Created by Jeena on 16.04.10.
@@ -234,7 +234,7 @@
 		post.location = self.currentLocation;
 		post.imageFilePath = self.imageFilePath;
 		post.isPrivate = self.togglePrivateButton.image == [NSImage imageNamed:NSImageNameLockLockedTemplate];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"sendTweet" object:post];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"sendPost" object:post];
 		[self close];
 	} else {
 		NSBeep();

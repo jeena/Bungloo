@@ -79,7 +79,6 @@
 - (void)setSecret:(NSString *)string;
 - (NSString *)secret;
 - (NSString *)stringForKey:(NSString *)aKey;
-- (void)storeAccessToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName;
 - (void)loggedIn;
 
 - (IBAction)login:(id)sender;
