@@ -843,6 +843,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     var v = word.replace(/https?:\/\/cl\.ly\//, "");
                     src = "http://thumbs.cl.ly/" + v;
 
+                } else if (word.startsWith("http://d.pr/i/") || word.startsWith("https://d.pr/i/")) {
+
+                    src = word + "+";
+
                 } else if (word.startsWith("http://vimeo.com/") || word.startsWith("http://vimeo.com/")) {
 
                     var video_id = word.replace(/https?:\/\/vimeo\.com\//, "");
