@@ -147,17 +147,15 @@ p {
 }
 
 .images img {
-    border-radius: 5px;
-    max-height: 75px;
-    margin-right: 5px;
-}
-
-.images img.photo {
 	max-width: 100%;
 	max-height: inherit;
 	margin-right: 0;
 	border-radius: 3px;
 	box-shadow: 0 0 1px black;
+}
+
+.images img.photo {
+
 }
 
 .data {

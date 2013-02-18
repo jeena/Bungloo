@@ -256,6 +256,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             }
         }
 
+        this.parseForMedia(text, template.images);
+
         text = text.escapeHTML().replace(/\n/g, "<br>");
 
         var entities = [status.entity];
@@ -263,9 +265,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             entities.push(mention.entity)
         });
 
-        template.message.innerHTML = this.replaceUsernamesWithLinks(
-            this.replaceURLWithHTMLLinks(text, entities, template.message)
-        );
+        var hash = /(^|\s)(#)(\w+)/ig;
+        template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message).replace(hash, "$1$2<a href='https://skate.io/search?q=%23$3'>$3</a>");
 
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
@@ -799,9 +800,81 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         return URI.withinString(text, callback);
     }
 
-    Core.prototype.replaceUsernamesWithLinks = function(text, mentions) {
-        var hash = /(^|\s)(#)(\w+)/ig;
-        return text.replace(hash, "$1$2<a href='https://skate.io/search?q=%23$3'>$3</a>");
+    Core.prototype.parseForMedia = function(text, images) {
+
+        var words = text.split(" ");
+
+        for (var i = 0; i < words.length; i++) {
+
+            var word = words[i];
+
+            if (word.startsWith("http")) {
+                
+                var src = null;
+
+                if (word.startsWith("http") && (word.endsWith(".jpg") || word.endsWith(".jpeg") || word.endsWith(".gif") || word.endsWith(".png"))) {
+
+                    src = word;
+
+                } else if(word.startsWith("http://youtube.com/") || word.startsWith("http://www.youtube.com/") || word.startsWith("https://youtube.com/") || word.startsWith("https://www.youtube.com/")) {
+                    
+                    var v = Paths.getUrlVars(word)["v"];
+                    if (v) src = "http://img.youtube.com/vi/" + v + "/0.jpg";
+
+                } else if (word.startsWith("http://youtu.be/") || word.startsWith("https://youtu.be/")) {
+
+                    var v = word.replace(/https?:\/\/youtu\.be\//, "");
+                    src = "http://img.youtube.com/vi/" + v + "/0.jpg";
+                
+                } else if (word.startsWith("http://twitpic.com/") || word.startsWith("https://twitpic.com/")) {
+
+                    src = "http://twitpic.com/show/thumb/" + word.substring("http://twitpic.com/".length);
+
+                } else if (word.startsWith("http://yfrog") || word.startsWith("https://yfrog")) {
+
+                    src = word + ":medium"
+                    
+                } else if (word.startsWith("http://instagr.am/p/") || word.startsWith("http://instagram.com/p/") || word.startsWith("https://instagr.am/p/") || word.startsWith("https://instagram.com/p/")) {
+                    
+                    src = word + "media?size=l";
+
+                } else if (word.startsWith("http://cl.ly/") || word.startsWith("https://cl.ly/")) {
+
+                    var v = word.replace(/https?:\/\/cl\.ly\//, "");
+                    src = "http://thumbs.cl.ly/" + v;
+
+                } else if (word.startsWith("http://vimeo.com/") || word.startsWith("http://vimeo.com/")) {
+
+                    var video_id = word.replace(/https?:\/\/vimeo\.com\//, "");
+
+                    var a = document.createElement("a");
+                    a.href = word;
+                    var img = document.createElement("img");
+                    a.appendChild(img);
+                    images.appendChild(a);
+
+                    $.ajax({
+                        type:'GET',
+                        url: 'http://vimeo.com/api/v2/video/' + video_id + '.json',
+                        dataType: 'json',
+                        success: function(data) {
+                            img.src = data[0].thumbnail_large;
+                        }
+                    });
+                }
+
+                if (src) {
+                    var a = document.createElement("a");
+                    a.href = word;
+                    var img = document.createElement("img");
+                    img.src = src;
+                    a.appendChild(img);
+                    images.appendChild(a);
+                }
+
+
+            }
+        }
     }
 
     Core.prototype.replyTo = function(entity, status_id, mentions, is_private) {
