@@ -328,14 +328,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             template.geo.href = href;
             template.geo.style.display = "";
 
-            var a = document.createElement("a");
-            a.className = "map";
-            a.href = href;
-            var img = document.createElement("img");
-            img.src = this.mapSrc(lat, lng);
-            a.appendChild(img);
-
-            template.images.appendChild(a);
+            this.addMap(lat, lng, template.images);
         }
 
         if (typeof status.__repost != "undefined") {
@@ -802,7 +795,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.parseForMedia = function(text, images) {
 
-        var words = text.split(" ");
+        var words = text.split(/\s/);
 
         for (var i = 0; i < words.length; i++) {
 
@@ -811,6 +804,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             if (word.startsWith("http")) {
                 
                 var src = null;
+                var type = "img";
 
                 if (word.startsWith("http") && (word.endsWith(".jpg") || word.endsWith(".jpeg") || word.endsWith(".gif") || word.endsWith(".png"))) {
 
@@ -819,12 +813,12 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 } else if(word.startsWith("http://youtube.com/") || word.startsWith("http://www.youtube.com/") || word.startsWith("https://youtube.com/") || word.startsWith("https://www.youtube.com/")) {
                     
                     var v = Paths.getUrlVars(word)["v"];
-                    if (v) src = "http://img.youtube.com/vi/" + v + "/0.jpg";
+                    this.addYouTube(v, images);
 
                 } else if (word.startsWith("http://youtu.be/") || word.startsWith("https://youtu.be/")) {
 
                     var v = word.replace(/https?:\/\/youtu\.be\//, "");
-                    src = "http://img.youtube.com/vi/" + v + "/0.jpg";
+                    this.addYouTube(v, images);
                 
                 } else if (word.startsWith("http://twitpic.com/") || word.startsWith("https://twitpic.com/")) {
 
@@ -850,26 +844,13 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 } else if (word.startsWith("http://vimeo.com/") || word.startsWith("http://vimeo.com/")) {
 
                     var video_id = word.replace(/https?:\/\/vimeo\.com\//, "");
-
-                    var a = document.createElement("a");
-                    a.href = word;
-                    var img = document.createElement("img");
-                    a.appendChild(img);
-                    images.appendChild(a);
-
-                    $.ajax({
-                        type:'GET',
-                        url: 'http://vimeo.com/api/v2/video/' + video_id + '.json',
-                        dataType: 'json',
-                        success: function(data) {
-                            img.src = data[0].thumbnail_large;
-                        }
-                    });
+                    this.addVimeo(video_id, images);
                 }
 
                 if (src) {
                     var a = document.createElement("a");
                     a.href = word;
+                    a.className = type;
                     var img = document.createElement("img");
                     img.src = src;
                     a.appendChild(img);
@@ -932,8 +913,27 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     }
 
     Core.prototype.mapSrc = function(lat, lng) {
-        var width = $("p.message").width();     
+        var width = $("p.message").width();
         return "http://staticmap.openstreetmap.de/staticmap.php?center=" + lat + "," + lng + "&zoom=3&size=" + width + "x75&markers=" + lat + "," + lng + ",red-pushpin";
+    }
+
+    Core.prototype.addMap = function(lat, lng, images) {
+        var a = document.createElement("a");
+        a.className = "map";
+        a.href = this.mapHref(lat, lng);
+        var img = document.createElement("img");
+        img.src = this.mapSrc(lat, lng);
+        a.appendChild(img);
+        images.appendChild(a);
+    }
+
+    Core.prototype.addYouTube = function(id, images) {
+        $(images).append('<iframe class="youtube" type="text/html" width="100%" height="200" src="http://www.youtube.com/embed/' + id + '?rel=0&showsearch=0&version=3&modestbranding=1" frameborder="0" webkitAllowFullScreen allowFullScreen />')
+    }
+
+    Core.prototype.addVimeo = function(id, images) {
+        $(images).append('<iframe class="vimeo" src="http://player.vimeo.com/video/' + id + '?byline=0&amp;portrait=0" width="100%" height="200" frameborder="0" webkitAllowFullScreen allowFullScreen />');
+        // <iframe src="http://player.vimeo.com/video/59735637?byline=0&amp;portrait=0" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
     }
 
 

@@ -13,7 +13,7 @@
 
 @synthesize timelineView, mentionsView, conversationView, profileView, oauthView;
 
-- (void)webView:(WebView *)sender addMessageToConsole:(NSDictionary *)message;{
+- (void)webView:(WebView *)sender addMessageToConsole:(NSDictionary *)message {
 
 	if (![message isKindOfClass:[NSDictionary class]]) return;
 
@@ -51,8 +51,16 @@
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
-	[listener ignore];
-	[[NSWorkspace sharedWorkspace] openURL:[request URL]];
+    
+    NSArray *frames = [NSArray arrayWithObjects:timelineView.mainFrame, mentionsView.mainFrame, conversationView.mainFrame, oauthView.mainFrame, profileView.mainFrame, nil];
+
+    // If it is clicked from one of the views the open default browser
+    if ([frames indexOfObject:frame] != NSNotFound) {
+        [listener ignore];
+        [[NSWorkspace sharedWorkspace] openURL:[request URL]];
+    } else { // otherwies load the iframe stuff like YouTube or vimeo
+        [listener use];
+    }
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
