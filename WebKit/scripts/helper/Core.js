@@ -324,7 +324,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             var lat = status.content.location.coordinates[0];
             var lng = status.content.location.coordinates[1];
 
-            var href = "http://www.openstreetmap.org/?mlat=" + lat + "&mlon=" + lng + "&zoom=12"
+            var href = this.mapHref(lat, lng);
             template.geo.href = href;
             template.geo.style.display = "";
 
@@ -332,7 +332,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             a.className = "map";
             a.href = href;
             var img = document.createElement("img");
-            img.src = "http://staticmap.openstreetmap.de/staticmap.php?center=" + lat + "," + lng + "&zoom=3&size=75x75&markers=" + lat + "," + lng + ",red-pushpin"
+            img.src = this.mapSrc(lat, lng);
             a.appendChild(img);
 
             template.images.appendChild(a);
@@ -926,6 +926,16 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }, 4000);
 
     }
+
+    Core.prototype.mapHref = function(lat, lng) {
+        return "http://www.openstreetmap.org/?mlat=" + lat + "&mlon=" + lng + "&zoom=12";
+    }
+
+    Core.prototype.mapSrc = function(lat, lng) {
+        var width = $("p.message").width();     
+        return "http://staticmap.openstreetmap.de/staticmap.php?center=" + lat + "," + lng + "&zoom=3&size=" + width + "x75&markers=" + lat + "," + lng + ",red-pushpin";
+    }
+
 
 
     return Core;
