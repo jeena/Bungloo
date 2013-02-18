@@ -265,8 +265,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             entities.push(mention.entity)
         });
 
-        var hash = /(^|\s)(#)(\w+)/ig;
-        template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message).replace(hash, "$1$2<a href='https://skate.io/search?q=%23$3'>$3</a>");
+        template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message);
 
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
@@ -787,17 +786,18 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 result = url;
             } else {
 
-                var protocol = "";
-                if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                    protocol = "http://";
+                result = url;
+                if (url.startsWith("http://") || url.startsWith("https://")) {
+                    result = '<a href="' + url + '">' + url + '</a>';    
                 }
-                result = '<a title="' + protocol + url + '"" href="' + protocol + url + '">' + url + '</a>';
             }
 
             return result;
         }
 
-        return URI.withinString(text, callback);
+        var hash = /(^|\s)(#)(\w+)/ig;
+
+        return URI.withinString(text, callback).replace(hash, "$1$2<a href='https://skate.io/search?q=%23$3'>$3</a>");
     }
 
     Core.prototype.parseForMedia = function(text, images) {
