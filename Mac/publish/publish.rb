@@ -49,8 +49,8 @@ xml = <<XML
 XML
 
 File.open("#{path}/Appcast.xml", 'w') {|f| f.write(xml) }
-system "scp \"#{release_path}/Bungloo.app.zip\" jeena@jeena.net:~/jabs.nu/public/Tentia/download/"
-system "scp \"#{path}/ReleaseNotes.html\" jeena@jeena.net:~/jabs.nu/public/Tentia/download/"
-system "scp \"#{path}/Appcast.xml\" jeena@jeena.net:~/jabs.nu/public/Tentia/download/"
+system "scp \"#{release_path}/Bungloo.app.zip\" jeena@jeena.net:~/jabs.nu/public/bungloo/download/"
+system "scp \"#{path}/ReleaseNotes.html\" jeena@jeena.net:~/jabs.nu/public/bungloo/download/"
+system "scp \"#{path}/Appcast.xml\" jeena@jeena.net:~/jabs.nu/public/bungloo/download/"
 
 puts "Done."
