@@ -933,7 +933,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.addVimeo = function(id, images) {
         $(images).append('<iframe class="vimeo" src="http://player.vimeo.com/video/' + id + '?byline=0&amp;portrait=0" width="100%" height="200" frameborder="0" webkitAllowFullScreen allowFullScreen />');
-        // <iframe src="http://player.vimeo.com/video/59735637?byline=0&amp;portrait=0" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
     }
 
 

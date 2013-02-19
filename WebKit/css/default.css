@@ -234,7 +234,7 @@ li:hover aside .reply_to, li:hover aside .repost, li:hover aside .remove, li:hov
 }
 
 .repost {
-	background-position: -192px 0;
+	background-position: -192px -1px;
 }
 
 .remove {
