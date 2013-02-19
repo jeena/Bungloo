@@ -49,7 +49,7 @@ function($) {
         hour: "1h",
         hours: "%dh",
         day: "1 day",
-        days: "%d day",
+        days: "%d days",
         month: "1 month",
         months: "%d months",
         year: "1 year",
