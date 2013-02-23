@@ -60,7 +60,8 @@ class Controller(QtCore.QObject):
 		QtCore.QObject.__init__(self)
 		self.app = app
 
-		os.path.expanduser("~/.bungloo/")
+		if not os.path.exists(os.path.expanduser("~/.bungloo/")):
+			os.makedirs(os.path.expanduser("~/.bungloo/"))
 
 		self.config_path = os.path.expanduser('~/.bungloo/bungloo.cfg')
 		if os.access(self.config_path, os.R_OK):
