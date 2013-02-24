@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 import os, sys, pickle, subprocess
 from PyQt4 import QtCore, QtGui, QtWebKit
