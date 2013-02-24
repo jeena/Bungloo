@@ -338,7 +338,8 @@ class NewPost(Helper.RestorableWindow):
 		self.textInput.setPlainText(string)
 
 		cursor = self.textInput.textCursor()
-		cursor.movePosition(QtGui.QTextCursor.End, QtGui.QTextCursor.MoveAnchor)
+		cursor.movePosition(QtGui.QTextCursor.NextWord, QtGui.QTextCursor.MoveAnchor)
+		cursor.movePosition(QtGui.QTextCursor.NextWord, QtGui.QTextCursor.MoveAnchor)
 		self.textInput.setTextCursor(cursor)
 
 	def onChanged(self):
