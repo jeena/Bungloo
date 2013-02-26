@@ -65,15 +65,16 @@ class Controller(QtCore.QObject):
 	def __init__(self, app):
 		QtCore.QObject.__init__(self)
 		self.app = app
-                self.config_path = os.path.expanduser('~/.config/bungloo/bungloo.cfg')
+
+                oldpath = os.path.expanduser('~/.bungloo/')
+                if os.path.isdir(oldpath):
+                        shutil.copytree(oldpath, os.path.expanduser('~/.config/bungloo/'))
+                        shutil.rmtree(os.path.expanduser('~/.bungloo/'))
 
 		if not os.path.exists(os.path.expanduser("~/.config/bungloo/")):
 			os.makedirs(os.path.expanduser("~/.config/bungloo/"))
 
-                oldpath = os.path.expanduser('~/.bungloo/bungloo.cfg')
-                if os.path.isfile(oldpath):
-                        shutil.copyfile(oldpath, self.config_path)
-                        shutil.rmtree(os.path.expanduser('~/.bungloo/'))
+                self.config_path = os.path.expanduser('~/.config/bungloo/bungloo.cfg')
 
 		if os.access(self.config_path, os.R_OK):
 			with open(self.config_path, 'r') as f:
