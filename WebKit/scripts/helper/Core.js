@@ -865,11 +865,14 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     Core.prototype.replyTo = function(entity, status_id, mentions, is_private) {
 
         var string = "^" + entity.replace("https://", "") + " ";
-        if(mentions.length > 0) string += "\n\n/cc ";
+        
+        var ms = "";
         for (var i = 0; i < mentions.length; i++) {
           var e = mentions[i].entity.replace("https://", "");
-          if(string.indexOf(e) == -1) string += "^" + e;
+          if(string.indexOf(e) == -1) ms += "^" + e;
         }
+
+        if(ms.length > 0) string += "\n\n/cc " + ms;
 
         HostApp.openNewMessageWidow(entity, status_id, string, is_private);
     }
