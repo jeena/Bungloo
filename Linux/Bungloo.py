@@ -4,6 +4,8 @@ import os, sys, pickle, subprocess
 from PyQt4 import QtCore, QtGui, QtWebKit
 import Windows, Helper
 
+import shutil
+
 class Bungloo:
 
 	def __init__(self):
@@ -63,11 +65,16 @@ class Controller(QtCore.QObject):
 	def __init__(self, app):
 		QtCore.QObject.__init__(self)
 		self.app = app
+                self.config_path = os.path.expanduser('~/.config/bungloo/bungloo.cfg')
 
-		if not os.path.exists(os.path.expanduser("~/.bungloo/")):
-			os.makedirs(os.path.expanduser("~/.bungloo/"))
+		if not os.path.exists(os.path.expanduser("~/.config/bungloo/")):
+			os.makedirs(os.path.expanduser("~/.config/bungloo/"))
 
-		self.config_path = os.path.expanduser('~/.bungloo/bungloo.cfg')
+                oldpath = os.path.expanduser('~/.bungloo/bungloo.cfg')
+                if os.path.isfile(oldpath):
+                        shutil.copyfile(oldpath, self.config_path)
+                        shutil.rmtree(os.path.expanduser('~/.bungloo/'))
+
 		if os.access(self.config_path, os.R_OK):
 			with open(self.config_path, 'r') as f:
 				self.config = pickle.load(f)
