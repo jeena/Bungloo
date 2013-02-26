@@ -124,9 +124,9 @@ class Timeline:
 		mentionsAction.setStatusTip("Show Mentions")
 		mentionsAction.triggered.connect(self.app.mentions_show)
 
-		findEntityAction = QtGui.QAction("&Entity", self.window)
+		findEntityAction = QtGui.QAction("&Open Profile", self.window)
 		findEntityAction.setShortcut("Ctrl+u")
-		findEntityAction.setStatusTip("Find Entity")
+		findEntityAction.setStatusTip("Find entity and open its profile view")
 		findEntityAction.triggered.connect(self.app.find_entity_show)
 
 		hideAction = QtGui.QAction("&Hide window", self.window)
