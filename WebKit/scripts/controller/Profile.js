@@ -453,7 +453,7 @@ function(HostApp, Core, Paths, URI) {
             this.setFollowingButton(true);
             var url = URI(Paths.mkApiRootPath("/followings"));
             var data = JSON.stringify({"entity": this.entity });
-            debug(data)
+            
             Paths.getURL(url.toString(), "POST", function(resp) {
                 if (resp.status >= 200 && resp.status < 300) {
                     _this.following_id = JSON.parse(resp.responseText).id
