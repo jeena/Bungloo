@@ -124,6 +124,11 @@ class Timeline:
 		mentionsAction.setStatusTip("Show Mentions")
 		mentionsAction.triggered.connect(self.app.mentions_show)
 
+		findEntityAction = QtGui.QAction("&Entity", self.window)
+		findEntityAction.setShortcut("Ctrl+u")
+		findEntityAction.setStatusTip("Find Entity")
+		findEntityAction.triggered.connect(self.app.find_entity_show)
+
 		hideAction = QtGui.QAction("&Hide window", self.window)
 		hideAction.setShortcut("Ctrl+W")
 		hideAction.setStatusTip("Hide this window")
@@ -133,6 +138,7 @@ class Timeline:
 		windowMenu.addAction(timelineAction)
 		windowMenu.addAction(mentionsAction)
 		windowMenu.addAction(hideAction)
+		windowMenu.addAction(findEntityAction)
 
 	def show(self):
 		self.window.show()
@@ -230,6 +236,31 @@ class Login(QtGui.QDialog):
 		pass
 		#self.buttonLogin.clicked.connect(callback)
 		#self.label.setText("The server " + url.host() + " requires a username and password.")
+
+class FindEntity(QtGui.QDialog):
+	def __init__(self, app):
+		QtGui.QDialog.__init__(self)
+
+		self.app = app
+
+		self.setWindowTitle("Open Profile ...")
+		self.label = QtGui.QLabel(self)
+		self.label.setText("Open the profile of the entity:")
+		
+		self.textEntity = QtGui.QLineEdit(self)
+
+		self.button = QtGui.QDialogButtonBox(QtGui.QDialogButtonBox.Ok)
+		self.button.accepted.connect(self.openProfile)
+
+		layout = QtGui.QVBoxLayout(self)
+		layout.addWidget(self.label)
+		layout.addWidget(self.textEntity)
+		layout.addWidget(self.button)
+
+	def openProfile(self):
+		self.app.controller.showProfileForEntity(self.textEntity.text())
+		self.hide()
+		
 
 class NewPost(Helper.RestorableWindow):
 	def __init__(self, app):

@@ -45,6 +45,7 @@ class Bungloo:
 		self.timeline.show()
 		self.conversation = Windows.Timeline(self, "conversation", "Conversation")
 		self.profile = Windows.Timeline(self, "profile", "Profile")
+		self.find_entity = Windows.FindEntity(self)
 
 	def timeline_show(self):
 		self.timeline.show()
@@ -52,6 +53,9 @@ class Bungloo:
 	def mentions_show(self):
 		self.controller.unreadMentions(0)
 		self.mentions.show()
+
+	def find_entity_show(self):
+		self.find_entity.show()
 
 
 class Controller(QtCore.QObject):
