@@ -869,10 +869,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         var ms = "";
         for (var i = 0; i < mentions.length; i++) {
           var e = mentions[i].entity.replace("https://", "");
-          if(string.indexOf(e) == -1) ms += "^" + e;
+          if(string.indexOf(e) == -1) ms += " ^" + e;
         }
 
-        if(ms.length > 0) string += "\n\n/cc " + ms;
+        if(ms.length > 0) string += "\n\n/cc" + ms;
 
         HostApp.openNewMessageWidow(entity, status_id, string, is_private);
     }
@@ -932,7 +932,18 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     }
 
     Core.prototype.addYouTube = function(id, images) {
-        $(images).append('<iframe class="youtube" type="text/html" width="100%" height="200" src="http://www.youtube.com/embed/' + id + '?rel=0&showsearch=0&version=3&modestbranding=1" frameborder="0" webkitAllowFullScreen allowFullScreen />')
+        var iframe = $('<iframe class="youtube" type="text/html" width="100%" height="200" frameborder="0" webkitAllowFullScreen allowFullScreen />')
+        iframe.appendTo(images);
+
+        // This is a workaround without it it in the Mentions view it scrolls
+        // down to the first video on load.
+        iframe.load(function() {
+            iframe.contents().find('*').each(function () {
+                $(this).removeAttr("tabindex");
+            });
+        })
+        iframe.attr("src", 'http://www.youtube.com/embed/' + id + '?rel=0&showsearch=0&version=3&modestbranding=1');
+        
     }
 
     Core.prototype.addVimeo = function(id, images) {
