@@ -17,7 +17,7 @@ setup(
     version = "0.1",
     author = "Jeena Paradies",
     author_email = "spam@jeenaparadies.net",
-    url = "https://github.com/jeena/bungloo",
+    url = "http://jabs.nu/bungloo",
     license = "BSD license",
     packages = ['bungloo'],
     package_data = {"bungloo": files},
