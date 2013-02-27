@@ -236,11 +236,9 @@ function(HostApp, Core, Paths, URI) {
                 var following = JSON.parse(resp.responseText);
                 _this.following_id = following.id
                 _this.setFollowingButton(true);
-                //_this.showProfile(following.profile);
             } else {
                 _this.setFollowingButton(false);
                 _this.following_id = null;
-                _this.getProfile();
             }
         })
     }
