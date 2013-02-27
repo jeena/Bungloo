@@ -9,6 +9,11 @@ import os
 
 import array
 
+class Helper:
+        @classmethod
+        def get_resource_path(cls):
+                return os.path.dirname(__file__)
+
 class WebPage(QtWebKit.QWebPage):
 	def __init__(self, parent=0, app=None):
 		super(QtWebKit.QWebPage, self).__init__(parent)

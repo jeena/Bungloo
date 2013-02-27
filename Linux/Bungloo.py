@@ -2,7 +2,13 @@
 
 import os, sys, pickle, subprocess
 from PyQt4 import QtCore, QtGui, QtWebKit
-import Windows, Helper
+
+if __file__ == 'Bungloo.py':
+        import Windows, Helper
+else:
+        from bungloo import Windows, Helper
+
+import shutil
 
 class Bungloo:
 
@@ -23,7 +29,10 @@ class Bungloo:
 		self.app.exec_()
 
 	def resources_path(self):
-		return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+                if __file__ == 'Bungloo.py':
+                        return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+                else:
+                        return Helper.Helper.get_resource_path()
 
 	def resources_uri(self):
 		return "file://localhost" + os.path.abspath(os.path.join(self.resources_path(), "WebKit"))
@@ -64,10 +73,16 @@ class Controller(QtCore.QObject):
 		QtCore.QObject.__init__(self)
 		self.app = app
 
-		if not os.path.exists(os.path.expanduser("~/.bungloo/")):
-			os.makedirs(os.path.expanduser("~/.bungloo/"))
+                oldpath = os.path.expanduser('~/.bungloo/')
+                if os.path.isdir(oldpath):
+                        shutil.copytree(oldpath, os.path.expanduser('~/.config/bungloo/'))
+                        shutil.rmtree(os.path.expanduser('~/.bungloo/'))
 
-		self.config_path = os.path.expanduser('~/.bungloo/bungloo.cfg')
+		if not os.path.exists(os.path.expanduser("~/.config/bungloo/")):
+			os.makedirs(os.path.expanduser("~/.config/bungloo/"))
+
+                self.config_path = os.path.expanduser('~/.config/bungloo/bungloo.cfg')
+
 		if os.access(self.config_path, os.R_OK):
 			with open(self.config_path, 'r') as f:
 				self.config = pickle.load(f)
