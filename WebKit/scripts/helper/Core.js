@@ -819,6 +819,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
                     var v = word.replace(/https?:\/\/youtu\.be\//, "");
                     this.addYouTube(v, images);
+
+                } else if (word.startsWith("http://soundcloud.com/") || word.startsWith("http://www.soundcloud.com/") || word.startsWith("https://soundcloud.com/") || word.startsWith("https://www.soundcloud.com//")) {
+
+                    this.addSoundCloud(word, images);
                 
                 } else if (word.startsWith("http://twitpic.com/") || word.startsWith("https://twitpic.com/")) {
 
@@ -856,8 +860,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     a.appendChild(img);
                     images.appendChild(a);
                 }
-
-
             }
         }
     }
@@ -949,6 +951,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.addVimeo = function(id, images) {
         $(images).append('<iframe class="vimeo" src="http://player.vimeo.com/video/' + id + '?byline=0&amp;portrait=0" width="100%" height="200" frameborder="0" webkitAllowFullScreen allowFullScreen />');
+    }
+
+    Core.prototype.addSoundCloud = function(url, images) {
+        $(images).append('<iframe class="soundcloud" src="https://w.soundcloud.com/player/?url=' + url + '" width="100%" height="166" scrolling="no" frameborder="no"></iframe>');
     }
 
 
