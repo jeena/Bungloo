@@ -941,9 +941,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             iframe.contents().find('*').each(function () {
                 $(this).removeAttr("tabindex");
             });
-        })
+        });
+
+        // Appending the src
         iframe.attr("src", 'http://www.youtube.com/embed/' + id + '?rel=0&showsearch=0&version=3&modestbranding=1');
-        
     }
 
     Core.prototype.addVimeo = function(id, images) {

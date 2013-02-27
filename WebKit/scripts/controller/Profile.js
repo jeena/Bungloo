@@ -37,6 +37,7 @@ function(HostApp, Core, Paths, URI) {
         this.profile_template.entity.innerHTML = this.entity;
         this.profile_template.entity.href = this.entity;
 
+        this.getProfile();
         this.getFollowing();
     }
 
@@ -235,7 +236,7 @@ function(HostApp, Core, Paths, URI) {
                 var following = JSON.parse(resp.responseText);
                 _this.following_id = following.id
                 _this.setFollowingButton(true);
-                _this.showProfile(following.profile);
+                //_this.showProfile(following.profile);
             } else {
                 _this.setFollowingButton(false);
                 _this.following_id = null;
@@ -247,6 +248,7 @@ function(HostApp, Core, Paths, URI) {
     Profile.prototype.showProfile = function(profile) {
 
         var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
+        debug(basic)
 
         if (profile && basic) {
 
