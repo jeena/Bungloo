@@ -346,3 +346,20 @@ header.profile button {
 header.profile button.following {
 	background: #D84A38;
 }
+
+a.youtube {
+	position: relative;
+	display: inline-block;
+}
+
+a.youtube:before {
+	content: " ";
+	background: url(../img/play.png) no-repeat;
+	width: 37px;
+	height: 24px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -19px;
+	margin-top: -12px;
+}

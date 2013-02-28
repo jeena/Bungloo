@@ -934,19 +934,32 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     }
 
     Core.prototype.addYouTube = function(id, images) {
-        var iframe = $('<iframe class="youtube" type="text/html" width="100%" height="200" frameborder="0" webkitAllowFullScreen allowFullScreen />')
-        iframe.appendTo(images);
-
-        // This is a workaround without it it in the Mentions view it scrolls
-        // down to the first video on load.
-        iframe.load(function() {
-            iframe.contents().find('*').each(function () {
-                $(this).removeAttr("tabindex");
-            });
+        var a = $("<a>", {
+            href: "http://youtu.be/" + id,
+            class: "youtube"
         });
 
-        // Appending the src
-        iframe.attr("src", 'http://www.youtube.com/embed/' + id + '?rel=0&showsearch=0&version=3&modestbranding=1');
+        var img = $("<img>", {src: "http://img.youtube.com/vi/" + id + "/0.jpg"});
+        var h = 200;
+        img.load(function() {
+            h = img.height();
+        });
+
+        a.click(function() {
+            var iframe = $('<iframe />', {
+                class: "youtube",
+                type: "text/html",
+                width: "100%",
+                height: h,
+                frameborder: 0,
+                src: 'http://www.youtube.com/embed/' + id + '?rel=0&showsearch=0&version=3&modestbranding=1&autoplay=1'
+            })
+            a.replaceWith(iframe);
+            return false;
+        })
+
+        img.appendTo(a);
+        a.appendTo(images);
     }
 
     Core.prototype.addVimeo = function(id, images) {
