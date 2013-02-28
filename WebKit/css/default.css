@@ -363,3 +363,7 @@ a.youtube:before {
 	margin-left: -19px;
 	margin-top: -12px;
 }
+
+iframe {
+	max-width: 500px;
+}
