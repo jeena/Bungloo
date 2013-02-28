@@ -3,7 +3,7 @@
 import os, sys, pickle, subprocess
 from PyQt4 import QtCore, QtGui, QtWebKit
 
-if __file__ == 'Bungloo.py':
+if __name__ == "__main__":
         import Windows, Helper
 else:
         from bungloo import Windows, Helper
@@ -13,6 +13,7 @@ import shutil
 class Bungloo:
 
 	def __init__(self):
+		print __file__
 		self.app = QtGui.QApplication(sys.argv)
 		self.new_message_windows = []
 		self.controller = Controller(self)
@@ -29,7 +30,7 @@ class Bungloo:
 		self.app.exec_()
 
 	def resources_path(self):
-                if __file__ == 'Bungloo.py':
+                if __name__ == '__main__':
                         return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
                 else:
                         return Helper.Helper.get_resource_path()
