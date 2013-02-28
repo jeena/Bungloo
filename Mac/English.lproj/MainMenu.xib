@@ -891,7 +891,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="690752143"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">bungloo</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -970,7 +970,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="126069112"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">mentions</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -1029,7 +1029,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="352293288"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">conversation</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -1088,7 +1088,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="106985301"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">profile</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -1258,7 +1258,7 @@
 					<reference key="NSNextKeyView" ref="433812480"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">preferences</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -1350,7 +1350,7 @@
 					<reference key="NSNextKeyView" ref="98105857"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">NO</bool>
 			</object>

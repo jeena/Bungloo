@@ -246,7 +246,6 @@ function(HostApp, Core, Paths, URI) {
     Profile.prototype.showProfile = function(profile) {
 
         var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
-        debug(basic)
 
         if (profile && basic) {
 
