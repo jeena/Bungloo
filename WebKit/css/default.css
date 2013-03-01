@@ -125,8 +125,8 @@ p {
 .image {
 	float: left;
 	margin-left: 2px;
-	width: 48px;
-	max-height: 300px;
+	max-width: 48px;
+	max-height: 48px;
 	border: 0px solid #f00;
 	border-radius: 8px;
 	cursor: pointer;
