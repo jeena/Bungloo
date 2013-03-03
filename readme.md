@@ -20,3 +20,4 @@ Thanks everyone in the Open Source community! Bungloo is using:
 - python - http://www.python.org/
 - PyQt - http://wiki.python.org/moin/PyQt
 - Icon - http://www.fasticon.com
+- Linux monochrome icons - http://glyphicons.com
