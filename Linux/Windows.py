@@ -294,6 +294,11 @@ class NewPost(Helper.RestorableWindow):
 		sendPostAction.setStatusTip("Send post")
 		sendPostAction.triggered.connect(self.sendMessage)
 
+		togglePrivateAction = QtGui.QAction("&Toggle private", self)
+		togglePrivateAction.setShortcut("Ctrl+P")
+		togglePrivateAction.setStatusTip("Toogle if private post")
+		togglePrivateAction.triggered.connect(self.toggleIsPrivate)
+
 		exitAction = QtGui.QAction("&Exit", self)
 		exitAction.setShortcut("Ctrl+Q")
 		exitAction.setStatusTip("Exit Bungloo")
@@ -303,6 +308,7 @@ class NewPost(Helper.RestorableWindow):
 		fileMenu = menubar.addMenu("&File")
 		fileMenu.addAction(newPostAction)
 		fileMenu.addAction(sendPostAction)
+		fileMenu.addAction(togglePrivateAction)
 		fileMenu.addAction(exitAction)
 
 		timelineAction = QtGui.QAction("&Timeline", self)
@@ -315,6 +321,11 @@ class NewPost(Helper.RestorableWindow):
 		mentionsAction.setStatusTip("Show Mentions")
 		mentionsAction.triggered.connect(self.app.mentions_show)
 
+		findEntityAction = QtGui.QAction("&Open Profile", self)
+		findEntityAction.setShortcut("Ctrl+u")
+		findEntityAction.setStatusTip("Find entity and open its profile view")
+		findEntityAction.triggered.connect(self.app.find_entity_show)
+
 		hideAction = QtGui.QAction("&Hide window", self)
 		hideAction.setShortcut("Ctrl+W")
 		hideAction.setStatusTip("Hide this window")
@@ -323,6 +334,7 @@ class NewPost(Helper.RestorableWindow):
 		windowMenu = menubar.addMenu("&Windows")
 		windowMenu.addAction(timelineAction)
 		windowMenu.addAction(mentionsAction)
+		windowMenu.addAction(findEntityAction)
 		windowMenu.addAction(hideAction)
 
 		self.statusBar().showMessage('256')
@@ -331,7 +343,8 @@ class NewPost(Helper.RestorableWindow):
 		self.addButton.setToolTip("Add photo")
 		self.addButton.clicked.connect(self.openFileDialog)
 		self.addButton.setAutoRaise(True)
-		addIcon = QtGui.QIcon.fromTheme("insert-image", QtGui.QIcon(self.app.resources_path() + "/images/Actions-insert-image-icon.png"));
+		#addIcon = QtGui.QIcon.fromTheme("insert-image", QtGui.QIcon(self.app.resources_path() + "/images/Actions-insert-image-icon.png"))
+		addIcon = QtGui.QIcon(self.app.resources_path() + "/images/glyphicons_138_picture.png")
 		self.addButton.setIcon(addIcon)
 		self.statusBar().addPermanentWidget(self.addButton)
 
@@ -339,8 +352,10 @@ class NewPost(Helper.RestorableWindow):
 		self.isPrivateButton.setToolTip("Make private")
 		self.isPrivateButton.clicked.connect(self.toggleIsPrivate)
 		self.isPrivateButton.setAutoRaise(True)
-		self.isPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/Lock-Lock-icon.png")
-		self.isNotPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/Lock-Unlock-icon.png")
+		#self.isPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/Lock-Lock-icon.png")
+		self.isPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/glyphicons_203_lock.png")
+		#self.isNotPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/Lock-Unlock-icon.png")
+		self.isNotPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/glyphicons_204_unlock.png")
 		self.isPrivateButton.setIcon(self.isNotPrivateIcon)
 		self.statusBar().addPermanentWidget(self.isPrivateButton)
 
@@ -348,7 +363,8 @@ class NewPost(Helper.RestorableWindow):
 		self.sendButton.setToolTip("Send")
 		self.sendButton.clicked.connect(self.sendMessage)
 		self.sendButton.setAutoRaise(True)
-		sendIcon = QtGui.QIcon.fromTheme("mail-send", QtGui.QIcon(self.app.resources_path() + "/images/send-icon.png"))
+		#sendIcon = QtGui.QIcon.fromTheme("mail-send", QtGui.QIcon(self.app.resources_path() + "/images/send-icon.png"))
+		sendIcon = QtGui.QIcon(self.app.resources_path() + "/images/glyphicons_123_message_out.png")
 		self.sendButton.setIcon(sendIcon)
 		self.statusBar().addPermanentWidget(self.sendButton)
 

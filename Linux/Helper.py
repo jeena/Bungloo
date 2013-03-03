@@ -62,12 +62,12 @@ class WebViewCreator(QtWebKit.QWebView):
 
 			js_plugin_path = os.path.expanduser('~/.bungloo/Plugin.js')
 			if os.access(js_plugin_path, os.R_OK):
-				func = "setTimeout(function() { loadJsPlugin('file://localhost" + js_plugin_path + "') }, 1000);"
+				func = "setTimeout(function() { loadJsPlugin('file://localhost/" + js_plugin_path + "') }, 1000);"
 				frame.evaluateJavaScript(func)
 
 			css_plugin_path = os.path.expanduser('~/.bungloo/Plugin.css')
 			if os.access(css_plugin_path, os.R_OK):
-				func = "setTimeout(function() { loadCssPlugin('file://localhost" + css_plugin_path + "') }, 1000);"
+				func = "setTimeout(function() { loadCssPlugin('file://localhost/" + css_plugin_path + "') }, 1000);"
 				frame.evaluateJavaScript(func)
 
 		if callback:

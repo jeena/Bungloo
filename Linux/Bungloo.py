@@ -13,7 +13,6 @@ import shutil
 class Bungloo:
 
 	def __init__(self):
-		print __file__
 		self.app = QtGui.QApplication(sys.argv)
 		self.new_message_windows = []
 		self.controller = Controller(self)
@@ -36,7 +35,7 @@ class Bungloo:
                         return Helper.Helper.get_resource_path()
 
 	def resources_uri(self):
-		return "file://localhost" + os.path.abspath(os.path.join(self.resources_path(), "WebKit"))
+		return "file://localhost/" + os.path.abspath(os.path.join(self.resources_path(), "WebKit"))
 
 	def login_with_entity(self, entity):
 		self.controller.setStringForKey(entity, "entity")
