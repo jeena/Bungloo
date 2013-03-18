@@ -81,14 +81,20 @@
 
 # pragma mark Init
 
-
+- (void)stringFromFile:(NSString *)file url: (NSURL **) url content: (NSString **) content
+{
+    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingFormat: @"/WebKit/%@", file];
+    *url = [NSURL fileURLWithPath: path];
+    *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+}
 
 - (void)initOauth
 {
 	if (!oauthView) {
-		NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
-		NSURL *url = [NSURL fileURLWithPath:path];
-		NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
+        NSString *index_string;
+        NSURL *url;
+        
+        [self stringFromFile: @"index.html" url: &url content: &index_string];
 
 		oauthView = [[WebView alloc] init];
 		viewDelegate.oauthView = oauthView;
@@ -106,11 +112,12 @@
 
 	if (viewDelegate.timelineView != timelineView)
 	{
-		[self initOauth];
+        NSString *index_string;
+   		NSURL *url;
 
-		NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/Webkit/"];
-		NSURL *url = [NSURL fileURLWithPath:path];
-		NSString *index_string = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@index.html", path] encoding:NSUTF8StringEncoding error:nil];
+		[self initOauth];
+        
+        [self stringFromFile: @"index.html" url: &url content: &index_string];
 
 		viewDelegate.timelineView = timelineView;
 		[[timelineView mainFrame] loadHTMLString:index_string baseURL:url];

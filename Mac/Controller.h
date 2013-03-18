@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Webkit/Webkit.h>
+#import <WebKit/WebKit.h>
 #import "ViewDelegate.h"
 #import <Carbon/Carbon.h>
 #import "Constants.h"
@@ -80,6 +80,8 @@
 - (NSString *)secret;
 - (NSString *)stringForKey:(NSString *)aKey;
 - (void)loggedIn;
+
+- (void)stringFromFile:(NSString *)file url: (NSURL **) url content: (NSString **) content;
 
 - (IBAction)login:(id)sender;
 - (IBAction)logout:(id)sender;
