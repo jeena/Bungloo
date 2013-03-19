@@ -324,11 +324,14 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             var lat = status.content.location.coordinates[0];
             var lng = status.content.location.coordinates[1];
 
-            var href = this.mapHref(lat, lng);
-            template.geo.href = href;
-            template.geo.style.display = "";
+            if (typeof lat != "undefined" && typeof lng != "undefined" && lat > 0 && lng > 0) {
+                var href = this.mapHref(lat, lng);
+                template.geo.href = href;
+                template.geo.style.display = "";
 
-            this.addMap(lat, lng, template.images);
+                this.addMap(lat, lng, template.images);                
+            }
+
         }
 
         if (typeof status.__repost != "undefined") {
