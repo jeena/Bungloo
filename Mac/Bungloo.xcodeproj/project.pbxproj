@@ -13,8 +13,8 @@
 		1F132C791666CD9700E4E661 /* TB_SendTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F132C781666CD9700E4E661 /* TB_SendTemplate.png */; };
 		1F1990C6117BCA960049BEA7 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1990C5117BCA960049BEA7 /* ApplicationServices.framework */; };
 		1F1C80F916482A250010B409 /* WebKit in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C80F816482A250010B409 /* WebKit */; };
-		1F2D79BD165E8C6B000E8428 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2D79BC165E8C6B000E8428 /* CoreLocation.framework */; };
 		1F303BE31660752700891D71 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F303BE21660752700891D71 /* QuickLook.framework */; };
+		1F331B9C16FCCA3C0040A761 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2D79BC165E8C6B000E8428 /* CoreLocation.framework */; };
 		1F3F129E164F202000C7C983 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1F3F129D164F202000C7C983 /* dsa_pub.pem */; };
 		1F618ECA12DB5E6100E500D9 /* PostModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F618EC912DB5E6100E500D9 /* PostModel.m */; };
 		1F70619F1178FBB300C85707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70619E1178FBB300C85707 /* Carbon.framework */; };
@@ -103,9 +103,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F331B9C16FCCA3C0040A761 /* CoreLocation.framework in Frameworks */,
 				1F303BE31660752700891D71 /* QuickLook.framework in Frameworks */,
 				6B68359B166015C4004F4732 /* Security.framework in Frameworks */,
-				1F2D79BD165E8C6B000E8428 /* CoreLocation.framework in Frameworks */,
 				1FDEF722164EFE9100F927F3 /* Growl.framework in Frameworks */,
 				1FA09847144602530079E258 /* libicucore.dylib in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
