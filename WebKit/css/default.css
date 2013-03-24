@@ -16,6 +16,36 @@ a {
     outline: 0;
 }
 
+#sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 62px;
+	height: 100%;
+	background: #333;
+}
+
+#sidebar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 7px 0 0 0;
+	text-align: center;
+}
+
+#siedebar a {
+	color: #5b5b5b;
+}
+
+#sidebar .sidebar-user img {
+	max-width: 50px;
+	max-height: 50px;
+	border-radius: 8px;
+}
+
+#content {
+	margin-left: 62px;
+}
+
 ol {
 	list-style-type: none;
 	margin: 0;
@@ -39,37 +69,37 @@ ol li, .error, header.profile {
 	color: red;
 }
 
-body > ol > li {
+#content ol > li {
 
 }
 
-body > ol > li:first-child {
+#content ol > li:first-child {
 	border-top: 0;
 }
 
-body > ol > li:nth-child(odd), .error, header.profile {
+#content ol > li:nth-child(odd), .error, header.profile {
 	background: #fafafa;
 }
 
-body > ol > li:nth-child(even) {
+#content ol > li:nth-child(even) {
 	background: #f2f2f2;
 }
 
-body > ol > li:hover {
+#content ol > li:hover {
 	background: #dedede;
 }
 
-body > ol > li.highlighteffect {
+#content ol > li.highlighteffect {
 	background-color: #FFFBD0;
 	-webkit-transition: background-color 200ms linear;
 }
 
-body > ol > li.highlighteffect-after {
+#content ol > li.highlighteffect-after {
 	-webkit-transition: background-color 1000ms linear;
 }
 
 
-body > ol > li:after, header.profile:after {
+#content ol > li:after, header.profile:after {
     content: ".";
     display: block;
     clear: both;

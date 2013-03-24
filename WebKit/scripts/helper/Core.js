@@ -13,6 +13,15 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         this.cache = new Cache();
     }
 
+
+    Core.prototype.show = function() {
+        if (this.body) $(this.body).show();
+    }
+
+    Core.prototype.hide = function() {
+        if (this.body) $(this.body).hide();
+    }
+
     Core.prototype.getTemplate = function() {
 
         if(this.template == "undefined") {

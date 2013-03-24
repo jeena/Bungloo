@@ -21,7 +21,7 @@ class Bungloo:
 		self.preferences = Windows.Preferences(self)
 		self.preferences.show()
 
-		self.oauth_implementation = Windows.Oauth(self)
+		#self.oauth_implementation = Windows.Oauth(self)
 
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
@@ -43,17 +43,17 @@ class Bungloo:
 
 	def authentification_succeded(self):
 		self.preferences.hide()
-		if hasattr(self, "oauth_implementation"):
-			self.oauth_implementation.hide()
+		#if hasattr(self, "oauth_implementation"):
+		#	self.oauth_implementation.hide()
 		self.preferences.active(False)
 		self.init_web_views()
 
 	def init_web_views(self):
 		self.timeline = Windows.Timeline(self)
-		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
+		#self.mentions = Windows.Timeline(self, "mentions", "Mentions")
 		self.timeline.show()
-		self.conversation = Windows.Timeline(self, "conversation", "Conversation")
-		self.profile = Windows.Timeline(self, "profile", "Profile")
+		#self.conversation = Windows.Timeline(self, "conversation", "Conversation")
+		#self.profile = Windows.Timeline(self, "profile", "Profile")
 		self.find_entity = Windows.FindEntity(self)
 
 	def timeline_show(self):
@@ -61,7 +61,7 @@ class Bungloo:
 
 	def mentions_show(self):
 		self.controller.unreadMentions(0)
-		self.mentions.show()
+		#self.mentions.show()
 
 	def find_entity_show(self):
 		self.find_entity.show()
@@ -131,7 +131,7 @@ class Controller(QtCore.QObject):
 			self.app.timeline.set_window_title("Bungloo (^" + str(i) + ")")
 		else:
 			self.app.timeline.set_window_title("Bungloo")
-			self.app.mentions.evaluateJavaScript("bungloo_instance.unread_mentions = 0;")
+			#self.app.mentions.evaluateJavaScript("bungloo_instance.unread_mentions = 0;")
 
 	@QtCore.pyqtSlot(str, str, str, str)
 	def notificateUserAboutMentionFromNameWithPostIdAndEntity(self, text, name, post_id, entity):
@@ -188,28 +188,29 @@ class Controller(QtCore.QObject):
 		if message.isPrivate:
 			isPrivate = "true"
 
-		func = u"bungloo_instance.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
+		func = u"bungloo.timeline.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
 		self.app.timeline.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)
 	def showConversationForPostIdandEntity(self, postId, entity):
-		func = "bungloo_instance.showStatus('{}', '{}');".format(postId, entity)
-		self.app.conversation.evaluateJavaScript(func)
-		self.app.conversation.show()
+		func = "bungloo.sidebar.onConversation(); bungloo.conversation.showStatus('{}', '{}');".format(postId, entity)
+		self.app.timeline.evaluateJavaScript(func)
+		self.app.timeline.show()
 
 	@QtCore.pyqtSlot(str)
 	def showProfileForEntity(self, entity):
-		func = "bungloo_instance.showProfileForEntity('{}');".format(entity)
-		self.app.profile.evaluateJavaScript(func)
-		self.app.profile.show()
+		func = "bungloo.sidebar.onEntityProfile(); bungloo.entityProfile.showProfileForEntity('{}');".format(entity)
+		self.app.timeline.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)
 	def notificateViewsAboutDeletedPostWithIdbyEntity(self, post_id, entity):
-		func = "bungloo_instance.postDeleted('{}', '{}')".format(post_id, entity);
+		f = ".postDeleted('{}', '{}')".format(post_id, entity);
+		func = "bungloo.timeline" + f + ";"
+		func += "bungloo.mentions" + f + ";"
+		func += "bungloo.conversation" + f + ";"
+		func += "bungloo.entityProfile" + f + ";"
+
 		self.app.timeline.evaluateJavaScript(func)
-		self.app.mentions.evaluateJavaScript(func)
-		self.app.conversation.evaluateJavaScript(func)
-		self.app.profile.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str)
 	def authentificationDidNotSucceed(self, errorMessage):

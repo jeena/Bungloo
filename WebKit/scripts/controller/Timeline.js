@@ -14,7 +14,7 @@ function(Core, Paths, HostApp, URI) {
         this.action = "timeline";
         this.reload_blocked = false;
 
-        this.max_length = 200;
+        this.max_length = 20;
         this.timeout = 10 * 1000; // every 10 seconds
         this.since_id = null;
         this.since_id_entity = null;
@@ -22,7 +22,7 @@ function(Core, Paths, HostApp, URI) {
 
         this.body = document.createElement("ol");
         this.body.className = this.action;
-        document.body.appendChild(this.body);
+        document.getElementById("content").appendChild(this.body);
 
         var _this = this;
         this.reloadIntervall = setInterval(function() { _this.getNewData() }, this.timeout);
@@ -31,7 +31,7 @@ function(Core, Paths, HostApp, URI) {
     }
 
     Timeline.prototype = Object.create(Core.prototype);
-
+    
 
     Timeline.prototype.newStatus = function(statuses) {
 

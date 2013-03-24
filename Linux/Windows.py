@@ -91,6 +91,8 @@ class Timeline:
 
 		self.initUI()
 
+		self.webView.triggerPageAction(QtWebKit.QWebPage.InspectElement)
+
 	def moveWindow(self, x=0, y=0):
 		self.show()
 		geo = self.window.geometry()

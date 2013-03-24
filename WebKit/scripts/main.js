@@ -1,54 +1,57 @@
-var bungloo_instance;
-var bungloo_cache = {};
+
+var bungloo = {
+    oauth: null,
+    sidebar: null,
+    timeline: null,
+    mentions: null,
+    entityProfile: null,
+    conversation: null,
+    cache: {}
+};
 
 requirejs.config({
     baseUrl: 'scripts'
 });
 
-function start(view) {
+function start() {
+/*
+    require(["controller/Oauth"], function(Oauth) {
 
-    if (view == "oauth") {
-        require(["controller/Oauth"], function(Oauth) {
+        bungloo.oauth = new Oauth();
 
-            bungloo_instance = new Oauth();
+    });*/
 
-        });
+    require(["controller/Sidebar"], function(Sidebar) {
 
-    } else if (view == "timeline") {
+        bungloo.sidebar = new Sidebar();
 
-        require(["controller/Timeline"], function(Timeline) {
+    });
 
-             bungloo_instance = new Timeline();
+    require(["controller/Timeline"], function(Timeline) {
 
-        });
+        bungloo.timeline = new Timeline();
 
-    } else if (view == "mentions") {
+    });
 
-        require(["controller/Mentions"], function(Mentions) {
+    require(["controller/Mentions"], function(Mentions) {
 
-            bungloo_instance = new Mentions();
+        bungloo.mentions = new Mentions();
 
-        });
+    });
 
-    } else if (view == "profile") {
+    
+    require(["controller/Profile"], function(Profile) {
 
-        require(["controller/Profile"], function(Profile) {
+        bungloo.entityProfile = new Profile();
 
-            bungloo_instance = new Profile();
+    });
 
-        });
+    require(["controller/Conversation"], function(Conversation) {
 
-    } else if (view == "follow") {
+        bungloo.conversation = new Conversation();
 
-    } else if (view == "conversation") {
+    });
 
-        require(["controller/Conversation"], function(Conversation) {
-
-            bungloo_instance = new Conversation();
-
-        });
-
-    }
 }
 
 

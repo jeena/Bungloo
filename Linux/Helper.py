@@ -39,6 +39,30 @@ class WebViewCreator(QtWebKit.QWebView):
 		self.connect(self, SIGNAL("linkClicked (const QUrl&)"), self.app.controller.openQURL)
 		self.setPage(WebPage(self, self.app))
 
+		self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+		self.customContextMenuRequested.connect(self.context_menu_requested)
+		self.actions = []
+		QtWebKit.QWebSettings.globalSettings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
+
+	def context_menu_requested(self, point):
+		context_menu = QtGui.QMenu()
+
+		for action in self.actions:
+			if action.isEnabled():
+				context_menu.addAction(action)
+
+		frame = self.page().currentFrame()
+
+		hit_test = frame.hitTestContent(point)
+		if unicode(hit_test.linkUrl().toString()):
+			context_menu.addAction(self.action_copy_link)
+
+		if self.settings().testAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled):
+			context_menu.addSeparator()
+			context_menu.addAction(self.pageAction(QtWebKit.QWebPage.InspectElement))
+
+		context_menu.exec_(self.mapToGlobal(point))
+
 	def load_local(self, callback=None):
 		self.page().settings().setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
 		self.page().settings().setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)

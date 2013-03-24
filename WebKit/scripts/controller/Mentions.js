@@ -17,10 +17,12 @@ function(HostApp, Timeline, URI, Paths) {
 
         this.action = "mentions";
         this.body.className = this.action;
-
+        
+        this.hide();
     }
 
     Mentions.prototype = Object.create(Timeline.prototype);
+
 
     Mentions.prototype.newStatus = function(statuses) {
 

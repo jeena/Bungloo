@@ -14,15 +14,15 @@ function(HostApp, Core, Paths, URI) {
 
         this.action = "conversation";
 
-        document.body.innerHTML = "";
-
         this.body = document.createElement("ol");
         this.body.className = this.action;
-        document.body.appendChild(this.body);
+
+        document.getElementById("content").appendChild(this.body);
+        this.hide();
     }
 
     Conversation.prototype = Object.create(Core.prototype);
-
+    
 
     Conversation.addStatus = function(status) {
 

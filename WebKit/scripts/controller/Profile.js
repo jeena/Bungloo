@@ -14,12 +14,25 @@ function(HostApp, Core, Paths, URI) {
 
         this.action = "profile";
 
-        document.body.innerHTML = "";
+        this.container = document.createElement("div");
+        document.getElementById("content").appendChild(this.container);
 
         this.initProfileTemplate();
+        this.hide();
+
+        this.showProfileForEntity(); // Load users profile on start
     }
 
     Profile.prototype = Object.create(Core.prototype);
+    
+
+    Profile.prototype.show = function() {
+        $(this.container).show();
+    }
+
+    Profile.prototype.hide = function() {
+        $(this.container).hide();
+    };
 
     Profile.prototype.showList = function(list) {
         $(this.body).hide();
@@ -29,6 +42,10 @@ function(HostApp, Core, Paths, URI) {
     };
 
     Profile.prototype.showProfileForEntity = function(entity) {
+
+        if (!entity) {
+            entity = HostApp.stringForKey("entity");
+        };
 
         this.clear();
         this.entity = entity;
@@ -46,8 +63,9 @@ function(HostApp, Core, Paths, URI) {
         var _this = this;
 
         var header = document.createElement("header");
-        header.className = "profile"
-        document.body.appendChild(header);
+        header.className = "profile";
+
+        this.container.appendChild(header);
 
         this.profile_template = {
             avatar: document.createElement("img"),
@@ -139,15 +157,15 @@ function(HostApp, Core, Paths, URI) {
 
         this.body = document.createElement("ol");
         this.body.className = this.action;
-        document.body.appendChild(this.body);
+        this.container.appendChild(this.body);
 
         this.followingsBody = document.createElement("ol");
         this.followingsBody.className = this.action + " followings";
-        document.body.appendChild(this.followingsBody);
+        this.container.appendChild(this.followingsBody);
 
         this.followersBody = document.createElement("ol");
         this.followersBody.className = this.action + " folloewds";
-        document.body.appendChild(this.followersBody);
+        this.container.appendChild(this.followersBody);
 
     }
 
