@@ -44,6 +44,10 @@ class WebViewCreator(QtWebKit.QWebView):
 		self.actions = []
 		QtWebKit.QWebSettings.globalSettings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
 
+		def copy_link():
+			self.page().triggerAction(QtWebKit.QWebPage.CopyLinkToClipboard)
+		self.action_copy_link = QtGui.QAction('Copy Lin&k', self, triggered=copy_link)
+
 	def context_menu_requested(self, point):
 		context_menu = QtGui.QMenu()
 

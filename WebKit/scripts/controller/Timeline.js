@@ -14,7 +14,7 @@ function(Core, Paths, HostApp, URI) {
         this.action = "timeline";
         this.reload_blocked = false;
 
-        this.max_length = 20;
+        this.max_length = 200;
         this.timeout = 10 * 1000; // every 10 seconds
         this.since_id = null;
         this.since_id_entity = null;
@@ -31,6 +31,14 @@ function(Core, Paths, HostApp, URI) {
     }
 
     Timeline.prototype = Object.create(Core.prototype);
+
+    Timeline.prototype.show = function() {
+        Core.prototype.show.call(this, this.body);
+    }
+
+    Timeline.prototype.hide = function() {
+        Core.prototype.hide.call(this, this.body);
+    }
     
 
     Timeline.prototype.newStatus = function(statuses) {

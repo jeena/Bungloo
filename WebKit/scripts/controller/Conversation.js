@@ -22,6 +22,14 @@ function(HostApp, Core, Paths, URI) {
     }
 
     Conversation.prototype = Object.create(Core.prototype);
+
+    Conversation.prototype.show = function() {
+        Core.prototype.show.call(this, this.body);
+    }
+
+    Conversation.prototype.hide = function() {
+        Core.prototype.hide.call(this, this.body);
+    }
     
 
     Conversation.addStatus = function(status) {

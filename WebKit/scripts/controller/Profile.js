@@ -20,19 +20,20 @@ function(HostApp, Core, Paths, URI) {
         this.initProfileTemplate();
         this.hide();
 
-        this.showProfileForEntity(); // Load users profile on start
+        var _this = this;
+        setTimeout(function() { _this.showProfileForEntity() }, 5000); // Load users profile on start
     }
 
     Profile.prototype = Object.create(Core.prototype);
     
 
     Profile.prototype.show = function() {
-        $(this.container).show();
+        Core.prototype.show.call(this, this.container);
     }
 
     Profile.prototype.hide = function() {
-        $(this.container).hide();
-    };
+        Core.prototype.hide.call(this, this.container);
+    }
 
     Profile.prototype.showList = function(list) {
         $(this.body).hide();
@@ -247,18 +248,23 @@ function(HostApp, Core, Paths, URI) {
     }
 
     Profile.prototype.getFollowing = function() {
-        var url = Paths.mkApiRootPath("/followings") + "/" + encodeURIComponent(this.entity);
-        var _this = this;
-        Paths.getURL(url, "GET", function(resp) {
-            if (resp.status >= 200 && resp.status < 400) {
-                var following = JSON.parse(resp.responseText);
-                _this.following_id = following.id
-                _this.setFollowingButton(true);
-            } else {
-                _this.setFollowingButton(false);
-                _this.following_id = null;
-            }
-        })
+        if(this.entity != HostApp.stringForKey("entity")) {
+            var url = Paths.mkApiRootPath("/followings") + "/" + encodeURIComponent(this.entity);
+            var _this = this;
+            Paths.getURL(url, "GET", function(resp) {
+                if (resp.status >= 200 && resp.status < 400) {
+                    var following = JSON.parse(resp.responseText);
+                    _this.following_id = following.id
+                    _this.setFollowingButton(true);
+                } else {
+                    _this.setFollowingButton(false);
+                    _this.following_id = null;
+                }
+            })
+        } else {
+            this.setFollowingButton(false);
+            this.following_id = null;
+        }
     }
 
     Profile.prototype.showProfile = function(profile) {
@@ -320,21 +326,25 @@ function(HostApp, Core, Paths, URI) {
             _this.populate(_this.profile_template.followed, resp.responseText);
         }, null, false);
 
-        Paths.getURL(URI(root_url + "/followers/" + encodeURIComponent(HostApp.stringForKey("entity"))).toString(), "GET", function(resp) {
-            if (resp.status == 200) {
-                _this.relationships.following_you = true;
-            }
-            _this.setRelationships();
+        if (this.entity != HostApp.stringForKey("entity")) {
+            Paths.getURL(URI(root_url + "/followers/" + encodeURIComponent(HostApp.stringForKey("entity"))).toString(), "GET", function(resp) {
+                if (resp.status == 200) {
+                    _this.relationships.following_you = true;
+                }
+                _this.setRelationships();
 
-        }, null, false);
+            }, null, false);
 
-        Paths.getURL(URI(Paths.mkApiRootPath("/followings/" + encodeURIComponent(this.entity))), "GET", function(resp) {
-            if (resp.status == 200) {
-                _this.relationships.followed_by_you = true;
-            }
-            _this.setRelationships();
-            
-        });
+            Paths.getURL(URI(Paths.mkApiRootPath("/followings/" + encodeURIComponent(this.entity))), "GET", function(resp) {
+                if (resp.status == 200) {
+                    _this.relationships.followed_by_you = true;
+                }
+                _this.setRelationships();
+            });
+
+        } else {
+            this.setRelationships();
+        }
 
         var url = URI(root_url + "/posts/count");
         var post_types = [

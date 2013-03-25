@@ -233,23 +233,23 @@ class Console(QtCore.QObject):
 
 	@QtCore.pyqtSlot(str)
 	def log(self, string):
-		print "<js>: " + string
+		print "<js>: " + unicode(string)
 
 	@QtCore.pyqtSlot(str)
 	def error(self, string):
-		print "<js ERROR>: " + string
+		print "<js ERROR>: " + unicode(string)
 
 	@QtCore.pyqtSlot(str)
 	def warn(self, string):
-		print "<js WARN>: " + string
+		print "<js WARN>: " + unicode(string)
 
 	@QtCore.pyqtSlot(str)
 	def notice(self, string):
-		print "<js NOTICE>: " + string
+		print "<js NOTICE>: " + unicode(string)
 
 	@QtCore.pyqtSlot(str)
 	def debug(self, string):
-		print "<js DEBUG>: " + string
+		print "<js DEBUG>: " + unicode(string)
 
 
 if __name__ == "__main__":

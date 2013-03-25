@@ -6,6 +6,7 @@ var bungloo = {
     mentions: null,
     entityProfile: null,
     conversation: null,
+    search: null,
     cache: {}
 };
 
@@ -21,37 +22,24 @@ function start() {
 
     });*/
 
-    require(["controller/Sidebar"], function(Sidebar) {
+    require([
+        "controller/Sidebar",
+        "controller/Timeline",
+        "controller/Mentions",
+        "controller/Profile",
+        "controller/Conversation",
+        "controller/Search"
+
+        ], function(Sidebar, Timeline, Mentions, Profile, Conversation, Search) {
 
         bungloo.sidebar = new Sidebar();
-
-    });
-
-    require(["controller/Timeline"], function(Timeline) {
-
         bungloo.timeline = new Timeline();
-
-    });
-
-    require(["controller/Mentions"], function(Mentions) {
-
         bungloo.mentions = new Mentions();
-
-    });
-
-    
-    require(["controller/Profile"], function(Profile) {
-
         bungloo.entityProfile = new Profile();
-
-    });
-
-    require(["controller/Conversation"], function(Conversation) {
-
         bungloo.conversation = new Conversation();
+        bungloo.search = new Search();
 
     });
-
 }
 
 

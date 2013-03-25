@@ -397,3 +397,14 @@ a.youtube:before {
 iframe {
 	max-width: 500px;
 }
+
+form.search {
+	text-align: center;
+	padding: 5px 10%;
+}
+
+form.search input {
+	width: 100%;
+	padding: 10px;
+	font-size: 1.2em;
+}

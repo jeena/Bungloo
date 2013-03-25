@@ -2,10 +2,11 @@ define([
     "helper/HostApp",
     "controller/Timeline",
     "lib/URI",
-    "helper/Paths"
+    "helper/Paths",
+    "helper/Core"
 ],
 
-function(HostApp, Timeline, URI, Paths) {
+function(HostApp, Timeline, URI, Paths, Core) {
 
 
     function Mentions() {
@@ -22,6 +23,14 @@ function(HostApp, Timeline, URI, Paths) {
     }
 
     Mentions.prototype = Object.create(Timeline.prototype);
+
+    Mentions.prototype.show = function() {
+        Core.prototype.show.call(this, this.body);
+    }
+
+    Mentions.prototype.hide = function() {
+        Core.prototype.hide.call(this, this.body);
+    }
 
 
     Mentions.prototype.newStatus = function(statuses) {

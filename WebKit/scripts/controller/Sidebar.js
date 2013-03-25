@@ -18,13 +18,13 @@ function(HostApp, Paths, Cache) {
 
         this.menu = {};
 
-        this.menu.user = this.createItem("User", function() { _this.onEntity() }, "img/sidebar/user.png", "img/sidebar/user.png");
-        this.menu.timeline = this.createItem("Timeline", function() { _this.onTimeline() }, "img/sidebar/timeline.png", "img/sidebar/timeline_active.png", true);
-        this.menu.mentions = this.createItem("Mentions", function() { _this.onMentions() }, "img/sidebar/mentions.png", "img/sidebar/mentions_active.png");
+        this.menu.user = this.createItem("User", function() { _this.onEntity(); return false; }, "img/sidebar/user.png", "img/sidebar/user.png");
+        this.menu.timeline = this.createItem("Timeline", function() { _this.onTimeline(); return false; }, "img/sidebar/timeline.png", "img/sidebar/timeline_active.png", true);
+        this.menu.mentions = this.createItem("Mentions", function() { _this.onMentions(); return false; }, "img/sidebar/mentions.png", "img/sidebar/mentions_active.png");
         
-        this.menu.conversation = this.createItem("Conversation", function() { _this.onConversation() }, "img/sidebar/conversation.png", "img/sidebar/conversation_active.png");
-        this.menu.entityProfile = this.createItem("Profile", function() { _this.onEntityProfile() }, "img/sidebar/profile.png", "img/sidebar/profile_active.png");
-        this.menu.search = this.createItem("Search", function() { _this.onSearch() }, "img/sidebar/search.png", "img/sidebar/search_active.png")
+        this.menu.conversation = this.createItem("Conversation", function() { _this.onConversation(); return false; }, "img/sidebar/conversation.png", "img/sidebar/conversation_active.png");
+        this.menu.entityProfile = this.createItem("Profile", function() { _this.onEntityProfile(); return false; }, "img/sidebar/profile.png", "img/sidebar/profile_active.png");
+        this.menu.search = this.createItem("Search", function() { _this.onSearch(); return false; }, "img/sidebar/search.png", "img/sidebar/search_active.png")
 
         this.body.appendChild(this.menu.user);
         this.body.appendChild(this.menu.timeline);
@@ -174,7 +174,7 @@ function(HostApp, Paths, Cache) {
     }
 
     Sidebar.prototype.onSearch = function() {
-        debug("Search not implemented yet")
+        this.showContentFor(bungloo.search, this.menu.search);
     }
 
     return Sidebar;
