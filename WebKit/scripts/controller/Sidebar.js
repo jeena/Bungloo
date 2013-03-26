@@ -33,6 +33,11 @@ function(HostApp, Paths, Cache) {
         this.body.appendChild(this.menu.entityProfile);
         this.body.appendChild(this.menu.search);
 
+        this.unreadMentionsSpan = document.createElement("span");
+        this.unreadMentionsSpan.className = "unread_mentions";
+        this.menu.mentions.appendChild(this.unreadMentionsSpan);
+        this.setUnreadMentions(0);
+
         document.getElementById("sidebar").appendChild(this.body);
 
         this.setEntityAvatar();
@@ -158,6 +163,15 @@ function(HostApp, Paths, Cache) {
         img.src = img.src_active;
     }
 
+    Sidebar.prototype.setUnreadMentions = function(count) {
+        this.unreadMentionsSpan.innerHTML = count == 0 ? "" : count;
+        if (count > 0) {
+            $(this.unreadMentionsSpan).show();
+        } else {
+            $(this.unreadMentionsSpan).hide();
+        }
+    }
+
     Sidebar.prototype.onEntity = function() {
         bungloo.entityProfile.showProfileForEntity();
         this.onEntityProfile();
@@ -191,6 +205,9 @@ function(HostApp, Paths, Cache) {
         bungloo.conversation.logout();
         bungloo.entityProfile.logout();
         bungloo.search.logout();
+
+        document.getElementById("sidebar").innerHTML = "";
+        document.getElementById("content").innerHTML = "";
     }
 
     return Sidebar;

@@ -49,7 +49,10 @@ class Bungloo:
 		self.init_web_views()
 
 	def init_web_views(self):
-		self.timeline = Windows.Timeline(self)
+		if not hasattr(self, "timeline"):
+			self.timeline = Windows.Timeline(self)
+		else:
+			self.timeline.evaluateJavaScript("start('timeline')")
 		self.timeline.show()
 		self.find_entity = Windows.FindEntity(self)
 
@@ -78,9 +81,9 @@ class Bungloo:
 
 	def log_out(self):
 		self.oauth_implementation.log_out()
-		self.timeline.close()
+		self.timeline.hide()
 		self.preferences.show()
-		#self.timeline.evaluateJavaScript("bungloo.sidebar.logout()")
+		self.timeline.evaluateJavaScript("bungloo.sidebar.logout()")
 
 
 class Controller(QtCore.QObject):
@@ -142,12 +145,8 @@ class Controller(QtCore.QObject):
 
 	@QtCore.pyqtSlot(int)
 	def unreadMentions(self, count):
-		i = int(count)
-		if i > 0:
-			self.app.timeline.set_window_title("Bungloo (^" + str(i) + ")")
-		else:
-			self.app.timeline.set_window_title("Bungloo")
-			self.app.timeline.evaluateJavaScript("bungloo.mentions.unread_mentions = 0;")
+		script = "bungloo.sidebar.setUnreadMentions({});".format(int(count))
+		self.app.timeline.evaluateJavaScript(script)
 
 	@QtCore.pyqtSlot(str, str, str, str)
 	def notificateUserAboutMentionFromNameWithPostIdAndEntity(self, text, name, post_id, entity):

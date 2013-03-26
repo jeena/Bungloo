@@ -103,17 +103,17 @@ class Timeline:
 	def initUI(self):
 		menubar = self.window.menuBar()
 
-		newPostAction = QtGui.QAction("&New post", self.window)
+		newPostAction = QtGui.QAction("&New Post", self.window)
 		newPostAction.setShortcut("Ctrl+N")
 		newPostAction.setStatusTip("Open new post window")
 		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
 
-		findEntityAction = QtGui.QAction("&Open profile for entity ...", self.window)
+		findEntityAction = QtGui.QAction("&Open Profile for Entity ...", self.window)
 		findEntityAction.setShortcut("Ctrl+u")
 		findEntityAction.setStatusTip("Find entity and open its profile view")
 		findEntityAction.triggered.connect(self.app.find_entity_show)
 
-		logOutAction = QtGui.QAction("&Log out", self.window)
+		logOutAction = QtGui.QAction("&Log Out", self.window)
 		logOutAction.setStatusTip("Log out from this entity")
 		logOutAction.triggered.connect(self.app.log_out)
 
@@ -165,8 +165,13 @@ class Timeline:
 		aboutAction.setStatusTip("Open about page in Webbrowser")
 		aboutAction.triggered.connect(self.app.open_about)
 
+		developerExtrasAction = QtGui.QAction("&Developer Extras", self.window)
+		developerExtrasAction.setStatusTip("Activate webkit inspector")
+		developerExtrasAction.triggered.connect(self.developer_extras)
+
 		helpMenu = menubar.addMenu("&Help")
 		helpMenu.addAction(aboutAction)
+		helpMenu.addAction(developerExtrasAction)
 
 	def show(self):
 		self.window.show()
@@ -187,6 +192,9 @@ class Timeline:
 
 	def evaluateJavaScript(self, func):
 		return self.webView.page().mainFrame().evaluateJavaScript(func)
+
+	def developer_extras(self, widget):
+		QtWebKit.QWebSettings.globalSettings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
 
 
 class Oauth:
