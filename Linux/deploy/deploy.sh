@@ -16,8 +16,9 @@ touch $DEPLOYPATH/bungloo/__init__.py
 
 cp $LINUXPATH/Bungloo.py $DEPLOYPATH/bin/bungloo
 cp $LINUXPATH/Helper.py $LINUXPATH/Windows.py $DEPLOYPATH/bungloo
-cat setup.py.example | sed -e "s/{VERSION}/${VERSION}/g" > $DEPLOYPATH/setup.py
-cat Makefile.example | sed -e "s/{VERSION}/${VERSION}/g" > $DEPLOYPATH/Makefile
+cat setup.py.exmp | sed -e "s/{VERSION}/${VERSION}/g" > $DEPLOYPATH/setup.py
+cat Makefile.exmp | sed -e "s/{VERSION}/${VERSION}/g" > $DEPLOYPATH/Makefile
+cat bungloo.desktop.exmp | sed -e "s/{VERSION}/${VERSION}/g" > $DEPLOYPATH/bungloo.desktop
 cp -r $SHAREDPATH/WebKit $DEPLOYPATH/bungloo/
 cp -r $SHAREDPATH/images $DEPLOYPATH/bungloo/
 cp $SHAREDPATH/readme.md $DEPLOYPATH/README
