@@ -1,0 +1,15 @@
+bungloo (2.0.0) quantal; urgency=low
+
+  [ Jeena Paradies ]
+  * Changed to one window
+  * Added search (skate.io)
+  * Added log out
+
+ -- Jeena <spam@jeenaparadies.net>  Tue, 26 Mar 2013 21:50:00 +0100
+
+bungloo (1.2.0) quantal; urgency=low
+
+  [ Jeena Paradies ]
+  * Initial release.
+
+ -- Jeena <spam@jeenaparadies.net>  Tue, 05 Mar 2013 17:57:47 +0100

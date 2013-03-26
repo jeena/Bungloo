@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+DEB_PYTHON_SYSTEM := pysupport
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/python-distutils.mk
+
+install/bungloo::
+	mkdir -p debian/bungloo/usr/share/applications/
+	cp bungloo.desktop debian/bungloo/usr/share/applications/
+	mkdir -p debian/bungloo/usr/share/pixmaps/
+	cp bungloo/images/bungloo.xpm debian/bungloo/usr/share/pixmaps/
+
+clean::
+	rm -rf build build-stamp configure-stamp build/ MANIFEST
+	dh_clean
