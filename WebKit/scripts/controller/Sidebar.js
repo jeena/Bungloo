@@ -120,6 +120,13 @@ function(HostApp, Paths, Cache) {
         }
     }
 
+    Sidebar.prototype.removeEntityAvatar = function() {
+        var img = this.menu.user.getElementsByTagName("img")[0];
+        img.src = "img/sidebar/user.png";
+        img.src_inactive = img.src;
+        img.src_active = img.src;
+    }
+
     Sidebar.prototype.showContentFor = function(active_part, active_li) {
         
         // Show active content
@@ -175,6 +182,15 @@ function(HostApp, Paths, Cache) {
 
     Sidebar.prototype.onSearch = function() {
         this.showContentFor(bungloo.search, this.menu.search);
+    }
+
+    Sidebar.prototype.logout = function() {
+        this.removeEntityAvatar();
+        bungloo.timeline.logout();
+        bungloo.mentions.logout();
+        bungloo.conversation.logout();
+        bungloo.entityProfile.logout();
+        bungloo.search.logout();
     }
 
     return Sidebar;

@@ -21,7 +21,7 @@ class Bungloo:
 		self.preferences = Windows.Preferences(self)
 		self.preferences.show()
 
-		#self.oauth_implementation = Windows.Oauth(self)
+		self.oauth_implementation = Windows.Oauth(self)
 
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
@@ -43,28 +43,44 @@ class Bungloo:
 
 	def authentification_succeded(self):
 		self.preferences.hide()
-		#if hasattr(self, "oauth_implementation"):
-		#	self.oauth_implementation.hide()
+		if hasattr(self, "oauth_implementation"):
+			self.oauth_implementation.hide()
 		self.preferences.active(False)
 		self.init_web_views()
 
 	def init_web_views(self):
 		self.timeline = Windows.Timeline(self)
-		#self.mentions = Windows.Timeline(self, "mentions", "Mentions")
 		self.timeline.show()
-		#self.conversation = Windows.Timeline(self, "conversation", "Conversation")
-		#self.profile = Windows.Timeline(self, "profile", "Profile")
 		self.find_entity = Windows.FindEntity(self)
-
-	def timeline_show(self):
-		self.timeline.show()
-
-	def mentions_show(self):
-		self.controller.unreadMentions(0)
-		#self.mentions.show()
 
 	def find_entity_show(self):
 		self.find_entity.show()
+
+	def timeline_show(self):
+		self.timeline.show()
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onTimeline();")
+
+	def mentions_show(self):
+		self.controller.unreadMentions(0)
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onMentions();")
+
+	def conversation_show(self):
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onConversation();")
+	
+	def profile_show(self):
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onEntityProfile();")
+
+	def search_show(self):
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onSearch();")
+
+	def open_about(self):
+		self.controller.openURL("http://jabs.nu/bungloo")
+
+	def log_out(self):
+		self.oauth_implementation.log_out()
+		self.timeline.close()
+		self.preferences.show()
+		#self.timeline.evaluateJavaScript("bungloo.sidebar.logout()")
 
 
 class Controller(QtCore.QObject):
@@ -131,7 +147,7 @@ class Controller(QtCore.QObject):
 			self.app.timeline.set_window_title("Bungloo (^" + str(i) + ")")
 		else:
 			self.app.timeline.set_window_title("Bungloo")
-			#self.app.mentions.evaluateJavaScript("bungloo_instance.unread_mentions = 0;")
+			self.app.timeline.evaluateJavaScript("bungloo.mentions.unread_mentions = 0;")
 
 	@QtCore.pyqtSlot(str, str, str, str)
 	def notificateUserAboutMentionFromNameWithPostIdAndEntity(self, text, name, post_id, entity):

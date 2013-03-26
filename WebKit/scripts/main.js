@@ -14,32 +14,39 @@ requirejs.config({
     baseUrl: 'scripts'
 });
 
-function start() {
-/*
-    require(["controller/Oauth"], function(Oauth) {
+function start(view) {
 
-        bungloo.oauth = new Oauth();
+    if (view == "oauth") {
 
-    });*/
+        require(["controller/Oauth"], function(Oauth) {
 
-    require([
-        "controller/Sidebar",
-        "controller/Timeline",
-        "controller/Mentions",
-        "controller/Profile",
-        "controller/Conversation",
-        "controller/Search"
+            bungloo.oauth = new Oauth();
 
-        ], function(Sidebar, Timeline, Mentions, Profile, Conversation, Search) {
+        });
 
-        bungloo.sidebar = new Sidebar();
-        bungloo.timeline = new Timeline();
-        bungloo.mentions = new Mentions();
-        bungloo.entityProfile = new Profile();
-        bungloo.conversation = new Conversation();
-        bungloo.search = new Search();
+    } else {
 
-    });
+
+        require([
+            "controller/Sidebar",
+            "controller/Timeline",
+            "controller/Mentions",
+            "controller/Profile",
+            "controller/Conversation",
+            "controller/Search"
+
+            ], function(Sidebar, Timeline, Mentions, Profile, Conversation, Search) {
+
+            bungloo.sidebar = new Sidebar();
+            bungloo.timeline = new Timeline();
+            bungloo.mentions = new Mentions();
+            bungloo.entityProfile = new Profile();
+            bungloo.conversation = new Conversation();
+            bungloo.search = new Search();
+
+        });
+
+    }
 }
 
 

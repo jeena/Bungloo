@@ -35,6 +35,10 @@ function(HostApp, Core, Paths, URI) {
         Core.prototype.hide.call(this, this.container);
     }
 
+    Profile.prototype.logout = function() {
+        this.container = "";
+    }
+
     Profile.prototype.showList = function(list) {
         $(this.body).hide();
         $(this.followingsBody).hide();

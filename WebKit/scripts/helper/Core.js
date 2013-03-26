@@ -634,7 +634,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.logout = function() {
 
-        this.body.innerHTML = "";
+        if(this.body) this.body.innerHTML = "";
     }
 
 
