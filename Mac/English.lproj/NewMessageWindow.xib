@@ -190,21 +190,29 @@
 						<object class="NSButton" id="973618371">
 							<reference key="NSNextResponder" ref="568628114"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{258, 0}, {38, 19}}</string>
+							<string key="NSFrame">{{258, 1}, {38, 17}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="617542526">
 								<int key="NSCellFlags">-2080374784</int>
-								<int key="NSCellFlags2">134217728</int>
+								<int key="NSCellFlags2">150994944</int>
 								<string key="NSContents">⌘↩</string>
-								<reference key="NSSupport" ref="29"/>
+								<object class="NSFont" key="NSSupport" id="27">
+									<string key="NSName">LucidaGrande-Bold</string>
+									<double key="NSSize">11</double>
+									<int key="NSfFlags">3357</int>
+								</object>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="973618371"/>
-								<int key="NSButtonFlags">-1232846848</int>
-								<int key="NSButtonFlags2">268435629</int>
+								<int key="NSButtonFlags">-2038022144</int>
+								<int key="NSButtonFlags2">268435623</int>
+								<object class="NSFont" key="NSAlternateImage">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">11</double>
+									<int key="NSfFlags">16</int>
+								</object>
 								<string key="NSAlternateContents"/>
 								<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
 								<int key="NSPeriodicDelay">400</int>
@@ -267,11 +275,7 @@
 					<int key="NSCellFlags">67108864</int>
 					<int key="NSCellFlags2">134217728</int>
 					<string key="NSContents"/>
-					<object class="NSFont" key="NSSupport">
-						<string key="NSName">LucidaGrande-Bold</string>
-						<double key="NSSize">11</double>
-						<int key="NSfFlags">3357</int>
-					</object>
+					<reference key="NSSupport" ref="27"/>
 					<string key="NSCellIdentifier">_NS:9</string>
 					<reference key="NSControlView" ref="108971841"/>
 					<int key="NSButtonFlags">-2030813184</int>
