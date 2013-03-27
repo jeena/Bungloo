@@ -418,6 +418,7 @@ iframe {
 form.search {
 	text-align: center;
 	padding: 5px 10%;
+	border-bottom: 1px solid #c9c9c9;
 }
 
 form.search input {
