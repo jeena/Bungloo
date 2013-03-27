@@ -35,6 +35,7 @@
 @property (retain, nonatomic) NSString *imageFilePath;
 @property (assign) IBOutlet NSButton *togglePrivateButton;
 
+- (IBAction)sendPostButtonPressed:(id)sender;
 - (IBAction)sendPost:(NSControl *)control;
 - (void)inReplyTo:(NSString *)userName statusId:(NSString *)statusId withString:(NSString *)string;
 - (void)withString:(NSString *)aString;
