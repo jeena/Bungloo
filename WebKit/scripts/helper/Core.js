@@ -122,7 +122,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         head.appendChild(reposted_by)
 
-
         var message = document.createElement("p");
         message.className = "message";
         data.appendChild(message);

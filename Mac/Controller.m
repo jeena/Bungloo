@@ -17,7 +17,7 @@
 @synthesize loginViewWindow;
 @synthesize loginEntityTextField;
 @synthesize loginActivityIndicator;
-@synthesize timelineView, timelineViewWindow, mentionsView, mentionsViewWindow, conversationView, conversationViewWindow, profileView, profileViewWindow;
+@synthesize timelineView, timelineViewWindow;
 @synthesize globalHotkeyMenuItem, viewDelegate;
 @synthesize logoLayer;
 @synthesize oauthView, accessToken;
@@ -25,7 +25,6 @@
 - (void)awakeFromNib
 {
 	[timelineViewWindow setExcludedFromWindowsMenu:YES];
-	[mentionsViewWindow setExcludedFromWindowsMenu:YES];
 
 	[self initHotKeys];
 
@@ -70,7 +69,6 @@
 
 	if (forceLogin || ![accessToken stringForKey:@"user_access_token"] || ![accessToken secret]) {
 		[timelineViewWindow performClose:self];
-		[mentionsViewWindow performClose:self];
 		[self.loginViewWindow makeKeyAndOrderFront:self];
 		[self initOauth];
 	} else {
@@ -125,47 +123,11 @@
 		[timelineView setPolicyDelegate:viewDelegate];
 		[timelineView setUIDelegate:viewDelegate];
 		[[timelineView windowScriptObject] setValue:self forKey:@"controller"];
-		//WebPreferences* prefs = [timelineView preferences];
-		//[prefs _setLocalStorageDatabasePath:localStoragePath];
-		//[prefs setLocalStorageEnabled:YES];
-
-		viewDelegate.mentionsView = mentionsView;
-		[[mentionsView mainFrame] loadHTMLString:index_string baseURL:url];
-		[mentionsView setFrameLoadDelegate:viewDelegate];
-		[mentionsView setPolicyDelegate:viewDelegate];
-		[mentionsView setUIDelegate:viewDelegate];
-		[[mentionsView windowScriptObject] setValue:self forKey:@"controller"];
-		//prefs = [mentionsView preferences];
-		//[prefs _setLocalStorageDatabasePath:localStoragePath];
-		//[prefs setLocalStorageEnabled:YES];
-
-		viewDelegate.conversationView = conversationView;
-		[[conversationView mainFrame] loadHTMLString:index_string baseURL:url];
-		[conversationView setFrameLoadDelegate:viewDelegate];
-		[conversationView setPolicyDelegate:viewDelegate];
-		[conversationView setUIDelegate:viewDelegate];
-		[[conversationView windowScriptObject] setValue:self forKey:@"controller"];
-		//prefs = [conversationView preferences];
-		//[prefs _setLocalStorageDatabasePath:localStoragePath];
-		//[prefs setLocalStorageEnabled:YES];
-
-		viewDelegate.profileView = profileView;
-		[[profileView mainFrame] loadHTMLString:index_string baseURL:url];
-		[profileView setFrameLoadDelegate:viewDelegate];
-		[profileView setPolicyDelegate:viewDelegate];
-		[profileView setUIDelegate:viewDelegate];
-		[[profileView windowScriptObject] setValue:self forKey:@"controller"];
-		//prefs = [profileView preferences];
-		//[prefs _setLocalStorageDatabasePath:localStoragePath];
-		//[prefs setLocalStorageEnabled:YES];
 
 	}
 	else
 	{
 		[timelineView stringByEvaluatingJavaScriptFromString:@"start('timeline')"];
-		[mentionsView stringByEvaluatingJavaScriptFromString:@"start('mentions')"];
-		[conversationView stringByEvaluatingJavaScriptFromString:@"start('conversation')"];
-		[profileView stringByEvaluatingJavaScriptFromString:@"start('profile')"];
 	}
 }
 
@@ -312,7 +274,7 @@
 
 	if (range.length > 0)
 	{
-		[oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bungloo_instance.requestAccessToken('%@')", aString]];
+		[oauthView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bungloo.oauth.requestAccessToken('%@')", aString]];
 	}
 	else
 	{
@@ -353,7 +315,7 @@
 		isPrivate = @"true";
 	}
 
-	NSString *func = [NSString stringWithFormat:@"bungloo_instance.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@, %@)",
+	NSString *func = [NSString stringWithFormat:@"bungloo.timeline.sendNewMessage(\"%@\", \"%@\", \"%@\", %@, %@, %@)",
 					  text,
 					  post.inReplyTostatusId,
 					  post.inReplyToEntity,
@@ -378,17 +340,17 @@
 
 - (void)unreadMentions:(int)count
 {
-	if (![mentionsViewWindow isVisible] && count > 0)
+	if (count > 0)
 	{
-		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Bungloo (^%i)", count]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:[NSString stringWithFormat:@"%i", count]];
 	}
 	else
 	{
-		[timelineViewWindow setTitle:[NSString stringWithFormat:@"Bungloo"]];
 		[[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
-		[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.unread_mentions = 0;"];
 	}
+    
+    NSString *script = [NSString stringWithFormat:@"bungloo.sidebar.setUnreadMentions(%i);", count];
+    [timelineView stringByEvaluatingJavaScriptFromString:script];
 }
 
 - (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity
@@ -414,34 +376,20 @@
 {
 	NSString *entity = [self.showProfileTextField stringValue];
 	if ([entity rangeOfString:@"."].location != NSNotFound && ([entity hasPrefix:@"http://"] || [entity hasPrefix:@"https://"])) {
-		NSString *func = [NSString stringWithFormat:@"bungloo_instance.showProfileForEntity('%@')", entity];
-		[profileView stringByEvaluatingJavaScriptFromString:func];
-		[profileViewWindow makeKeyAndOrderFront:self];
-		[openProfileWindow performClose:self];
+		NSString *func = [NSString stringWithFormat:@"bungloo.sidebar.onEntityProfile(); bungloo.entityProfile.showProfileForEntity('%@')", entity];
+		[timelineView stringByEvaluatingJavaScriptFromString:func];
 	}
 }
 
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity
 {
-	NSString *fun = [NSString stringWithFormat:@"bungloo_instance.postDeleted('%@', '%@')", postId, entity];
+    NSString *f = [NSString stringWithFormat:@".postDeleted('%@', '%@');", postId, entity];
+	NSMutableString *fun = [NSMutableString stringWithFormat:@"bungloo.timeline%@", f];
+    [fun appendFormat:@"bungloo.mentions%@", f];
+    [fun appendFormat:@"bungloo.conversation%@", f];
+    [fun appendFormat:@"bungloo.entityProfile%@", f];
 	[timelineView stringByEvaluatingJavaScriptFromString:fun];
-	[mentionsView stringByEvaluatingJavaScriptFromString:fun];
-	[conversationView stringByEvaluatingJavaScriptFromString:fun];
-	[profileView stringByEvaluatingJavaScriptFromString:fun];
 }
-
-
-/*
-- (void)storeAccessToken:(NSString *)_accessToken secret:(NSString *)secret userId:(NSString *)userId andScreenName:(NSString *)screenName
-{
-	self.accessToken.accessToken = _accessToken;
-	self.accessToken.secret = secret;
-	self.accessToken.userId = userId;
-	self.accessToken.screenName = screenName;
-	[timelineViewWindow makeKeyAndOrderFront:self];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"authentificationSucceded" object:nil];
-}*/
 
 - (void)loggedIn
 {
@@ -456,58 +404,47 @@
 	if ([[loginEntityTextField stringValue] length] > 0) {
 		[[loginEntityTextField window] makeFirstResponder:nil];
 		[loginActivityIndicator startAnimation:self];
-		[oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.authenticate();"];
+		[oauthView stringByEvaluatingJavaScriptFromString:@"bungloo.oauth.authenticate();"];
 	}
 }
 
 - (IBAction)logout:(id)sender
 {
-	[oauthView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
+	[oauthView stringByEvaluatingJavaScriptFromString:@"bungloo.oauth.logout();"];
 
 	[timelineViewWindow performClose:self];
-	[mentionsViewWindow performClose:self];
-	[conversationViewWindow performClose:self];
-	[profileViewWindow performClose:self];
 	[self.loginViewWindow makeKeyAndOrderFront:self];
 
-	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
-	[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.logout();"];
+	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.logout();"];
 }
 
 // Mentions window has been visible
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-	if ([notification object] == mentionsViewWindow)
-	{
-		//[self unreadMentions:0];
-		[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.setAllMentionsRead();"];
-	}
+
 }
 
 - (void)getPostUpdates:(id)sender
 {
-	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData(true)"];
-	[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData(true)"];
+	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.timeline.getNewData(true)"];
+	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.mentions.getNewData(true)"];
 }
 
 - (IBAction)showConversationForPostId:(NSString *)postId andEntity:(NSString *)entity
 {
-	NSString *js = [NSString stringWithFormat:@"bungloo_instance.showStatus('%@', '%@');", postId, entity];
-	[conversationView stringByEvaluatingJavaScriptFromString:js];
-	[conversationViewWindow makeKeyAndOrderFront:self];
-	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+	NSString *js = [NSString stringWithFormat:@"bungloo.sidebar.onConversation(); bungloo.conversation.showStatus('%@', '%@');", postId, entity];
+	[timelineView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (IBAction)clearCache:(id)sender
 {
-	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.cache.clear()"];
+	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.timeline.cache.clear()"];
 }
 
 - (IBAction)showProfileForEntity:(NSString *)entity
 {
-	NSString *js = [NSString stringWithFormat:@"bungloo_instance.showProfileForEntity('%@');", entity];
-	[profileView stringByEvaluatingJavaScriptFromString:js];
-	[profileViewWindow makeKeyAndOrderFront:self];
+	NSString *js = [NSString stringWithFormat:@"bungloo.sidebar.onEntityProfile(); bungloo.entityProfile.showProfileForEntity('%@');", entity];
+	[timelineView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (void)growlNotificationWasClicked:(id)clickContext
@@ -518,8 +455,8 @@
 
 	[self showConversationForPostId:postId andEntity:entity];
 
-	NSString *js = [NSString stringWithFormat:@"bungloo_instance.mentionRead('%@', '%@');", postId, entity];
-	[mentionsView stringByEvaluatingJavaScriptFromString:js];
+	NSString *js = [NSString stringWithFormat:@"bungloo.sidebar.onMentions(); bungloo.mentions.mentionRead('%@', '%@');", postId, entity];
+	[timelineView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (NSString *) applicationNameForGrowl
