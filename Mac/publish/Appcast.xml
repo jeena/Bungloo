@@ -9,12 +9,12 @@
 		  <title>Version 1.3.0</title>
 		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 		<sparkle:releaseNotesLink>http://jabs.nu/bungloo/download/ReleaseNotes.html</sparkle:releaseNotesLink>
-		<pubDate>Wed, 27 Mar 2013 12:30:36 +0100</pubDate>
+		<pubDate>Wed, 27 Mar 2013 12:32:02 +0100</pubDate>
 		<enclosure	url="http://jabs.nu/bungloo/download/Bungloo.app.zip"
 					sparkle:version="1.3.0"
 					length="1141864"
 					type="application/octet-stream"
-					sparkle:dsaSignature="MC4CFQCAaiajtgz8ITfl87a0zNWEgU/RUgIVAIp9JOsXNomwXHKJdemU7yEdbz6Z" />
+					sparkle:dsaSignature="MC4CFQCE4ygN5dS8V6PaWm6tYwsRSPPuPQIVAJA5XppQL3iCqMZaQ7a6AHOS+R4v" />
 		</item>
 	</channel>
 </rss>
