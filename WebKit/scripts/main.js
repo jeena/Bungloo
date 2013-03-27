@@ -1,5 +1,14 @@
-var bungloo_instance;
-var bungloo_cache = {};
+
+var bungloo = {
+    oauth: null,
+    sidebar: null,
+    timeline: null,
+    mentions: null,
+    entityProfile: null,
+    conversation: null,
+    search: null,
+    cache: {}
+};
 
 requirejs.config({
     baseUrl: 'scripts'
@@ -8,43 +17,32 @@ requirejs.config({
 function start(view) {
 
     if (view == "oauth") {
+
         require(["controller/Oauth"], function(Oauth) {
 
-            bungloo_instance = new Oauth();
+            bungloo.oauth = new Oauth();
 
         });
 
-    } else if (view == "timeline") {
+    } else {
 
-        require(["controller/Timeline"], function(Timeline) {
 
-             bungloo_instance = new Timeline();
+        require([
+            "controller/Sidebar",
+            "controller/Timeline",
+            "controller/Mentions",
+            "controller/Profile",
+            "controller/Conversation",
+            "controller/Search"
 
-        });
+            ], function(Sidebar, Timeline, Mentions, Profile, Conversation, Search) {
 
-    } else if (view == "mentions") {
-
-        require(["controller/Mentions"], function(Mentions) {
-
-            bungloo_instance = new Mentions();
-
-        });
-
-    } else if (view == "profile") {
-
-        require(["controller/Profile"], function(Profile) {
-
-            bungloo_instance = new Profile();
-
-        });
-
-    } else if (view == "follow") {
-
-    } else if (view == "conversation") {
-
-        require(["controller/Conversation"], function(Conversation) {
-
-            bungloo_instance = new Conversation();
+            bungloo.sidebar = new Sidebar();
+            bungloo.timeline = new Timeline();
+            bungloo.mentions = new Mentions();
+            bungloo.entityProfile = new Profile();
+            bungloo.conversation = new Conversation();
+            bungloo.search = new Search();
 
         });
 

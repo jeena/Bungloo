@@ -16,6 +16,53 @@ a {
     outline: 0;
 }
 
+#sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 62px;
+	height: 100%;
+	background: #333;
+}
+
+#sidebar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 7px 0 0 0;
+	text-align: center;
+}
+
+#siedebar a {
+	color: #5b5b5b;
+}
+
+#sidebar .sidebar-user img {
+	max-width: 50px;
+	max-height: 50px;
+	border-radius: 8px;
+}
+
+#sidebar .unread_mentions {
+	color: white;
+	background: red;
+	border: 2px solid white;
+	border-radius: 1em;
+	box-shadow: 0 0 1em black;
+	padding: 0 0.3em;
+	position: absolute;
+	top: 100px;
+	right: 10px;
+	font-weight: bold;
+}
+
+#sidebar .unread_mentions:empty {
+	/*display: none;*/
+}
+
+#content {
+	margin-left: 62px;
+}
+
 ol {
 	list-style-type: none;
 	margin: 0;
@@ -39,37 +86,37 @@ ol li, .error, header.profile {
 	color: red;
 }
 
-body > ol > li {
+#content ol > li {
 
 }
 
-body > ol > li:first-child {
+#content ol > li:first-child {
 	border-top: 0;
 }
 
-body > ol > li:nth-child(odd), .error, header.profile {
+#content ol > li:nth-child(odd), .error, header.profile {
 	background: #fafafa;
 }
 
-body > ol > li:nth-child(even) {
+#content ol > li:nth-child(even) {
 	background: #f2f2f2;
 }
 
-body > ol > li:hover {
+#content ol > li:hover {
 	background: #dedede;
 }
 
-body > ol > li.highlighteffect {
+#content ol > li.highlighteffect {
 	background-color: #FFFBD0;
 	-webkit-transition: background-color 200ms linear;
 }
 
-body > ol > li.highlighteffect-after {
+#content ol > li.highlighteffect-after {
 	-webkit-transition: background-color 1000ms linear;
 }
 
 
-body > ol > li:after, header.profile:after {
+#content ol > li:after, header.profile:after {
     content: ".";
     display: block;
     clear: both;
@@ -189,7 +236,7 @@ li:hover .from {
 
 li:first-child:hover .from {
 	top: auto;
-	bottom: -1.9em;
+	bottom: -1.8em;
 	z-index: 2;
 	-webkit-border-top-left-radius: 0;
 	-webkit-border-top-right-radius: 0;
@@ -366,4 +413,15 @@ a.youtube:before {
 
 iframe {
 	max-width: 500px;
+}
+
+form.search {
+	text-align: center;
+	padding: 5px 10%;
+}
+
+form.search input {
+	width: 100%;
+	padding: 10px;
+	font-size: 1.2em;
 }

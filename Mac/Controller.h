@@ -19,12 +19,6 @@
 @interface Controller : NSObject <GrowlApplicationBridgeDelegate> {
 	IBOutlet WebView *timelineView;
 	IBOutlet NSWindow *timelineViewWindow;
-	IBOutlet WebView *mentionsView;
-	IBOutlet NSWindow *mentionsViewWindow;
-	IBOutlet WebView *conversationView;
-	IBOutlet NSWindow *conversationViewWindow;
-	WebView *profileView;
-	NSWindow *profileViewWindow;
 	NSPanel *openProfileWindow;
 	NSWindow *loginViewWindow;
 	NSTextField *loginEntityTextField;
@@ -40,12 +34,6 @@
 
 @property (assign) IBOutlet WebView *timelineView;
 @property (assign) IBOutlet NSWindow *timelineViewWindow;
-@property (assign) IBOutlet WebView *mentionsView;
-@property (assign) IBOutlet NSWindow *mentionsViewWindow;
-@property (assign) IBOutlet WebView *conversationView;
-@property (assign) IBOutlet NSWindow *conversationViewWindow;
-@property (assign) IBOutlet WebView *profileView;
-@property (assign) IBOutlet NSWindow *profileViewWindow;
 @property (assign) IBOutlet NSPanel *openProfileWindow;
 
 @property (assign) IBOutlet NSWindow *loginViewWindow;

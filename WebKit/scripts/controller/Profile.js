@@ -14,12 +14,30 @@ function(HostApp, Core, Paths, URI) {
 
         this.action = "profile";
 
-        document.body.innerHTML = "";
+        this.container = document.createElement("div");
+        document.getElementById("content").appendChild(this.container);
 
         this.initProfileTemplate();
+        this.hide();
+
+        var _this = this;
+        setTimeout(function() { _this.showProfileForEntity() }, 5000); // Load users profile on start
     }
 
     Profile.prototype = Object.create(Core.prototype);
+    
+
+    Profile.prototype.show = function() {
+        Core.prototype.show.call(this, this.container);
+    }
+
+    Profile.prototype.hide = function() {
+        Core.prototype.hide.call(this, this.container);
+    }
+
+    Profile.prototype.logout = function() {
+        this.container = "";
+    }
 
     Profile.prototype.showList = function(list) {
         $(this.body).hide();
@@ -29,6 +47,10 @@ function(HostApp, Core, Paths, URI) {
     };
 
     Profile.prototype.showProfileForEntity = function(entity) {
+
+        if (!entity) {
+            entity = HostApp.stringForKey("entity");
+        };
 
         this.clear();
         this.entity = entity;
@@ -46,8 +68,9 @@ function(HostApp, Core, Paths, URI) {
         var _this = this;
 
         var header = document.createElement("header");
-        header.className = "profile"
-        document.body.appendChild(header);
+        header.className = "profile";
+
+        this.container.appendChild(header);
 
         this.profile_template = {
             avatar: document.createElement("img"),
@@ -139,15 +162,15 @@ function(HostApp, Core, Paths, URI) {
 
         this.body = document.createElement("ol");
         this.body.className = this.action;
-        document.body.appendChild(this.body);
+        this.container.appendChild(this.body);
 
         this.followingsBody = document.createElement("ol");
         this.followingsBody.className = this.action + " followings";
-        document.body.appendChild(this.followingsBody);
+        this.container.appendChild(this.followingsBody);
 
         this.followersBody = document.createElement("ol");
         this.followersBody.className = this.action + " folloewds";
-        document.body.appendChild(this.followersBody);
+        this.container.appendChild(this.followersBody);
 
     }
 
@@ -229,18 +252,23 @@ function(HostApp, Core, Paths, URI) {
     }
 
     Profile.prototype.getFollowing = function() {
-        var url = Paths.mkApiRootPath("/followings") + "/" + encodeURIComponent(this.entity);
-        var _this = this;
-        Paths.getURL(url, "GET", function(resp) {
-            if (resp.status >= 200 && resp.status < 400) {
-                var following = JSON.parse(resp.responseText);
-                _this.following_id = following.id
-                _this.setFollowingButton(true);
-            } else {
-                _this.setFollowingButton(false);
-                _this.following_id = null;
-            }
-        })
+        if(this.entity != HostApp.stringForKey("entity")) {
+            var url = Paths.mkApiRootPath("/followings") + "/" + encodeURIComponent(this.entity);
+            var _this = this;
+            Paths.getURL(url, "GET", function(resp) {
+                if (resp.status >= 200 && resp.status < 400) {
+                    var following = JSON.parse(resp.responseText);
+                    _this.following_id = following.id
+                    _this.setFollowingButton(true);
+                } else {
+                    _this.setFollowingButton(false);
+                    _this.following_id = null;
+                }
+            })
+        } else {
+            this.setFollowingButton(false);
+            this.following_id = null;
+        }
     }
 
     Profile.prototype.showProfile = function(profile) {
@@ -302,21 +330,25 @@ function(HostApp, Core, Paths, URI) {
             _this.populate(_this.profile_template.followed, resp.responseText);
         }, null, false);
 
-        Paths.getURL(URI(root_url + "/followers/" + encodeURIComponent(HostApp.stringForKey("entity"))).toString(), "GET", function(resp) {
-            if (resp.status == 200) {
-                _this.relationships.following_you = true;
-            }
-            _this.setRelationships();
+        if (this.entity != HostApp.stringForKey("entity")) {
+            Paths.getURL(URI(root_url + "/followers/" + encodeURIComponent(HostApp.stringForKey("entity"))).toString(), "GET", function(resp) {
+                if (resp.status == 200) {
+                    _this.relationships.following_you = true;
+                }
+                _this.setRelationships();
 
-        }, null, false);
+            }, null, false);
 
-        Paths.getURL(URI(Paths.mkApiRootPath("/followings/" + encodeURIComponent(this.entity))), "GET", function(resp) {
-            if (resp.status == 200) {
-                _this.relationships.followed_by_you = true;
-            }
-            _this.setRelationships();
-            
-        });
+            Paths.getURL(URI(Paths.mkApiRootPath("/followings/" + encodeURIComponent(this.entity))), "GET", function(resp) {
+                if (resp.status == 200) {
+                    _this.relationships.followed_by_you = true;
+                }
+                _this.setRelationships();
+            });
+
+        } else {
+            this.setRelationships();
+        }
 
         var url = URI(root_url + "/posts/count");
         var post_types = [

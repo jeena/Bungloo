@@ -11,18 +11,15 @@
 
 @implementation ViewDelegate
 
-@synthesize timelineView, mentionsView, conversationView, profileView, oauthView;
+@synthesize timelineView, oauthView;
 
 - (void)webView:(WebView *)sender addMessageToConsole:(NSDictionary *)message {
 
 	if (![message isKindOfClass:[NSDictionary class]]) return;
 
 	NSString *viewName = @"TimelineView";
-	if (sender == mentionsView) viewName = @"MentionsView";
-	if (sender == conversationView) viewName = @"ConversationView";
 	if (sender == oauthView) viewName = @"OauthView";
-	if (sender == profileView) viewName = @"ProfileView";
-
+    
 	NSLog(@"js<%@>: %@:%@: %@",
 		viewName,
 		[[message objectForKey:@"sourceURL"] lastPathComponent],
@@ -33,8 +30,6 @@
 
 - (void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
 	NSString *viewName = @"TimelineView";
-	if (sender == mentionsView) viewName = @"MentionsView";
-	if (sender == conversationView) viewName = @"ConversationView";
 	if (sender == oauthView) viewName = @"OauthView";
 
 	NSLog(@"jsa<%@>: %@", viewName, message);
@@ -52,7 +47,7 @@
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
     
-    NSArray *frames = [NSArray arrayWithObjects:timelineView.mainFrame, mentionsView.mainFrame, conversationView.mainFrame, oauthView.mainFrame, profileView.mainFrame, nil];
+    NSArray *frames = [NSArray arrayWithObjects:timelineView.mainFrame, oauthView.mainFrame, nil];
 
     // If it is clicked from one of the views the open default browser
     if ([frames indexOfObject:frame] != NSNotFound) {
@@ -85,25 +80,9 @@
 
 		[oauthView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('oauth') }"];
 
-	} else if(sender == conversationView) {
-
-		[conversationView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('conversation') }"];
-
-	} else if(sender == profileView) {
-
-		[profileView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('profile') }"];
-
 	} else {
 
-		NSString *action = @"timeline";
-		NSString *delay = @"1";
-
-		if (sender == mentionsView) {
-			action = @"mentions";
-			delay = @"1000";
-		}
-
-		[sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"function HostAppGo() { start('%@') }", action]];
+		[sender stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('timeline') }"];
 	}
 }
 
@@ -126,8 +105,7 @@
 }
 
 - (void)reload:(id)sender {
-	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData();"];
-	[mentionsView stringByEvaluatingJavaScriptFromString:@"bungloo_instance.getNewData();"];
+	[timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.timeline.getNewData();"];
 }
 
 - (NSString *)pluginURL

@@ -91,6 +91,8 @@ class Timeline:
 
 		self.initUI()
 
+		self.webView.triggerPageAction(QtWebKit.QWebPage.InspectElement)
+
 	def moveWindow(self, x=0, y=0):
 		self.show()
 		geo = self.window.geometry()
@@ -99,19 +101,32 @@ class Timeline:
 
 
 	def initUI(self):
+		menubar = self.window.menuBar()
+
 		newPostAction = QtGui.QAction("&New Post", self.window)
 		newPostAction.setShortcut("Ctrl+N")
 		newPostAction.setStatusTip("Open new post window")
 		newPostAction.triggered.connect(self.app.controller.openNewMessageWidow)
+
+		findEntityAction = QtGui.QAction("&Open Profile for Entity ...", self.window)
+		findEntityAction.setShortcut("Ctrl+u")
+		findEntityAction.setStatusTip("Find entity and open its profile view")
+		findEntityAction.triggered.connect(self.app.find_entity_show)
+
+		logOutAction = QtGui.QAction("&Log Out", self.window)
+		logOutAction.setStatusTip("Log out from this entity")
+		logOutAction.triggered.connect(self.app.log_out)
 
 		exitAction = QtGui.QAction("&Exit", self.window)
 		exitAction.setShortcut("Ctrl+Q")
 		exitAction.setStatusTip("Exit Bungloo")
 		exitAction.triggered.connect(QtGui.qApp.quit)
 
-		menubar = self.window.menuBar()
 		fileMenu = menubar.addMenu("&File")
 		fileMenu.addAction(newPostAction)
+		fileMenu.addAction(findEntityAction)
+		fileMenu.addSeparator()
+		fileMenu.addAction(logOutAction)
 		fileMenu.addAction(exitAction)
 
 		timelineAction = QtGui.QAction("&Timeline", self.window)
@@ -124,26 +139,46 @@ class Timeline:
 		mentionsAction.setStatusTip("Show Mentions")
 		mentionsAction.triggered.connect(self.app.mentions_show)
 
-		findEntityAction = QtGui.QAction("&Open Profile", self.window)
-		findEntityAction.setShortcut("Ctrl+u")
-		findEntityAction.setStatusTip("Find entity and open its profile view")
-		findEntityAction.triggered.connect(self.app.find_entity_show)
+		conversationAction = QtGui.QAction("&Conversation", self.window)
+		conversationAction.setShortcut("Ctrl+3")
+		conversationAction.setStatusTip("Show Conversation")
+		conversationAction.triggered.connect(self.app.conversation_show)
 
-		hideAction = QtGui.QAction("&Hide window", self.window)
-		hideAction.setShortcut("Ctrl+W")
-		hideAction.setStatusTip("Hide this window")
-		hideAction.triggered.connect(self.hide)
+		profileAction = QtGui.QAction("&Profile", self.window)
+		profileAction.setShortcut("Ctrl+4")
+		profileAction.setStatusTip("Show Profile")
+		profileAction.triggered.connect(self.app.profile_show)
 
-		windowMenu = menubar.addMenu("&Windows")
+		searchAction = QtGui.QAction("&Search", self.window)
+		searchAction.setShortcut("Ctrl+F")
+		searchAction.setStatusTip("Show Search")
+		searchAction.triggered.connect(self.app.search_show)
+
+		windowMenu = menubar.addMenu("&View")
 		windowMenu.addAction(timelineAction)
 		windowMenu.addAction(mentionsAction)
-		windowMenu.addAction(hideAction)
-		windowMenu.addAction(findEntityAction)
+		windowMenu.addAction(conversationAction)
+		windowMenu.addAction(profileAction)
+		windowMenu.addAction(searchAction)
+
+		aboutAction = QtGui.QAction("&About Bungloo", self.window)
+		aboutAction.setStatusTip("Open about page in Webbrowser")
+		aboutAction.triggered.connect(self.app.open_about)
+
+		developerExtrasAction = QtGui.QAction("&Developer Extras", self.window)
+		developerExtrasAction.setStatusTip("Activate webkit inspector")
+		developerExtrasAction.triggered.connect(self.developer_extras)
+
+		helpMenu = menubar.addMenu("&Help")
+		helpMenu.addAction(aboutAction)
+		helpMenu.addAction(developerExtrasAction)
 
 	def show(self):
 		self.window.show()
 		#self.window.raise_()
 		#QtGui.qApp.setActiveWindow(self.window)
+	def close(self):
+		self.window.close()
 
 	def hide(self):
 		self.window.hide()
@@ -157,6 +192,9 @@ class Timeline:
 
 	def evaluateJavaScript(self, func):
 		return self.webView.page().mainFrame().evaluateJavaScript(func)
+
+	def developer_extras(self, widget):
+		QtWebKit.QWebSettings.globalSettings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
 
 
 class Oauth:
@@ -172,7 +210,11 @@ class Oauth:
 			self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def login(self):
-		script = "bungloo_instance.authenticate();"
+		script = "bungloo.oauth.authenticate();"
+		self.core.page().mainFrame().evaluateJavaScript(script)
+
+	def log_out(self):
+		script = "bungloo.oauth.logout()";
 		self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def handle_authentication(self, url):
@@ -201,7 +243,7 @@ class Oauth:
 		dialog.exec_()
 
 	def bungloo_callback(self, url):
-		script = "bungloo_instance.requestAccessToken('" + url.toString() + "');"
+		script = "bungloo.oauth.requestAccessToken('" + url.toString() + "');"
 		self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def hide(self):
@@ -294,10 +336,10 @@ class NewPost(Helper.RestorableWindow):
 		sendPostAction.setStatusTip("Send post")
 		sendPostAction.triggered.connect(self.sendMessage)
 
-		togglePrivateAction = QtGui.QAction("&Toggle private", self)
-		togglePrivateAction.setShortcut("Ctrl+P")
-		togglePrivateAction.setStatusTip("Toogle if private post")
-		togglePrivateAction.triggered.connect(self.toggleIsPrivate)
+		hideAction = QtGui.QAction("&Close Window", self)
+		hideAction.setShortcut("Ctrl+W")
+		hideAction.setStatusTip("Close this window")
+		hideAction.triggered.connect(self.close)
 
 		exitAction = QtGui.QAction("&Exit", self)
 		exitAction.setShortcut("Ctrl+Q")
@@ -308,34 +350,31 @@ class NewPost(Helper.RestorableWindow):
 		fileMenu = menubar.addMenu("&File")
 		fileMenu.addAction(newPostAction)
 		fileMenu.addAction(sendPostAction)
-		fileMenu.addAction(togglePrivateAction)
+		fileMenu.addAction(hideAction)
+		fileMenu.addSeparator()
 		fileMenu.addAction(exitAction)
 
-		timelineAction = QtGui.QAction("&Timeline", self)
-		timelineAction.setShortcut("Ctrl+1")
-		timelineAction.setStatusTip("Show Timeline")
-		timelineAction.triggered.connect(self.app.timeline_show)
+		togglePrivateAction = QtGui.QAction("&Toggle Private", self)
+		togglePrivateAction.setShortcut("Ctrl+P")
+		togglePrivateAction.setStatusTip("Toogle if private post")
+		togglePrivateAction.triggered.connect(self.toggleIsPrivate)
 
-		mentionsAction = QtGui.QAction("&Mentions", self)
-		mentionsAction.setShortcut("Ctrl+2")
-		mentionsAction.setStatusTip("Show Mentions")
-		mentionsAction.triggered.connect(self.app.mentions_show)
+		addImageAction = QtGui.QAction("Add &Image", self)
+		addImageAction.setShortcut("Ctrl+I")
+		addImageAction.setStatusTip("Add image to post")
+		addImageAction.triggered.connect(self.openFileDialog)
 
-		findEntityAction = QtGui.QAction("&Open Profile", self)
-		findEntityAction.setShortcut("Ctrl+u")
-		findEntityAction.setStatusTip("Find entity and open its profile view")
-		findEntityAction.triggered.connect(self.app.find_entity_show)
+		editMenu = menubar.addMenu("&Edit")
+		editMenu.addAction(togglePrivateAction)
+		editMenu.addAction(addImageAction)
 
-		hideAction = QtGui.QAction("&Hide window", self)
-		hideAction.setShortcut("Ctrl+W")
-		hideAction.setStatusTip("Hide this window")
-		hideAction.triggered.connect(self.close)
+		aboutAction = QtGui.QAction("&About Bungloo", self)
+		aboutAction.setStatusTip("Open about page in Webbrowser")
+		aboutAction.triggered.connect(self.app.open_about)
 
-		windowMenu = menubar.addMenu("&Windows")
-		windowMenu.addAction(timelineAction)
-		windowMenu.addAction(mentionsAction)
-		windowMenu.addAction(findEntityAction)
-		windowMenu.addAction(hideAction)
+		helpMenu = menubar.addMenu("&Help")
+		helpMenu.addAction(aboutAction)
+
 
 		self.statusBar().showMessage('256')
 

@@ -49,22 +49,41 @@ class Bungloo:
 		self.init_web_views()
 
 	def init_web_views(self):
-		self.timeline = Windows.Timeline(self)
-		self.mentions = Windows.Timeline(self, "mentions", "Mentions")
+		if not hasattr(self, "timeline"):
+			self.timeline = Windows.Timeline(self)
+		else:
+			self.timeline.evaluateJavaScript("start('timeline')")
 		self.timeline.show()
-		self.conversation = Windows.Timeline(self, "conversation", "Conversation")
-		self.profile = Windows.Timeline(self, "profile", "Profile")
 		self.find_entity = Windows.FindEntity(self)
-
-	def timeline_show(self):
-		self.timeline.show()
-
-	def mentions_show(self):
-		self.controller.unreadMentions(0)
-		self.mentions.show()
 
 	def find_entity_show(self):
 		self.find_entity.show()
+
+	def timeline_show(self):
+		self.timeline.show()
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onTimeline();")
+
+	def mentions_show(self):
+		self.controller.unreadMentions(0)
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onMentions();")
+
+	def conversation_show(self):
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onConversation();")
+	
+	def profile_show(self):
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onEntityProfile();")
+
+	def search_show(self):
+		self.timeline.evaluateJavaScript("bungloo.sidebar.onSearch();")
+
+	def open_about(self):
+		self.controller.openURL("http://jabs.nu/bungloo")
+
+	def log_out(self):
+		self.oauth_implementation.log_out()
+		self.timeline.hide()
+		self.preferences.show()
+		self.timeline.evaluateJavaScript("bungloo.sidebar.logout()")
 
 
 class Controller(QtCore.QObject):
@@ -126,12 +145,8 @@ class Controller(QtCore.QObject):
 
 	@QtCore.pyqtSlot(int)
 	def unreadMentions(self, count):
-		i = int(count)
-		if i > 0:
-			self.app.timeline.set_window_title("Bungloo (^" + str(i) + ")")
-		else:
-			self.app.timeline.set_window_title("Bungloo")
-			self.app.mentions.evaluateJavaScript("bungloo_instance.unread_mentions = 0;")
+		script = "bungloo.sidebar.setUnreadMentions({});".format(int(count))
+		self.app.timeline.evaluateJavaScript(script)
 
 	@QtCore.pyqtSlot(str, str, str, str)
 	def notificateUserAboutMentionFromNameWithPostIdAndEntity(self, text, name, post_id, entity):
@@ -188,28 +203,29 @@ class Controller(QtCore.QObject):
 		if message.isPrivate:
 			isPrivate = "true"
 
-		func = u"bungloo_instance.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
+		func = u"bungloo.timeline.sendNewMessage(\"{}\", \"{}\", \"{}\", {}, {}, {});".format(text, in_reply_to_status_id, in_reply_to_entity, locationObject, imageFilePath, isPrivate)
 		self.app.timeline.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)
 	def showConversationForPostIdandEntity(self, postId, entity):
-		func = "bungloo_instance.showStatus('{}', '{}');".format(postId, entity)
-		self.app.conversation.evaluateJavaScript(func)
-		self.app.conversation.show()
+		func = "bungloo.sidebar.onConversation(); bungloo.conversation.showStatus('{}', '{}');".format(postId, entity)
+		self.app.timeline.evaluateJavaScript(func)
+		self.app.timeline.show()
 
 	@QtCore.pyqtSlot(str)
 	def showProfileForEntity(self, entity):
-		func = "bungloo_instance.showProfileForEntity('{}');".format(entity)
-		self.app.profile.evaluateJavaScript(func)
-		self.app.profile.show()
+		func = "bungloo.sidebar.onEntityProfile(); bungloo.entityProfile.showProfileForEntity('{}');".format(entity)
+		self.app.timeline.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str, str)
 	def notificateViewsAboutDeletedPostWithIdbyEntity(self, post_id, entity):
-		func = "bungloo_instance.postDeleted('{}', '{}')".format(post_id, entity);
+		f = ".postDeleted('{}', '{}')".format(post_id, entity);
+		func = "bungloo.timeline" + f + ";"
+		func += "bungloo.mentions" + f + ";"
+		func += "bungloo.conversation" + f + ";"
+		func += "bungloo.entityProfile" + f + ";"
+
 		self.app.timeline.evaluateJavaScript(func)
-		self.app.mentions.evaluateJavaScript(func)
-		self.app.conversation.evaluateJavaScript(func)
-		self.app.profile.evaluateJavaScript(func)
 
 	@QtCore.pyqtSlot(str)
 	def authentificationDidNotSucceed(self, errorMessage):
@@ -232,23 +248,23 @@ class Console(QtCore.QObject):
 
 	@QtCore.pyqtSlot(str)
 	def log(self, string):
-		print "<js>: " + string
+		print "<js>: " + unicode(string)
 
 	@QtCore.pyqtSlot(str)
 	def error(self, string):
-		print "<js ERROR>: " + string
+		print "<js ERROR>: " + unicode(string)
 
 	@QtCore.pyqtSlot(str)
 	def warn(self, string):
-		print "<js WARN>: " + string
+		print "<js WARN>: " + unicode(string)
 
 	@QtCore.pyqtSlot(str)
 	def notice(self, string):
-		print "<js NOTICE>: " + string
+		print "<js NOTICE>: " + unicode(string)
 
 	@QtCore.pyqtSlot(str)
 	def debug(self, string):
-		print "<js DEBUG>: " + string
+		print "<js DEBUG>: " + unicode(string)
 
 
 if __name__ == "__main__":

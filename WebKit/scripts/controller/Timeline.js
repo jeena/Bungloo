@@ -22,7 +22,7 @@ function(Core, Paths, HostApp, URI) {
 
         this.body = document.createElement("ol");
         this.body.className = this.action;
-        document.body.appendChild(this.body);
+        document.getElementById("content").appendChild(this.body);
 
         var _this = this;
         this.reloadIntervall = setInterval(function() { _this.getNewData() }, this.timeout);
@@ -32,6 +32,14 @@ function(Core, Paths, HostApp, URI) {
 
     Timeline.prototype = Object.create(Core.prototype);
 
+    Timeline.prototype.show = function() {
+        Core.prototype.show.call(this, this.body);
+    }
+
+    Timeline.prototype.hide = function() {
+        Core.prototype.hide.call(this, this.body);
+    }
+    
 
     Timeline.prototype.newStatus = function(statuses) {
 

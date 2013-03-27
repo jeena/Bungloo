@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version={VERSION}
+Comment=Tent is a distributed social network protocol and Bungloo is one of the clients using it.
+Exec=/usr/bin/bungloo
+GenericName=Tent Client
+Icon=/usr/share/pixmaps/bungloo.xpm
+Name=Bungloo
+NoDisplay=false
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Network;Qt

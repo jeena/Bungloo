@@ -11,6 +11,22 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     function Core() {
         this.cache = new Cache();
+        this.saveScrollTop = 0;
+    }
+
+
+    Core.prototype.show = function(container) {
+        if (container) {
+            $(container).show();
+            document.body.scrollTop = this.saveScrollTop;
+        }
+    }
+
+    Core.prototype.hide = function(container) {
+        if (container && $(container).is(":visible")) {
+            this.saveScrollTop = document.body.scrollTop;
+            $(container).hide();
+        }
     }
 
     Core.prototype.getTemplate = function() {
@@ -105,7 +121,6 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         reposted_by.appendChild(reposted_list);
 
         head.appendChild(reposted_by)
-
 
         var message = document.createElement("p");
         message.className = "message";
@@ -261,11 +276,19 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         text = text.escapeHTML().replace(/\n/g, "<br>");
 
         var entities = [status.entity];
-        status.mentions.map(function (mention) {
-            entities.push(mention.entity)
-        });
+        if (status.mentions) {
+            status.mentions.map(function (mention) {
+                entities.push(mention.entity)
+            });
+        }
 
         template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message);
+        
+        // adding show search on click hash
+        $(template.message).find("a.hash").click(function(e) {
+            bungloo.search.searchFor("#" + e.target.innerHTML);
+            return false;
+        });
 
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
@@ -610,7 +633,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.logout = function() {
 
-        this.body.innerHTML = "";
+        if(this.body) this.body.innerHTML = "";
     }
 
 
@@ -793,7 +816,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var hash = /(^|\s)(#)(\w+)/ig;
 
-        return URI.withinString(text, callback).replace(hash, "$1$2<a href='https://skate.io/search?q=%23$3'>$3</a>");
+        return URI.withinString(text, callback).replace(hash, "$1$2<a class='hash' href='https://skate.io/search?q=%23$3'>$3</a>");
     }
 
     Core.prototype.parseForMedia = function(text, images) {
