@@ -372,13 +372,42 @@
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
 }
 
+- (IBAction)showTimeline:(id)sender
+{
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.onTimeline();"];
+}
+
+- (IBAction)showMentions:(id)sender
+{
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.onMentions();"];
+}
+
+- (IBAction)showConversation:(id)sender
+{
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.onConversation();"];
+}
+
 - (IBAction)showProfile:(id)sender
 {
-	NSString *entity = [self.showProfileTextField stringValue];
-	if ([entity rangeOfString:@"."].location != NSNotFound && ([entity hasPrefix:@"http://"] || [entity hasPrefix:@"https://"])) {
-		NSString *func = [NSString stringWithFormat:@"bungloo.sidebar.onEntityProfile(); bungloo.entityProfile.showProfileForEntity('%@')", entity];
-		[timelineView stringByEvaluatingJavaScriptFromString:func];
-	}
+    if ([sender isKindOfClass:[NSMenuItem class]]) {
+        [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.onEntityProfile();"];
+    } else {
+        NSString *entity = [self.showProfileTextField stringValue];
+        if ([entity rangeOfString:@"."].location != NSNotFound && ([entity hasPrefix:@"http://"] || [entity hasPrefix:@"https://"])) {
+            NSString *func = [NSString stringWithFormat:@"bungloo.sidebar.onEntityProfile(); bungloo.entityProfile.showProfileForEntity('%@')", entity];
+            [timelineView stringByEvaluatingJavaScriptFromString:func];
+        }
+    }
+}
+
+- (IBAction)showSearch:(id)sender
+{
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.onSearch();"];
+}
+
+- (IBAction)showAbout:(id)sender
+{
+    [self openURL:@"http://jabs.nu/bungloo"];
 }
 
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity

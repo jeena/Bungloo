@@ -60,7 +60,15 @@
 - (void)notificateUserAboutMention:(NSString *)text fromName:(NSString *)name withPostId:(NSString *)postId andEntity:(NSString *)entity;
 
 - (void)openURL:(NSString *)url;
+
+- (IBAction)showTimeline:(id)sender;
+- (IBAction)showMentions:(id)sender;
+- (IBAction)showConversation:(id)sender;
 - (IBAction)showProfile:(id)sender;
+- (IBAction)showSearch:(id)sender;
+- (IBAction)showAbout:(id)sender;
+
+
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity;
 
 - (void)setString:(NSString *)string forKey:(NSString *)aKey;
