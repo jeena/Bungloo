@@ -190,7 +190,7 @@
 						<object class="NSButton" id="973618371">
 							<reference key="NSNextResponder" ref="568628114"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{258, 1}, {38, 17}}</string>
+							<string key="NSFrame">{{258, 0}, {38, 19}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -199,18 +199,14 @@
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">150994944</int>
 								<string key="NSContents">⌘↩</string>
-								<object class="NSFont" key="NSSupport" id="27">
-									<string key="NSName">LucidaGrande-Bold</string>
-									<double key="NSSize">11</double>
-									<int key="NSfFlags">3357</int>
-								</object>
+								<reference key="NSSupport" ref="29"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="973618371"/>
-								<int key="NSButtonFlags">-2038022144</int>
-								<int key="NSButtonFlags2">268435623</int>
+								<int key="NSButtonFlags">-1232715776</int>
+								<int key="NSButtonFlags2">268435629</int>
 								<object class="NSFont" key="NSAlternateImage">
 									<string key="NSName">LucidaGrande</string>
-									<double key="NSSize">11</double>
+									<double key="NSSize">12</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<string key="NSAlternateContents"/>
@@ -275,7 +271,11 @@
 					<int key="NSCellFlags">67108864</int>
 					<int key="NSCellFlags2">134217728</int>
 					<string key="NSContents"/>
-					<reference key="NSSupport" ref="27"/>
+					<object class="NSFont" key="NSSupport">
+						<string key="NSName">LucidaGrande-Bold</string>
+						<double key="NSSize">11</double>
+						<int key="NSfFlags">3357</int>
+					</object>
 					<string key="NSCellIdentifier">_NS:9</string>
 					<reference key="NSControlView" ref="108971841"/>
 					<int key="NSButtonFlags">-2030813184</int>
