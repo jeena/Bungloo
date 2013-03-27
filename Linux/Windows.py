@@ -150,7 +150,7 @@ class Timeline:
 		profileAction.triggered.connect(self.app.profile_show)
 
 		searchAction = QtGui.QAction("&Search", self.window)
-		searchAction.setShortcut("Ctrl+F")
+		searchAction.setShortcut("Ctrl+5")
 		searchAction.setStatusTip("Show Search")
 		searchAction.triggered.connect(self.app.search_show)
 
