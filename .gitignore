@@ -4,4 +4,5 @@ dsa_priv.pem
 *.pyc
 .DS_Store
 *~
-Linux/build/
+Linux/dist
+Windows/dist
