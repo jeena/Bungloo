@@ -2,8 +2,8 @@
 
 VERSION="1.3.0"
 DEPLOYPATH="bungloo-${VERSION}"
-LINUXPATH=".."
-SHAREDPATH="../.."
+QTPATH="../Qt"
+SHAREDPATH=".."
 DISTPATH=dist
 
 rm -rf $DEPLOYPATH
@@ -14,8 +14,8 @@ mkdir -p $DEPLOYPATH/bin
 mkdir -p $DEPLOYPATH/bungloo
 touch $DEPLOYPATH/bungloo/__init__.py
 
-cp $LINUXPATH/Bungloo.py $DEPLOYPATH/bin/bungloo
-cp $LINUXPATH/Helper.py $LINUXPATH/Windows.py $DEPLOYPATH/bungloo
+cp $QTPATH/Bungloo.py $DEPLOYPATH/bin/bungloo
+cp $QTPATH/Helper.py $QTPATH/Windows.py $DEPLOYPATH/bungloo
 cat setup.py.exmp | sed -e "s/{VERSION}/${VERSION}/g" > $DEPLOYPATH/setup.py
 cat Makefile.exmp | sed -e "s/{VERSION}/${VERSION}/g" > $DEPLOYPATH/Makefile
 cat bungloo.desktop.exmp | sed -e "s/{VERSION}/${VERSION}/g" > $DEPLOYPATH/bungloo.desktop
