@@ -92,12 +92,12 @@ class WebViewCreator(QtWebKit.QWebView):
 				os_type = "windows"
 			frame.evaluateJavaScript("var OS_TYPE = '" + os_type + "';")
 
-			js_plugin_path = os.path.expanduser('~/.bungloo/Plugin.js')
+			js_plugin_path = os.path.expanduser('~/.config/bungloo/Plugin.js')
 			if os.access(js_plugin_path, os.R_OK):
 				func = "setTimeout(function() { loadJsPlugin('file://localhost/" + js_plugin_path + "') }, 1000);"
 				frame.evaluateJavaScript(func)
 
-			css_plugin_path = os.path.expanduser('~/.bungloo/Plugin.css')
+			css_plugin_path = os.path.expanduser('~/.config/bungloo/Plugin.css')
 			if os.access(css_plugin_path, os.R_OK):
 				func = "setTimeout(function() { loadCssPlugin('file://localhost/" + css_plugin_path + "') }, 1000);"
 				frame.evaluateJavaScript(func)
