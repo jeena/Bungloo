@@ -1,9 +1,9 @@
 #!/usr/bin/env python2
 
 import os, sys, pickle, subprocess, shutil
-from PyQt4 import QtCore, QtGui, QtWebKit
+from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 
-RUNNING_LOCAL = os.path.basename(__file__) == "Bungloo.py"
+RUNNING_LOCAL = os.path.basename(sys.argv[0]) == "Bungloo.py"
 
 if RUNNING_LOCAL:
     import Windows, Helper
@@ -13,6 +13,7 @@ else:
 class Bungloo:
 
 	def __init__(self):
+
 		self.app = QtGui.QApplication(sys.argv)
 		self.new_message_windows = []
 		self.controller = Controller(self)
@@ -30,7 +31,7 @@ class Bungloo:
 
 	def resources_path(self):
    		if RUNNING_LOCAL:
-			return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+			return os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 		else:
 			return Helper.Helper.get_resource_path()
 
