@@ -5,22 +5,26 @@ from distutils.core import setup
 import py2exe
 
 files = []
-for dirname, dirnames, filenames in os.walk('bungloo/WebKit'):
+for dirname, dirnames, filenames in os.walk('WebKit'):
     for filename in filenames:
-        files += [os.path.join(dirname, filename)[8:]]
+        print dirname, filename
+        files += [(dirname, os.path.join(dirname, filename))]
 
-for dirname, dirnames, filenames in os.walk('bungloo/images'):
+
+for dirname, dirnames, filenames in os.walk('images'):
     for filename in filenames:
-        files += [os.path.join(dirname, filename)[8:]]
+        files += [(dirname, os.path.join(dirname, filename))]
 
 setup(
-    name = "bungloo",
+    name = "Bungloo",
     version = "1.3.0",
     author = "Jeena Paradies",
     author_email = "spam@jeenaparadies.net",
     url = "http://jabs.nu/bungloo",
     license = "BSD license",
-    packages = ['bungloo'],
-    package_data = {"bungloo": files},
-    scripts = ["bungloo/Bungloo.py"]
+    #data_files = files,
+    windows = ["Bungloo.py"],
+    options = {
+            "py2exe": {"includes": ["sip", "PyQt4.QtCore", "PyQt4.QtGui", "PyQt4.QtNetwork"]}
+        }
     )
