@@ -5,7 +5,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from PyQt4.QtWebKit import QWebView
 
-import os
+import os, sys
 
 import array
 

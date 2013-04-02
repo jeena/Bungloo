@@ -6,3 +6,7 @@ Copy-Item ../images bungloo -Recurse
 Copy-Item setup.py bungloo
 touch bungloo/__init__.py
 Copy-Item msvcp90.dll bungloo
+cd bungloo
+python setup.py py2exe
+cd ..
+rm bungloo

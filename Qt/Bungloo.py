@@ -4,8 +4,9 @@ import os, sys, pickle, subprocess, shutil
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 
 RUNNING_LOCAL = os.path.basename(sys.argv[0]) == "Bungloo.py"
+RUNNING_ON_WINDOWS = os.name == "nt"
 
-if RUNNING_LOCAL:
+if RUNNING_LOCAL or RUNNING_ON_WINDOWS:
     import Windows, Helper
 else:
     from bungloo import Windows, Helper

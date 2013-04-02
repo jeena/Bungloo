@@ -7,13 +7,11 @@ import py2exe
 files = []
 for dirname, dirnames, filenames in os.walk('WebKit'):
     for filename in filenames:
-        print dirname, filename
-        files += [(dirname, os.path.join(dirname, filename))]
-
+        files += [(dirname, [os.path.join(dirname, filename)])]
 
 for dirname, dirnames, filenames in os.walk('images'):
     for filename in filenames:
-        files += [(dirname, os.path.join(dirname, filename))]
+        files += [(dirname, [os.path.join(dirname, filename)])]
 
 setup(
     name = "Bungloo",
@@ -22,9 +20,12 @@ setup(
     author_email = "spam@jeenaparadies.net",
     url = "http://jabs.nu/bungloo",
     license = "BSD license",
-    #data_files = files,
+    data_files = files,
     windows = ["Bungloo.py"],
     options = {
-            "py2exe": {"includes": ["sip", "PyQt4.QtCore", "PyQt4.QtGui", "PyQt4.QtNetwork"]}
+            "py2exe": {
+                "includes": ["sip", "ssl", "PyQt4.QtCore", "PyQt4.QtGui", "PyQt4.QtNetwork"],
+                "bundle_files": 2
+            }
         }
     )
