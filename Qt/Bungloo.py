@@ -15,6 +15,10 @@ class Bungloo:
 
 	def __init__(self):
 
+		sslConfig = QtNetwork.QSslConfiguration.defaultConfiguration()
+		sslConfig.setProtocol(QtNetwork.QSsl.TlsV1)
+		QtNetwork.QSslConfiguration.setDefaultConfiguration(sslConfig)
+
 		self.app = QtGui.QApplication(sys.argv)
 		self.new_message_windows = []
 		self.controller = Controller(self)

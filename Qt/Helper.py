@@ -2,7 +2,7 @@ from PyQt4 import QtCore, QtGui, QtWebKit
 
 from PyQt4.QtCore import QTimer, QVariant, SIGNAL
 from PyQt4.QtGui import *
-from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply, QSslSocket
 from PyQt4.QtWebKit import QWebView
 
 import os, sys
@@ -107,8 +107,9 @@ class WebViewCreator(QtWebKit.QWebView):
 
 	def handleSslErrors(self, reply, errors):
 		if os.name == "nt": # ignore SSL errors on Windows (yes a uggly workaround, don't know how to fix it yet)
-			reply.ignoreSslErrors()
-		pass
+			for error in errors:
+				print error.errorString()
+			reply.ignoreSslErrors(errors)
 
 
 class NetworkAccessManager(QNetworkAccessManager):
@@ -123,6 +124,7 @@ class NetworkAccessManager(QNetworkAccessManager):
 		self.setCookieJar(old_manager.cookieJar())
 		self.setProxy(old_manager.proxy())
 		self.setProxyFactory(old_manager.proxyFactory())
+		self.sslErrors.connect(lambda reply, errors: old_manager.sslErrors)
 
 	def createRequest(self, operation, request, data):
 		if request.url().scheme() != "bungloo":
