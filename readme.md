@@ -1,7 +1,7 @@
 Bungloo
 =======
 
-Bungloo is a slim Tent client for OS X and Linux written in mostly JavaScript.
+Bungloo is a slim Tent client for OS X, Linux and Windows written in mostly JavaScript.
 
 For more info check out the Wiki page: https://github.com/jeena/Bungloo/wiki
 
@@ -21,3 +21,4 @@ Thanks everyone in the Open Source community! Bungloo is using:
 - PyQt - http://wiki.python.org/moin/PyQt
 - Icon - http://www.fasticon.com
 - Linux monochrome icons - http://glyphicons.com
+- py2exe - http://www.py2exe.org
