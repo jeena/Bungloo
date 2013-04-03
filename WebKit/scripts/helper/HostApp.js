@@ -129,7 +129,10 @@ define(function() {
     }
 
     HostApp.osType = function() {
-        return OS_TYPE == "mac" ? "OS X" : "Linux";
+        var os_name = "OS X";
+        if (OS_TYPE == "windows") os_name = "Windows";
+        if (OS_TYPE == "linux") os_name = "Linux" 
+        return os_name;
     }
 
     HostApp.notificateViewsAboutDeletedPost = function(postId, entity) {
