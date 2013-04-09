@@ -287,12 +287,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }
 
         template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message);
-        
-        // adding show search on click hash
-        $(template.message).find("a.hash").click(function(e) {
-            bungloo.search.searchFor("#" + e.target.innerHTML);
-            return false;
-        });
+        this.afterChangingTextinMessageHTML(template.message)
 
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
@@ -717,12 +712,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                             + "</a>"
                         );
 
-                        // adding show profile on click
                         node.innerHTML = new_text;
-                        $(node).find("a.name").click(function(e) {
-                            HostApp.showProfileForEntity(e.target.title);
-                            return false;
-                        });
+                        _this.afterChangingTextinMessageHTML(node);
 
                         // adding comma between names when there is only
                         // a space in between.
@@ -998,6 +989,20 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.addSoundCloud = function(url, images) {
         $(images).append('<iframe class="soundcloud" src="https://w.soundcloud.com/player/?url=' + url + '" width="100%" height="166" scrolling="no" frameborder="no"></iframe>');
+    }
+
+    Core.prototype.afterChangingTextinMessageHTML = function(message_node) {                
+        // adding show search on click hash
+        $(message_node).find("a.hash").click(function(e) {
+            bungloo.search.searchFor(e.target.innerHTML);
+            return false;
+        });
+
+        // adding show profile on click
+        $(message_node).find("a.name").click(function(e) {
+            HostApp.showProfileForEntity(e.target.title);
+            return false;
+        });
     }
 
 

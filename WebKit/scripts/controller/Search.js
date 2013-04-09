@@ -23,7 +23,7 @@ function(HostApp, Core, Paths, URI) {
         this.form.className = this.action;
         this.input = document.createElement("input");
         this.input.type = "search";
-        this.input.placeholder = "Search ...";
+        this.input.placeholder = "Search";
         this.form.appendChild(this.input);
 
         var _this = this;
