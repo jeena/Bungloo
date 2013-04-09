@@ -1,5 +1,5 @@
 from PyQt4 import QtCore, QtGui, QtWebKit
-import Helper, urllib, urllib2
+import Helper, urllib, urllib2, os
 
 class Preferences:
 
@@ -154,12 +154,19 @@ class Timeline:
 		searchAction.setStatusTip("Show Search")
 		searchAction.triggered.connect(self.app.search_show)
 
+		nextAction = QtGui.QAction("&Next View", self.window)
+		nextAction.setShortcut("Ctrl+6")
+		nextAction.setStatusTip("Show Next")
+		nextAction.triggered.connect(self.app.next_show)
+
 		windowMenu = menubar.addMenu("&View")
 		windowMenu.addAction(timelineAction)
 		windowMenu.addAction(mentionsAction)
 		windowMenu.addAction(conversationAction)
 		windowMenu.addAction(profileAction)
 		windowMenu.addAction(searchAction)
+		windowMenu.addSeparator()
+		windowMenu.addAction(nextAction)
 
 		aboutAction = QtGui.QAction("&About Bungloo", self.window)
 		aboutAction.setStatusTip("Open about page in Webbrowser")
@@ -224,8 +231,10 @@ class Oauth:
 		old_manager = self.auth_view.page().networkAccessManager()
 		new_manager = Helper.NetworkAccessManager(old_manager, self.bungloo_callback)
 		new_manager.authenticationRequired.connect(self.authentication_required)
+		new_manager.sslErrors.connect(lambda reply, errors: self.handleSslErrors(reply, errors))
 		self.auth_view.page().setNetworkAccessManager(new_manager)
 		self.auth_view.show()
+
 		self.auth_view.load_url(url)
 		return False
 
@@ -249,6 +258,13 @@ class Oauth:
 	def hide(self):
 		if hasattr(self, "auth_view"):
 			self.auth_view.hide()
+
+	def handleSslErrors(self, reply, errors):
+		if os.name == "nt": # ignore SSL errors on Windows (yes a uggly workaround, don't know how to fix it yet)
+			for error in errors:
+				print error.errorString()
+			reply.ignoreSslErrors(errors)
+
 
 
 class Login(QtGui.QDialog):

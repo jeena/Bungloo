@@ -166,7 +166,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var template = this.getTemplate();
 
-        template.item.id = "post-" + status.id;
+        template.item.id = "post-" + status.id + "-" + this.action;
         template.item.status = status;
 
         if (HostApp.stringForKey("entity") == status.entity && typeof status.__repost == "undefined") {
@@ -181,6 +181,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             }
         } else {
             template.remove.style.display = "none";
+        }
+
+        if (HostApp.stringForKey("entity") == status.entity) {
+            template.item.className += " own";
         }
 
         template.reply_to.onclick = function() {
@@ -283,12 +287,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }
 
         template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message);
-        
-        // adding show search on click hash
-        $(template.message).find("a.hash").click(function(e) {
-            bungloo.search.searchFor("#" + e.target.innerHTML);
-            return false;
-        });
+        this.afterChangingTextinMessageHTML(template.message)
 
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
@@ -373,7 +372,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.getRepost = function(repost, before_node) {
 
-        var post = document.getElementById("post-" + repost.content.id);
+        var post = document.getElementById("post-" + repost.content.id + "-" + this.action);
 
         if (post) {
 
@@ -411,7 +410,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             $(post).find(".reposted_by").show();
 
             var li = $("<li/>");
-            li.attr("id", "post-" + repost.id)
+            li.attr("id", "post-" + repost.id + "-" + this.action)
             var a = $("<a/>");
 
             a.attr("href", repost.entity);
@@ -713,12 +712,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                             + "</a>"
                         );
 
-                        // adding show profile on click
                         node.innerHTML = new_text;
-                        $(node).find("a.name").click(function(e) {
-                            HostApp.showProfileForEntity(e.target.title);
-                            return false;
-                        });
+                        _this.afterChangingTextinMessageHTML(node);
 
                         // adding comma between names when there is only
                         // a space in between.
@@ -816,7 +811,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var hash = /(^|\s)(#)(\w+)/ig;
 
-        return URI.withinString(text, callback).replace(hash, "$1$2<a class='hash' href='https://skate.io/search?q=%23$3'>$3</a>");
+        return URI.withinString(text, callback).replace(hash, "$1<a class='hash' href='https://skate.io/search?q=%23$3'>$2$3</a>");
     }
 
     Core.prototype.parseForMedia = function(text, images) {
@@ -994,6 +989,20 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.addSoundCloud = function(url, images) {
         $(images).append('<iframe class="soundcloud" src="https://w.soundcloud.com/player/?url=' + url + '" width="100%" height="166" scrolling="no" frameborder="no"></iframe>');
+    }
+
+    Core.prototype.afterChangingTextinMessageHTML = function(message_node) {                
+        // adding show search on click hash
+        $(message_node).find("a.hash").click(function(e) {
+            bungloo.search.searchFor(e.target.innerHTML);
+            return false;
+        });
+
+        // adding show profile on click
+        $(message_node).find("a.name").click(function(e) {
+            HostApp.showProfileForEntity(e.target.title);
+            return false;
+        });
     }
 
 

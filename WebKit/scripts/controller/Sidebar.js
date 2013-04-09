@@ -40,6 +40,9 @@ function(HostApp, Paths, Cache) {
 
         document.getElementById("sidebar").appendChild(this.body);
 
+        // initial seting of the <body> class
+        document.body.className = "body-timeline";
+
         this.setEntityAvatar();
     }
 
@@ -151,6 +154,9 @@ function(HostApp, Paths, Cache) {
 
         active_part.show();
 
+        // Replace <body> class
+        document.body.className = "body-" + active_li.className.split("-")[1];
+
         // Show active icon
         for(var li in this.menu) {
             if (this.menu[li] != active_part) {
@@ -161,6 +167,29 @@ function(HostApp, Paths, Cache) {
 
         var img = active_li.getElementsByTagName("img")[0];
         img.src = img.src_active;
+    }
+
+    Sidebar.prototype.showContentForNext = function() {
+
+        var parts = [
+            "timeline",
+            "mentions",
+            "conversation",
+            "entityProfile",
+            "search"
+        ];
+
+        for (var i = 0; i < parts.length; i++) {
+            var part = parts[i];
+            var img = this.menu[part].getElementsByTagName("img")[0];
+            if (img.src.endsWith(img.src_active)) {
+                var next = parts[(i+1)%parts.length];
+                this.showContentFor(bungloo[next], this.menu[next]);
+                return;
+            }
+        }
+
+
     }
 
     Sidebar.prototype.setUnreadMentions = function(count) {

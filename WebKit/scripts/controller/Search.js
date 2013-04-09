@@ -15,6 +15,7 @@ function(HostApp, Core, Paths, URI) {
         this.action = "search";
 
         this.container = document.createElement("div");
+        this.container.className = this.action;
         document.getElementById("content").appendChild(this.container);
 
         this.body = document.createElement("ol");
@@ -23,7 +24,7 @@ function(HostApp, Core, Paths, URI) {
         this.form.className = this.action;
         this.input = document.createElement("input");
         this.input.type = "search";
-        this.input.placeholder = "Search ...";
+        this.input.placeholder = "Search";
         this.form.appendChild(this.input);
 
         var _this = this;

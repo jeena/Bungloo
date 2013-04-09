@@ -1,11 +1,12 @@
 #!/usr/bin/env python2
 
 import os, sys, pickle, subprocess, shutil
-from PyQt4 import QtCore, QtGui, QtWebKit
+from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 
-RUNNING_LOCAL = os.path.basename(__file__) == "Bungloo.py"
+RUNNING_LOCAL = os.path.basename(sys.argv[0]) == "Bungloo.py"
+RUNNING_ON_WINDOWS = os.name == "nt"
 
-if RUNNING_LOCAL:
+if RUNNING_LOCAL or RUNNING_ON_WINDOWS:
     import Windows, Helper
 else:
     from bungloo import Windows, Helper
@@ -13,6 +14,11 @@ else:
 class Bungloo:
 
 	def __init__(self):
+
+		sslConfig = QtNetwork.QSslConfiguration.defaultConfiguration()
+		sslConfig.setProtocol(QtNetwork.QSsl.TlsV1)
+		QtNetwork.QSslConfiguration.setDefaultConfiguration(sslConfig)
+
 		self.app = QtGui.QApplication(sys.argv)
 		self.new_message_windows = []
 		self.controller = Controller(self)
@@ -30,7 +36,7 @@ class Bungloo:
 
 	def resources_path(self):
    		if RUNNING_LOCAL:
-			return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+			return os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 		else:
 			return Helper.Helper.get_resource_path()
 
@@ -83,7 +89,10 @@ class Bungloo:
 		self.oauth_implementation.log_out()
 		self.timeline.hide()
 		self.preferences.show()
-		self.timeline.evaluateJavaScript("bungloo.sidebar.logout()")
+		self.timeline.evaluateJavaScript("bungloo.sidebar.logout();")
+
+	def next_show(self):
+		self.timeline.evaluateJavaScript("bungloo.sidebar.showContentForNext();")
 
 
 class Controller(QtCore.QObject):

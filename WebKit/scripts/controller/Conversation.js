@@ -14,21 +14,23 @@ function(HostApp, Core, Paths, URI) {
 
         this.action = "conversation";
 
+        this.container = document.createElement("div");
+        this.container.className = this.action;
         this.body = document.createElement("ol");
-        this.body.className = this.action;
+        this.container.appendChild(this.body)
 
-        document.getElementById("content").appendChild(this.body);
+        document.getElementById("content").appendChild(this.container);
         this.hide();
     }
 
     Conversation.prototype = Object.create(Core.prototype);
 
     Conversation.prototype.show = function() {
-        Core.prototype.show.call(this, this.body);
+        Core.prototype.show.call(this, this.container);
     }
 
     Conversation.prototype.hide = function() {
-        Core.prototype.hide.call(this, this.body);
+        Core.prototype.hide.call(this, this.container);
     }
     
 

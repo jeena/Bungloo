@@ -2,17 +2,17 @@ from PyQt4 import QtCore, QtGui, QtWebKit
 
 from PyQt4.QtCore import QTimer, QVariant, SIGNAL
 from PyQt4.QtGui import *
-from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply, QSslSocket
 from PyQt4.QtWebKit import QWebView
 
-import os
+import os, sys
 
 import array
 
 class Helper:
-        @classmethod
-        def get_resource_path(cls):
-                return os.path.dirname(__file__)
+    @classmethod
+    def get_resource_path(cls):
+		return os.path.dirname(sys.argv[0])
 
 class WebPage(QtWebKit.QWebPage):
 	def __init__(self, parent=0, app=None):
@@ -42,6 +42,8 @@ class WebViewCreator(QtWebKit.QWebView):
 		self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
 		self.customContextMenuRequested.connect(self.context_menu_requested)
 		self.actions = []
+
+		self.page().networkAccessManager().sslErrors.connect(lambda reply, errors: self.handleSslErrors(reply, errors))
 
 		def copy_link():
 			self.page().triggerAction(QtWebKit.QWebPage.CopyLinkToClipboard)
@@ -85,7 +87,10 @@ class WebViewCreator(QtWebKit.QWebView):
 	def load_finished(self, ok, callback=None):
 		frame = self.page().mainFrame()
 		if self.is_local:
-			frame.evaluateJavaScript("var OS_TYPE = 'linux';")
+			os_type = "linux"
+			if os.name == "nt":
+				os_type = "windows"
+			frame.evaluateJavaScript("var OS_TYPE = '" + os_type + "';")
 
 			js_plugin_path = os.path.expanduser('~/.config/bungloo/Plugin.js')
 			if os.access(js_plugin_path, os.R_OK):
@@ -100,6 +105,12 @@ class WebViewCreator(QtWebKit.QWebView):
 		if callback:
 			callback(ok)
 
+	def handleSslErrors(self, reply, errors):
+		if os.name == "nt": # ignore SSL errors on Windows (yes a uggly workaround, don't know how to fix it yet)
+			for error in errors:
+				print error.errorString()
+			reply.ignoreSslErrors(errors)
+
 
 class NetworkAccessManager(QNetworkAccessManager):
 
@@ -113,6 +124,7 @@ class NetworkAccessManager(QNetworkAccessManager):
 		self.setCookieJar(old_manager.cookieJar())
 		self.setProxy(old_manager.proxy())
 		self.setProxyFactory(old_manager.proxyFactory())
+		self.sslErrors.connect(lambda reply, errors: old_manager.sslErrors)
 
 	def createRequest(self, operation, request, data):
 		if request.url().scheme() != "bungloo":

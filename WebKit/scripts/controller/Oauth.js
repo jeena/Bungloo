@@ -25,7 +25,14 @@ function(HostApp, Paths, Hmac) {
                 "write_followers": "Be able to block people who follow you",
                 "read_followings": "Display following list and their older posts in conversations",
                 "write_followings": "Follow ne entities"
-            }
+            },
+            "tent_profile_info_types": [ "all" ],
+            "tent_post_types": [
+                "https://tent.io/types/post/status/v0.1.0",
+                "https://tent.io/types/post/photo/v0.1.0",
+                "https://tent.io/types/post/repost/v0.1.0",
+                "https://tent.io/types/post/delete/v0.1.0"
+            ]
         };
         this.register_data = null;
         this.profile = null;
@@ -104,8 +111,8 @@ function(HostApp, Paths, Hmac) {
                     + "&redirect_uri=" + this.app_info["redirect_uris"][0]
                     + "&scope=" + Object.keys(this.app_info["scopes"]).join(",")
                     + "&state=" + this.state
-                    + "&tent_post_types=all"
-                    + "&tent_profile_info_types=all";
+                    + "&tent_post_types=" + this.app_info["tent_post_types"].join(",")
+                    + "&tent_profile_info_types=" + this.app_info["tent_profile_info_types"].join(",");
 
         HostApp.openAuthorizationURL(this.apiRoot() + auth);
     }

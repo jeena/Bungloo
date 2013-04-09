@@ -110,6 +110,14 @@ var console = {
 
 function loadJsPlugin(js_url) {
     if (js_url) {
+        
+        requirejs.config({
+            baseUrl: 'scripts',
+            paths: {
+                plugins: js_url.replace("Plugin.js", '')
+            }
+        });
+
         var js_plugin = document.createElement("script");
         js_plugin.type = "text/javascript";
         js_plugin.src = js_url;

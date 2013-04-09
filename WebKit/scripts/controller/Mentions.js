@@ -17,7 +17,7 @@ function(HostApp, Timeline, URI, Paths, Core) {
         Timeline.call(this);
 
         this.action = "mentions";
-        this.body.className = this.action;
+        this.container.className = this.action;
         
         this.hide();
     }
@@ -25,11 +25,11 @@ function(HostApp, Timeline, URI, Paths, Core) {
     Mentions.prototype = Object.create(Timeline.prototype);
 
     Mentions.prototype.show = function() {
-        Core.prototype.show.call(this, this.body);
+        Core.prototype.show.call(this, this.container);
     }
 
     Mentions.prototype.hide = function() {
-        Core.prototype.hide.call(this, this.body);
+        Core.prototype.hide.call(this, this.container);
     }
 
 
