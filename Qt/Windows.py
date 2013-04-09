@@ -154,7 +154,7 @@ class Timeline:
 		searchAction.setStatusTip("Show Search")
 		searchAction.triggered.connect(self.app.search_show)
 
-		nextAction = QtGui.QAction("&Next", self.window)
+		nextAction = QtGui.QAction("&Next View", self.window)
 		nextAction.setShortcut("Ctrl+6")
 		nextAction.setStatusTip("Show Next")
 		nextAction.triggered.connect(self.app.next_show)
