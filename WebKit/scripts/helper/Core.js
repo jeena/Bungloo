@@ -166,7 +166,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var template = this.getTemplate();
 
-        template.item.id = "post-" + status.id;
+        template.item.id = "post-" + status.id + "-" + this.action;
         template.item.status = status;
 
         if (HostApp.stringForKey("entity") == status.entity && typeof status.__repost == "undefined") {
@@ -373,7 +373,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.getRepost = function(repost, before_node) {
 
-        var post = document.getElementById("post-" + repost.content.id);
+        var post = document.getElementById("post-" + repost.content.id + "-" + this.action);
 
         if (post) {
 
@@ -411,7 +411,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             $(post).find(".reposted_by").show();
 
             var li = $("<li/>");
-            li.attr("id", "post-" + repost.id)
+            li.attr("id", "post-" + repost.id + "-" + this.action)
             var a = $("<a/>");
 
             a.attr("href", repost.entity);
