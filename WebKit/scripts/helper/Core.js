@@ -820,7 +820,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         var hash = /(^|\s)(#)(\w+)/ig;
 
-        return URI.withinString(text, callback).replace(hash, "$1$2<a class='hash' href='https://skate.io/search?q=%23$3'>$3</a>");
+        return URI.withinString(text, callback).replace(hash, "$1<a class='hash' href='https://skate.io/search?q=%23$3'>$2$3</a>");
     }
 
     Core.prototype.parseForMedia = function(text, images) {
