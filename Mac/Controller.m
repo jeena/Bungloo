@@ -410,6 +410,11 @@
     [self openURL:@"http://jabs.nu/bungloo"];
 }
 
+- (IBAction)showNext:(id)sender
+{
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.setContentForNext();"];
+}
+
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity
 {
     NSString *f = [NSString stringWithFormat:@".postDeleted('%@', '%@');", postId, entity];

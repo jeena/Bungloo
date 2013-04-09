@@ -67,6 +67,7 @@
 - (IBAction)showProfile:(id)sender;
 - (IBAction)showSearch:(id)sender;
 - (IBAction)showAbout:(id)sender;
+- (IBAction)showNext:(id)sender;
 
 
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity;
