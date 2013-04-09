@@ -15,6 +15,7 @@ function(HostApp, Core, Paths, URI) {
         this.action = "profile";
 
         this.container = document.createElement("div");
+        this.container.className = this.action;
         document.getElementById("content").appendChild(this.container);
 
         this.initProfileTemplate();

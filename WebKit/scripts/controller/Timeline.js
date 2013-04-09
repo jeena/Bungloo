@@ -20,9 +20,11 @@ function(Core, Paths, HostApp, URI) {
         this.since_id_entity = null;
         this.since_time = 0;
 
+        this.container = document.createElement("div");
+        this.container.className = this.action;
         this.body = document.createElement("ol");
-        this.body.className = this.action;
-        document.getElementById("content").appendChild(this.body);
+        this.container.appendChild(this.body)
+        document.getElementById("content").appendChild(this.container);
 
         var _this = this;
         this.reloadIntervall = setInterval(function() { _this.getNewData() }, this.timeout);
@@ -33,11 +35,11 @@ function(Core, Paths, HostApp, URI) {
     Timeline.prototype = Object.create(Core.prototype);
 
     Timeline.prototype.show = function() {
-        Core.prototype.show.call(this, this.body);
+        Core.prototype.show.call(this, this.container);
     }
 
     Timeline.prototype.hide = function() {
-        Core.prototype.hide.call(this, this.body);
+        Core.prototype.hide.call(this, this.container);
     }
     
 
