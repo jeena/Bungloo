@@ -412,7 +412,7 @@
 
 - (IBAction)showNext:(id)sender
 {
-    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.setContentForNext();"];
+    [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.showContentForNext();"];
 }
 
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity

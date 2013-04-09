@@ -947,6 +947,7 @@
 							</object>
 							<string key="NSFrame">{{20, 20}, {146, 146}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="215157023"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSImageCell" key="NSCell" id="266676500">
@@ -969,6 +970,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{194, 82}, {266, 22}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1063247419"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1015,6 +1017,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{191, 112}, {163, 17}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="643973685"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1048,6 +1051,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{391, 46}, {75, 32}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
+							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="54847478">
@@ -1071,6 +1075,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{373, 55}, {16, 16}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="251531186"/>
 							<string key="NSReuseIdentifierKey">_NS:945</string>
 							<int key="NSpiFlags">28938</int>
@@ -1079,6 +1084,7 @@
 					</object>
 					<string key="NSFrameSize">{480, 186}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="433812480"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
@@ -1109,6 +1115,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 79}, {192, 17}}</string>
 							<reference key="NSSuperview" ref="997375509"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="45817732"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1129,6 +1136,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 49}, {333, 22}}</string>
 							<reference key="NSSuperview" ref="997375509"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1027399246"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1151,6 +1159,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{285, 13}, {74, 32}}</string>
 							<reference key="NSSuperview" ref="997375509"/>
+							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="302504138">
@@ -1172,6 +1181,7 @@
 					</object>
 					<string key="NSFrameSize">{373, 116}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="98105857"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
@@ -1662,6 +1672,14 @@
 						<reference key="destination" ref="407848836"/>
 					</object>
 					<int key="connectionID">696</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showNext:</string>
+						<reference key="source" ref="408500656"/>
+						<reference key="destination" ref="531129805"/>
+					</object>
+					<int key="connectionID">700</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2779,7 +2797,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">698</int>
+			<int key="maxID">700</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2794,10 +2812,15 @@
 							<string>clearCache:</string>
 							<string>login:</string>
 							<string>logout:</string>
+							<string>openNewMessageWindow:</string>
+							<string>sendPost:</string>
 							<string>showAbout:</string>
 							<string>showConversation:</string>
+							<string>showConversationForPostId:andEntity:</string>
 							<string>showMentions:</string>
+							<string>showNext:</string>
 							<string>showProfile:</string>
+							<string>showProfileForEntity:</string>
 							<string>showSearch:</string>
 							<string>showTimeline:</string>
 						</object>
@@ -2810,6 +2833,11 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>NSString</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>NSString</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -2821,10 +2849,15 @@
 							<string>clearCache:</string>
 							<string>login:</string>
 							<string>logout:</string>
+							<string>openNewMessageWindow:</string>
+							<string>sendPost:</string>
 							<string>showAbout:</string>
 							<string>showConversation:</string>
+							<string>showConversationForPostId:andEntity:</string>
 							<string>showMentions:</string>
+							<string>showNext:</string>
 							<string>showProfile:</string>
+							<string>showProfileForEntity:</string>
 							<string>showSearch:</string>
 							<string>showTimeline:</string>
 						</object>
@@ -2843,6 +2876,14 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">openNewMessageWindow:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">sendPost:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">showAbout:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -2851,12 +2892,24 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">showConversationForPostId:andEntity:</string>
+								<string key="candidateClassName">NSString</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">showMentions:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showNext:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showProfile:</string>
 								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showProfileForEntity:</string>
+								<string key="candidateClassName">NSString</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showSearch:</string>
