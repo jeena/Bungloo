@@ -40,6 +40,9 @@ function(HostApp, Paths, Cache) {
 
         document.getElementById("sidebar").appendChild(this.body);
 
+        // initial seting of the <body> class
+        document.body.className = "body-timeline";
+
         this.setEntityAvatar();
     }
 
@@ -150,6 +153,9 @@ function(HostApp, Paths, Cache) {
         }
 
         active_part.show();
+
+        // Replace <body> class
+        document.body.className = "body-" + active_li.className.split("-")[1];
 
         // Show active icon
         for(var li in this.menu) {
