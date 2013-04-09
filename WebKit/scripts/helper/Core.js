@@ -183,6 +183,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             template.remove.style.display = "none";
         }
 
+        if (HostApp.stringForKey("entity") == status.entity) {
+            template.item.className += " own";
+        }
+
         template.reply_to.onclick = function() {
 
             var mentions = [];
