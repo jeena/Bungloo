@@ -154,12 +154,19 @@ class Timeline:
 		searchAction.setStatusTip("Show Search")
 		searchAction.triggered.connect(self.app.search_show)
 
+		nextAction = QtGui.QAction("&Next", self.window)
+		nextAction.setShortcut("Ctrl+6")
+		nextAction.setStatusTip("Show Next")
+		nextAction.triggered.connect(self.app.next_show)
+
 		windowMenu = menubar.addMenu("&View")
 		windowMenu.addAction(timelineAction)
 		windowMenu.addAction(mentionsAction)
 		windowMenu.addAction(conversationAction)
 		windowMenu.addAction(profileAction)
 		windowMenu.addAction(searchAction)
+		windowMenu.addSeparator()
+		windowMenu.addAction(nextAction)
 
 		aboutAction = QtGui.QAction("&About Bungloo", self.window)
 		aboutAction.setStatusTip("Open about page in Webbrowser")

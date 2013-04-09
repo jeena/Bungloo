@@ -89,7 +89,10 @@ class Bungloo:
 		self.oauth_implementation.log_out()
 		self.timeline.hide()
 		self.preferences.show()
-		self.timeline.evaluateJavaScript("bungloo.sidebar.logout()")
+		self.timeline.evaluateJavaScript("bungloo.sidebar.logout();")
+
+	def next_show(self):
+		self.timeline.evaluateJavaScript("bungloo.sidebar.showContentForNext();")
 
 
 class Controller(QtCore.QObject):

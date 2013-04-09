@@ -169,6 +169,29 @@ function(HostApp, Paths, Cache) {
         img.src = img.src_active;
     }
 
+    Sidebar.prototype.showContentForNext = function() {
+
+        var parts = [
+            "timeline",
+            "mentions",
+            "conversation",
+            "entityProfile",
+            "search"
+        ];
+
+        for (var i = 0; i < parts.length; i++) {
+            var part = parts[i];
+            var img = this.menu[part].getElementsByTagName("img")[0];
+            if (img.src.endsWith(img.src_active)) {
+                var next = parts[(i+1)%parts.length];
+                this.showContentFor(bungloo[next], this.menu[next]);
+                return;
+            }
+        }
+
+
+    }
+
     Sidebar.prototype.setUnreadMentions = function(count) {
         this.unreadMentionsSpan.innerHTML = count == 0 ? "" : count;
         if (count > 0) {
