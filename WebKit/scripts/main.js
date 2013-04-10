@@ -44,6 +44,8 @@ function start(view) {
             bungloo.conversation = new Conversation();
             bungloo.search = new Search();
 
+            bungloo.sidebar.showContentForTimeline();
+
         });
 
     }

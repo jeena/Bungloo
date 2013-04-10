@@ -33,10 +33,12 @@ function(HostApp, Timeline, URI, Paths, Core) {
     }
 
 
-    Mentions.prototype.newStatus = function(statuses) {
+    Mentions.prototype.newStatus = function(statuses, append) {
 
-        Timeline.prototype.newStatus.call(this, statuses);
-
+        Timeline.prototype.newStatus.call(this, statuses, append);
+        
+        
+/*
         if(this.is_not_init) {
 
             this.unread_mentions += statuses.length;
@@ -55,10 +57,10 @@ function(HostApp, Timeline, URI, Paths, Core) {
             };
         }
 
-        this.is_not_init = true;
+        this.is_not_init = true;*/
     }
 
-    Mentions.prototype.getNewData = function(add_to_search) {
+    Mentions.prototype.getNewData = function(add_to_search, append) {
 
         add_to_search = add_to_search || {};
 
@@ -66,7 +68,7 @@ function(HostApp, Timeline, URI, Paths, Core) {
             add_to_search["mentioned_entity"] = HostApp.stringForKey("entity");
         }
 
-        Timeline.prototype.getNewData.call(this, add_to_search);
+        Timeline.prototype.getNewData.call(this, add_to_search, append);
     }
 
     Mentions.prototype.mentionRead = function(id, entity) {

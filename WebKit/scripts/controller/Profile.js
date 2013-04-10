@@ -178,6 +178,8 @@ function(HostApp, Core, Paths, URI) {
     Profile.prototype.clear = function() {
 
         this.server = null;
+        this.before = {id: null, entity: null, loading: false};
+
 
         this.profile_template.avatar.src = "img/default-avatar.png";
 
@@ -382,8 +384,10 @@ function(HostApp, Core, Paths, URI) {
     }
 
 
-    Profile.prototype.getStatuses = function(root_url) {
+    Profile.prototype.getStatuses = function(root_url, add_search, append) {
         var _this = this;
+
+        add_search = add_search || {};
 
         var url = URI(root_url + "/posts");
         url.addSearch("limit", 20);
@@ -395,29 +399,38 @@ function(HostApp, Core, Paths, URI) {
         ];
         url.addSearch("post_types", post_types.join(","));
 
+        for(var key in add_search) {
+            url.addSearch(key, add_search[key]);
+        }
+
         Paths.getURL(url.toString(), "GET", function(resp) {
 
             var statuses = JSON.parse(resp.responseText);
 
-            _this.newStatus(statuses);
+            _this.newStatus(statuses, append);
 
         }, null, false);
     }
 
 
-    Profile.prototype.newStatus = function(statuses) {
+    Profile.prototype.newStatus = function(statuses, append) {
+
         if(statuses != null && statuses.length > 0) {
+
+            var last_status = statuses[statuses.length -1];
+            this.before.id = last_status.id
+            this.before.entity = last_status.entity;
+            this.before.loading = false;
+
             for(var i = statuses.length-1, c=0; i>=c; --i) {
 
                 var status = statuses[i];
-                this.since_id = status.id;
-                this.since_id_entity = status.entity;
 
                 if (status.type == "https://tent.io/types/post/status/v0.1.0" || status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
                     var new_node = this.getStatusDOMElement(status);
 
-                    if(this.body.childNodes.length > 0) {
+                    if(!append && this.body.childNodes.length > 0) {
 
                         if(this.body.childNodes.length > this.max_length) {
 
@@ -433,7 +446,7 @@ function(HostApp, Core, Paths, URI) {
 
                 } else if (status.type == "https://tent.io/types/post/delete/v0.1.0") {
 
-                    var li = document.getElementById("post-" + status.content.id);
+                    var li = document.getElementById("post-" + status.content.id + "-" + this.action);
                     if (li) {
                         this.body.removeChild(li);
                     }
@@ -443,6 +456,17 @@ function(HostApp, Core, Paths, URI) {
                 }
 
             }
+        }
+    }
+
+    Profile.prototype.getMoreStatusPosts = function() {
+        if (!this.before.loading && this.before.id) {
+            this.before.loading = true;
+            var add_search = {
+                "before_id": this.before.id,
+                "before_id_entity": this.before.entity
+            }
+            this.getStatuses(this.server, add_search, true);            
         }
     }
 

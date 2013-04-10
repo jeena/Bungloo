@@ -44,6 +44,7 @@ function(HostApp, Paths, Cache) {
         document.body.className = "body-timeline";
 
         this.setEntityAvatar();
+        this.setOnScroll();
     }
 
     Sidebar.prototype.createItem = function(name, callback, src_inactive, src_active, active) {
@@ -153,6 +154,7 @@ function(HostApp, Paths, Cache) {
         }
 
         active_part.show();
+        this.active_view = active_part;
 
         // Replace <body> class
         document.body.className = "body-" + active_li.className.split("-")[1];
@@ -188,8 +190,23 @@ function(HostApp, Paths, Cache) {
                 return;
             }
         }
+    }
 
+    Sidebar.prototype.showContentForTimeline = function() {
+        this.showContentFor(bungloo.timeline, this.menu.timeline);
+    }
 
+    // runs get more posts when scrolling down and
+    // it is possible for the active view
+    Sidebar.prototype.setOnScroll = function() {
+        var _this = this;
+        window.onscroll = function() {
+            if (document.body.scrollHeight <= (document.body.scrollTop + window.outerHeight)) {
+                if (typeof _this.active_view["getMoreStatusPosts"] != "undefined") {
+                    _this.active_view.getMoreStatusPosts();
+                }
+            }
+        }
     }
 
     Sidebar.prototype.setUnreadMentions = function(count) {

@@ -14,6 +14,8 @@ function(HostApp, Core, Paths, URI) {
 
         this.action = "search";
 
+        this.offset = 0;
+
         this.container = document.createElement("div");
         this.container.className = this.action;
         document.getElementById("content").appendChild(this.container);
@@ -27,8 +29,14 @@ function(HostApp, Core, Paths, URI) {
         this.input.placeholder = "Search";
         this.form.appendChild(this.input);
 
+        this.before = {loading: false};
+
         var _this = this;
-        this.form.onsubmit = function() { _this.doSearch(_this.input.value); return false; };
+        this.form.onsubmit = function() {
+            _this.offset = 0;
+            _this.before = {loading: false};
+            _this.doSearch(_this.input.value); return false;
+        };
         this.form.action = "#";
 
         this.container.appendChild(this.form);
@@ -49,9 +57,11 @@ function(HostApp, Core, Paths, URI) {
         Core.prototype.hide.call(this, this.container);
     }
 
-    Search.prototype.doSearch = function(query) {
+    Search.prototype.doSearch = function(query, add_search, append) {
 
-        this.body.innerHTML = ""; // remove old results
+        add_search = add_search || {};
+        
+        if(!append) this.body.innerHTML = ""; // remove old results
         
         if (query == "") return;
         this.input.value = query;
@@ -63,43 +73,67 @@ function(HostApp, Core, Paths, URI) {
         url.addSearch("api_key", api_key);
         url.addSearch("text", query);
 
+        for (key in add_search) {
+            url.addSearch(key, add_search[key]);
+        }
+
         var _this = this;
 
         Paths.getURL(url.toString(), "GET", function(resp) {
 
             var results = JSON.parse(resp.responseText).results;
-            var statuses = [];
-            for (var i = 0; i < results.length; i++) {
-                var result = results[i].source;
-                var status = {
-                    entity: result.entity,
-                    content: {
-                        text: result.content
-                    },
-                    published_at: result.published_at,
-                    id: result.public_id,
-                    type: result.post_type,
-                    version: result.post_version,
-                    app: {
-                        url: "http://skate.io",
-                        name: "skate.io"
-                    },
-                    mentions: []
+            if (results && results.length > 0) {
+
+                _this.before.loading = false;
+
+                var statuses = [];
+                for (var i = 0; i < results.length; i++) {
+                    var result = results[i].source;
+                    var status = {
+                        entity: result.entity,
+                        content: {
+                            text: result.content
+                        },
+                        published_at: result.published_at,
+                        id: result.public_id,
+                        type: result.post_type,
+                        version: result.post_version,
+                        app: {
+                            url: "http://skate.io",
+                            name: "skate.io"
+                        },
+                        mentions: []
+                    }
+
+                    statuses.push(status);
                 }
 
-                statuses.push(status);
-            }
+                for(var i = 0; i < statuses.length; i++) {
+                    var status = statuses[i];
+                    if (status.type == "https://tent.io/types/post/status/v0.1.0") {
 
-            for(var i = 0; i < statuses.length; i++) {
-                var status = statuses[i];
-                if (status.type == "https://tent.io/types/post/status/v0.1.0") {
-
-                    var new_node = _this.getStatusDOMElement(status);
-                    _this.body.appendChild(new_node);
+                        var new_node = _this.getStatusDOMElement(status);
+                        _this.body.appendChild(new_node);
+                    }
                 }
             }
 
         }, null, false);
+    }
+
+    Search.prototype.getMoreStatusPosts = function() {
+
+        if (!this.before.loading) {
+
+            this.offset += 20;
+            
+            this.before.loading = true;
+            var add_search = {
+                "offset": this.offset
+            }
+
+            this.doSearch(this.input.value, add_search, true);
+        }
     }
 
     Search.prototype.searchFor = function(query) {

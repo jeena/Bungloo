@@ -20,6 +20,8 @@ function(Core, Paths, HostApp, URI) {
         this.since_id_entity = null;
         this.since_time = 0;
 
+        this.before = {id: null, entity: null, loading: false};
+
         this.container = document.createElement("div");
         this.container.className = this.action;
         this.body = document.createElement("ol");
@@ -43,20 +45,28 @@ function(Core, Paths, HostApp, URI) {
     }
     
 
-    Timeline.prototype.newStatus = function(statuses) {
+    Timeline.prototype.newStatus = function(statuses, append) {
 
         if(statuses != null && statuses.length > 0) {
+
+            var last_status = statuses[statuses.length -1];
+            this.before.id = last_status.id
+            this.before.entity = last_status.entity;
+            this.before.loading = false;
+
             for(var i = statuses.length-1, c=0; i>=c; --i) {
 
                 var status = statuses[i];
-                this.since_id = status.id;
-                this.since_id_entity = status.entity;
+                if(!append) {
+                    this.since_id = status.id;
+                    this.since_id_entity = status.entity;                    
+                }
 
                 if (status.type == "https://tent.io/types/post/status/v0.1.0" || status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
                     var new_node = this.getStatusDOMElement(status);
 
-                    if(this.body.childNodes.length > 0) {
+                    if(!append && this.body.childNodes.length > 0) {
 
                         if(this.body.childNodes.length > this.max_length) {
 
@@ -76,14 +86,14 @@ function(Core, Paths, HostApp, URI) {
 
                 } else if (status.type == "https://tent.io/types/post/repost/v0.1.0") {
 
-                    this.getRepost(status, this.body.firstChild);
+                    this.getRepost(status, append ? this.body.lastChild : this.body.firstChild, append);
                 }
 
             }
         }
     }
 
-    Timeline.prototype.getNewData = function(add_to_search) {
+    Timeline.prototype.getNewData = function(add_to_search, append) {
 
         add_to_search = add_to_search || {};
 
@@ -100,7 +110,7 @@ function(Core, Paths, HostApp, URI) {
 
         url.addSearch("limit", this.max_length);
 
-        if(this.since_id) {
+        if(this.since_id  && !append) {
             url.addSearch("since_id", this.since_id);
             url.addSearch("since_id_entity", this.since_id_entity);
         }
@@ -116,8 +126,8 @@ function(Core, Paths, HostApp, URI) {
 
             try {
 
-                var json = JSON.parse(resp.responseText)
-                those.newStatus(json);
+                var json = JSON.parse(resp.responseText);
+                those.newStatus(json, append);
 
             } catch (e) {
                 console.error(url + " JSON parse error");
@@ -133,6 +143,17 @@ function(Core, Paths, HostApp, URI) {
                 this.reload_blocked = true;
                 Paths.getURL(url.toString(), http_method, callback, data); // FIXME: error callback
             }
+        }
+    }
+
+    Timeline.prototype.getMoreStatusPosts = function() {
+        if (!this.before.loading && this.before.id) {
+            this.before.loading = true;
+            var add_search = {
+                "before_id": this.before.id,
+                "before_id_entity": this.before.entity
+            }
+            this.getNewData(add_search, true);            
         }
     }
 
