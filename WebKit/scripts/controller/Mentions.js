@@ -36,13 +36,8 @@ function(HostApp, Timeline, URI, Paths, Core) {
     Mentions.prototype.newStatus = function(statuses, append) {
 
         Timeline.prototype.newStatus.call(this, statuses, append);
-        
-        
-/*
-        if(this.is_not_init) {
 
-            this.unread_mentions += statuses.length;
-            HostApp.unreadMentions(this.unread_mentions);
+        if(this.is_not_init) {
 
             for (var i = 0; i < statuses.length; i++) {
                 var status = statuses[i];
@@ -57,7 +52,7 @@ function(HostApp, Timeline, URI, Paths, Core) {
             };
         }
 
-        this.is_not_init = true;*/
+        this.is_not_init = true;
     }
 
     Mentions.prototype.getNewData = function(add_to_search, append) {
@@ -69,6 +64,8 @@ function(HostApp, Timeline, URI, Paths, Core) {
         }
 
         Timeline.prototype.getNewData.call(this, add_to_search, append);
+
+        this.getLatestMentionRead();
     }
 
     Mentions.prototype.mentionRead = function(id, entity) {
@@ -107,6 +104,38 @@ function(HostApp, Timeline, URI, Paths, Core) {
 
             Paths.getURL(url.toString(), "PUT", callback, JSON.stringify(body));
         }
+    }
+
+
+    Mentions.prototype.getLatestMentionRead = function() {
+
+        var cursor_url = URI(Paths.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
+
+        Paths.getURL(cursor_url.toString(), "GET", function(resp) {
+
+            var url = URI(Paths.mkApiRootPath("/posts/count"));
+            var post_types = [
+                "https://tent.io/types/post/status/v0.1.0",
+            ];
+            url.addSearch("post_types", post_types.join(","));
+            url.addSearch("mentioned_entity", HostApp.stringForKey("entity"));
+
+
+            try { // don't crash when there is no cursor yet
+                var body = JSON.parse(resp.responseText);
+                var cursor = body["https://tent.io/types/info/cursor/v0.1.0"]["mentions"]["https://tent.io/types/post/status/v0.1.0"];
+                url.addSearch("since_id", cursor.post_id);
+                url.addSearch("since_id_entity", cursor.post_entity);
+            } catch(e) { }
+
+            var callback = function(resp) {
+                this.unread_mentions = parseInt(resp.responseText, 10);
+                HostApp.unreadMentions(this.unread_mentions);
+            }
+
+            debug(url.toString())
+            Paths.getURL(url.toString(), "GET", callback); // FIXME: error callback
+        });
     }
 
 
