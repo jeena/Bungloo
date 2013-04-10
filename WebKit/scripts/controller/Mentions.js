@@ -48,8 +48,8 @@ function(HostApp, Timeline, URI, Paths, Core) {
                     name = profile["https://tent.io/types/info/basic/v0.1.0"].name;
                 }
 
-                HostApp.notificateUserAboutMention(status.content.text, name || status.entity, status.id, status.entity);
-            };
+                if(!append) HostApp.notificateUserAboutMention(status.content.text, name || status.entity, status.id, status.entity);
+            }
         }
 
         this.is_not_init = true;
@@ -82,6 +82,7 @@ function(HostApp, Timeline, URI, Paths, Core) {
     }
 
     Mentions.prototype.updateLatestMentionRead = function() {
+
         var status = this.body.firstChild.status;
 
         if (status && status.type == "https://tent.io/types/post/status/v0.1.0") {
