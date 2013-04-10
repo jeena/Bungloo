@@ -133,7 +133,6 @@ function(HostApp, Timeline, URI, Paths, Core) {
                 HostApp.unreadMentions(this.unread_mentions);
             }
 
-            debug(url.toString())
             Paths.getURL(url.toString(), "GET", callback); // FIXME: error callback
         });
     }
