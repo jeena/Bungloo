@@ -901,7 +901,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     }
 
     Core.prototype.postDeleted = function(post_id, entity) {
-        var li = document.getElementById("post-" + post_id);
+        var li = document.getElementById("post-" + post_id + "-" + this.action);
         if (li) {
             if (li.parentNode == this.body) {
                 this.body.removeChild(li);
