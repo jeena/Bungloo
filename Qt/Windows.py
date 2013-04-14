@@ -76,10 +76,11 @@ class Preferences:
 
 class Timeline:
 
-	def __init__(self, app, action="timeline", title="Bungloo"):
+	def __init__(self, app, action="timeline", title="Bungloo", custom_after_load=None):
 		self.app = app
 		self.action = action
 		self.title = title
+		self.custom_after_load = custom_after_load
 
 		self.window = Helper.RestorableWindow(action, self.app)
 		self.window.setWindowTitle(title)
@@ -182,8 +183,7 @@ class Timeline:
 
 	def show(self):
 		self.window.show()
-		#self.window.raise_()
-		#QtGui.qApp.setActiveWindow(self.window)
+		
 	def close(self):
 		self.window.close()
 
@@ -192,6 +192,8 @@ class Timeline:
 
 	def load_finished(self, widget):
 		script = "function HostAppGo() { start('" + self.action + "'); }"
+		if self.custom_after_load:
+			script = self.custom_after_load
 		self.webView.page().mainFrame().evaluateJavaScript(script)
 
 	def set_window_title(self, title):

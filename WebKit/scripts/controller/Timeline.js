@@ -14,7 +14,7 @@ function(Core, Paths, HostApp, URI) {
         this.action = "timeline";
         this.reload_blocked = false;
 
-        this.max_length = 20;
+        this.max_length = 25;
         this.timeout = 10 * 1000; // every 10 seconds
         this.since_id = null;
         this.since_id_entity = null;
@@ -49,10 +49,9 @@ function(Core, Paths, HostApp, URI) {
 
         if(statuses != null && statuses.length > 0) {
 
-            var last_status = statuses[statuses.length -1];
-            this.before.id = last_status.id
-            this.before.entity = last_status.entity;
             this.before.loading = false;
+
+            if (append) statuses = statuses.reverse();
 
             for(var i = statuses.length-1, c=0; i>=c; --i) {
 
@@ -66,18 +65,20 @@ function(Core, Paths, HostApp, URI) {
 
                     var new_node = this.getStatusDOMElement(status);
 
-                    if(!append && this.body.childNodes.length > 0) {
+                    if (!document.getElementById(new_node.id)) {
+                        if(!append && this.body.childNodes.length > 0) {
 
-                        if(this.body.childNodes.length > this.max_length) {
+                            if(this.body.childNodes.length > this.max_length) {
 
-                            this.body.removeChild(this.body.lastChild);
+                                this.body.removeChild(this.body.lastChild);
+                            }
+
+                            this.body.insertBefore(new_node, this.body.firstChild);
+
+                        } else {
+
+                            this.body.appendChild(new_node);
                         }
-
-                        this.body.insertBefore(new_node, this.body.firstChild);
-
-                    } else {
-
-                        this.body.appendChild(new_node);
                     }
 
                 } else if (status.type == "https://tent.io/types/post/delete/v0.1.0") {
@@ -107,7 +108,7 @@ function(Core, Paths, HostApp, URI) {
             "https://tent.io/types/post/photo/v0.1.0"
         ];
         url.addSearch("post_types", post_types.join(","));
-
+        //url.addSearch("sort_by", "published_at");
         url.addSearch("limit", this.max_length);
 
         if(this.since_id  && !append) {
@@ -147,12 +148,13 @@ function(Core, Paths, HostApp, URI) {
     }
 
     Timeline.prototype.getMoreStatusPosts = function() {
-        if (!this.before.loading && this.before.id) {
+        if (!this.before.loading) {
             this.before.loading = true;
             var add_search = {
-                "before_id": this.before.id,
-                "before_id_entity": this.before.entity
+                "before_id": this.body.lastChild.status.id,
+                "before_id_entity": this.body.lastChild.status.entity
             }
+
             this.getNewData(add_search, true);            
         }
     }

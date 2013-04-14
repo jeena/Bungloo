@@ -14,13 +14,22 @@ requirejs.config({
     baseUrl: 'scripts'
 });
 
-function start(view) {
+function start(view, callback) {
 
     if (view == "oauth") {
 
         require(["controller/Oauth"], function(Oauth) {
 
             bungloo.oauth = new Oauth();
+
+        });
+
+    } else if (view == "conversation-standalone") {
+
+        require(["controller/Conversation"], function(Conversation) {
+
+            bungloo.conversation = new Conversation(true);
+            if(callback) callback();
 
         });
 
@@ -141,7 +150,7 @@ function loadCssPlugin(css_url) {
 function debug(string) {
 
     if (typeof string != "string") {
-        string = JSON.stringify(string);
+        string = JSON.stringify(string);            
     }
 
     console.debug(string);

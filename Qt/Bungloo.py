@@ -28,6 +28,7 @@ class Bungloo:
 		self.preferences.show()
 
 		self.oauth_implementation = Windows.Oauth(self)
+		self.conversation_views = []
 
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
@@ -160,10 +161,10 @@ class Controller(QtCore.QObject):
 	@QtCore.pyqtSlot(str, str, str, str)
 	def notificateUserAboutMentionFromNameWithPostIdAndEntity(self, text, name, post_id, entity):
 		try:
-			subprocess.check_output(['kdialog', '--passivepopup', name + ' mentioned you: ' + text])
+			subprocess.check_output(['kdialog', '--passivepopup', (name + ' mentioned you: ' + text).replace("\"", "\\\"")])
 		except OSError:
 			try:
-				subprocess.check_output(['notify-send', '-i', 'dialog-information', name + ' mentioned you on Tent', text])
+				subprocess.check_output(['notify-send', '-i', 'dialog-information', name.replace("\"", "\\\"") + ' mentioned you on Tent', text.replace("\"", "\\\"")])
 			except OSError:
 				pass
 
@@ -220,6 +221,16 @@ class Controller(QtCore.QObject):
 		func = "bungloo.sidebar.onConversation(); bungloo.conversation.showStatus('{}', '{}');".format(postId, entity)
 		self.app.timeline.evaluateJavaScript(func)
 		self.app.timeline.show()
+
+	@QtCore.pyqtSlot(str, str)	
+	def showConversationViewForPostIdandEntity(self, postId, entity):
+		custom_after_load = "function HostAppGo() { start('conversation-standalone', function() { bungloo.conversation.showStatus("
+		custom_after_load += "'{}', '{}'".format(postId, entity)
+		custom_after_load += "); }) }"
+
+		conversation = Windows.Timeline(self.app, "conversation", "Conversation", custom_after_load)
+		self.app.conversation_views += [conversation]
+		conversation.show()
 
 	@QtCore.pyqtSlot(str)
 	def showProfileForEntity(self, entity):

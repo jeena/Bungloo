@@ -417,10 +417,9 @@ function(HostApp, Core, Paths, URI) {
 
         if(statuses != null && statuses.length > 0) {
 
-            var last_status = statuses[statuses.length -1];
-            this.before.id = last_status.id
-            this.before.entity = last_status.entity;
             this.before.loading = false;
+
+            if (append) statuses = statuses.reverse();
 
             for(var i = statuses.length-1, c=0; i>=c; --i) {
 
@@ -460,11 +459,11 @@ function(HostApp, Core, Paths, URI) {
     }
 
     Profile.prototype.getMoreStatusPosts = function() {
-        if (!this.before.loading && this.before.id) {
+        if (!this.before.loading) {
             this.before.loading = true;
             var add_search = {
-                "before_id": this.before.id,
-                "before_id_entity": this.before.entity
+                "before_id": this.body.lastChild.status.id,
+                "before_id_entity": this.body.lastChild.status.entity
             }
             this.getStatuses(this.server, add_search, true);            
         }

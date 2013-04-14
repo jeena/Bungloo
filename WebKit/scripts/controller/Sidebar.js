@@ -20,8 +20,7 @@ function(HostApp, Paths, Cache) {
 
         this.menu.user = this.createItem("User", function() { _this.onEntity(); return false; }, "img/sidebar/user.png", "img/sidebar/user.png");
         this.menu.timeline = this.createItem("Timeline", function() { _this.onTimeline(); return false; }, "img/sidebar/timeline.png", "img/sidebar/timeline_active.png", true);
-        this.menu.mentions = this.createItem("Mentions", function() { _this.onMentions(); return false; }, "img/sidebar/mentions.png", "img/sidebar/mentions_active.png");
-        
+        this.menu.mentions = this.createItem("Mentions", function() { _this.onMentions(); return false; }, "img/sidebar/mentions.png", "img/sidebar/mentions_active.png");        
         this.menu.conversation = this.createItem("Conversation", function() { _this.onConversation(); return false; }, "img/sidebar/conversation.png", "img/sidebar/conversation_active.png");
         this.menu.entityProfile = this.createItem("Profile", function() { _this.onEntityProfile(); return false; }, "img/sidebar/profile.png", "img/sidebar/profile_active.png");
         this.menu.search = this.createItem("Search", function() { _this.onSearch(); return false; }, "img/sidebar/search.png", "img/sidebar/search_active.png")
@@ -35,13 +34,22 @@ function(HostApp, Paths, Cache) {
 
         this.unreadMentionsSpan = document.createElement("span");
         this.unreadMentionsSpan.className = "unread_mentions";
-        this.menu.mentions.appendChild(this.unreadMentionsSpan);
+        this.menu.mentions.getElementsByTagName("a")[0].appendChild(this.unreadMentionsSpan);
         this.setUnreadMentions(0);
+
+        this.menu.conversation.getElementsByTagName("a")[0].ondblclick = function() {
+            var postId = bungloo.conversation.current_post_id;
+            var entity = bungloo.conversation.current_entity;
+            if (postId && entity) {
+                HostApp.showConversationViewForPostIdandEntity(postId, entity);
+            }
+        }
 
         document.getElementById("sidebar").appendChild(this.body);
 
         // initial seting of the <body> class
         document.body.className = "body-timeline";
+        document.body.id = "with-sidebar";
 
         this.setEntityAvatar();
         this.setOnScroll();

@@ -4,7 +4,8 @@ define([
     "lib/URI",
     "helper/HostApp",
     "helper/Cache",
-    "lib/Timeago"
+    "lib/Timeago",
+    "lib/SingleDoubleClick"
 ],
 
 function(jQuery, Paths, URI, HostApp, Cache) {
@@ -336,10 +337,12 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         template.ago.appendChild(time);
 
         template.ago.href = "#"
-        template.ago.onclick = function() {
+        
+        $(template.ago).single_double_click(function () {
             HostApp.showConversation(status.id, status.entity);
-            return false;
-        }
+        }, function () {
+            HostApp.showConversationViewForPostIdandEntity(status.id, status.entity);
+        });
 
         // {"type":"Point","coordinates":[57.10803113,12.25854746]}
         if (status.content && status.content.location && (typeof status.content.location.type == "undefined" || status.content.location.type == "Point")) {
@@ -370,7 +373,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     }
 
 
-    Core.prototype.getRepost = function(repost, before_node) {
+    Core.prototype.getRepost = function(repost, before_node, append) {
 
         var post = document.getElementById("post-" + repost.content.id + "-" + this.action);
 
@@ -450,7 +453,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     var status = JSON.parse(resp.responseText);
                     status.__repost = repost;
                     var li = _this.getStatusDOMElement(status);
-                    before_node.parentNode.insertBefore(li, before_node);
+                    if(!document.getElementById(li.id)) before_node.parentNode.insertBefore(li, before_node);
                     _this.getRepost(repost, before_node); // call this recursive because we now have the repost
                 }
             }
@@ -994,7 +997,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     Core.prototype.afterChangingTextinMessageHTML = function(message_node) {                
         // adding show search on click hash
         $(message_node).find("a.hash").click(function(e) {
-            bungloo.search.searchFor(e.target.innerHTML);
+
+            if(bungloo.search) bungloo.search.searchFor(e.target.innerHTML);
             return false;
         });
 

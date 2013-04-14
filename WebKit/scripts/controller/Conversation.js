@@ -8,9 +8,11 @@ define([
 function(HostApp, Core, Paths, URI) {
 
 
-    function Conversation() {
+    function Conversation(standalone) {
 
         Core.call(this);
+        
+        this.standalone = standalone;
 
         this.action = "conversation";
 
@@ -20,7 +22,7 @@ function(HostApp, Core, Paths, URI) {
         this.container.appendChild(this.body)
 
         document.getElementById("content").appendChild(this.container);
-        this.hide();
+        if(!this.standalone) this.hide();
     }
 
     Conversation.prototype = Object.create(Core.prototype);
@@ -43,6 +45,8 @@ function(HostApp, Core, Paths, URI) {
     Conversation.prototype.showStatus = function(id, entity) {
 
         this.body.innerHTML = "";
+        this.current_post_id = id;
+        this.current_entity = entity;
         this.append(id, entity);
     }
 

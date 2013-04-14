@@ -95,6 +95,14 @@ define(function() {
         }
     }
 
+    HostApp.showConversationViewForPostIdandEntity = function(id, entity) {
+        if (OS_TYPE == "mac") {
+            controller.showConversationViewForPostId_andEntity_(id, entity);
+        } else {
+            controller.showConversationViewForPostIdandEntity(id, entity);
+        }
+    }
+
     HostApp.showProfileForEntity = function(entity) {
 
         if (OS_TYPE == "mac") {

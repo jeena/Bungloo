@@ -7,16 +7,25 @@ html, body {
 body {
 	font-family: "Lucida Grande", "Open Sans", "Ubuntu", Tahoma, sans-serif;
 	font-size: 11px;
-	background: #dedede url(../img/background.png) center center no-repeat;
+	background: #dedede center center no-repeat;
+}
+
+body#with-sidebar {
+	background-image: url(../img/background.png);
 }
 
 a {
 	text-decoration: none;
 	color: #00317a;
     outline: 0;
-} 	
+}
 
 #sidebar {
+	display: none;
+}	
+
+#with-sidebar #sidebar {
+	display: block;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -59,7 +68,7 @@ a {
 	/*display: none;*/
 }
 
-#content {
+#with-sidebar #content {
 	margin-left: 62px;
 }
 
