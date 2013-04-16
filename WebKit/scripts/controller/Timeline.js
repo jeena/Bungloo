@@ -14,7 +14,8 @@ function(Core, Paths, HostApp, URI) {
         this.action = "timeline";
         this.reload_blocked = false;
 
-        this.max_length = 25;
+        this.posts_limit = 25;
+        this.max_length = 200;
         this.timeout = 10 * 1000; // every 10 seconds
         this.since_id = null;
         this.since_id_entity = null;
@@ -109,7 +110,7 @@ function(Core, Paths, HostApp, URI) {
         ];
         url.addSearch("post_types", post_types.join(","));
         //url.addSearch("sort_by", "published_at");
-        url.addSearch("limit", this.max_length);
+        url.addSearch("limit", this.posts_limit);
 
         if(this.since_id  && !append) {
             url.addSearch("since_id", this.since_id);

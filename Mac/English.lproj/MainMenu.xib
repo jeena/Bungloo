@@ -887,12 +887,14 @@
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<object class="NSArray" key="dict.sortedKeys">
 										<bool key="EncodedWithXMLCoder">YES</bool>
+										<string>13WebKitAllowAnimatedImageLoopingPreferenceKey</string>
 										<string>13WebKitJavaEnabled</string>
 										<string>13WebKitJavaScriptCanOpenWindowsAutomatically</string>
 										<string>13WebKitPluginsEnabled</string>
 									</object>
 									<object class="NSArray" key="dict.values">
 										<bool key="EncodedWithXMLCoder">YES</bool>
+										<boolean value="NO"/>
 										<boolean value="NO"/>
 										<boolean value="NO"/>
 										<boolean value="NO"/>
@@ -1052,6 +1054,7 @@
 							<string key="NSFrame">{{391, 46}, {75, 32}}</string>
 							<reference key="NSSuperview" ref="503676418"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="54847478">
@@ -1160,6 +1163,7 @@
 							<string key="NSFrame">{{285, 13}, {74, 32}}</string>
 							<reference key="NSSuperview" ref="997375509"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="302504138">
@@ -2812,15 +2816,11 @@
 							<string>clearCache:</string>
 							<string>login:</string>
 							<string>logout:</string>
-							<string>openNewMessageWindow:</string>
-							<string>sendPost:</string>
 							<string>showAbout:</string>
 							<string>showConversation:</string>
-							<string>showConversationForPostId:andEntity:</string>
 							<string>showMentions:</string>
 							<string>showNext:</string>
 							<string>showProfile:</string>
-							<string>showProfileForEntity:</string>
 							<string>showSearch:</string>
 							<string>showTimeline:</string>
 						</object>
@@ -2833,11 +2833,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
-							<string>NSString</string>
 							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>NSString</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -2849,15 +2845,11 @@
 							<string>clearCache:</string>
 							<string>login:</string>
 							<string>logout:</string>
-							<string>openNewMessageWindow:</string>
-							<string>sendPost:</string>
 							<string>showAbout:</string>
 							<string>showConversation:</string>
-							<string>showConversationForPostId:andEntity:</string>
 							<string>showMentions:</string>
 							<string>showNext:</string>
 							<string>showProfile:</string>
-							<string>showProfileForEntity:</string>
 							<string>showSearch:</string>
 							<string>showTimeline:</string>
 						</object>
@@ -2876,24 +2868,12 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">openNewMessageWindow:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">sendPost:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">showAbout:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showConversation:</string>
 								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showConversationForPostId:andEntity:</string>
-								<string key="candidateClassName">NSString</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showMentions:</string>
@@ -2906,10 +2886,6 @@
 							<object class="IBActionInfo">
 								<string key="name">showProfile:</string>
 								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showProfileForEntity:</string>
-								<string key="candidateClassName">NSString</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showSearch:</string>

@@ -50,6 +50,11 @@ function(HostApp, Core, Paths, URI) {
         this.append(id, entity);
     }
 
+    // Hack for OS X
+    Conversation.prototype.showStatusFromController = function() {
+        this.showStatus(conversationViewController.postId, conversationViewController.entity);
+    }
+
     Conversation.prototype.append = function(id, entity, node, add_after) {
 
         var _this = this;

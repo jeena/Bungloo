@@ -22,6 +22,8 @@
 		1F880B6B165EE0F60022A84D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F880B6A165EE0F60022A84D /* NSData+Base64.m */; };
 		1F880B6E165FE8890022A84D /* MimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F880B6D165FE8890022A84D /* MimeType.m */; };
 		1FA09847144602530079E258 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA09846144602530079E258 /* libicucore.dylib */; };
+		1FADDCED171DCBF400502891 /* NewConversationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FADDCEB171DCBF400502891 /* NewConversationWindowController.m */; };
+		1FADDCEE171DCBF400502891 /* NewConversationWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FADDCEC171DCBF400502891 /* NewConversationWindowController.xib */; };
 		1FC254A01427DFAD0035D84B /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2549B1427D9930035D84B /* AccessToken.m */; };
 		1FDEF722164EFE9100F927F3 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FDEF721164EFE9100F927F3 /* Growl.framework */; };
 		1FDEF723164EFF3100F927F3 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FDEF721164EFE9100F927F3 /* Growl.framework */; };
@@ -77,6 +79,9 @@
 		1F880B6C165FE8890022A84D /* MimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MimeType.h; sourceTree = "<group>"; };
 		1F880B6D165FE8890022A84D /* MimeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MimeType.m; sourceTree = "<group>"; };
 		1FA09846144602530079E258 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		1FADDCEA171DCBF400502891 /* NewConversationWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewConversationWindowController.h; sourceTree = "<group>"; };
+		1FADDCEB171DCBF400502891 /* NewConversationWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewConversationWindowController.m; sourceTree = "<group>"; };
+		1FADDCEC171DCBF400502891 /* NewConversationWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewConversationWindowController.xib; sourceTree = "<group>"; };
 		1FC2549A1427D9930035D84B /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AccessToken.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FC2549B1427D9930035D84B /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccessToken.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1FDEF721164EFE9100F927F3 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
@@ -185,6 +190,8 @@
 				1F880B6A165EE0F60022A84D /* NSData+Base64.m */,
 				1F880B6C165FE8890022A84D /* MimeType.h */,
 				1F880B6D165FE8890022A84D /* MimeType.m */,
+				1FADDCEA171DCBF400502891 /* NewConversationWindowController.h */,
+				1FADDCEB171DCBF400502891 /* NewConversationWindowController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -210,6 +217,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* NewMessageWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				1FADDCEC171DCBF400502891 /* NewConversationWindowController.xib */,
 				1FDEF724164F079800F927F3 /* Growl Registration Ticket.growlRegDict */,
 			);
 			name = Resources;
@@ -287,6 +295,7 @@
 				1F122D49118E1DE100E83B77 /* Icon.icns in Resources */,
 				1F1C80F916482A250010B409 /* WebKit in Resources */,
 				1F132C791666CD9700E4E661 /* TB_SendTemplate.png in Resources */,
+				1FADDCEE171DCBF400502891 /* NewConversationWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +315,7 @@
 				1F618ECA12DB5E6100E500D9 /* PostModel.m in Sources */,
 				1F880B6B165EE0F60022A84D /* NSData+Base64.m in Sources */,
 				1F880B6E165FE8890022A84D /* MimeType.m in Sources */,
+				1FADDCED171DCBF400502891 /* NewConversationWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

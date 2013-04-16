@@ -42,7 +42,7 @@
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{133, 535}, {299, 113}}</string>
-				<int key="NSWTFlags">1886913536</int>
+				<int key="NSWTFlags">813171712</int>
 				<string key="NSWindowTitle">New Post</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<string key="NSViewClass">View</string>

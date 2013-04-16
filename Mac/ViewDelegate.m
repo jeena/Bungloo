@@ -11,7 +11,16 @@
 
 @implementation ViewDelegate
 
-@synthesize timelineView, oauthView;
+@synthesize timelineView, oauthView, conversationViews;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.conversationViews = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
 
 - (void)webView:(WebView *)sender addMessageToConsole:(NSDictionary *)message {
 
@@ -19,6 +28,7 @@
 
 	NSString *viewName = @"TimelineView";
 	if (sender == oauthView) viewName = @"OauthView";
+    else if(sender != timelineView) viewName = @"ConversationView";
     
 	NSLog(@"js<%@>: %@:%@: %@",
 		viewName,
@@ -31,6 +41,7 @@
 - (void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
 	NSString *viewName = @"TimelineView";
 	if (sender == oauthView) viewName = @"OauthView";
+    else if (sender != timelineView) viewName = @"ConversationView";
 
 	NSLog(@"jsa<%@>: %@", viewName, message);
 }
@@ -75,11 +86,15 @@
 	}
 
 	[sender stringByEvaluatingJavaScriptFromString:@"var OS_TYPE = 'mac';"];
-
+    
 	if (sender == oauthView) {
 
 		[oauthView stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('oauth') }"];
 
+    } else if([conversationViews containsObject:sender]) {
+        
+        [sender stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('conversation-standalone', function() { bungloo.conversation.showStatusFromController(); }) }"];
+        
 	} else {
 
 		[sender stringByEvaluatingJavaScriptFromString:@"function HostAppGo() { start('timeline') }"];

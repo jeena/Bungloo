@@ -10,6 +10,7 @@
 #import "NewMessageWindow.h"
 #import "PostModel.h"
 #import "NSData+Base64.h"
+#import "NewConversationWindowController.h"
 
 @implementation Controller
 @synthesize showProfileTextField;
@@ -385,6 +386,12 @@
 - (IBAction)showConversation:(id)sender
 {
     [timelineView stringByEvaluatingJavaScriptFromString:@"bungloo.sidebar.onConversation();"];
+}
+
+- (IBAction)showConversationViewForPostId:(NSString *)postId andEntity:(NSString *)entity
+{
+    NewConversationWindowController *conversationView = [[NewConversationWindowController alloc] initWithPostId:postId entity:entity andViewDelegate:viewDelegate];
+    [conversationView showWindow:conversationView.window];
 }
 
 - (IBAction)showProfile:(id)sender

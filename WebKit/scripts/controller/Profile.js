@@ -14,6 +14,8 @@ function(HostApp, Core, Paths, URI) {
 
         this.action = "profile";
 
+        this.posts_limit = 25;
+
         this.container = document.createElement("div");
         this.container.className = this.action;
         document.getElementById("content").appendChild(this.container);
@@ -390,7 +392,7 @@ function(HostApp, Core, Paths, URI) {
         add_search = add_search || {};
 
         var url = URI(root_url + "/posts");
-        url.addSearch("limit", 20);
+        url.addSearch("limit", this.posts_limit);
 
         var post_types = [
             "https://tent.io/types/post/repost/v0.1.0",

@@ -11,9 +11,12 @@
 #import "Constants.h"
 
 @interface ViewDelegate : NSObject {
-	WebView *timelineView;	WebView *oauthView;
+	WebView *timelineView;
+    WebView *oauthView;
+    NSMutableArray *conversationViews;
 }
 
-@property (nonatomic, assign) WebView *timelineView;@property (nonatomic, assign) WebView *oauthView;
-
+@property (nonatomic, assign) WebView *timelineView;
+@property (nonatomic, assign) WebView *oauthView;
+@property (nonatomic, assign) NSMutableArray *conversationViews;
 @end
