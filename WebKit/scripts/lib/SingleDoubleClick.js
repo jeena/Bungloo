@@ -23,6 +23,7 @@ jQuery.fn.single_double_click = function(single_click_callback, double_click_cal
           clicks = 0;
         }, timeout || 300);
       }
+      return false; // added by jeena so it doesn't follow links
     });
   });
 }

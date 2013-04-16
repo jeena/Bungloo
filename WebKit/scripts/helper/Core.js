@@ -340,8 +340,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         
         $(template.ago).single_double_click(function () {
             HostApp.showConversation(status.id, status.entity);
+            return false;
         }, function () {
             HostApp.showConversationViewForPostIdandEntity(status.id, status.entity);
+            return false;
         });
 
         // {"type":"Point","coordinates":[57.10803113,12.25854746]}

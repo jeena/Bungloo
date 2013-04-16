@@ -89,18 +89,16 @@ function(HostApp, Timeline, URI, Paths, Core) {
 
             var url = URI(Paths.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
             var body = {
-                "https://tent.io/types/info/cursor/v0.1.0": {
-                    "mentions": {
-                        "https://tent.io/types/post/status/v0.1.0": {
-                            "post_id": status.id,
-                            "post_entity": status.entity
-                        }
+                "mentions": {
+                    "https://tent.io/types/post/status/v0.1.0": {
+                        "post": status.id,
+                        "entity": status.entity
                     }
                 }
             }
 
             var callback = function(resp) {
-                //debug(resp)
+
             }
 
             Paths.getURL(url.toString(), "PUT", callback, JSON.stringify(body));
@@ -124,16 +122,16 @@ function(HostApp, Timeline, URI, Paths, Core) {
 
             try { // don't crash when there is no cursor yet
                 var body = JSON.parse(resp.responseText);
-                var cursor = body["https://tent.io/types/info/cursor/v0.1.0"]["mentions"]["https://tent.io/types/post/status/v0.1.0"];
-                url.addSearch("since_id", cursor.post_id);
-                url.addSearch("since_id_entity", cursor.post_entity);
+                var cursor = body["mentions"]["https://tent.io/types/post/status/v0.1.0"];
+                url.addSearch("since_id", cursor["post"]);
+                url.addSearch("since_id_entity", cursor["entity"]);
             } catch(e) { }
 
             var callback = function(resp) {
                 this.unread_mentions = parseInt(resp.responseText, 10);
                 HostApp.unreadMentions(this.unread_mentions);
             }
-
+            
             Paths.getURL(url.toString(), "GET", callback); // FIXME: error callback
         });
     }
