@@ -13,19 +13,28 @@ for dirname, dirnames, filenames in os.walk('images'):
     for filename in filenames:
         files += [(dirname, [os.path.join(dirname, filename)])]
 
+imageformats = []
+for dirname, dirnames, filenames in os.walk('C:\\Python27\\Lib\\site-packages\\PyQt4\\plugins\\imageformats'):
+    for filename in filenames:
+        imageformats += [os.path.join(dirname, filename)]
+
+files += [('imageformats', imageformats)]
+
 setup(
     name = "Bungloo",
-    version = "1.3.0",
+    version = "1.4.0",
     author = "Jeena Paradies",
     author_email = "spam@jeenaparadies.net",
     url = "http://jabs.nu/bungloo",
     license = "BSD license",
     data_files = files,
-    windows = ["Bungloo.py"],
+    windows = [{
+        'script': "Bungloo.py",
+        'icon_resources': [(1, 'images/Icon.ico')],
+    }],
     options = {
-            "py2exe": {
-                "includes": ["sip", "ssl", "PyQt4.QtCore", "PyQt4.QtGui", "PyQt4.QtNetwork"],
-                "bundle_files": 2
-            }
+        "py2exe": {
+            "includes": ["sip", "ssl", "PyQt4.QtCore", "PyQt4.QtGui", "PyQt4.QtNetwork"],
         }
-    )
+    }
+)
