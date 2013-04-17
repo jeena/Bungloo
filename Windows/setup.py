@@ -15,7 +15,7 @@ for dirname, dirnames, filenames in os.walk('images'):
 
 setup(
     name = "Bungloo",
-    version = "1.3.0",
+    version = "1.4.0",
     author = "Jeena Paradies",
     author_email = "spam@jeenaparadies.net",
     url = "http://jabs.nu/bungloo",
