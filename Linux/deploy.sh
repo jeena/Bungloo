@@ -24,7 +24,6 @@ cp -r $SHAREDPATH/images $DEPLOYPATH/bungloo/
 cp $SHAREDPATH/readme.md $DEPLOYPATH/README
 cp $SHAREDPATH/LICENCE.txt $DEPLOYPATH/COPYING
 cp -r debian $DEPLOYPATH/
-cp bungloo.desktop $DEPLOYPATH/
 
 cd $DEPLOYPATH
 make builddeb
