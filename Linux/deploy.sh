@@ -4,7 +4,7 @@ VERSION="1.4.0"
 DEPLOYPATH="bungloo-${VERSION}"
 QTPATH="../Qt"
 SHAREDPATH=".."
-DISTPATH=dist
+DISTPATH="dist"
 
 rm -rf $DEPLOYPATH
 rm -rf $DISTPATH
@@ -41,6 +41,7 @@ rm bungloo_${VERSION}.dsc
 rm bungloo_${VERSION}.orig.tar.gz
 rm -rf $DEPLOYPATH
 rm $DISTPATH/bungloo-${VERSION}-1.src.rpm
+mv $DISTPATH/bungloo-${VERSION}-1.noarch.rpm $DISTPATH/bungloo-${VERSION}.noarch.rpm
 
 echo "Done."
 

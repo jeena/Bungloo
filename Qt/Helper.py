@@ -12,7 +12,10 @@ import array
 class Helper:
     @classmethod
     def get_resource_path(cls):
-		return os.path.dirname(sys.argv[0])
+    	if os.name == "nt":
+			return os.path.dirname(sys.argv[0])
+    	else:
+			return os.path.dirname(__file__)
 
 class WebPage(QtWebKit.QWebPage):
 	def __init__(self, parent=0, app=None):

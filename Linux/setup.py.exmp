@@ -21,5 +21,9 @@ setup(
     license = "BSD license",
     packages = ['bungloo'],
     package_data = {"bungloo": files},
-    scripts = ["bin/bungloo"]
-    )
+    scripts = ["bin/bungloo"],
+    data_files=[
+        ('/usr/share/applications', ["bungloo.desktop"]),
+        ('/usr/share/pixmaps', ["bungloo/images/bungloo.xpm"])
+    ]
+)
