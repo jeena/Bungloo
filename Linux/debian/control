@@ -1,5 +1,5 @@
 Source: bungloo
-Section: Miscellaneous
+Section: net
 Priority: optional
 Maintainer: Jeena Paradies <spam@jeenaparadies.net>
 Build-Depends: debhelper (>=7.0.50~), python-support (>= 0.6), cdbs (>= 0.4.49), python-all-dev

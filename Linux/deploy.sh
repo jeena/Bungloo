@@ -33,17 +33,21 @@ echo "Cleaning up ..."
 
 mv $DISTPATH ..
 cd ..
-mv bungloo_${VERSION}_all.deb $DISTPATH
 
-rm bungloo_${VERSION}_amd64.changes
-rm bungloo_${VERSION}.diff.gz
-rm bungloo_${VERSION}.dsc
-rm bungloo_${VERSION}.orig.tar.gz
+cp bungloo.ebuild.exmp $DISTPATH/bungloo-${VERSION}.ebuild
+
+mv bungloo_${VERSION}_all.deb $DISTPATH
+mv bungloo_${VERSION}_amd64.changes $DISTPATH
+mv bungloo_${VERSION}.diff.gz $DISTPATH
+mv bungloo_${VERSION}.dsc $DISTPATH
+mv bungloo_${VERSION}.orig.tar.gz $DISTPATH
+mv bungloo_${VERSION}_source.changes $DISTPATH
+
 rm -rf $DEPLOYPATH
 rm $DISTPATH/bungloo-${VERSION}-1.src.rpm
 mv $DISTPATH/bungloo-${VERSION}-1.noarch.rpm $DISTPATH/bungloo-${VERSION}.noarch.rpm
 
 echo "Done."
-
+echo "dput ppa:jeena/bungloo $DISTPATH/bungloo_${VERSION}_source.changes"
 
 # eof

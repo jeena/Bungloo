@@ -1,4 +1,4 @@
-bungloo (1.4.0) auantal; urgency=low
+bungloo (1.4.0) quantal; urgency=low
 
   [ Jeena Paradies ]
   * Added scroll to load more posts
@@ -9,7 +9,7 @@ bungloo (1.4.0) auantal; urgency=low
   * Inverted "from" label position
   * Bugfixes
 
- -- Jeena <spam@jeenaparadies.net>  Tue, 17 Apr 2013 07:50:00 +0100
+ -- Jeena Paradies <spam@jeenaparadies.net>  Tue, 17 Apr 2013 07:50:00 +0100
 
 bungloo (1.3.0) quantal; urgency=low
 
@@ -18,11 +18,11 @@ bungloo (1.3.0) quantal; urgency=low
   * Added search (skate.io)
   * Added log out
 
- -- Jeena <spam@jeenaparadies.net>  Tue, 26 Mar 2013 21:50:00 +0100
+ -- Jeena Paradies <spam@jeenaparadies.net>  Tue, 26 Mar 2013 21:50:00 +0100
 
 bungloo (1.2.0) quantal; urgency=low
 
   [ Jeena Paradies ]
   * Initial release.
 
- -- Jeena <spam@jeenaparadies.net>  Tue, 05 Mar 2013 17:57:47 +0100
+ -- Jeena Paradies <spam@jeenaparadies.net>  Tue, 05 Mar 2013 17:57:47 +0100
