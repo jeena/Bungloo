@@ -83,25 +83,32 @@ function(HostApp, Timeline, URI, Paths, Core) {
 
     Mentions.prototype.updateLatestMentionRead = function() {
 
-        var status = this.body.firstChild.status;
+        for (var i = 0; i < this.body.childNodes.length; i++) {
 
-        if (status && status.type == "https://tent.io/types/post/status/v0.1.0") {
+            var status = this.body.childNodes[i].status;
 
-            var url = URI(Paths.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
-            var body = {
-                "mentions": {
-                    "https://tent.io/types/post/status/v0.1.0": {
-                        "post": status.id,
-                        "entity": status.entity
+            if (!status.__repost) {
+                if (status && status.type == "https://tent.io/types/post/status/v0.1.0") {
+
+                    var url = URI(Paths.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
+                    var body = {
+                        "mentions": {
+                            "https://tent.io/types/post/status/v0.1.0": {
+                                "post": status.id,
+                                "entity": status.entity
+                            }
+                        }
                     }
+
+                    var callback = function(resp) {
+
+                    }
+
+                    Paths.getURL(url.toString(), "PUT", callback, JSON.stringify(body));
                 }
+
+                break;
             }
-
-            var callback = function(resp) {
-
-            }
-
-            Paths.getURL(url.toString(), "PUT", callback, JSON.stringify(body));
         }
     }
 
