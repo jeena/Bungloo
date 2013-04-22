@@ -41,6 +41,11 @@ a {
 	text-align: center;
 }
 
+#sidebar * {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+}
+
 #siedebar a {
 	color: #5b5b5b;
 }
