@@ -47,9 +47,15 @@ function(HostApp, Paths, Hmac) {
 
         var entity = HostApp.stringForKey("entity");
 
-        if (entity && (entity.startsWith("http://") || entity.startsWith("https://"))) {
-            this.entity = entity;
-            this.requestProfileURL(this.entity);
+        if (entity && entity.startsWith("http")) {
+            if((entity.startsWith("http://") || entity.startsWith("https://"))) {
+                this.entity = entity;
+                this.requestProfileURL(this.entity);                
+            } else {
+                this.entity = "https://" + entity;
+                HostApp.setStringForKey(this.entity, "entity");
+                this.requestProfileURL(this.entity);                
+            }
         } else {
             HostApp.authentificationDidNotSucceed("The entity should start with https:// or http://");
         }
