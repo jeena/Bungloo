@@ -114,6 +114,11 @@ class Timeline:
 		findEntityAction.setStatusTip("Find entity and open its profile view")
 		findEntityAction.triggered.connect(self.app.find_entity_show)
 
+		closeAction = QtGui.QAction("&Close Window", self.window)
+		closeAction.setShortcut("Ctrl+w")
+		closeAction.setStatusTip("Close this window")
+		closeAction.triggered.connect(self.window.close)
+
 		logOutAction = QtGui.QAction("&Log Out", self.window)
 		logOutAction.setStatusTip("Log out from this entity")
 		logOutAction.triggered.connect(self.app.log_out)
@@ -126,6 +131,7 @@ class Timeline:
 		fileMenu = menubar.addMenu("&File")
 		fileMenu.addAction(newPostAction)
 		fileMenu.addAction(findEntityAction)
+		fileMenu.addAction(closeAction)
 		fileMenu.addSeparator()
 		fileMenu.addAction(logOutAction)
 		fileMenu.addAction(exitAction)
@@ -472,6 +478,4 @@ class NewPost(Helper.RestorableWindow):
 			self.imageFilePath = str(fileNamePath)
 		else:
 			self.imageFilePath = None
-
-
 
