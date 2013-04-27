@@ -82,6 +82,7 @@ define(function() {
         if (OS_TYPE == "mac") {
             controller.openNewMessageWindowInReplyTo_statusId_withString_isPrivate_(entity, status_id, string, is_private);
         } else {
+            is_private = is_private == true
             controller.openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(entity, status_id, string, is_private);
         }
     }
