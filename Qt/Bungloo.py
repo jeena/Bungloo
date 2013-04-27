@@ -1,17 +1,17 @@
 #!/usr/bin/env python2
 
-import os, sys, pickle, subprocess, shutil
+import os, sys, pickle, subprocess, shutil, json
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 
 RUNNING_LOCAL = os.path.basename(sys.argv[0]) == "Bungloo.py"
 RUNNING_ON_WINDOWS = os.name == "nt"
 
 if RUNNING_LOCAL or RUNNING_ON_WINDOWS:
-    import Windows, Helper
+	import Windows, Helper, SingleApplication
 else:
-    from bungloo import Windows, Helper
+	from bungloo import Windows, Helper, SingleApplication
 
-class Bungloo:
+class Bungloo():
 
 	def __init__(self):
 
@@ -19,7 +19,6 @@ class Bungloo:
 		sslConfig.setProtocol(QtNetwork.QSsl.TlsV1)
 		QtNetwork.QSslConfiguration.setDefaultConfiguration(sslConfig)
 
-		self.app = QtGui.QApplication(sys.argv)
 		self.new_message_windows = []
 		self.controller = Controller(self)
 		self.console = Console()
@@ -33,10 +32,8 @@ class Bungloo:
 		if self.controller.stringForKey("user_access_token") != "":
 			self.authentification_succeded()
 
-		self.app.exec_()
-
 	def resources_path(self):
-   		if RUNNING_LOCAL:
+		if RUNNING_LOCAL:
 			return os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 		else:
 			return Helper.Helper.get_resource_path()
@@ -95,6 +92,14 @@ class Bungloo:
 	def next_show(self):
 		self.timeline.evaluateJavaScript("bungloo.sidebar.showContentForNext();")
 
+	def handleMessage(self, args):
+		# argv is just a array of words which you can get in from the outside
+		argv = json.loads(str(args))
+		if len(argv) > 0:
+			if argv[0] == "--new-message":
+				self.controller.openNewMessageWidow(" ".join(argv[1:]))
+
+				
 
 class Controller(QtCore.QObject):
 
@@ -169,11 +174,9 @@ class Controller(QtCore.QObject):
 				pass
 
 	@QtCore.pyqtSlot(str)
-	def openNewMessageWidow(self, string):
-		new_message_window = Windows.NewPost(self.app)
-		new_message_window.show()
-		new_message_window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-		self.app.new_message_windows.append(new_message_window)
+	def openNewMessageWidow(self, is_private=False, string=""):
+		string = str(string)
+		self.openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(None, None, string, is_private)
 
 	@QtCore.pyqtSlot(str, str, str, bool)
 	def openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(self, entity, status_id, string, is_private):
@@ -183,6 +186,11 @@ class Controller(QtCore.QObject):
 		new_message_window.show()
 		new_message_window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 		self.app.new_message_windows.append(new_message_window)
+		new_message_window.activateWindow()
+		new_message_window.setFocus()
+		new_message_window.textInput.setFocus()
+		new_message_window.show()
+		new_message_window.raise_()
 
 	def sendMessage(self, message):
 		text = message.text
@@ -288,4 +296,25 @@ class Console(QtCore.QObject):
 
 
 if __name__ == "__main__":
-	Bungloo()
+
+	key = 'BUNGLOO'
+
+	if len(sys.argv) > 1 and sys.argv[1] == "--help":
+		print """
+Usage: bungloo [option [text]]
+	
+	Options:
+	--new-message [text]	Opens new message window with text
+	--search text		Opens search with text
+			"""
+		sys.exit(1)
+
+	app = SingleApplication.SingleApplicationWithMessaging(sys.argv, key)
+	if app.isRunning():
+		app.sendMessage(json.dumps(sys.argv[1:]))
+		sys.exit(1)
+
+	bungloo = Bungloo()
+	app.connect(app, QtCore.SIGNAL('messageAvailable'), bungloo.handleMessage)
+
+	sys.exit(app.exec_())

@@ -442,6 +442,9 @@ class NewPost(Helper.RestorableWindow):
 	def toggleIsPrivate(self):
 		self.setIsPrivate(not self.isPrivate)
 
+	def setString(self, string):
+		self.inReplyToStatusIdWithString(None, None, string)
+
 	def inReplyToStatusIdWithString(self, reply_to, status_id, string):
 		self.reply_to_entity = reply_to
 		self.status_id = status_id
