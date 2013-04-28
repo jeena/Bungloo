@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Bungloo"
-#define MyAppVersion "1.4.0"
+#define MyAppVersion "1.4.3"
 #define MyAppPublisher "Jabs Nu"
 #define MyAppURL "http://jabs.nu/bungloo"
 #define MyAppExeName "Bungloo.exe"
@@ -22,7 +22,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=C:\Users\Jeena\Documents\GitHub\Bungloo\LICENCE.txt
+LicenseFile=C:\Users\Jeena\Documents\GitHub\Bungloo\LICENSE.txt
 OutputBaseFilename=setup
 SetupIconFile=C:\Users\Jeena\Documents\GitHub\Bungloo\images\Icon.ico
 Compression=lzma
