@@ -116,6 +116,11 @@ function(HostApp, Core, Paths, URI) {
                         _this.body.appendChild(new_node);
                     }
                 }
+            } else {
+                var noresult = document.createElement("p");
+                noresult.className = "noresult";
+                noresult.textContent = "No Results";
+                _this.body.appendChild(noresult);
             }
 
         }, null, false);
