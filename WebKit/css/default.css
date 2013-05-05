@@ -442,3 +442,8 @@ form.search input {
 	padding: 10px;
 	font-size: 1.2em;
 }
+
+p.noresult {
+    padding : 10px;
+    text-align : center;
+}
