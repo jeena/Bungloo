@@ -103,20 +103,16 @@
 
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems
 {
-	// FIXME
-	/*
-	NSMutableArray *menuItems = [NSMutableArray arrayWithArray:defaultMenuItems];
-
-	for (NSMenuItem*item in defaultMenuItems) {
-		if ([[item title] isEqualToString:@"Reload"]) {
-			//[item setAction:@selector(reload:)];
-			//[item setTarget:self];
-		} else {
-			[menuItems addObject:item];
+	//remove reload menu item
+    NSMutableArray *menuItems = [NSMutableArray arrayWithArray:defaultMenuItems];
+	for (NSMenuItem* item in defaultMenuItems) {
+		if ([item tag] == WebMenuItemTagReload) {
+			[menuItems removeObject:item];
+            break;
 		}
-	}*/
+	}
 
-	return defaultMenuItems;
+	return menuItems;
 }
 
 - (void)reload:(id)sender {
