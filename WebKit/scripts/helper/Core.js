@@ -945,18 +945,21 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     }
 
     Core.prototype.mapSrc = function(lat, lng) {
-        var width = $("p.message").width();
+        var width = $("div:visible p.message").width();
         return "http://staticmap.openstreetmap.de/staticmap.php?center=" + lat + "," + lng + "&zoom=3&size=" + width + "x75&markers=" + lat + "," + lng + ",red-pushpin";
     }
 
     Core.prototype.addMap = function(lat, lng, images) {
-        var a = document.createElement("a");
-        a.className = "map";
-        a.href = this.mapHref(lat, lng);
-        var img = document.createElement("img");
-        img.src = this.mapSrc(lat, lng);
-        a.appendChild(img);
-        images.appendChild(a);
+        var self = this;
+        setTimeout(function(){
+                   var a = document.createElement("a");
+                   a.className = "map";
+                   a.href = self.mapHref(lat, lng);
+                   var img = document.createElement("img");
+                   img.src = self.mapSrc(lat, lng);
+                   a.appendChild(img);
+                   images.appendChild(a);
+        }, 200);
     }
 
     Core.prototype.addYouTube = function(id, images) {
