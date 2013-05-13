@@ -73,6 +73,8 @@
 
 - (void)notificateViewsAboutDeletedPostWithId:(NSString *)postId byEntity:(NSString*)entity;
 
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource;
+
 - (void)setString:(NSString *)string forKey:(NSString *)aKey;
 - (void)setSecret:(NSString *)string;
 - (NSString *)secret;
