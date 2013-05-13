@@ -26,6 +26,7 @@
 - (void)awakeFromNib
 {
 	[timelineViewWindow setExcludedFromWindowsMenu:YES];
+    [timelineView setResourceLoadDelegate:self];
 
 	[self initHotKeys];
 
@@ -430,6 +431,13 @@
     [fun appendFormat:@"bungloo.conversation%@", f];
     [fun appendFormat:@"bungloo.entityProfile%@", f];
 	[timelineView stringByEvaluatingJavaScriptFromString:fun];
+}
+
+/* we disable cookies to avoid  see a timeline during the consultation of a profile with which the user are connected through safari cf https://github.com/jeena/Bungloo/issues/189 */
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource{
+    NSMutableURLRequest * response = [request mutableCopy];
+    [response setHTTPShouldHandleCookies:FALSE];
+    return response;
 }
 
 - (void)loggedIn
