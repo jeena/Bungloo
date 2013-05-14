@@ -194,6 +194,10 @@ function(HostApp, Paths, Cache) {
             var img = this.menu[part].getElementsByTagName("img")[0];
             if (img.src.endsWith(img.src_active)) {
                 var next = parts[(i+1)%parts.length];
+                //we must update unread badges for mentions cf https://github.com/jeena/Bungloo/issues/222
+                if(next === "mentions"){
+                    bungloo.mentions.setAllMentionsRead();
+                }
                 this.showContentFor(bungloo[next], this.menu[next]);
                 return;
             }
