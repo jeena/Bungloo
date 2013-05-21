@@ -1,3 +1,21 @@
+bungloo (1.4.3) raring; urgency=high
+
+  [ Jeena Paradies ]
+  * bugfix with SingleApplication
+
+ -- Jeena Paradies <spam@jeenaparadies.net>  Tue, 28 Apr 2013 10:10:00 +0100
+
+bungloo (1.4.2) raring; urgency=low
+
+  [ Jeena Paradies ]
+  * Fixes the bug with wrongly showing uread mentions
+  * Added single application mode
+  * Added --new-message
+  * Added close window shortcut
+  * Bugfixes
+
+ -- Jeena Paradies <spam@jeenaparadies.net>  Tue, 28 Apr 2013 00:50:00 +0100
+
 bungloo (1.4.0) quantal; urgency=low
 
   [ Jeena Paradies ]
