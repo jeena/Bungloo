@@ -6,15 +6,15 @@
 		<description>Most recent changes with links to updates.</description>
 		<language>en</language>
 		<item>
-		  <title>Version 1.4.0</title>
+		  <title>Version 1.4.3</title>
 		<sparkle:minimumSystemVersion>10.5.0</sparkle:minimumSystemVersion>
 		<sparkle:releaseNotesLink>http://jabs.nu/bungloo/download/ReleaseNotes.html</sparkle:releaseNotesLink>
-		<pubDate>Thu, 18 Apr 2013 17:48:25 +0200</pubDate>
+		<pubDate>Sun, 28 Apr 2013 10:23:47 +0200</pubDate>
 		<enclosure	url="http://jabs.nu/bungloo/download/Bungloo.app.zip"
-					sparkle:version="1.4.0"
-					length="1151372"
+					sparkle:version="1.4.3"
+					length="1151495"
 					type="application/octet-stream"
-					sparkle:dsaSignature="MCwCFEmMGRUE/kb2pCLiGJ+GAEq/92dXAhRco0jm7nD1iuo00KSB0z2uHnElzA==" />
+					sparkle:dsaSignature="MC0CFAJCR2Q9OtAaP8q9fBsYs+yeVYiCAhUAj8vVmnyo34dYlVBw2NZTgmSzB0s=" />
 		</item>
 	</channel>
 </rss>
