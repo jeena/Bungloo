@@ -8,31 +8,38 @@ function(HostApp, Paths, Hmac) {
 
     function Oauth() {
         this.app_info = {
-            "id": null,
-            "name": "Bungloo on " + HostApp.osType(),
-            "description": "A small TentStatus client.",
-            "url": "http://jabs.nu/bungloo/",
-            "icon": "http://jabs.nu/bungloo/icon.png",
-            "redirect_uris": [
-                "bungloo://oauthtoken"
-            ],
-            "scopes": {
-                "read_posts": "Uses posts to show them in a list",
-                "write_posts": "Posts on users behalf",
-                "read_profile": "Displays your own profile",
-                "write_profile": "Updating profile and mentions pointer",
-                "read_followers": "Display a list of people who follow you",
-                "write_followers": "Be able to block people who follow you",
-                "read_followings": "Display following list and their older posts in conversations",
-                "write_followings": "Follow ne entities"
+            "type": "https://tent.io/types/app/v0#",
+            "content": {
+                "name": "Bungloo on " + HostApp.osType(),
+                "url": "http://jabs.nu/bungloo/",
+                "description": "A desktop Tent client.",
+                "redirect_uri": "bungloo://oauthtoken",
+                "post_types": {
+                    "read": [
+                        "https://tent.io/types/meta/v0",
+                        "https://tent.io/types/relationship/v0",
+                        "https://tent.io/types/subscription/v0",
+                        "https://tent.io/types/delete/v0",
+                        "https://tent.io/types/status/v0",
+                        "https://tent.io/types/repost/v0",
+                        "https://tent.io/types/photo/v0",
+                        "https://tent.io/types/cursor/v0",
+                        "https://tent.io/types/basic-profile/v0"
+                    ],
+                    "write": [
+                        "https://tent.io/types/relationship/v0",
+                        "https://tent.io/types/subscription/v0",
+                        "https://tent.io/types/delete/v0",
+                        "https://tent.io/types/status/v0",
+                        "https://tent.io/types/repost/v0",
+                        "https://tent.io/types/photo/v0",
+                        "https://tent.io/types/cursor/v0"
+                    ]
+                }
             },
-            "tent_profile_info_types": [ "all" ],
-            "tent_post_types": [
-                "https://tent.io/types/post/status/v0.1.0",
-                "https://tent.io/types/post/photo/v0.1.0",
-                "https://tent.io/types/post/repost/v0.1.0",
-                "https://tent.io/types/post/delete/v0.1.0"
-            ]
+            "permissions": {
+                "public": false
+            }
         };
         this.register_data = null;
         this.profile = null;
@@ -61,10 +68,6 @@ function(HostApp, Paths, Hmac) {
         }
     }
 
-    Oauth.prototype.apiRoot = function() {
-        return this.profile["https://tent.io/types/info/core/v0.1.0"]["servers"][0];
-    }
-
     Oauth.prototype.requestProfileURL = function (entity) {
         var those = this;
         Paths.findProfileURL(entity,
@@ -76,6 +79,7 @@ function(HostApp, Paths, Hmac) {
                 }
             },
             function(errorMessage) { // error callback
+                HostApp.authentificationDidNotSucceed(errorMessage);
                 HostApp.authentificationDidNotSucceed("Could not find profile for: " + entity);
             }
         );
@@ -83,57 +87,53 @@ function(HostApp, Paths, Hmac) {
 
     Oauth.prototype.register = function (url) {
         var those = this;
-
         Paths.getURL(url, "GET", function(resp) {
 
             those.profile = JSON.parse(resp.responseText);
-            those.entity = those.profile["https://tent.io/types/info/core/v0.1.0"].entity;
+            those.entity = those.profile.content.entity;
             HostApp.setStringForKey(those.entity, "entity")
-            HostApp.setStringForKey(those.apiRoot(), "api_root");
+            HostApp.setServerUrls(those.profile.content.servers[0].urls);
 
             var callback = function(resp) {
-                var data = JSON.parse(resp.responseText);
-                those.authRequest(data);
+                var app_id = JSON.parse(resp.responseText).id;
+                var header_string = resp.getAllResponseHeaders();
+                var regexp = /https:\/\/tent.io\/rels\/credentials/i
+                var url = Paths.parseHeaderForLink(header_string, regexp);
+                Paths.getURL(url, "GET", function(resp) {
+                    var data = JSON.parse(resp.responseText);
+                    those.authRequest(data, app_id);                  
+                }, null, false)
             }
-            Paths.getURL(Paths.mkApiRootPath("/apps"), "POST", callback, JSON.stringify(those.app_info), false);
+
+            Paths.getURL(HostApp.serverUrl("new_post"), "POST", callback, JSON.stringify(those.app_info), false);
+
         }, null, false);
     }
 
-    Oauth.prototype.authRequest = function(register_data) {
-        // id
-        // mac_key_id
-        // mac_key
-        // mac_algorithm
-        this.register_data = register_data;
+    Oauth.prototype.authRequest = function(credentials, app_id) {
 
-        // Needed for later App Registration Modification
-        HostApp.setStringForKey(register_data["mac_key"], "app_mac_key");
-        HostApp.setStringForKey(register_data["mac_key_id"], "app_mac_key_id");
-        HostApp.setStringForKey(register_data["id"], "app_id");
-        HostApp.setStringForKey(register_data["mac_algorithm"], "app_mac_algorithm");
-
+        HostApp.setStringForKey(app_id, "app_id");
+        HostApp.setStringForKey(credentials.id, "app_hawk_id");
+        HostApp.setStringForKey(credentials.content.hawk_key, "app_hawk_key");
+        HostApp.setStringForKey(credentials.content.hawk_algorithm, "app_hawk_algorithm");
+        
         this.state = Hmac.makeid(19);
-        var auth = "/oauth/authorize?client_id=" + register_data["id"]
-                    + "&redirect_uri=" + this.app_info["redirect_uris"][0]
-                    + "&scope=" + Object.keys(this.app_info["scopes"]).join(",")
-                    + "&state=" + this.state
-                    + "&tent_post_types=" + this.app_info["tent_post_types"].join(",")
-                    + "&tent_profile_info_types=" + this.app_info["tent_profile_info_types"].join(",");
-
-        HostApp.openAuthorizationURL(this.apiRoot() + auth);
+        var url = HostApp.serverUrl("oauth_auth") + "?client_id=" + app_id + "&state=" + this.state;
+        HostApp.openAuthorizationURL(url);
     }
 
     Oauth.prototype.requestAccessToken = function(responseBody) {
             // /oauthtoken?code=51d0115b04d1ed94001dde751c5b360f&state=aQfH1VEohYsQr86qqyv
+            // https://app.example.com/oauth?code=K4m2J2bGI9rcICBqmUCYuQ&state=d173d2bb868a
 
             var urlVars = Paths.getUrlVars(responseBody);
             if(this.state && this.state != "" && urlVars["state"] == this.state) {
 
-                var url = Paths.mkApiRootPath("/apps/") + this.register_data["id"] + "/authorizations";
+                var url = HostApp.serverUrl("oauth_token");
 
                 var requestBody = JSON.stringify({
                     'code' : urlVars["code"],
-                    'token_type' : "mac"
+                    'token_type' : "https://tent.io/oauth/hawk-token"
                 });
 
                 var those = this;
@@ -142,11 +142,12 @@ function(HostApp, Paths, Hmac) {
                     those.requestAccessTokenTicketFinished(resp.responseText);
                 };
 
-                var auth_header = Hmac.makeAuthHeader(
+                var auth_header = Hmac.makeHawkAuthHeader(
                         url,
                         http_method,
-                        HostApp.stringForKey("app_mac_key"),
-                        HostApp.stringForKey("app_mac_key_id")
+                        HostApp.stringForKey("app_hawk_id"),
+                        HostApp.stringForKey("app_hawk_key"),
+                        requestBody
                     );
 
                 Paths.getURL(url, http_method, callback, requestBody, auth_header);
@@ -163,11 +164,12 @@ function(HostApp, Paths, Hmac) {
         var access = JSON.parse(responseBody);
 
         HostApp.setStringForKey(access["access_token"], "user_access_token");
-        HostApp.setSecret(access["mac_key"]);
-        HostApp.setStringForKey(access["mac_algorithm"], "user_mac_algorithm");
+        HostApp.setSecret(access["hawk_key"]);
+        HostApp.setStringForKey(access["hawk_algorithm"], "user_hawk_algorithm");
         HostApp.setStringForKey(access["token_type"], "user_token_type");
 
         HostApp.loggedIn();
+        debug("loggedIn")
     }
 
     Oauth.prototype.logout = function() {

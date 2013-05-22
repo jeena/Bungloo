@@ -37,6 +37,14 @@ define(function() {
         }
     }
 
+    HostApp.setServerUrls = function(server_urls) {
+        HostApp.setStringForKey(JSON.stringify(server_urls), "server_urls");
+    }
+
+    HostApp.serverUrl = function(key) {
+        return JSON.parse(HostApp.stringForKey("server_urls"))[key];
+    }
+
     HostApp.openURL = function(url) {
 
         if (OS_TYPE == "mac") {

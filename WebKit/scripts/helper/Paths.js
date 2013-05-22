@@ -25,7 +25,7 @@ function(jQuery, HostApp, Hmac, Cache) {
 
     Paths.getURL = function(url, http_method, callback, data, auth_header, accepts) {
 
-        if(accepts !== false) accepts = accepts || "application/vnd.tent.v0+json; charset=utf-8";
+        if(accepts !== false) accepts = accepts || "application/vnd.tent.post.v0+json";
 
         var options = {
 
@@ -56,7 +56,7 @@ function(jQuery, HostApp, Hmac, Cache) {
                 }
             },
             url: url,
-            contentType: "application/vnd.tent.v0+json",
+            contentType: 'application/vnd.tent.post.v0+json; type="https://tent.io/types/app/v0#"',
             type: http_method,
             complete: callback,
             data: data,
@@ -65,7 +65,7 @@ function(jQuery, HostApp, Hmac, Cache) {
                 console.error("getURL (" + xhr.status + ")" + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
             }
         }
-
+        debug(url)
         jQuery.ajax(options);
     }
 
@@ -127,7 +127,7 @@ function(jQuery, HostApp, Hmac, Cache) {
                         if(profile_urls.length > 0) {
                             var profile_url = profile_urls[0];
                             if (!profile_url.startsWith("http")) {
-                                profile_url = entity + "/profile";
+                                profile_url = entity + profile_url;
                             }
                         }
 
@@ -140,13 +140,13 @@ function(jQuery, HostApp, Hmac, Cache) {
                                 if (resp.status >= 200 && resp.status < 300) {
                                     var doc = document.implementation.createHTMLDocument("");
                                     doc.documentElement.innerHTML = resp.responseText;
-                                    var links = $(doc).find("link[rel='https://tent.io/rels/profile']");
+                                    var links = $(doc).find("link[rel='https://tent.io/rels/meta-post']");
 
                                     if (links.length > 0) {
                                         var href = links.get(0).href;
                                         Paths.cache.profile_urls.setItem(entity, href);
                                         if (!href.startsWith("http")) {
-                                            href = entity + "/profile";
+                                            href = entity + href;
                                         }
                                         callback(href);
 
@@ -184,6 +184,11 @@ function(jQuery, HostApp, Hmac, Cache) {
     }
 
     Paths.parseHeaderForProfiles = function(header_string) {
+        var regexp = /https:\/\/tent.io\/rels\/meta-post/i;
+        return Paths.parseHeaderForLink(header_string, regexp);
+    }
+
+    Paths.parseHeaderForLink = function(header_string, match) {
         var headers = header_string.split(/\n/);
         var links = [];
         for (var i = 0; i < headers.length; i++) {
@@ -197,18 +202,18 @@ function(jQuery, HostApp, Hmac, Cache) {
         for (var i = 0; i < links.length; i++) {
             items = items.concat(links[i].split(","));
         }
-        var profiles = [];
+        var things = [];
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
-            if (item.match(/https:\/\/tent.io\/rels\/profile/i)) {
+            if (item.match(match)) {
                 var n = item.match(/<([^>]*)>/);
                 if (n) {
-                    profiles.push(n[1]);
+                    things.push(n[1]);
                 }
             }
         }
 
-        return profiles;
+        return things;
     }
 
     return Paths;
