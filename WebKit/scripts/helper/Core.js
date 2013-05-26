@@ -1,6 +1,6 @@
 define([
     "jquery",
-    "helper/Paths",
+    "helper/APICalls",
     "lib/URI",
     "helper/HostApp",
     "helper/Cache",
@@ -8,7 +8,7 @@ define([
     "lib/SingleDoubleClick"
 ],
 
-function(jQuery, Paths, URI, HostApp, Cache) {
+function(jQuery, APICalls, URI, HostApp, Cache) {
 
     function Core() {
         this.cache = new Cache();
@@ -247,10 +247,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         } else {
 
-            Paths.findProfileURL(status.entity, function(profile_url) {
+            APICalls.findProfileURL(status.entity, function(profile_url) {
 
                 if (profile_url) {
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    APICalls.http_call(profile_url, "GET", function(resp) {
                         var p = JSON.parse(resp.responseText);
                         if (p && p != "null") {
                             _this.cache.profiles.setItem(status.entity, p);
@@ -308,11 +308,11 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     }
 
                     if (status.entity == HostApp.stringForKey("entity")) {
-                        var url = Paths.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
-                        Paths.getURL(url, "GET", callback, null, null, attachment.type);
+                        var url = APICalls.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
+                        APICalls.http_call(url, "GET", callback, null, null, attachment.type);
                     } else {
-                        var url = Paths.mkApiRootPath("/posts/" + encodeURIComponent(status.entity) + "/" + status.id + "/attachments/" + attachment.name);
-                        Paths.getURL(url, "GET", callback, null, null, attachment.type);
+                        var url = APICalls.mkApiRootPath("/posts/" + encodeURIComponent(status.entity) + "/" + status.id + "/attachments/" + attachment.name);
+                        APICalls.http_call(url, "GET", callback, null, null, attachment.type);
                     }
                 })();
             }
@@ -431,9 +431,9 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             });
 
             var _this = this;
-            Paths.findProfileURL(repost.entity, function(profile_url) {
+            APICalls.findProfileURL(repost.entity, function(profile_url) {
                 if (profile_url) {
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    APICalls.http_call(profile_url, "GET", function(resp) {
                         if (resp.status >= 200 && resp.status < 400) {
                             var _p = JSON.parse(resp.responseText);
                             _this.cache.profiles.setItem(repost.entity, _p);
@@ -460,14 +460,14 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 }
             }
 
-            Paths.findProfileURL(repost.content.entity, function(profile_url) {
+            APICalls.findProfileURL(repost.content.entity, function(profile_url) {
                 if (profile_url) {
 
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    APICalls.http_call(profile_url, "GET", function(resp) {
 
                         var profile = JSON.parse(resp.responseText);
                         var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
-                        Paths.getURL(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
+                        APICalls.http_call(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
 
                     }, null, false); // do not send auth-headers
                 }
@@ -483,7 +483,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
         } else {
 
-            var url = URI(Paths.mkApiRootPath("/posts"));
+            var url = URI(APICalls.mkApiRootPath("/posts"));
 
             var http_method = "POST";
 
@@ -517,13 +517,13 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 }
             }
 
-            Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data));
+            APICalls.http_call(url.toString(), http_method, callback, JSON.stringify(data));
         }
     }
 
 
     Core.prototype.repost = function(id, entity, callback) {
-        var url = URI(Paths.mkApiRootPath("/posts"));
+        var url = URI(APICalls.mkApiRootPath("/posts"));
 
         var data = {
             "type": "https://tent.io/types/post/repost/v0.1.0",
@@ -549,12 +549,12 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             _this.highlight(id);
         }
 
-        Paths.getURL(url.toString(), "POST", new_callback, JSON.stringify(data));
+        APICalls.http_call(url.toString(), "POST", new_callback, JSON.stringify(data));
     }
 
     Core.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
 
-        var url = URI(Paths.mkApiRootPath("/posts"));
+        var url = URI(APICalls.mkApiRootPath("/posts"));
 
         var data = {
             "type": "https://tent.io/types/post/photo/v0.1.0",
@@ -623,14 +623,14 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             callback(resp);
         }
 
-        Paths.postMultipart(url.toString(), newCallback, post, boundary);
+        APICalls.postMultipart(url.toString(), newCallback, post, boundary);
     }
 
     Core.prototype.remove = function(id, callback, type) {
         type = type || "post";
         if (confirm("Really delete this " + type + "?")) {
-            var url = URI(Paths.mkApiRootPath("/posts/" + id));
-            Paths.getURL(url.toString(), "DELETE", callback);
+            var url = URI(APICalls.mkApiRootPath("/posts/" + id));
+            APICalls.http_call(url.toString(), "DELETE", callback);
         }
     }
 
@@ -738,9 +738,9 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
                 } else {
 
-                    Paths.findProfileURL(mention.entity, function(profile_url) {
+                    APICalls.findProfileURL(mention.entity, function(profile_url) {
                         if (profile_url) {
-                            Paths.getURL(profile_url, "GET", function(resp) {
+                            APICalls.http_call(profile_url, "GET", function(resp) {
                                 if (resp.status >= 200 && resp.status < 400) {
                                     var p = JSON.parse(resp.responseText);
                                     _this.cache.profiles.setItem(mention.entity, p);
@@ -838,7 +838,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
                 } else if(word.startsWith("http://youtube.com/") || word.startsWith("http://www.youtube.com/") || word.startsWith("https://youtube.com/") || word.startsWith("https://www.youtube.com/")) {
                     
-                    var v = Paths.getUrlVars(word)["v"];
+                    var v = APICalls.getUrlVars(word)["v"];
                     this.addYouTube(v, images);
 
                 } else if (word.startsWith("http://youtu.be/") || word.startsWith("https://youtu.be/")) {

@@ -2,11 +2,11 @@ define([
     "helper/HostApp",
     "controller/Timeline",
     "lib/URI",
-    "helper/Paths",
+    "helper/APICalls",
     "helper/Core"
 ],
 
-function(HostApp, Timeline, URI, Paths, Core) {
+function(HostApp, Timeline, URI, APICalls, Core) {
 
 
     function Mentions() {
@@ -90,7 +90,7 @@ function(HostApp, Timeline, URI, Paths, Core) {
             if (!status.__repost) {
                 if (status && status.type == "https://tent.io/types/post/status/v0.1.0") {
 
-                    var url = URI(Paths.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
+                    var url = URI(APICalls.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
                     var body = {
                         "mentions": {
                             "https://tent.io/types/post/status/v0.1.0": {
@@ -104,7 +104,7 @@ function(HostApp, Timeline, URI, Paths, Core) {
 
                     }
 
-                    Paths.getURL(url.toString(), "PUT", callback, JSON.stringify(body));
+                    APICalls.http_call(url.toString(), "PUT", callback, JSON.stringify(body));
                 }
 
                 break;
@@ -115,11 +115,11 @@ function(HostApp, Timeline, URI, Paths, Core) {
 
     Mentions.prototype.getLatestMentionRead = function() {
 
-        var cursor_url = URI(Paths.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
+        var cursor_url = URI(APICalls.mkApiRootPath("/profile/" + encodeURIComponent("https://tent.io/types/info/cursor/v0.1.0")));
 
-        Paths.getURL(cursor_url.toString(), "GET", function(resp) {
+        APICalls.http_call(cursor_url.toString(), "GET", function(resp) {
 
-            var url = URI(Paths.mkApiRootPath("/posts/count"));
+            var url = URI(APICalls.mkApiRootPath("/posts/count"));
             var post_types = [
                 "https://tent.io/types/post/status/v0.1.0",
             ];
@@ -139,7 +139,7 @@ function(HostApp, Timeline, URI, Paths, Core) {
                 HostApp.unreadMentions(this.unread_mentions);
             }
             
-            Paths.getURL(url.toString(), "GET", callback); // FIXME: error callback
+            APICalls.http_call(url.toString(), "GET", callback); // FIXME: error callback
         });
     }
 

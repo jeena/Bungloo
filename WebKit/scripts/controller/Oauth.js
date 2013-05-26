@@ -1,10 +1,10 @@
 define([
     "helper/HostApp",
-    "helper/Paths",
+    "helper/APICalls",
     "helper/Hmac"
 ],
 
-function(HostApp, Paths, Hmac) {
+function(HostApp, APICalls, Hmac) {
 
     function Oauth() {
         this.app_info = {
@@ -70,7 +70,7 @@ function(HostApp, Paths, Hmac) {
 
     Oauth.prototype.requestProfileURL = function (entity) {
         var those = this;
-        Paths.findProfileURL(entity,
+        APICalls.findProfileURL(entity,
             function(profile_url) {
                 if (profile_url && (profile_url.startsWith("http://") || profile_url.startsWith("https://"))) {
                     those.register(profile_url);
@@ -87,7 +87,7 @@ function(HostApp, Paths, Hmac) {
 
     Oauth.prototype.register = function (url) {
         var those = this;
-        Paths.getURL(url, "GET", function(resp) {
+        APICalls.get(url, { callback: function(resp) {
 
             those.profile = JSON.parse(resp.responseText);
             those.entity = those.profile.content.entity;
@@ -98,16 +98,16 @@ function(HostApp, Paths, Hmac) {
                 var app_id = JSON.parse(resp.responseText).id;
                 var header_string = resp.getAllResponseHeaders();
                 var regexp = /https:\/\/tent.io\/rels\/credentials/i
-                var url = Paths.parseHeaderForLink(header_string, regexp);
-                Paths.getURL(url, "GET", function(resp) {
+                var url = APICalls.parseHeaderForLink(header_string, regexp);
+                APICalls.http_call(url, "GET", function(resp) {
                     var data = JSON.parse(resp.responseText);
                     those.authRequest(data, app_id);                  
                 }, null, false)
             }
 
-            Paths.getURL(HostApp.serverUrl("new_post"), "POST", callback, JSON.stringify(those.app_info), false);
+            APICalls.post(HostApp.serverUrl("new_post"), JSON.stringify(those.app_info), {callback: callback});
 
-        }, null, false);
+        }});
     }
 
     Oauth.prototype.authRequest = function(credentials, app_id) {
@@ -126,7 +126,7 @@ function(HostApp, Paths, Hmac) {
             // /oauthtoken?code=51d0115b04d1ed94001dde751c5b360f&state=aQfH1VEohYsQr86qqyv
             // https://app.example.com/oauth?code=K4m2J2bGI9rcICBqmUCYuQ&state=d173d2bb868a
 
-            var urlVars = Paths.getUrlVars(responseBody);
+            var urlVars = APICalls.getUrlVars(responseBody);
             if(this.state && this.state != "" && urlVars["state"] == this.state) {
 
                 var url = HostApp.serverUrl("oauth_token");
@@ -150,7 +150,7 @@ function(HostApp, Paths, Hmac) {
                         requestBody
                     );
 
-                Paths.getURL(url, http_method, callback, requestBody, auth_header);
+                APICalls.http_call(url, http_method, callback, requestBody, auth_header);
 
             } else {
                 console.error("State is not the same: {" + this.state + "} vs {" + urlVars["state"] + "}")
@@ -174,7 +174,7 @@ function(HostApp, Paths, Hmac) {
 
     Oauth.prototype.logout = function() {
 
-        var url = Paths.mkApiRootPath("/apps/" + HostApp.stringForKey("app_id"));
+        var url = APICalls.mkApiRootPath("/apps/" + HostApp.stringForKey("app_id"));
         var http_method = "DELETE";
         var auth_header = Hmac.makeAuthHeader(
             url,
@@ -183,7 +183,7 @@ function(HostApp, Paths, Hmac) {
             HostApp.stringForKey("app_mac_key_id")
         );
 
-        Paths.getURL(url, http_method, function(resp) {
+        APICalls.http_call(url, http_method, function(resp) {
             HostApp.setStringForKey(null, "app_mac_key");
             HostApp.setStringForKey(null, "app_mac_key_id");
             HostApp.setStringForKey(null, "app_id");

@@ -1,11 +1,11 @@
 define([
     "helper/HostApp",
     "helper/Core",
-    "helper/Paths",
+    "helper/APICalls",
     "lib/URI"
 ],
 
-function(HostApp, Core, Paths, URI) {
+function(HostApp, Core, APICalls, URI) {
 
 
     function Profile() {
@@ -239,11 +239,11 @@ function(HostApp, Core, Paths, URI) {
             this.profile = profile;
 
         } else {
-            Paths.findProfileURL(this.entity, function(profile_url) {
+            APICalls.findProfileURL(this.entity, function(profile_url) {
 
                 if (profile_url) {
 
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    APICalls.http_call(profile_url, "GET", function(resp) {
 
                         profile = JSON.parse(resp.responseText);
                         _this.showProfile(profile);
@@ -258,9 +258,9 @@ function(HostApp, Core, Paths, URI) {
 
     Profile.prototype.getFollowing = function() {
         if(this.entity != HostApp.stringForKey("entity")) {
-            var url = Paths.mkApiRootPath("/followings") + "/" + encodeURIComponent(this.entity);
+            var url = APICalls.mkApiRootPath("/followings") + "/" + encodeURIComponent(this.entity);
             var _this = this;
-            Paths.getURL(url, "GET", function(resp) {
+            APICalls.http_call(url, "GET", function(resp) {
                 if (resp.status >= 200 && resp.status < 400) {
                     var following = JSON.parse(resp.responseText);
                     _this.following_id = following.id
@@ -325,18 +325,18 @@ function(HostApp, Core, Paths, URI) {
     Profile.prototype.getMeta = function(root_url) {
 
         var _this = this;
-        Paths.getURL(URI(root_url + "/followings/count").toString(), "GET", function(resp) {
+        APICalls.http_call(URI(root_url + "/followings/count").toString(), "GET", function(resp) {
 
             _this.populate(_this.profile_template.following, resp.responseText);
         }, null, false);
 
-        Paths.getURL(URI(root_url + "/followers/count").toString(), "GET", function(resp) {
+        APICalls.http_call(URI(root_url + "/followers/count").toString(), "GET", function(resp) {
 
             _this.populate(_this.profile_template.followed, resp.responseText);
         }, null, false);
 
         if (this.entity != HostApp.stringForKey("entity")) {
-            Paths.getURL(URI(root_url + "/followers/" + encodeURIComponent(HostApp.stringForKey("entity"))).toString(), "GET", function(resp) {
+            APICalls.http_call(URI(root_url + "/followers/" + encodeURIComponent(HostApp.stringForKey("entity"))).toString(), "GET", function(resp) {
                 if (resp.status == 200) {
                     _this.relationships.following_you = true;
                 }
@@ -344,7 +344,7 @@ function(HostApp, Core, Paths, URI) {
 
             }, null, false);
 
-            Paths.getURL(URI(Paths.mkApiRootPath("/followings/" + encodeURIComponent(this.entity))), "GET", function(resp) {
+            APICalls.http_call(URI(APICalls.mkApiRootPath("/followings/" + encodeURIComponent(this.entity))), "GET", function(resp) {
                 if (resp.status == 200) {
                     _this.relationships.followed_by_you = true;
                 }
@@ -363,7 +363,7 @@ function(HostApp, Core, Paths, URI) {
         ];
         url.addSearch("post_types", post_types.join(","));
 
-        Paths.getURL(url.toString(), "GET", function(resp) {
+        APICalls.http_call(url.toString(), "GET", function(resp) {
 
             _this.populate(_this.profile_template.posts, resp.responseText);
         }, null, false);
@@ -405,7 +405,7 @@ function(HostApp, Core, Paths, URI) {
             url.addSearch(key, add_search[key]);
         }
 
-        Paths.getURL(url.toString(), "GET", function(resp) {
+        APICalls.http_call(url.toString(), "GET", function(resp) {
 
             var statuses = JSON.parse(resp.responseText);
 
@@ -495,8 +495,8 @@ function(HostApp, Core, Paths, URI) {
         if (this.following_id) {
 
             this.setFollowingButton(false);
-            var url = Paths.mkApiRootPath("/followings/") + this.following_id;
-            Paths.getURL(url, "DELETE", function(resp) {
+            var url = APICalls.mkApiRootPath("/followings/") + this.following_id;
+            APICalls.http_call(url, "DELETE", function(resp) {
                 if (resp.status >= 200 && resp.status < 300) {
                     _this.setFollowingButton(false);
                     _this.following_id = null;
@@ -508,10 +508,10 @@ function(HostApp, Core, Paths, URI) {
         } else {
 
             this.setFollowingButton(true);
-            var url = URI(Paths.mkApiRootPath("/followings"));
+            var url = URI(APICalls.mkApiRootPath("/followings"));
             var data = JSON.stringify({"entity": this.entity });
             
-            Paths.getURL(url.toString(), "POST", function(resp) {
+            APICalls.http_call(url.toString(), "POST", function(resp) {
                 if (resp.status >= 200 && resp.status < 300) {
                     _this.following_id = JSON.parse(resp.responseText).id
                     _this.setFollowingButton(true);
@@ -542,7 +542,7 @@ function(HostApp, Core, Paths, URI) {
 
         var url = URI(this.server + "/followings");
         url.addSearch("limit", 200);
-        Paths.getURL(url.toString(), "GET", callback, null, false);
+        APICalls.http_call(url.toString(), "GET", callback, null, false);
     }
 
     Profile.prototype.showFollowers = function() {
@@ -561,7 +561,7 @@ function(HostApp, Core, Paths, URI) {
 
         var url = URI(this.server + "/followers");
         url.addSearch("limit", 200);
-        Paths.getURL(url.toString(), "GET", callback, null, false);
+        APICalls.http_call(url.toString(), "GET", callback, null, false);
     }
 
     Profile.prototype.getDOMSmallProfile = function(profile) {
@@ -643,10 +643,10 @@ function(HostApp, Core, Paths, URI) {
         } else {
 
             var _this = this;
-            Paths.findProfileURL(profile.entity, function(profile_url) {
+            APICalls.findProfileURL(profile.entity, function(profile_url) {
 
                 if (profile_url) {
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    APICalls.http_call(profile_url, "GET", function(resp) {
                         var p = JSON.parse(resp.responseText);
                         if (p && p != "null") {
                             _this.cache.profiles.setItem(profile.entity, p);

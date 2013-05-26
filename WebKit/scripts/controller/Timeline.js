@@ -1,11 +1,11 @@
 define([
     "helper/Core",
-    "helper/Paths",
+    "helper/APICalls",
     "helper/HostApp",
     "lib/URI"
 ],
 
-function(Core, Paths, HostApp, URI) {
+function(Core, APICalls, HostApp, URI) {
 
     function Timeline() {
 
@@ -100,7 +100,7 @@ function(Core, Paths, HostApp, URI) {
         add_to_search = add_to_search || {};
 
         var those = this;
-        var url = URI(Paths.mkApiRootPath("/posts"));
+        var url = URI(APICalls.mkApiRootPath("/posts"));
 
         var post_types = [
             "https://tent.io/types/post/repost/v0.1.0",
@@ -143,7 +143,7 @@ function(Core, Paths, HostApp, URI) {
 
             if (!this.reload_blocked) {
                 this.reload_blocked = true;
-                Paths.getURL(url.toString(), http_method, callback, data); // FIXME: error callback
+                APICalls.http_call(url.toString(), http_method, callback, data); // FIXME: error callback
             }
         }
     }

@@ -1,10 +1,10 @@
 define([
     "helper/HostApp",
-    "helper/Paths",
+    "helper/APICalls",
     "helper/Cache"
 ],
 
-function(HostApp, Paths, Cache) {
+function(HostApp, APICalls, Cache) {
 
 
     function Sidebar() {
@@ -121,10 +121,10 @@ function(HostApp, Paths, Cache) {
 
         } else {
 
-            Paths.findProfileURL(entity, function(profile_url) {
+            APICalls.findProfileURL(entity, function(profile_url) {
 
                 if (profile_url) {
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    APICalls.http_call(profile_url, "GET", function(resp) {
                         var p = JSON.parse(resp.responseText);
                         if (p && p != "null") {
                             _this.cache.profiles.setItem(entity, p);

@@ -1,11 +1,11 @@
 define([
     "helper/HostApp",
     "helper/Core",
-    "helper/Paths",
+    "helper/APICalls",
     "lib/URI"
 ],
 
-function(HostApp, Core, Paths, URI) {
+function(HostApp, Core, APICalls, URI) {
 
 
     function Search() {
@@ -79,7 +79,7 @@ function(HostApp, Core, Paths, URI) {
 
         var _this = this;
 
-        Paths.getURL(url.toString(), "GET", function(resp) {
+        APICalls.http_call(url.toString(), "GET", function(resp) {
 
             var results = JSON.parse(resp.responseText).results;
             if (results && results.length > 0) {
