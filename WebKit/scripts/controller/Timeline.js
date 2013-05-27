@@ -30,7 +30,7 @@ function(Core, APICalls, HostApp, URI) {
         document.getElementById("content").appendChild(this.container);
 
         var _this = this;
-        this.reloadIntervall = setInterval(function() { _this.getNewData() }, this.timeout);
+        //this.reloadIntervall = setInterval(function() { _this.getNewData() }, this.timeout); //FIXME back
 
         this.getNewData();
     }
@@ -48,6 +48,7 @@ function(Core, APICalls, HostApp, URI) {
 
     Timeline.prototype.newStatus = function(statuses, append) {
 
+        statuses = statuses.data;
         if(statuses != null && statuses.length > 0) {
 
             this.before.loading = false;
@@ -62,7 +63,7 @@ function(Core, APICalls, HostApp, URI) {
                     this.since_id_entity = status.entity;                    
                 }
 
-                if (status.type == "https://tent.io/types/post/status/v0.1.0" || status.type == "https://tent.io/types/post/photo/v0.1.0") {
+                if (status.type == "https://tent.io/types/status/v0#" || status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
                     var new_node = this.getStatusDOMElement(status);
 
@@ -100,15 +101,16 @@ function(Core, APICalls, HostApp, URI) {
         add_to_search = add_to_search || {};
 
         var those = this;
-        var url = URI(APICalls.mkApiRootPath("/posts"));
+        var url = URI(HostApp.serverUrl("posts_feed"));
 
         var post_types = [
-            "https://tent.io/types/post/repost/v0.1.0",
-            "https://tent.io/types/post/status/v0.1.0",
-            "https://tent.io/types/post/delete/v0.1.0",
-            "https://tent.io/types/post/photo/v0.1.0"
+            "https://tent.io/types/status/v0#",
+            "https://tent.io/types/status/v0#reply",
+            "https://tent.io/types/repost/v0#",
+            "https://tent.io/types/delete/v0#",
+            //"https://tent.io/types/post/photo/v0.1.0"
         ];
-        url.addSearch("post_types", post_types.join(","));
+        //url.addSearch("types", post_types.join(","));
         //url.addSearch("sort_by", "published_at");
         url.addSearch("limit", this.posts_limit);
 
@@ -127,7 +129,6 @@ function(Core, APICalls, HostApp, URI) {
             those.reload_blocked = false;
 
             try {
-
                 var json = JSON.parse(resp.responseText);
                 those.newStatus(json, append);
 
@@ -143,7 +144,8 @@ function(Core, APICalls, HostApp, URI) {
 
             if (!this.reload_blocked) {
                 this.reload_blocked = true;
-                APICalls.http_call(url.toString(), http_method, callback, data); // FIXME: error callback
+                // APICalls.http_call(url.toString(), http_method, callback, data); // FIXME: error callback
+                APICalls.get(url.toString(), { callback: callback });
             }
         }
     }

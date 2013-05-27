@@ -162,7 +162,28 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
     }
 
     Core.prototype.getStatusDOMElement = function(status) {
-
+        /*
+{
+  "app": {
+    "id": "P8FJjaiRv0AKXfjUMd_4YQ",
+    "name": "Bungloo on Linux",
+    "url": "http:\/\/jabs.nu\/bungloo\/"
+  },
+  "content": {
+    "text": "jeena test"
+  },
+  "entity": "http:\/\/155969d81672.alpha.attic.is",
+  "id": "HlSXe8MREzU4h2fGLGSnCA",
+  "published_at": 1369566009,
+  "received_at": 1369566008799,
+  "type": "https:\/\/tent.io\/types\/status\/v0#",
+  "version": {
+    "id": "a2f702b4615c7d7dd0f98c73d7b55749880bf6e437a77349454ff10745d134c6",
+    "published_at": 1369566009,
+    "received_at": 1369566008799
+  }
+}
+        */
         var _this = this;
 
         var template = this.getTemplate();
@@ -320,6 +341,7 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
 
         this.findMentions(template.message, status.mentions);
 
+/*
         for (var i = 0; i < status.mentions.length; i++) {
             var mention = status.mentions[i];
             if (mention.entity == HostApp.stringForKey("entity")) {
@@ -327,10 +349,10 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
                 break;
             }
         }
-
-        var published_at = typeof status.__repost == "undefined" ? status.published_at : status.__repost.published_at;
+*/
+        var published_at = typeof status.__repost == "undefined" ? status.version.published_at : status.__repost.published_at;
         var time = document.createElement("abbr");
-        time.innerText = this.ISODateString(new Date(published_at * 1000));
+        time.innerText = this.ISODateString(new Date(published_at));
         time.title = time.innerText;
         time.className = "timeago";
         jQuery(time).timeago();
@@ -483,13 +505,13 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
 
         } else {
 
-            var url = URI(APICalls.mkApiRootPath("/posts"));
+            var url = URI(HostApp.serverUrl("new_post"));
 
             var http_method = "POST";
 
             var data = {
-                "type": "https://tent.io/types/post/status/v0.1.0",
-                "published_at": parseInt(new Date().getTime() / 1000, 10),
+                "type": in_reply_to_status_id ? "https://tent.io/types/status/v0#" : "https://tent.io/types/status/v0#reply",
+                "published_at": parseInt(new Date().getTime(), 10),
                 "permissions": {
                     "public": !is_private
                 },
@@ -517,7 +539,11 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
                 }
             }
 
-            APICalls.http_call(url.toString(), http_method, callback, JSON.stringify(data));
+            // APICalls.http_call(url.toString(), http_method, callback, JSON.stringify(data));
+            APICalls.post(url.toString(), JSON.stringify(data), {
+                content_type: data.type,
+                callback: callback
+            });
         }
     }
 

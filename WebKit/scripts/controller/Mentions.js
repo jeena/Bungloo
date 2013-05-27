@@ -10,6 +10,7 @@ function(HostApp, Timeline, URI, APICalls, Core) {
 
 
     function Mentions() {
+        return // FIXME
 
         this.is_not_init = false;
         this.unread_mentions = 0;

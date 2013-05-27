@@ -51,7 +51,7 @@ function(HostApp, APICalls, Cache) {
         document.body.className = "body-timeline";
         document.body.id = "with-sidebar";
 
-        this.setEntityAvatar();
+        //this.setEntityAvatar(); FIXME
         this.setOnScroll();
     }
 

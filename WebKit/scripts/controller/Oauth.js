@@ -87,31 +87,40 @@ function(HostApp, APICalls, Hmac) {
 
     Oauth.prototype.register = function (url) {
         var those = this;
-        APICalls.get(url, { callback: function(resp) {
+        debug(url)
+        APICalls.get(url, {
+            no_auth: true,
+            callback: function(resp) {
 
             those.profile = JSON.parse(resp.responseText);
             those.entity = those.profile.content.entity;
             HostApp.setStringForKey(those.entity, "entity")
             HostApp.setServerUrls(those.profile.content.servers[0].urls);
 
-            var callback = function(resp) {
+            APICalls.post(HostApp.serverUrl("new_post"), JSON.stringify(those.app_info), {
+                content_type: "https://tent.io/types/app/v0#",
+                no_auth: true,
+                callback: function(resp) {
+
                 var app_id = JSON.parse(resp.responseText).id;
                 var header_string = resp.getAllResponseHeaders();
                 var regexp = /https:\/\/tent.io\/rels\/credentials/i
                 var url = APICalls.parseHeaderForLink(header_string, regexp);
-                APICalls.http_call(url, "GET", function(resp) {
-                    var data = JSON.parse(resp.responseText);
-                    those.authRequest(data, app_id);                  
-                }, null, false)
-            }
 
-            APICalls.post(HostApp.serverUrl("new_post"), JSON.stringify(those.app_info), {callback: callback});
+                APICalls.get(url, {
+                    content_type: "https://tent.io/types/app/v0#",
+                    no_auth: true,
+                    callback: function(resp) {
+                        var data = JSON.parse(resp.responseText);
+                        those.authRequest(data, app_id);                  
+                }});
+            }});
 
         }});
     }
 
     Oauth.prototype.authRequest = function(credentials, app_id) {
-
+    
         HostApp.setStringForKey(app_id, "app_id");
         HostApp.setStringForKey(credentials.id, "app_hawk_id");
         HostApp.setStringForKey(credentials.content.hawk_key, "app_hawk_key");
@@ -137,20 +146,20 @@ function(HostApp, APICalls, Hmac) {
                 });
 
                 var those = this;
-                var http_method = "POST";
-                var callback = function(resp) {
-                    those.requestAccessTokenTicketFinished(resp.responseText);
-                };
-
                 var auth_header = Hmac.makeHawkAuthHeader(
                         url,
-                        http_method,
+                        "POST",
                         HostApp.stringForKey("app_hawk_id"),
                         HostApp.stringForKey("app_hawk_key"),
                         requestBody
                     );
 
-                APICalls.http_call(url, http_method, callback, requestBody, auth_header);
+                APICalls.post(url, requestBody, {
+                    content_type: "https://tent.io/types/app/v0#",
+                    auth_header: auth_header,
+                    callback: function(resp) {
+                        those.requestAccessTokenTicketFinished(resp.responseText);
+                }});
 
             } else {
                 console.error("State is not the same: {" + this.state + "} vs {" + urlVars["state"] + "}")
@@ -162,6 +171,7 @@ function(HostApp, APICalls, Hmac) {
     Oauth.prototype.requestAccessTokenTicketFinished = function(responseBody) {
 
         var access = JSON.parse(responseBody);
+        debug(access)
 
         HostApp.setStringForKey(access["access_token"], "user_access_token");
         HostApp.setSecret(access["hawk_key"]);

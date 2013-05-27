@@ -22,80 +22,47 @@ function(jQuery, HostApp, Hmac, Cache) {
         }
         return vars;
     }
-/*
-    APICalls.http_call = function(url, http_method, callback, data, auth_header, accepts) {
 
-        if(accepts !== false) accepts = accepts || "application/vnd.tent.post.v0+json";
-
-        var options = {
-
-            beforeSend: function(xhr) {
-
-                if(accepts !== false) xhr.setRequestHeader("Accept", accepts);
-
-                if (data) xhr.setRequestHeader("Content-Length", data.length);
-
-                if (auth_header) { // if is_set? auth_header
-
-                    xhr.setRequestHeader("Authorization", auth_header);
-
-                } else {
-
-                    var user_access_token = HostApp.stringForKey("user_access_token");
-
-                    if (auth_header !== false && typeof user_access_token != "undefined") {
-
-                        auth_header = Hmac.makeAuthHeader(
-                            url,
-                            http_method,
-                            HostApp.secret(),
-                            user_access_token
-                        );
-                        xhr.setRequestHeader("Authorization", auth_header);
-                    }
-                }
-            },
-            url: url,
-            contentType: 'application/vnd.tent.post.v0+json; type="https://tent.io/types/app/v0#"',
-            type: http_method,
-            complete: callback,
-            data: data,
-            processData: false,
-            error: function(xhr, ajaxOptions, thrownError) {
-                console.error("getURL (" + xhr.status + ")" + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
-            }
-        }
-        debug(url)
-        jQuery.ajax(options);
-    }
-*/
     APICalls.http_call = function(options) {
 
-        if(!options.content_type) {
+        if (typeof options === "string") {
+            console.error(options + " not implemented yet")
+            return;
+        }
+
+        var content_type = null;
+
+        if(options.http_method == "POST" && !options.content_type) {
             console.error("No content type for " + options.url);
             return;
+        } else {
+            content_type = "application/vnd.tent.post.v0+json; type=\"" + options.content_type + "\"";
         }
 
         var settings = {
             beforeSend: function(xhr) {
-                if (options.data) xhr.setRequestHeader("Content-Length", data.length);
-                if (options.accept) xhr.setRequestHeader("Accept", "application/vnd.tent.post.v0+json");
+                if (options.data) xhr.setRequestHeader("Content-Length", options.data.length);
+                if (options.accept) xhr.setRequestHeader("Accept", options.accept);
+                else xhr.setRequestHeader("Accept", "application/vnd.tent.post.v0+json");
                 var user_access_token = HostApp.stringForKey("user_access_token");
-                if (!no_auth && user_access_token) {
+                if (!options.auth_header && !options.no_auth && user_access_token) {
                     var auth_header = Hmac.makeHawkAuthHeader(
                         options.url,
                         options.http_method,
-                        HostApp.secret(),
-                        user_access_token
+                        user_access_token,
+                        HostApp.secret()//,
+                        //HostApp.stringForKey("app_id")
                     );
                     xhr.setRequestHeader("Authorization", auth_header);
-                } else {
+                } else if(options.auth_header) {
+                    xhr.setRequestHeader("Authorization", options.auth_header);
+                } else if(!options.no_auth) {
                     console.error("No user_access_token yet - " + options.url);
                 }
-            }
+            },
             url: options.url,
-            contentType: options.content_type,
-            type: url.http_method,
+            contentType: content_type,
+            type: options.http_method,
             complete: options.callback,
             data: options.data,
             processData: false,
@@ -111,13 +78,11 @@ function(jQuery, HostApp, Hmac, Cache) {
         var settings = {
             url: url,
             http_method: "GET",
-            accept: null,
-            data: null,
-            no_auth: false
-            content_type: null
         };
 
-        jQuery.extend(settings, options);
+        for (var key in options) {
+            settings[key] = options[key];
+        }
 
         APICalls.http_call(settings);
     }
@@ -129,7 +94,9 @@ function(jQuery, HostApp, Hmac, Cache) {
             data: data
         };
 
-        jQuery.extend(settings, options);
+        for (var key in options) {
+            settings[key] = options[key];
+        }
 
         APICalls.http_call(settings);
     }
