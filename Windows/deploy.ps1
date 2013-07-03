@@ -9,4 +9,5 @@ Copy-Item msvcp90.dll bungloo
 cd bungloo
 python setup.py py2exe
 cd ..
+iscc.exe "installer.iss"
 rm bungloo

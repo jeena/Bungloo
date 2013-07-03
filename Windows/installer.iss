@@ -22,9 +22,9 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=C:\Users\Jeena\Documents\GitHub\Bungloo\LICENSE.txt
+LicenseFile=..\LICENSE.txt
 OutputBaseFilename=setup
-SetupIconFile=C:\Users\Jeena\Documents\GitHub\Bungloo\images\Icon.ico
+SetupIconFile=..\images\Icon.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -36,12 +36,14 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "C:\Users\Jeena\Documents\GitHub\Bungloo\Windows\bungloo\dist\Bungloo.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Jeena\Documents\GitHub\Bungloo\Windows\bungloo\dist\library.zip"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Jeena\Documents\GitHub\Bungloo\Windows\bungloo\dist\python27.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Jeena\Documents\GitHub\Bungloo\Windows\bungloo\dist\w9xpopen.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Jeena\Documents\GitHub\Bungloo\Windows\bungloo\dist\images\*"; DestDir: "{app}\images"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Jeena\Documents\GitHub\Bungloo\Windows\bungloo\dist\WebKit\*"; DestDir: "{app}\WebKit"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "bungloo\dist\Bungloo.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bungloo\dist\library.zip"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bungloo\dist\*.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bungloo\dist\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bungloo\dist\w9xpopen.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bungloo\dist\images\*"; DestDir: "{app}\images"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "bungloo\dist\imageformats\*"; DestDir: "{app}\imageformats"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "bungloo\dist\WebKit\*"; DestDir: "{app}\WebKit"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
