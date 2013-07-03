@@ -309,6 +309,15 @@ Usage: bungloo [option [text]]
 			"""
 		sys.exit(1)
 
+	if RUNNING_ON_WINDOWS and not RUNNING_LOCAL:
+		import sys
+		from os import path, environ, makedirs
+		appdata = path.join(environ["TMP"], key)
+		if not path.exists(appdata):
+			makedirs(appdata)
+		sys.stdout = open(path.join(appdata, key + ".log"), "w")
+		sys.stderr = open(path.join(appdata, key + "_err.log"), "w")
+
 	app = SingleApplication.SingleApplicationWithMessaging(sys.argv, key)
 	if app.isRunning():
 		app.sendMessage(json.dumps(sys.argv[1:]))
