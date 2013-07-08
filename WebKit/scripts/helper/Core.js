@@ -212,7 +212,8 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
         template.reply_to.onclick = function() {
 
             var mentions = [];
-            var status_mentions = status.mentions.slice(0);
+            var status_mentions = [];
+            if(status.mentions) status_mentions = status.mentions.slice(0);
 
             if (typeof status.__repost != "undefined") {
                 status_mentions.push({entity:status.__repost.entity});
@@ -507,10 +508,13 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
 
             var url = URI(HostApp.serverUrl("new_post"));
 
-            var http_method = "POST";
+            var type = in_reply_to_status_id.length == 0 ? "https://tent.io/types/status/v0#" : "https://tent.io/types/status/v0#reply";
+            debug(typeof in_reply_to_status_id)
+            debug(in_reply_to_status_id.length)
+            debug(type)
 
             var data = {
-                "type": in_reply_to_status_id ? "https://tent.io/types/status/v0#" : "https://tent.io/types/status/v0#reply",
+                "type": type,
                 "published_at": parseInt(new Date().getTime(), 10),
                 "permissions": {
                     "public": !is_private
@@ -521,7 +525,7 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
             };
 
             if (location) {
-                data["content"]["location"] = { "type": "Point", "coordinates": location }
+                //data["content"]["location"] = { "type": "Point", "coordinates": location }
             }
 
             var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
@@ -1039,7 +1043,6 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
             return false;
         });
     }
-
 
 
     return Core;

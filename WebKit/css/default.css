@@ -447,3 +447,17 @@ p.noresult {
     padding : 10px;
     text-align : center;
 }
+
+.new_post #sidebar, .new_post #content { display: none; }
+.new_post { height: 100%; }
+#new_post_container { position: absolute; border-collapse: collapse; height: 100%; width: 100%; }
+#new_post_container td { position: relative; height: 90%; }
+#new_post_container .text td { background: white; }
+#new_post_container textarea { resize: none; box-sizing: border-box; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; background: transparent; outline: none; }
+#new_post_container div { box-sizing: border-box; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; background: white; color: white; padding: 2px; }
+
+#new_post_container div span { background: #D8DFEA; }
+#suggestions { position: absolute; left: 0; bottom: 0; }
+#suggestions .active { color: red; }
+#status_bar { height: 1em; }
+#status_bar p { float: right; }

@@ -24,7 +24,7 @@ function(HostApp, Core, APICalls, URI) {
         this.hide();
 
         var _this = this;
-        setTimeout(function() { _this.showProfileForEntity() }, 5000); // Load users profile on start
+        setTimeout(function() { _this.showProfileForEntity() }, 500); // Load users profile on start
     }
 
     Profile.prototype = Object.create(Core.prototype);
@@ -239,20 +239,14 @@ function(HostApp, Core, APICalls, URI) {
             this.profile = profile;
 
         } else {
-            APICalls.findProfileURL(this.entity, function(profile_url) {
-
-                if (profile_url) {
-
-                    APICalls.http_call(profile_url, "GET", function(resp) {
-
-                        profile = JSON.parse(resp.responseText);
-                        _this.showProfile(profile);
-                        _this.profile = profile;
-
-                    }, null, false); // do not send auth-headers
-                }
-            });
-
+            var url = HostApp.serverUrl("posts_feed") + "?types=" + encodeURIComponent("https://tent.io/types/meta/v0") + "&entities=" + encodeURIComponent(this.entity)
+            debug(url)
+            APICalls.get(url, {
+                callback: function(resp) {
+                    profile = JSON.parse(resp.responseText);
+                    _this.showProfile(profile);
+                    _this.profile = profile;
+            }});
         }
     }
 
@@ -277,6 +271,9 @@ function(HostApp, Core, APICalls, URI) {
     }
 
     Profile.prototype.showProfile = function(profile) {
+
+        debug(profile)
+        return
 
         var basic = profile["https://tent.io/types/info/basic/v0.1.0"];
 

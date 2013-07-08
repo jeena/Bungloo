@@ -14,7 +14,7 @@ function(HostApp, APICalls, Hmac) {
                 "url": "http://jabs.nu/bungloo/",
                 "description": "A desktop Tent client.",
                 "redirect_uri": "bungloo://oauthtoken",
-                "post_types": {
+                "types": {
                     "read": [
                         "https://tent.io/types/meta/v0",
                         "https://tent.io/types/relationship/v0",
@@ -87,12 +87,12 @@ function(HostApp, APICalls, Hmac) {
 
     Oauth.prototype.register = function (url) {
         var those = this;
-        debug(url)
+
         APICalls.get(url, {
             no_auth: true,
             callback: function(resp) {
 
-            those.profile = JSON.parse(resp.responseText);
+            those.profile = JSON.parse(resp.responseText).post;
             those.entity = those.profile.content.entity;
             HostApp.setStringForKey(those.entity, "entity")
             HostApp.setServerUrls(those.profile.content.servers[0].urls);
@@ -101,19 +101,19 @@ function(HostApp, APICalls, Hmac) {
                 content_type: "https://tent.io/types/app/v0#",
                 no_auth: true,
                 callback: function(resp) {
+                    var app_id = JSON.parse(resp.responseText).post.id;
+                    var header_string = resp.getAllResponseHeaders();
+                    var regexp = /https:\/\/tent.io\/rels\/credentials/i
+                    var url = APICalls.parseHeaderForLink(header_string, regexp);
 
-                var app_id = JSON.parse(resp.responseText).id;
-                var header_string = resp.getAllResponseHeaders();
-                var regexp = /https:\/\/tent.io\/rels\/credentials/i
-                var url = APICalls.parseHeaderForLink(header_string, regexp);
-
-                APICalls.get(url, {
-                    content_type: "https://tent.io/types/app/v0#",
-                    no_auth: true,
-                    callback: function(resp) {
-                        var data = JSON.parse(resp.responseText);
-                        those.authRequest(data, app_id);                  
-                }});
+                    APICalls.get(url, {
+                        content_type: "https://tent.io/types/app/v0#",
+                        no_auth: true,
+                        callback: function(resp) {
+                            var data = JSON.parse(resp.responseText);
+                            those.authRequest(data.post, app_id);                  
+                    }
+                    });
             }});
 
         }});
@@ -150,8 +150,7 @@ function(HostApp, APICalls, Hmac) {
                         url,
                         "POST",
                         HostApp.stringForKey("app_hawk_id"),
-                        HostApp.stringForKey("app_hawk_key"),
-                        requestBody
+                        HostApp.stringForKey("app_hawk_key")
                     );
 
                 APICalls.post(url, requestBody, {

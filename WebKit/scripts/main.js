@@ -7,7 +7,8 @@ var bungloo = {
     entityProfile: null,
     conversation: null,
     search: null,
-    cache: {}
+    cache: {},
+    newpost: null
 };
 
 requirejs.config({
@@ -33,6 +34,15 @@ function start(view, callback) {
 
         });
 
+    } else if (view == "newpost") {
+
+        require(["controller/NewPost"], function(NewPost) {
+
+            bungloo.newpost = new NewPost();
+            if(callback) callback();
+
+        });
+
     } else {
 
 
@@ -54,6 +64,19 @@ function start(view, callback) {
             bungloo.search = new Search();
 
             bungloo.sidebar.showContentForTimeline();
+
+            bungloo.cache.entities = {
+                "https://jeena.net" : {
+                    name: "Jeena",
+                    entity: "https://jeena.net",
+                    avatar: "https://jeena.net/avatar.png"
+                },
+                "https://ck.kennt-wayne.de": {
+                    name: "Christian",
+                    entity: "http://ck.kennt-wayne.de",
+                    avatar: "http://ck.kennt-wayne.de/pavatar.png"
+                }
+            };
 
         });
 
