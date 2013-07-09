@@ -240,7 +240,7 @@ function(HostApp, Core, APICalls, URI) {
 
         } else {
             var url = HostApp.serverUrl("posts_feed") + "?types=" + encodeURIComponent("https://tent.io/types/meta/v0") + "&entities=" + encodeURIComponent(this.entity)
-            debug(url)
+
             APICalls.get(url, {
                 callback: function(resp) {
                     profile = JSON.parse(resp.responseText);
@@ -272,7 +272,7 @@ function(HostApp, Core, APICalls, URI) {
 
     Profile.prototype.showProfile = function(profile) {
 
-        debug(profile)
+        //debug(profile)
         return
 
         var basic = profile["https://tent.io/types/info/basic/v0.1.0"];

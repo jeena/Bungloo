@@ -36,7 +36,12 @@ function(jQuery, HostApp, Hmac, Cache) {
             console.error("No content type for " + options.url);
             return;
         } else {
-            content_type = "application/vnd.tent.post.v0+json; type=\"" + options.content_type + "\"";
+            if(options.content_type != "application/json") {
+                content_type = "application/vnd.tent.post.v0+json; type=\"" + options.content_type + "\"";
+            } else {
+                content_type = options.content_type;
+            }
+            
         }
 
         var settings = {

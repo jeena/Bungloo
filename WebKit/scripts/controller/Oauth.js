@@ -142,7 +142,7 @@ function(HostApp, APICalls, Hmac) {
 
                 var requestBody = JSON.stringify({
                     'code' : urlVars["code"],
-                    'token_type' : "https://tent.io/oauth/hawk-token"
+                    'token_type': "https://tent.io/oauth/hawk-token"
                 });
 
                 var those = this;
@@ -154,7 +154,7 @@ function(HostApp, APICalls, Hmac) {
                     );
 
                 APICalls.post(url, requestBody, {
-                    content_type: "https://tent.io/types/app/v0#",
+                    content_type: "application/json",
                     auth_header: auth_header,
                     callback: function(resp) {
                         those.requestAccessTokenTicketFinished(resp.responseText);
@@ -170,7 +170,6 @@ function(HostApp, APICalls, Hmac) {
     Oauth.prototype.requestAccessTokenTicketFinished = function(responseBody) {
 
         var access = JSON.parse(responseBody);
-        debug(access)
 
         HostApp.setStringForKey(access["access_token"], "user_access_token");
         HostApp.setSecret(access["hawk_key"]);
@@ -178,7 +177,6 @@ function(HostApp, APICalls, Hmac) {
         HostApp.setStringForKey(access["token_type"], "user_token_type");
 
         HostApp.loggedIn();
-        debug("loggedIn")
     }
 
     Oauth.prototype.logout = function() {

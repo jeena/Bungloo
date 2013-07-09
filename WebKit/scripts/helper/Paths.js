@@ -65,7 +65,7 @@ function(jQuery, HostApp, Hmac, Cache) {
                 console.error("getURL (" + xhr.status + ")" + xhr.statusText + " " + http_method + " (" + url + "): '" + xhr.responseText + "'");
             }
         }
-        debug(url)
+        
         jQuery.ajax(options);
     }
 
