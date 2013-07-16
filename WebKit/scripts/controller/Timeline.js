@@ -46,9 +46,13 @@ function(Core, APICalls, HostApp, URI) {
     }
     
 
-    Timeline.prototype.newStatus = function(statuses, append) {
+    Timeline.prototype.newStatus = function(_statuses, append) {
 
-        statuses = statuses.data;
+        for (var entity in _statuses.profiles) {
+            bungloo.cache.profiles[entity] = _statuses.profiles[entity];
+        }
+
+        statuses = _statuses.posts;
         if(statuses != null && statuses.length > 0) {
 
             this.before.loading = false;
@@ -63,7 +67,7 @@ function(Core, APICalls, HostApp, URI) {
                     this.since_id_entity = status.entity;                    
                 }
 
-                if (status.type == "https://tent.io/types/status/v0#" || status.type == "https://tent.io/types/post/photo/v0.1.0") {
+                if (status.type == "https://tent.io/types/status/v0#") {
 
                     var new_node = this.getStatusDOMElement(status);
 
@@ -110,9 +114,11 @@ function(Core, APICalls, HostApp, URI) {
             "https://tent.io/types/delete/v0#",
             //"https://tent.io/types/post/photo/v0.1.0"
         ];
-        //url.addSearch("types", post_types.join(","));
+        url.addSearch("types", post_types.join(","));
         //url.addSearch("sort_by", "published_at");
         url.addSearch("limit", this.posts_limit);
+        url.addSearch("max_refs", 20);
+        url.addSearch("profiles", "entity");
 
         if(this.since_id  && !append) {
             url.addSearch("since_id", this.since_id);
@@ -144,7 +150,7 @@ function(Core, APICalls, HostApp, URI) {
 
             if (!this.reload_blocked) {
                 this.reload_blocked = true;
-                // APICalls.http_call(url.toString(), http_method, callback, data); // FIXME: error callback
+                
                 APICalls.get(url.toString(), { callback: callback });
             }
         }

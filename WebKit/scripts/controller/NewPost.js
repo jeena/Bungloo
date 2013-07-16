@@ -29,7 +29,7 @@ function() {
 		this.counter = $("<span>256</span>");
 		var buttons = $(
 			"<p>" +	
-			"<button id='images'><img src='images/images.png'></button>" +
+			//"<button id='images'><img src='images/images.png'></button>" +
 			"<button id='private'><img src='images/public.png'></button>" +
 			"<button id='send'><img src='images/send.png'></button>" +
 			"</p>");
@@ -49,6 +49,12 @@ function() {
 
 		this.textarea.focus()
 	}
+
+	NewPost.prototype.setStatus = function(status_string) {
+		this.status = JSON.parse(status_string);
+		debug(this.status)
+		// FIXME set string, private, mentions, etc.
+	};
 
 	NewPost.prototype.setString = function(string) {
 		this.textarea.val(string);
@@ -190,8 +196,133 @@ function() {
 	NewPost.prototype.send = function() {
 		debug("Send not implemented yet");
 		$("textarea").focus();
+		var count = 256 - this.textarea.val().length + (this.mentions.length * 6);
+		if(count >= 0) {
+			this.sentNewMessage();
+		} else {
+			debug("BEEP");
+		}
 	}
 
+	NewPost.prototype.sendNewMessage = function() {
+
+		var content = this.textarea.val();
+
+        var url = URI(HostApp.serverUrl("new_post"));
+
+        var type = in_reply_to_status_id.length == 0 ? "https://tent.io/types/status/v0#" : "https://tent.io/types/status/v0#reply";
+
+        var data = {
+            "type": type,
+            "published_at": parseInt(new Date().getTime(), 10),
+            "permissions": {
+                "public": !is_private
+            },
+            "content": {
+                "text": content,
+            },
+        };
+
+        if (location) {
+            //data["content"]["location"] = { "type": "Point", "coordinates": location }
+        }
+
+        var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
+
+        if (mentions.length > 0) {
+            data["mentions"] = mentions;
+            if (is_private) {
+                var entities = {};
+                for (var i = 0; i < mentions.length; i++) {
+                    var entity = mentions[i]["entity"]
+                    entities[entity] = true;
+                };
+
+                data["permissions"]["entities"] = entities;
+            }
+        }
+
+        // APICalls.http_call(url.toString(), http_method, callback, JSON.stringify(data));
+        APICalls.post(url.toString(), JSON.stringify(data), {
+            content_type: data.type,
+            callback: callback
+        });
+    }
+/*
+    NewPost.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
+
+        var url = URI(APICalls.mkApiRootPath("/posts"));
+
+        var data = {
+            "type": "https://tent.io/types/post/photo/v0.1.0",
+            "published_at": parseInt(new Date().getTime() / 1000, 10),
+            "permissions": {
+                "public": !is_private
+            },
+            "content": {
+                "caption": content,
+            },
+        };
+
+        if (location) {
+            data["content"]["location"] = { "type": "Point", "coordinates": location }
+        }
+
+        var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
+        if (mentions.length > 0) {
+            data["mentions"] = mentions;
+            if (is_private) {
+                var entities = {};
+                for (var i = 0; i < mentions.length; i++) {
+                    var entity = mentions[i]["entity"]
+                    entities[entity] = true;
+                };
+
+                data["permissions"]["entities"] = entities;
+            }
+        }
+
+        var data_string = JSON.stringify(data);
+
+        var boundary = "TentAttachment----------TentAttachment";
+        var post = "--" + boundary + "\r\n";
+
+        post += 'Content-Disposition: form-data; name="post"; filename="post.json"\r\n';
+        post += 'Content-Length: ' + data_string.length + '\r\n';
+        post += 'Content-Type: application/vnd.tent.v0+json\r\n';
+        post += 'Content-Transfer-Encoding: binary\r\n\r\n';
+        post += data_string;
+
+        post += "\r\n--" + boundary + "\r\n";
+
+        var blob_string = image_data_uri.split(',')[1];
+        var mime_type = image_data_uri.split(',')[0].split(':')[1].split(';')[0];
+        var ext = "png";
+        if (mime_type == "image/jpeg") {
+            ext = "jpeg";
+        } else if (mime_type == "image/gif") {
+            ext = "gif";
+        }
+
+
+        post += 'Content-Disposition: form-data; name="photos[0]"; filename="photo.' + ext + '"\r\n';
+        post += 'Content-Length: ' + blob_string.length + "\r\n";
+        post += 'Content-Type: ' + mime_type + "\r\n";
+        post += 'Content-Transfer-Encoding: base64\r\n\r\n';
+        post += blob_string;
+        post += "\r\n--" + boundary + "--\r\n";
+
+        var newCallback = function(resp) {
+            if (resp.status == 403) {
+                var err = JSON.parse(resp.responseText);
+                HostApp.alertTitleWithMessage(resp.statusText, err.error);
+            }
+            callback(resp);
+        }
+
+        APICalls.postMultipart(url.toString(), newCallback, post, boundary);
+    }
+*/
 
 	return NewPost;
 })

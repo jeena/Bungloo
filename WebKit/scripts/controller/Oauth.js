@@ -96,7 +96,6 @@ function(HostApp, APICalls, Hmac) {
             those.entity = those.profile.content.entity;
             HostApp.setStringForKey(those.entity, "entity")
             HostApp.setServerUrls(those.profile.content.servers[0].urls);
-
             APICalls.post(HostApp.serverUrl("new_post"), JSON.stringify(those.app_info), {
                 content_type: "https://tent.io/types/app/v0#",
                 no_auth: true,
@@ -112,7 +111,7 @@ function(HostApp, APICalls, Hmac) {
                         callback: function(resp) {
                             var data = JSON.parse(resp.responseText);
                             those.authRequest(data.post, app_id);                  
-                    }
+                        }
                     });
             }});
 

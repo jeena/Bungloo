@@ -171,13 +171,12 @@ class Controller(QtCore.QObject):
 				pass
 
 	@QtCore.pyqtSlot(str)
-	def openNewMessageWidow(self, is_private=False, string=""):
-		string = str(string)
-		self.openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(None, None, string, is_private)
+	def openNewMessageWidow(self):
+		self.openNewMessageWindowInReplyTostatus(None)
 
 	@QtCore.pyqtSlot(str, str, str, bool)
-	def openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(self, entity, status_id, string, is_private):
-		new_message_window = Windows.NewPost(self.app, string, "[]", is_private)
+	def openNewMessageWindowInReplyTostatus(self, status_string):
+		new_message_window = Windows.NewPost(self.app)
 		new_message_window.show()
 		new_message_window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 		self.app.new_message_windows.append(new_message_window)

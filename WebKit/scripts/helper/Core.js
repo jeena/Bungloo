@@ -69,6 +69,7 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
         image.className = "image";
         image.src = "img/default-avatar.png";
         image.onmousedown = function(e) { e.preventDefault(); };
+        image.onerror = function() { this.src = 'img/default-avatar.png' };
         item.appendChild(image);
 
         var image_username = a.cloneNode();
@@ -224,7 +225,7 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
                     mentions.push(mention);
             }
 
-            _this.replyTo(status.entity, status.id, mentions, (status && status.permissions && !status.permissions.public));
+            _this.replyTo(status);
             return false;
         }
 
@@ -234,7 +235,7 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
             return false;
         }
 
-        template.username.innerText = status.entity;
+        if(bungloo.cache.profiles[status.entity].name) template.username.innerText = bungloo.cache.profiles[status.entity].name;
         template.username.href = status.entity;
         template.username.title = status.entity;
         template.username.onclick = function() {
@@ -242,47 +243,12 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
             return false;
         }
 
+        if(bungloo.cache.profiles[status.entity].avatar_digest) {
+            template.image.src = HostApp.serverUrl("attachment").replace(/\{entity\}/, encodeURIComponent(status.entity)).replace(/\{digest\}/, bungloo.cache.profiles[status.entity].avatar_digest);
+        }
+
         template.image.onclick = template.username.onclick;
 
-        var profile_callback = function(p) {
-
-            var basic = p["https://tent.io/types/info/basic/v0.1.0"];
-
-            if (p && basic) {
-                if(basic.name) {
-                    template.username.title = template.username.innerText;
-                    template.username.innerText = basic.name;
-                }
-                if(basic.avatar_url) {
-                    template.image.onerror = function() { template.image.src = 'img/default-avatar.png' };
-                    template.image.src = basic.avatar_url;
-                }
-            }
-
-        }
-
-        var p = this.cache.profiles.getItem(status.entity);
-
-        if (p && p != "null") {
-
-            profile_callback(p);
-
-        } else {
-
-            APICalls.findProfileURL(status.entity, function(profile_url) {
-
-                if (profile_url) {
-                    APICalls.http_call(profile_url, "GET", function(resp) {
-                        var p = JSON.parse(resp.responseText);
-                        if (p && p != "null") {
-                            _this.cache.profiles.setItem(status.entity, p);
-                            profile_callback(p);
-                        }
-
-                    }, null, false); // do not send auth-headers
-                }
-            });
-        }
 
         if (status && status.permissions && !status.permissions.public) {
             template.is_private.style.display = '';
@@ -389,9 +355,11 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
             template.source.innerHTML = status.__repost.app.name;
             template.source.title = status.__repost.app.url;
         } else {
-            template.source.href = status.app.url;
-            template.source.innerHTML = status.app.name;
-            template.source.title = status.app.url;
+            if(status.app) {
+                template.source.href = status.app.url;
+                template.source.innerHTML = status.app.name;
+                template.source.title = status.app.url;
+            }
         }
 
         return template.item;
@@ -498,60 +466,6 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
         }
     }
 
-    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
-
-        if (image_data_uri) {
-
-            this.sendNewMessageWithImage(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback);
-
-        } else {
-
-            var url = URI(HostApp.serverUrl("new_post"));
-
-            var type = in_reply_to_status_id.length == 0 ? "https://tent.io/types/status/v0#" : "https://tent.io/types/status/v0#reply";
-            debug(typeof in_reply_to_status_id)
-            debug(in_reply_to_status_id.length)
-            debug(type)
-
-            var data = {
-                "type": type,
-                "published_at": parseInt(new Date().getTime(), 10),
-                "permissions": {
-                    "public": !is_private
-                },
-                "content": {
-                    "text": content,
-                },
-            };
-
-            if (location) {
-                //data["content"]["location"] = { "type": "Point", "coordinates": location }
-            }
-
-            var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
-
-            if (mentions.length > 0) {
-                data["mentions"] = mentions;
-                if (is_private) {
-                    var entities = {};
-                    for (var i = 0; i < mentions.length; i++) {
-                        var entity = mentions[i]["entity"]
-                        entities[entity] = true;
-                    };
-
-                    data["permissions"]["entities"] = entities;
-                }
-            }
-
-            // APICalls.http_call(url.toString(), http_method, callback, JSON.stringify(data));
-            APICalls.post(url.toString(), JSON.stringify(data), {
-                content_type: data.type,
-                callback: callback
-            });
-        }
-    }
-
-
     Core.prototype.repost = function(id, entity, callback) {
         var url = URI(APICalls.mkApiRootPath("/posts"));
 
@@ -580,80 +494,6 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
         }
 
         APICalls.http_call(url.toString(), "POST", new_callback, JSON.stringify(data));
-    }
-
-    Core.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
-
-        var url = URI(APICalls.mkApiRootPath("/posts"));
-
-        var data = {
-            "type": "https://tent.io/types/post/photo/v0.1.0",
-            "published_at": parseInt(new Date().getTime() / 1000, 10),
-            "permissions": {
-                "public": !is_private
-            },
-            "content": {
-                "caption": content,
-            },
-        };
-
-        if (location) {
-            data["content"]["location"] = { "type": "Point", "coordinates": location }
-        }
-
-        var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
-        if (mentions.length > 0) {
-            data["mentions"] = mentions;
-            if (is_private) {
-                var entities = {};
-                for (var i = 0; i < mentions.length; i++) {
-                    var entity = mentions[i]["entity"]
-                    entities[entity] = true;
-                };
-
-                data["permissions"]["entities"] = entities;
-            }
-        }
-
-        var data_string = JSON.stringify(data);
-
-        var boundary = "TentAttachment----------TentAttachment";
-        var post = "--" + boundary + "\r\n";
-
-        post += 'Content-Disposition: form-data; name="post"; filename="post.json"\r\n';
-        post += 'Content-Length: ' + data_string.length + '\r\n';
-        post += 'Content-Type: application/vnd.tent.v0+json\r\n';
-        post += 'Content-Transfer-Encoding: binary\r\n\r\n';
-        post += data_string;
-
-        post += "\r\n--" + boundary + "\r\n";
-
-        var blob_string = image_data_uri.split(',')[1];
-        var mime_type = image_data_uri.split(',')[0].split(':')[1].split(';')[0];
-        var ext = "png";
-        if (mime_type == "image/jpeg") {
-            ext = "jpeg";
-        } else if (mime_type == "image/gif") {
-            ext = "gif";
-        }
-
-
-        post += 'Content-Disposition: form-data; name="photos[0]"; filename="photo.' + ext + '"\r\n';
-        post += 'Content-Length: ' + blob_string.length + "\r\n";
-        post += 'Content-Type: ' + mime_type + "\r\n";
-        post += 'Content-Transfer-Encoding: base64\r\n\r\n';
-        post += blob_string;
-        post += "\r\n--" + boundary + "--\r\n";
-
-        var newCallback = function(resp) {
-            if (resp.status == 403) {
-                var err = JSON.parse(resp.responseText);
-                HostApp.alertTitleWithMessage(resp.statusText, err.error);
-            }
-            callback(resp);
-        }
-
-        APICalls.postMultipart(url.toString(), newCallback, post, boundary);
     }
 
     Core.prototype.remove = function(id, callback, type) {
@@ -920,19 +760,8 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
         }
     }
 
-    Core.prototype.replyTo = function(entity, status_id, mentions, is_private) {
-
-        var string = "^" + entity.replace("https://", "") + " ";
-        
-        var ms = "";
-        for (var i = 0; i < mentions.length; i++) {
-          var e = mentions[i].entity.replace("https://", "");
-          if(string.indexOf(e) == -1) ms += " ^" + e;
-        }
-
-        if(ms.length > 0) string += "\n\n/cc" + ms;
-
-        HostApp.openNewMessageWidow(entity, status_id, string, is_private);
+    Core.prototype.replyTo = function(status) {
+        HostApp.openNewMessageWidow(status);
     }
 
     Core.prototype.postDeleted = function(post_id, entity) {

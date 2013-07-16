@@ -329,11 +329,12 @@ class FindEntity(QtGui.QDialog):
 		
 
 class NewPost(Helper.RestorableWindow):
-	def __init__(self, app, string, mentions, is_private):
+	def __init__(self, app, string=None, mentions="[]", is_private=False, post_id=None):
 		self.app = app
 		self.string = string
 		self.mentions = mentions
 		self.is_private = is_private
+		self.post_id = post_id
 
 		Helper.RestorableWindow.__init__(self, "newpost", self.app)
 		self.activateWindow()
@@ -414,7 +415,11 @@ class NewPost(Helper.RestorableWindow):
 		if self.is_private:
 			is_private = "true"
 
-		callback = "function() { bungloo.newpost.setString('%s'); bungloo.newpost.setIsPrivate(%s); bungloo.newpost.setMentions(%s);}" % (self.string, is_private, self.mentions)
+		post_id = ""
+		if self.post_id:
+			post_id = self.post_id
+
+		callback = "function() { bungloo.newpost.setString('%s'); bungloo.newpost.setIsPrivate(%s); bungloo.newpost.setMentions(%s); bungloo.newPostAction.setPostId(%s); }" % (self.string, is_private, self.mentions, post_id)
 
 		script = "function HostAppGo() { start('newpost', " + callback + "); }"
 		self.webView.page().mainFrame().evaluateJavaScript(script)
@@ -425,6 +430,11 @@ class NewPost(Helper.RestorableWindow):
 		self.webView.page().mainFrame().evaluateJavaScript(script)
 
 	def sendMessage(self):
+		script = "bungloo.newpost.send()"
+		self.webView.page().mainFrame().evaluateJavaScript(script)
+		self.close()
+		
+		"""
 		count = len(self.textInput.toPlainText())
 		if count > 0 and count <= 256:
 			message = Helper.PostModel()
@@ -438,6 +448,7 @@ class NewPost(Helper.RestorableWindow):
 			self.close()
 		else:
 			 QtGui.qApp.beep()
+		"""
 
 	def openFileDialog(self):
 		fileNamePath = QtGui.QFileDialog.getOpenFileName(self, "Choose a image", "", "Images (*.png *.gif *.jpg *.jpeg)")

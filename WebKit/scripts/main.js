@@ -7,7 +7,7 @@ var bungloo = {
     entityProfile: null,
     conversation: null,
     search: null,
-    cache: {},
+    cache: { profiles: {}},
     newpost: null
 };
 

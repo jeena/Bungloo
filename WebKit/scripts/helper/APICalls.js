@@ -36,10 +36,10 @@ function(jQuery, HostApp, Hmac, Cache) {
             console.error("No content type for " + options.url);
             return;
         } else {
-            if(options.content_type != "application/json") {
-                content_type = "application/vnd.tent.post.v0+json; type=\"" + options.content_type + "\"";
+            if(options.content_type == "application/json") {
+                content_type = "application/json";
             } else {
-                content_type = options.content_type;
+                content_type = "application/vnd.tent.post.v0+json; type=\"" + options.content_type + "\"";
             }
             
         }
@@ -64,6 +64,7 @@ function(jQuery, HostApp, Hmac, Cache) {
                 } else if(!options.no_auth) {
                     console.error("No user_access_token yet - " + options.url);
                 }
+                xhr.setRequestHeader("Cache-Control", "no-cache");
             },
             url: options.url,
             contentType: content_type,
@@ -72,12 +73,25 @@ function(jQuery, HostApp, Hmac, Cache) {
             data: options.data,
             processData: false,
             error: function(xhr, ajaxOptions, thrownError) {
-                console.error("HTTP CALL (" + xhr.status + ")" + xhr.statusText + " " + options.http_method + " (" + options.url + "): '" + xhr.responseText + "'");
+                console.error("HTTP CALL (" + xhr.status + ") " + xhr.statusText + " " + options.http_method + " URL(" + options.url + "): '" + xhr.responseText + "'");
             }
         };
 
         jQuery.ajax(settings);
     }
+
+    APICalls.head = function(url, options) {
+        var settings = {
+            url: url,
+            http_method: "HEAD",
+        };
+
+        for (var key in options) {
+            settings[key] = options[key];
+        }
+
+        APICalls.http_call(settings);
+    }    
 
     APICalls.get = function(url, options) {
         var settings = {
@@ -223,6 +237,23 @@ function(jQuery, HostApp, Hmac, Cache) {
     APICalls.parseHeaderForProfiles = function(header_string) {
         var regexp = /https:\/\/tent.io\/rels\/meta-post/i;
         return APICalls.parseHeaderForLink(header_string, regexp);
+    }
+
+    APICalls.parseHeader = function(header_string) {
+        var header_strings = header_string.split(/\n/);
+        var headers = {};
+        for (var i = 0; i < header_strings.length; i++) {
+            var hs = header_strings[i].split(/:(.+)?/);
+            headers[hs[0]] = hs[1];
+        }
+        return headers;
+    }
+
+    APICalls.getCount = function(resp) {
+        var count = 0;
+        var headers = APICalls.parseHeader(resp.getAllResponseHeaders());
+        if(headers["Count"]) count = parseInt(headers["Count"], 10);
+        return count;
     }
 
     APICalls.parseHeaderForLink = function(header_string, match) {
