@@ -38,10 +38,9 @@ function(jQuery, HostApp, Hmac, Cache) {
         } else {
             if(options.content_type == "application/json") {
                 content_type = "application/json";
-            } else {
+            } else if(options.content_type) {
                 content_type = "application/vnd.tent.post.v0+json; type=\"" + options.content_type + "\"";
             }
-            
         }
 
         var settings = {
@@ -119,6 +118,20 @@ function(jQuery, HostApp, Hmac, Cache) {
 
         APICalls.http_call(settings);
     }
+
+    APICalls.delete = function(url, options) {
+        var settings = {
+            url: url,
+            http_method: "DELETE"
+        };
+
+        for (var key in options) {
+            settings[key] = options[key];
+        }
+
+        APICalls.http_call(settings);
+    }
+
 
     APICalls.postMultipart = function(url, callback, data, boundary, accepts) {
 

@@ -49,7 +49,11 @@ function(Core, APICalls, HostApp, URI) {
     Timeline.prototype.newStatus = function(_statuses, append) {
 
         for (var entity in _statuses.profiles) {
-            bungloo.cache.profiles[entity] = _statuses.profiles[entity];
+            if (_statuses.profiles[entity] != null) {
+                bungloo.cache.profiles[entity] = _statuses.profiles[entity];
+            } else {
+                bungloo.cache.profiles[entity] = {};
+            }
         }
 
         statuses = _statuses.posts;

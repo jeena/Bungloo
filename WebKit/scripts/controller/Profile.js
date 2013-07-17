@@ -247,14 +247,17 @@ function(HostApp, Core, APICalls, URI) {
 			var url = HostApp.serverUrl("posts_feed") + "?mentions=" + encodeURIComponent(this.entity) + "&types=" + encodeURIComponent("https://tent.io/types/subscription/v0#https://tent.io/types/status/v0");
 			var _this = this;
 
-			APICalls.head(url, {callback: function(resp) {
+			APICalls.get(url, {callback: function(resp) {
 
-				var count = APICalls.getCount(resp);
+				var json = JSON.parse(resp.responseText);
+				var count = json.posts.length;
 
 				if (count > 0) {
 					_this.setFollowingButton(true);
+					_this.following_id = json.posts[0].id;
 				} else {
 					_this.setFollowingButton(false);
+					delete _this.following_id;
 				}
 
 			}});
@@ -331,13 +334,14 @@ function(HostApp, Core, APICalls, URI) {
 
 	Profile.prototype.getMeta = function(profile) {
 
+		// FIXME!
+		return;
+
 		var _this = this;
 
 		var url = HostApp.serverUrl("posts_feed") + "?entities=" + encodeURIComponent(this.entity) + "&types=" + encodeURIComponent("https://tent.io/types/relationship/v0#follower");
 		APICalls.head(url, {
 			callback: function(resp) {
-				debug(APICalls.getCount(resp))
-
 				_this.populate(_this.profile_template.followed, APICalls.getCount(resp)+" ");
 			}
 		});      
@@ -518,16 +522,15 @@ function(HostApp, Core, APICalls, URI) {
 
 			this.setFollowingButton(false);
 
-			/*
-			var url = APICalls.mkApiRootPath("/followings/") + this.following_id;
-			APICalls.http_call(url, "DELETE", function(resp) {
+			var url = HostApp.serverUrl("post").replace(/\{entity\}/, encodeURIComponent(HostApp.stringForKey("entity"))).replace(/\{post\}/, this.following_id);
+			APICalls.delete(url, { callback: function(resp) {
 				if (resp.status >= 200 && resp.status < 300) {
 					_this.setFollowingButton(false);
-					_this.following_id = null;
+					delete _this.following_id;
 				} else {
 					_this.setFollowingButton(true);
 				}
-			});*/
+			}});
 
 		} else {
 
@@ -535,19 +538,23 @@ function(HostApp, Core, APICalls, URI) {
 
 			var url = HostApp.serverUrl("new_post");
 
-			var data = JSON.stringify({
-				type: "https://tent.io/types/subscription/v0#https://tent.io/types/status/v0",
+			var data = {
+				content: {
+					type: "https://tent.io/types/status/v0"
+				},
 				mentions: [{
 					entity: this.entity
-				}]
-			});
+				}],
+				type: "https://tent.io/types/subscription/v0#https://tent.io/types/status/v0"
+			};
 
-			APICalls.post(url, data, {
-				content_type: "https://tent.io/types/subscription/v0",
+			APICalls.post(url, JSON.stringify(data), {
+				content_type: data.type,
 				callback: function(resp) {
-					debug(resp.status)
 					if (resp.status >= 200 && resp.status < 300) {
 						_this.setFollowingButton(true);
+						var json = JSON.parse(resp.responseText);
+						_this.following_id = json.post.id;
 					} else {
 						_this.setFollowingButton(false);
 					}

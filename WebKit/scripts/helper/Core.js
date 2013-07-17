@@ -236,6 +236,7 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
         }
 
         if(bungloo.cache.profiles[status.entity].name) template.username.innerText = bungloo.cache.profiles[status.entity].name;
+        else template.username.innerText = status.entity;
         template.username.href = status.entity;
         template.username.title = status.entity;
         template.username.onclick = function() {
