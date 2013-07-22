@@ -231,8 +231,7 @@ function(HostApp, Core, APICalls, URI) {
 			this.profile_template.following_button.style.display = "none";
 		}
 
-		var url = HostApp.serverUrl("posts_feed") + "?types=" + encodeURIComponent("https://tent.io/types/meta/v0") + "&entities=" + encodeURIComponent(this.entity)
-		//var url = HostApp.serverUrl("discover").replace(/{entity}/, encodeURIComponent(this.entity));
+		var url = HostApp.serverUrl("posts_feed") + "?types=" + encodeURIComponent("https://tent.io/types/meta/v0") + "&entities=" + encodeURIComponent(this.entity);
 		APICalls.get(url, {
 			callback: function(resp) {
 				var profile = JSON.parse(resp.responseText);
@@ -274,7 +273,7 @@ function(HostApp, Core, APICalls, URI) {
 
 		if(profiles.posts.length < 1) return;
 		var profile = profiles.posts[0];
-		bungloo.cache.profiles[profile.entity] = profile;
+		bungloo.cache.profiles[profile.entity] = profile.content.profile;
 		
 		var basic = profile.content.profile;
 

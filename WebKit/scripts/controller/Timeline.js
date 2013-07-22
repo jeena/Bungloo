@@ -30,7 +30,7 @@ function(Core, APICalls, HostApp, URI) {
         document.getElementById("content").appendChild(this.container);
 
         var _this = this;
-        //this.reloadIntervall = setInterval(function() { _this.getNewData() }, this.timeout); //FIXME back
+        this.reloadIntervall = setInterval(function() { _this.getNewData() }, this.timeout);
 
         this.getNewData();
     }

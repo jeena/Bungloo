@@ -81,15 +81,38 @@ function(HostApp, APICalls) {
         var entity = HostApp.stringForKey("entity");
         this.menu.user.title = entity;
 
-        var img = this.menu.user.getElementsByTagName("img")[0];
-
+        var avatar = this.menu.user.getElementsByTagName("img")[0];
         var _this = this;
 
-        var url = HostApp.serverUrl("discover");
-        debug(url)
-
+        var url = HostApp.serverUrl("posts_feed") + "?types=" + encodeURIComponent("https://tent.io/types/meta/v0") + "&entities=" + encodeURIComponent(entity);
         APICalls.get(url, { callback: function(resp) {
+            var profiles = JSON.parse(resp.responseText);
 
+            if(profiles.posts.length < 1) return;
+            var profile = profiles.posts[0];
+            bungloo.cache.profiles[entity] = profile;
+
+            // Find and apply avatar
+            if(profile.attachments) {
+
+                var digest = null;
+                for (var i = 0; i < profile.attachments.length; i++) {
+                    var attachment = profile.attachments[i];
+                    if(attachment.category == "avatar") {
+                        digest = attachment.digest;
+                        break;
+                    }
+                }
+
+                if(digest) {
+                    var _this = this;
+                    avatar.onerror = function() { avatar.src = 'img/default-avatar.png' };
+                    var avatar_url = profile.content.servers[0].urls.attachment.replace(/\{entity\}/, encodeURIComponent(profile.entity));
+                    avatar.src = avatar_url.replace(/\{digest\}/, digest);
+                    avatar.src_inactive = avatar.src;
+                    avatar.src_active = avatar.src;
+                }
+            }
         }});
 
     }

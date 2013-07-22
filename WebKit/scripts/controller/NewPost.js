@@ -60,7 +60,6 @@ function(APICalls, HostApp) {
 
 	NewPost.prototype.setStatus = function(status_string) {
 		if (status_string && status_string.length > 0) {
-			debug(status_string)
 			this.status = JSON.parse(status_string);
 			this.setIsPrivate(this.status.permissions && !this.status.permissions.public);
 			this.setMentions(this.status);
