@@ -14,12 +14,14 @@ function(Core, APICalls, HostApp, URI) {
         this.action = "timeline";
         this.reload_blocked = false;
 
-        this.posts_limit = 25;
+        this.posts_limit = 4;
         this.max_length = 200;
         this.timeout = 10 * 1000; // every 10 seconds
         this.since_id = null;
         this.since_id_entity = null;
         this.since_time = 0;
+
+        this.pages = {};
 
         this.before = {id: null, entity: null, loading: false};
 
@@ -55,6 +57,8 @@ function(Core, APICalls, HostApp, URI) {
                 bungloo.cache.profiles[entity] = {};
             }
         }
+
+        this.pages = _statuses.pages;
 
         statuses = _statuses.posts;
         if(statuses != null && statuses.length > 0) {
@@ -104,48 +108,43 @@ function(Core, APICalls, HostApp, URI) {
         }
     }
 
-    Timeline.prototype.getNewData = function(add_to_search, append) {
+    Timeline.prototype.getNewData = function(add_to_search, append, query) {
 
         add_to_search = add_to_search || {};
 
         var those = this;
-        var url = URI(HostApp.serverUrl("posts_feed"));
+        var url = HostApp.serverUrl("posts_feed");
 
-        var post_types = [
-            "https://tent.io/types/status/v0#",
-            "https://tent.io/types/status/v0#reply",
-            "https://tent.io/types/repost/v0#",
-            "https://tent.io/types/delete/v0#",
-            //"https://tent.io/types/post/photo/v0.1.0"
-        ];
-        url.addSearch("types", post_types.join(","));
-        //url.addSearch("sort_by", "published_at");
-        url.addSearch("limit", this.posts_limit);
-        url.addSearch("max_refs", 20);
-        url.addSearch("profiles", "entity");
+        if(!query) {
 
-        if(this.since_id  && !append) {
-            url.addSearch("since_id", this.since_id);
-            url.addSearch("since_id_entity", this.since_id_entity);
-        }
+            var uri = URI(url);
 
-        for (key in add_to_search) {
-            url.addSearch(key, add_to_search[key]);
-        }
+            var post_types = [
+                "https://tent.io/types/status/v0#",
+                "https://tent.io/types/status/v0#reply",
+                "https://tent.io/types/repost/v0#",
+                "https://tent.io/types/delete/v0#",
+                //"https://tent.io/types/post/photo/v0.1.0"
+            ];
+            uri.addSearch("types", post_types.join(","));
+            //uri.addSearch("sort_by", "published_at");
+            uri.addSearch("limit", this.posts_limit);
+            uri.addSearch("max_refs", 20);
+            uri.addSearch("profiles", "entity");
 
-        var http_method = "GET";
-        var callback = function(resp) {
-
-            those.reload_blocked = false;
-
-            try {
-                var json = JSON.parse(resp.responseText);
-                those.newStatus(json, append);
-
-            } catch (e) {
-                console.error(url + " JSON parse error");
-                throw e;
+            if(this.since_id  && !append) {
+                uri.addSearch("since_id", this.since_id);
+                uri.addSearch("since_id_entity", this.since_id_entity);
             }
+
+            for (key in add_to_search) {
+                uri.addSearch(key, add_to_search[key]);
+            }
+
+            url = uri.toString();
+
+        } else {
+            url += query;
         }
 
         var data = null;
@@ -155,20 +154,29 @@ function(Core, APICalls, HostApp, URI) {
             if (!this.reload_blocked) {
                 this.reload_blocked = true;
                 
-                APICalls.get(url.toString(), { callback: callback });
+                APICalls.get(url, { callback: function(resp) {
+
+                    those.reload_blocked = false;
+
+                    try {
+                        var json = JSON.parse(resp.responseText);
+                        those.newStatus(json, append);
+
+                    } catch (e) {
+                        console.error(url + " JSON parse error");
+                        throw e;
+                    }
+                } });
             }
         }
     }
 
     Timeline.prototype.getMoreStatusPosts = function() {
         if (!this.before.loading) {
-            this.before.loading = true;
-            var add_search = {
-                "before_id": this.body.lastChild.status.id,
-                "before_id_entity": this.body.lastChild.status.entity
+            if (this.pages.next) {
+                this.before.loading = true;
+                this.getNewData({}, true, this.pages.next);
             }
-
-            this.getNewData(add_search, true);            
         }
     }
 

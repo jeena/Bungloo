@@ -55,7 +55,7 @@ function(HostApp, Timeline, URI, APICalls, Core) {
         this.is_not_init = true;
     }
 
-    Mentions.prototype.getNewData = function(add_to_search, append) {
+    Mentions.prototype.getNewData = function(add_to_search, append, query) {
 
         add_to_search = add_to_search || {};
 
@@ -63,7 +63,7 @@ function(HostApp, Timeline, URI, APICalls, Core) {
             add_to_search["mentions"] = HostApp.stringForKey("entity");
         }
 
-        Timeline.prototype.getNewData.call(this, add_to_search, append);
+        Timeline.prototype.getNewData.call(this, add_to_search, append, query);
 
         //this.getLatestMentionRead();
     }
