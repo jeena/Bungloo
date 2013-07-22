@@ -3,16 +3,16 @@ define([
     "helper/APICalls",
     "lib/URI",
     "helper/HostApp",
-    "helper/Cache",
+    "lib/Showdown",
     "lib/Timeago",
     "lib/SingleDoubleClick"
 ],
 
-function(jQuery, APICalls, URI, HostApp, Cache) {
+function(jQuery, APICalls, URI, HostApp, Showdown) {
 
     function Core() {
-        this.cache = new Cache();
         this.saveScrollTop = 0;
+        this.markdown = new Showdown.converter();
     }
 
 
@@ -279,6 +279,7 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
         template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message);
         this.afterChangingTextinMessageHTML(template.message)
 
+        /*
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
             for (var i = 0; i < status.attachments.length; i++) {
@@ -306,7 +307,7 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
                 })();
             }
         }
-
+        */
         this.findMentions(template.message, status.mentions);
 
 /*
@@ -667,27 +668,14 @@ function(jQuery, APICalls, URI, HostApp, Cache) {
     }
 
     Core.prototype.replaceURLWithHTMLLinks = function(text, entities, message_node) {
-
-        var callback = function(url) {
-
-            var result;
-
-            if (entities && entities.some(function(x) { return x == url })) {
-                result = url;
-            } else {
-
-                result = url;
-                if (url.startsWith("http://") || url.startsWith("https://")) {
-                    result = '<a href="' + url + '">' + url + '</a>';    
-                }
-            }
-
-            return result;
-        }
-
-        var hash = /(^|\s)(#)(\w+)/ig;
-
-        return URI.withinString(text, callback).replace(hash, "$1<a class='hash' href='https://skate.io/search?q=%23$3'>$2$3</a>");
+        // FIXME: this has to be done better so one can nest that stuff and escape with \
+        return text.replace(/_([^_]+)_/g, "<em>$1</em> ")
+            .replace(/\*([^\*]+)\*/g, "<strong>$1</strong> ")
+            .replace(/`([^`]+)`/g, "<code>$1</code> ")
+            .replace(/~([^~]+)~/g, "<del>$1</del> ")
+            .replace(/\#[^\s]+/, "<a href='javascript:controller.search(\'$1\')'>#$1</a>")
+            .replace(/[^\^]\[([^\]]+)\]\(([^\)]+)\)/g, "<a href='$2'>$1</a> ")
+            .replace(/\^\[([^\]]+)\]\(([^\)]+)\)/g, "<a class='name' href='javascript:controller.showEntity(this, $2);'>$1</a> ");
     }
 
     Core.prototype.parseForMedia = function(text, images) {

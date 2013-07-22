@@ -114,7 +114,6 @@ function(HostApp, APICalls) {
                 }
             }
         }});
-
     }
 
     Sidebar.prototype.removeEntityAvatar = function() {

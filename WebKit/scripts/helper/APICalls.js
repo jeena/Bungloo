@@ -32,7 +32,7 @@ function(jQuery, HostApp, Hmac, Cache) {
 
         var content_type = null;
 
-        if(options.http_method == "POST" && !options.content_type) {
+        if((options.http_method == "POST" || options.http_method == "PUT") && !options.content_type) {
             console.error("No content type for " + options.url);
             return;
         } else if(options.content_type != "AAA") {
@@ -127,6 +127,20 @@ function(jQuery, HostApp, Hmac, Cache) {
         var settings = {
             url: url,
             http_method: "DELETE"
+        };
+
+        for (var key in options) {
+            settings[key] = options[key];
+        }
+
+        APICalls.http_call(settings);
+    }
+
+    APICalls.put = function(url, data, options) {
+        var settings = {
+            url: url,
+            http_method: "PUT",
+            data: data
         };
 
         for (var key in options) {

@@ -10,7 +10,6 @@ function(HostApp, Timeline, URI, APICalls, Core) {
 
 
     function Mentions() {
-        return // FIXME
 
         this.is_not_init = false;
         this.unread_mentions = 0;
@@ -37,7 +36,7 @@ function(HostApp, Timeline, URI, APICalls, Core) {
     Mentions.prototype.newStatus = function(statuses, append) {
 
         Timeline.prototype.newStatus.call(this, statuses, append);
-
+/*
         if(this.is_not_init) {
 
             for (var i = 0; i < statuses.length; i++) {
@@ -52,7 +51,7 @@ function(HostApp, Timeline, URI, APICalls, Core) {
                 if(!append) HostApp.notificateUserAboutMention(status.content.text, name || status.entity, status.id, status.entity);
             }
         }
-
+*/
         this.is_not_init = true;
     }
 
@@ -60,13 +59,13 @@ function(HostApp, Timeline, URI, APICalls, Core) {
 
         add_to_search = add_to_search || {};
 
-        if (!add_to_search["mentioned_entity"]) {
-            add_to_search["mentioned_entity"] = HostApp.stringForKey("entity");
+        if (!add_to_search["mentions"]) {
+            add_to_search["mentions"] = HostApp.stringForKey("entity");
         }
 
         Timeline.prototype.getNewData.call(this, add_to_search, append);
 
-        this.getLatestMentionRead();
+        //this.getLatestMentionRead();
     }
 
     Mentions.prototype.mentionRead = function(id, entity) {
