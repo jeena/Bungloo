@@ -18,6 +18,15 @@ a {
 	text-decoration: none;
 	color: #00317a;
     outline: 0;
+    outline : none;
+}
+
+button {
+	background: transparent;
+	border: 0;
+	margin: 0;
+	padding: 4px 5px 0 5px;
+	outline : none;
 }
 
 #sidebar {
@@ -460,4 +469,5 @@ p.noresult {
 #suggestions { position: absolute; left: 0; bottom: 0; }
 #suggestions .active { color: red; }
 #status_bar { height: 1em; }
-#status_bar p { float: right; }
+#status_bar p { float: right; margin: 0; padding: 0; }
+#status_bar span { display: inline-block; margin: 4px 5px 0 5px; }

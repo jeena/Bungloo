@@ -88,9 +88,9 @@ define(function() {
     HostApp.openNewMessageWidow = function(status) {
 
         if (OS_TYPE == "mac") {
-            controller.openNewMessageWindowInReplyToStatus(JSON.stringify(status));
+            controller.openNewMessageWindowInReplyToStatus_(JSON.stringify(status));
         } else {
-            controller.openNewMessageWindowInReplyTostatus(JSON.stringify(status));
+            controller.openNewMessageWindowInReplyToStatus(JSON.stringify(status).escapeSpecialChars());
         }
     }
 

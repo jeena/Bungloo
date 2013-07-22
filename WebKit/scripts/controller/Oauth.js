@@ -178,7 +178,7 @@ function(HostApp, APICalls, Hmac) {
         HostApp.loggedIn();
     }
 
-    Oauth.prototype.logout = function() {
+    Oauth.prototype.logout = function() { // FIXME
 
         var url = APICalls.mkApiRootPath("/apps/" + HostApp.stringForKey("app_id"));
         var http_method = "DELETE";

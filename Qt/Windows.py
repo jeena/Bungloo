@@ -9,7 +9,7 @@ class Preferences:
 
 		# window
 		self.window = QtGui.QMainWindow()
-		self.window.setWindowTitle("Preferences")
+		self.window.setWindowTitle("Login")
 		self.window.resize(480, 186)
 		self.window.setMinimumSize(480, 186)
 		self.window.setMaximumSize(480, 186)
@@ -329,12 +329,9 @@ class FindEntity(QtGui.QDialog):
 		
 
 class NewPost(Helper.RestorableWindow):
-	def __init__(self, app, string=None, mentions="[]", is_private=False, post_id=None):
+	def __init__(self, app, status_string):
 		self.app = app
-		self.string = string
-		self.mentions = mentions
-		self.is_private = is_private
-		self.post_id = post_id
+		self.status_string = status_string
 
 		Helper.RestorableWindow.__init__(self, "newpost", self.app)
 		self.activateWindow()
@@ -349,6 +346,8 @@ class NewPost(Helper.RestorableWindow):
 		self.initUI()
 
 		self.webView.triggerPageAction(QtWebKit.QWebPage.InspectElement)
+		frame = self.webView.page().mainFrame()
+		frame.addToJavaScriptWindowObject("new_post_window", self)
 
 		self.setWindowTitle("New Post")
 		self.resize(300, 150)
@@ -409,18 +408,8 @@ class NewPost(Helper.RestorableWindow):
 		helpMenu.addAction(aboutAction)
 		helpMenu.addAction(developerExtrasAction)
 
-
 	def load_finished(self, widget):
-		is_private = "false"
-		if self.is_private:
-			is_private = "true"
-
-		post_id = ""
-		if self.post_id:
-			post_id = self.post_id
-
-		callback = "function() { bungloo.newpost.setString('%s'); bungloo.newpost.setIsPrivate(%s); bungloo.newpost.setMentions(%s); bungloo.newPostAction.setPostId(%s); }" % (self.string, is_private, self.mentions, post_id)
-
+		callback = "function() { bungloo.newpost.setStatus('%s'); }" % (self.status_string)
 		script = "function HostAppGo() { start('newpost', " + callback + "); }"
 		self.webView.page().mainFrame().evaluateJavaScript(script)
 		self.webView.setFocus()
@@ -432,32 +421,17 @@ class NewPost(Helper.RestorableWindow):
 	def sendMessage(self):
 		script = "bungloo.newpost.send()"
 		self.webView.page().mainFrame().evaluateJavaScript(script)
-		self.close()
-		
-		"""
-		count = len(self.textInput.toPlainText())
-		if count > 0 and count <= 256:
-			message = Helper.PostModel()
-			message.text = unicode(self.textInput.toPlainText().toUtf8(), "utf-8")
-			message.inReplyTostatusId = self.status_id
-			message.inReplyToEntity = self.reply_to_entity
-			message.location = None
-			message.imageFilePath = self.imageFilePath
-			message.isPrivate = self.isPrivate
-			self.app.controller.sendMessage(message)
-			self.close()
-		else:
-			 QtGui.qApp.beep()
-		"""
-
-	def openFileDialog(self):
-		fileNamePath = QtGui.QFileDialog.getOpenFileName(self, "Choose a image", "", "Images (*.png *.gif *.jpg *.jpeg)")
-		if len(fileNamePath) > 0:
-			self.imageFilePath = str(fileNamePath)
-		else:
-			self.imageFilePath = None
 
 	def developer_extras(self, widget):
 		QtWebKit.QWebSettings.globalSettings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
 
+	def openFileDialog(self):
+		print "openFileDialog Not implemented yet"
 
+	@QtCore.pyqtSlot()
+	def closeWindow(self):
+		self.close()
+
+	@QtCore.pyqtSlot()
+	def beep(self):
+		QtGui.qApp.beep()

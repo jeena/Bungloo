@@ -170,13 +170,13 @@ class Controller(QtCore.QObject):
 			except OSError:
 				pass
 
-	@QtCore.pyqtSlot(str)
+	@QtCore.pyqtSlot()
 	def openNewMessageWidow(self):
-		self.openNewMessageWindowInReplyTostatus(None)
+		self.openNewMessageWindowInReplyToStatus("")
 
-	@QtCore.pyqtSlot(str, str, str, bool)
-	def openNewMessageWindowInReplyTostatus(self, status_string):
-		new_message_window = Windows.NewPost(self.app)
+	@QtCore.pyqtSlot(str)
+	def openNewMessageWindowInReplyToStatus(self, status_string):
+		new_message_window = Windows.NewPost(self.app, status_string)
 		new_message_window.show()
 		new_message_window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 		self.app.new_message_windows.append(new_message_window)
@@ -262,9 +262,14 @@ class Controller(QtCore.QObject):
 		msgBox.exec_()
 
 	@QtCore.pyqtSlot(result=str)
-	def getCachedEntities(self):
-		entities = self.app.timeline.evaluateJavaScript("JSON.stringify(bungloo.cache.entities);")
+	def getCachedProfiles(self):
+		entities = self.app.timeline.evaluateJavaScript("JSON.stringify(bungloo.cache.profiles);")
 		return entities.toString()
+
+	@QtCore.pyqtSlot()
+	def getNewData(self):
+		func = "bungloo.timeline.getNewData()"
+		self.app.timeline.evaluateJavaScript(func)
 
 	def logout(self, sender):
 		print "logout is not implemented yet"

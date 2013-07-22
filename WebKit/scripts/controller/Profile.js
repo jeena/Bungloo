@@ -250,6 +250,7 @@ function(HostApp, Core, APICalls, URI) {
 			APICalls.get(url, {callback: function(resp) {
 
 				var json = JSON.parse(resp.responseText);
+				debug(json)
 				var count = json.posts.length;
 
 				if (count > 0) {
@@ -273,12 +274,14 @@ function(HostApp, Core, APICalls, URI) {
 
 		if(profiles.posts.length < 1) return;
 		var profile = profiles.posts[0];
+		bungloo.cache.profiles[profile.entity] = profile;
+		
 		var basic = profile.content.profile;
 
 		if (profile && basic) {
 
 			// Find and apply avatar
-			if(profile.attachments.length > 0) {
+			if(profile.attachments) {
 
 				var digest = null;
 				for (var i = 0; i < profile.attachments.length; i++) {

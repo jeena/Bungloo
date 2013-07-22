@@ -35,19 +35,23 @@ function(jQuery, HostApp, Hmac, Cache) {
         if(options.http_method == "POST" && !options.content_type) {
             console.error("No content type for " + options.url);
             return;
-        } else {
+        } else if(options.content_type != "AAA") {
             if(options.content_type == "application/json") {
                 content_type = "application/json";
             } else if(options.content_type) {
-                content_type = "application/vnd.tent.post.v0+json; type=\"" + options.content_type + "\"";
+                content_type = "application/vnd.tent.post.v0+json; charset=UTF-8; type=\"" + options.content_type + "\"";
             }
+        } else {
+            content_type = 'application/vnd.tent.post.v0+json; charset=UTF-8; type="https://tent.io/types/status/v0#"';
         }
 
         var settings = {
             beforeSend: function(xhr) {
                 if (options.data) xhr.setRequestHeader("Content-Length", options.data.length);
+
                 if (options.accept) xhr.setRequestHeader("Accept", options.accept);
                 else xhr.setRequestHeader("Accept", "application/vnd.tent.post.v0+json");
+
                 var user_access_token = HostApp.stringForKey("user_access_token");
                 if (!options.auth_header && !options.no_auth && user_access_token) {
                     var auth_header = Hmac.makeHawkAuthHeader(
@@ -63,7 +67,7 @@ function(jQuery, HostApp, Hmac, Cache) {
                 } else if(!options.no_auth) {
                     console.error("No user_access_token yet - " + options.url);
                 }
-                xhr.setRequestHeader("Cache-Control", "no-cache");
+                xhr.setRequestHeader("Cache-Control", "no-proxy");
             },
             url: options.url,
             contentType: content_type,

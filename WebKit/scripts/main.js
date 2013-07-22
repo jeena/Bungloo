@@ -64,45 +64,11 @@ function start(view, callback) {
             bungloo.search = new Search();
 
             bungloo.sidebar.showContentForTimeline();
-
-            bungloo.cache.entities = {
-                "https://jeena.net" : {
-                    name: "Jeena",
-                    entity: "https://jeena.net",
-                    avatar: "https://jeena.net/avatar.png"
-                },
-                "https://ck.kennt-wayne.de": {
-                    name: "Christian",
-                    entity: "http://ck.kennt-wayne.de",
-                    avatar: "http://ck.kennt-wayne.de/pavatar.png"
-                }
-            };
-
         });
 
     }
 }
 
-
-String.prototype.startsWith = function(prefix) {
-    return this.indexOf(prefix) === 0;
-}
-
-String.prototype.endsWith = function(suffix) {
-    return this.match(suffix+"$") == suffix;
-};
-
-var __entityMap = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;"
-};
-
-String.prototype.escapeHTML = function() {
-    return String(this).replace(/[&<>]/g, function (s) {
-        return __entityMap[s];
-    });
-}
 
 var console = {
     log: function(s) {
@@ -196,3 +162,41 @@ function go() { // wait untill everything is loaded
 }
 
 go();
+
+
+// String stuff
+String.prototype.startsWith = function(prefix) {
+    return this.indexOf(prefix) === 0;
+}
+
+String.prototype.endsWith = function(suffix) {
+    return this.match(suffix+"$") == suffix;
+};
+
+var __entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;"
+};
+
+String.prototype.escapeHTML = function() {
+    return String(this).replace(/[&<>]/g, function (s) {
+        return __entityMap[s];
+    });
+}
+
+String.prototype.hasArabicCharacter = function() {
+    var arregex = /[\u0600-\u06FF]/;
+    return arregex.test(this);
+}
+
+String.prototype.escapeSpecialChars = function() {
+    return this.replace(/[\\]/g, '\\\\')
+        .replace(/[\"]/g, '\\\"')
+        .replace(/[\/]/g, '\\/')
+        .replace(/[\b]/g, '\\b')
+        .replace(/[\f]/g, '\\f')
+        .replace(/[\n]/g, '\\n')
+        .replace(/[\r]/g, '\\r')
+        .replace(/[\t]/g, '\\t');
+}

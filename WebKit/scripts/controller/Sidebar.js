@@ -1,15 +1,12 @@
 define([
     "helper/HostApp",
     "helper/APICalls",
-    "helper/Cache"
 ],
 
-function(HostApp, APICalls, Cache) {
+function(HostApp, APICalls) {
 
 
     function Sidebar() {
-
-        this.cache = new Cache();
 
         this.body = document.createElement("ul");
         this.body.class = "sidebar";
@@ -51,7 +48,7 @@ function(HostApp, APICalls, Cache) {
         document.body.className = "body-timeline";
         document.body.id = "with-sidebar";
 
-        //this.setEntityAvatar(); FIXME
+        this.setEntityAvatar();
         this.setOnScroll();
     }
 
@@ -88,53 +85,13 @@ function(HostApp, APICalls, Cache) {
 
         var _this = this;
 
-        var profile_callback = function(p) {
+        var url = HostApp.serverUrl("discover");
+        debug(url)
 
-            var basic = p["https://tent.io/types/info/basic/v0.1.0"];
+        APICalls.get(url, { callback: function(resp) {
 
-            if (p && basic) {
-                if(basic.name) {
-                    _this.menu.user.title = basic.name;
-                }
-                if(basic.avatar_url) {
+        }});
 
-                    img.onerror = function() {
-                        img.src = "img/sidebar/user.png";
-                        img.src_inactive = img.src;
-                        img.src_active = img.src;
-                    }
-
-                    img.src = basic.avatar_url;
-                    img.src_inactive = basic.avatar_url;
-                    img.src_active = basic.avatar_url;
-
-                }
-            }
-
-        }
-
-        var p = this.cache.profiles.getItem(entity);
-
-        if (p && p != "null") {
-
-            profile_callback(p);
-
-        } else {
-
-            APICalls.findProfileURL(entity, function(profile_url) {
-
-                if (profile_url) {
-                    APICalls.http_call(profile_url, "GET", function(resp) {
-                        var p = JSON.parse(resp.responseText);
-                        if (p && p != "null") {
-                            _this.cache.profiles.setItem(entity, p);
-                            profile_callback(p);
-                        }
-
-                    }, null, false); // do not send auth-headers
-                }
-            });
-        }
     }
 
     Sidebar.prototype.removeEntityAvatar = function() {

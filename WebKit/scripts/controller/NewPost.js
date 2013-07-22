@@ -1,13 +1,20 @@
 define([
+	"helper/APICalls",
+	"helper/HostApp"
 ],
 
-function() {
+function(APICalls, HostApp) {
 
 	function NewPost() {
 
-		this.entities = JSON.parse(controller.getCachedEntities());
+		this.profiles = JSON.parse(controller.getCachedProfiles());
+		for (var key in this.profiles) {
+			var item = this.profiles[key];
+			if(!item.entity) item.entity = key;
+			if(!item.name) item.name = key;
+		}
+
 		this.mentions = [];
-		this.is_private = false;
 		document.body.className = "new_post";
 
 		// Textarea
@@ -30,8 +37,8 @@ function() {
 		var buttons = $(
 			"<p>" +	
 			//"<button id='images'><img src='images/images.png'></button>" +
-			"<button id='private'><img src='images/public.png'></button>" +
-			"<button id='send'><img src='images/send.png'></button>" +
+			"<button id='private'><img src='img/public.png'></button>" +
+			"<button id='send'><img src='img/send.png'></button>" +
 			"</p>");
 		
 		this.buttons = {
@@ -41,18 +48,26 @@ function() {
 		}
 
 		//this.buttons.images.bind("click", this.addImage.bind(this));
-		//this.buttons.is_private.bind("click", this.togglePrivate.bind(this));
+		this.buttons.is_private.bind("click", this.toggleIsPrivate.bind(this));
 		this.buttons.send.bind("click", this.send.bind(this));
 
 		this.container.find("#status_bar").append(this.counter);
 		this.container.find("#status_bar").append(buttons);
 
-		this.textarea.focus()
+		this.textarea.focus();
+		this.setIsPrivate(false);
 	}
 
 	NewPost.prototype.setStatus = function(status_string) {
-		this.status = JSON.parse(status_string);
-		debug(this.status)
+		if (status_string && status_string.length > 0) {
+			debug(status_string)
+			this.status = JSON.parse(status_string);
+			this.setIsPrivate(this.status.permissions && !this.status.permissions.public);
+			this.setMentions(this.status);
+		} else {
+			this.status = null;
+		}
+
 		// FIXME set string, private, mentions, etc.
 	};
 
@@ -60,27 +75,67 @@ function() {
 		this.textarea.val(string);
 	}
 
-	NewPost.prototype.setMentions = function(mentions) {
+	NewPost.prototype.setMentions = function(status) {
 
-		if(mentions && mentions.length > 0) {
-			var mentions_string = " ";
-			for (var i = 0; i < mentions.length; i++) {
-				mentions_string += mentions[i].name + " ";
+		var mentions = [this.profiles[status.entity]];
+		var text = this.profiles[status.entity].name + " ";
+		var start = text.length;
+
+		if(status.mentions && status.mentions.length > 0) {
+
+			var mentions_text = ""
+			for (var i = 0; i < status.mentions.length; i++) {
+
+				var entity = status.mentions[i].entity;
+
+				// Sometimes there are mentions without entity, don't know why
+				if(entity) {
+					// fix broken profiles
+					var profile = this.profiles[entity];
+					if(!profile) {
+						profile = {};
+						this.profiles[entity] = profile;
+					}
+					if(!profile.entity) profile.entity = entity;
+					if(!profile.name) profile.name = entity;
+
+					// add profile to mentions and textarea
+					mentions.push(profile);
+					mentions_text += profile.name;
+
+					// add space after mention
+					if(i < status.mentions.length) {
+						mentions_text += " ";
+					}
+				}
 			}
+			if (mentions_text.length > 0) {
+				text += "\n\n/cc " + mentions_text;
+			};
 
-			this.textarea.val(this.textarea.val() + " " + mentions_string);
-			this.mentions = mentions;
 		}
-		this.keyup();
+
+		this.mentions = mentions;
+		this.textarea.val(text);
+		this.parseText(text);
+
+		// Select other mentions so user can start writing and removing them
+		var end = text.length;
+		this.textarea.get(0).setSelectionRange(start, end);
 	}
 
 	NewPost.prototype.setIsPrivate = function(is_private) {
 		this.is_private = is_private;
+		if (this.is_private) {
+			this.buttons.is_private.find("img").attr("src", "img/private.png");
+		} else {
+			this.buttons.is_private.find("img").attr("src", "img/public.png");
+		}
 	}
 
 	NewPost.prototype.toggleIsPrivate = function() {
-		this.is_private = !this.is_private;
-	};
+		this.setIsPrivate(!this.is_private);
+	}
 
 	NewPost.prototype.keyup = function(e) {
 		if(!e) return;
@@ -152,16 +207,20 @@ function() {
 
 		if(words) {
 			var name = words[2];
-			for (var key in this.entities.length) {
-				var item = this.entities[key];
-				if(item.name.toLowerCase().indexOf(name.toLowerCase()) != -1 || item.entity.toLowerCase().indexOf(name.toLowerCase()) != -1) {
+			for (var key in this.profiles) {
+				var item = this.profiles[key];
+				if((item.name.toLowerCase().indexOf(name.toLowerCase()) != -1) || item.entity.toLowerCase().indexOf(name.toLowerCase()) != -1) {
 					var li = $("<li><strong>" + item.name + "</strong> <em>" + item.entity + "</em></li>")
 					li.get(0).item = item;
-					this.suggestions.append(li)
+					this.suggestions.append(li);
 				}
 			}
 		}
 
+		this.parseText(text);
+	}
+
+	NewPost.prototype.parseText = function(text) {
 		// parse the text:
 		// replace all the line braks by <br/>, and all the double spaces by the html version &nbsp;
 		text = this.replaceAll(text,'\n','<br/>');
@@ -188,19 +247,18 @@ function() {
 		this.highlighter.html(text);
 
 		var count = 256 - this.textarea.val().length + (this.mentions.length * 6);
-		this.counter.html(count)
-
-		return true;
+		this.counter.html(count);
 	}
 
 	NewPost.prototype.send = function() {
-		debug("Send not implemented yet");
-		$("textarea").focus();
+
 		var count = 256 - this.textarea.val().length + (this.mentions.length * 6);
-		if(count >= 0) {
-			this.sentNewMessage();
+		if(count >= 0 && count <= 256) {
+			this.sendNewMessage();
+			return true;
 		} else {
 			debug("BEEP");
+			return false;
 		}
 	}
 
@@ -208,44 +266,52 @@ function() {
 
 		var content = this.textarea.val();
 
-        var url = URI(HostApp.serverUrl("new_post"));
-
-        var type = in_reply_to_status_id.length == 0 ? "https://tent.io/types/status/v0#" : "https://tent.io/types/status/v0#reply";
-
+        var type = "https://tent.io/types/status/v0#";
         var data = {
-            "type": type,
-            "published_at": parseInt(new Date().getTime(), 10),
-            "permissions": {
-                "public": !is_private
+            type: type,
+            content: {
+                text: content
             },
-            "content": {
-                "text": content,
-            },
+            permissions: {
+            	public: !this.is_private
+            }
         };
 
-        if (location) {
-            //data["content"]["location"] = { "type": "Point", "coordinates": location }
+        var mentions = [];
+        if (this.status) {
+        	mentions.push({
+        		entity: this.status.entity,
+        		post: this.status.id,
+        		type: this.status.type
+        	});
         }
 
-        var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
-
-        if (mentions.length > 0) {
-            data["mentions"] = mentions;
-            if (is_private) {
-                var entities = {};
-                for (var i = 0; i < mentions.length; i++) {
-                    var entity = mentions[i]["entity"]
-                    entities[entity] = true;
-                };
-
-                data["permissions"]["entities"] = entities;
-            }
+        for (var i = 0; i < this.mentions.length; i++) {
+        	var mention = this.mentions[i];
+        	mentions.push({
+        		entity: mention.entity
+        	});
         }
 
-        // APICalls.http_call(url.toString(), http_method, callback, JSON.stringify(data));
-        APICalls.post(url.toString(), JSON.stringify(data), {
+        data.mentions = mentions;
+
+        // Make tent flavored markdown mentions
+        for (var i = 0; i < this.mentions.length; i++) {
+        	var mention = this.mentions[i];
+        	data.content.text = this.replaceAll(data.content.text, mention.name, "^[" + mention.name + "](" + i + ")")
+        }
+
+        APICalls.post(HostApp.serverUrl("new_post"), JSON.stringify(data), {
             content_type: data.type,
-            callback: callback
+            accept: 'application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"',
+            callback: function(resp) {
+				if (resp.status >= 200 < 300) {
+					new_post_window.closeWindow();
+					controller.getNewData();
+				} else {
+					new_post_window.beep();
+				}
+            }
         });
     }
 /*
