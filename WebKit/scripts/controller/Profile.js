@@ -110,11 +110,7 @@ function(HostApp, Core, APICalls, URI) {
 		div.appendChild(this.profile_template.following_button);
 
 		this.profile_template.mention_button.onclick = function() {
-			var e = _this.entity;
-			if (e.startsWith("https://")) {
-				e = e.substr(8, e.length);
-			}
-			HostApp.openNewMessageWidow(null, null, "^" + e + " ", false);
+			HostApp.openNewMessageWidow({entity:_this.entity});
 		}
 		div.appendChild(this.profile_template.mention_button);
 		this.profile_template.mention_button.innerHTML = "Mention";

@@ -466,8 +466,12 @@ p.noresult {
 #new_post_container div { box-sizing: border-box; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; background: white; color: white; padding: 2px; }
 
 #new_post_container div span { background: #D8DFEA; }
-#suggestions { position: absolute; left: 0; bottom: 0; }
-#suggestions .active { color: red; }
-#status_bar { height: 1em; }
+#suggestions { width: 100%; position: absolute; left: 0; bottom: 0; background: #efefef; list-style-type: none; padding: 0; margin: 0; border-top: 1px solid #ccc; }
+#suggestions li { border-top: 1px solid #fefefe; border-bottom: #c9c9c9; padding: 0 0.5em; }
+#suggestions strong { font-weight: normal; color: #555; }
+#suggestions .active { background: #dedede; }
+#suggestions .active strong { color: black; }
+#status_bar { height: 1em; border-top: 1px solid #ccc; }
 #status_bar p { float: right; margin: 0; padding: 0; }
 #status_bar span { display: inline-block; margin: 4px 5px 0 5px; }
+

@@ -192,7 +192,7 @@ function(APICalls, HostApp) {
 		var words = txt.match(/(^|\s)\^([^\s]+)/);
 		var replace = words[2];
 
-		var original = txt.replace("^" + replace, with_item.name);
+		var original = txt.replace("^" + replace, with_item.name + " ");
 		this.textarea.val(original);
 
 		this.mentions.push(with_item);
@@ -209,11 +209,12 @@ function(APICalls, HostApp) {
 			for (var key in this.profiles) {
 				var item = this.profiles[key];
 				if((item.name.toLowerCase().indexOf(name.toLowerCase()) != -1) || item.entity.toLowerCase().indexOf(name.toLowerCase()) != -1) {
-					var li = $("<li><strong>" + item.name + "</strong> <em>" + item.entity + "</em></li>")
+					var li = $("<li><strong title='" + item.entity + "'>" + item.name + "</strong></li>")
 					li.get(0).item = item;
 					this.suggestions.append(li);
 				}
 			}
+			this.suggestions.find("li:first-child").addClass("active");
 		}
 
 		this.parseText(text);
