@@ -23,8 +23,8 @@ function(HostApp, Core, APICalls, URI) {
 		this.initProfileTemplate();
 		this.hide();
 
-		var _this = this;
-		setTimeout(function() { _this.showProfileForEntity() }, 500); // Load users profile on start
+		//var _this = this;
+		//setTimeout(function() { _this.showProfileForEntity() }, 500); // Load users profile on start
 	}
 
 	Profile.prototype = Object.create(Core.prototype);
@@ -47,13 +47,19 @@ function(HostApp, Core, APICalls, URI) {
 		$(this.followingsBody).hide();
 		$(this.followersBody).hide();
 		$(list).show();
+	}
+
+	Profile.prototype.showEntity = function(a, i) {
+		var entity = $(a).closest("li").get(0).status.mentions[i].entity;
+		this.showProfileForEntity(entity);
+		bungloo.sidebar.onEntityProfile();
 	};
 
 	Profile.prototype.showProfileForEntity = function(entity) {
 
 		if (!entity) {
 			entity = HostApp.stringForKey("entity");
-		};
+		}
 
 		this.clear();
 		this.entity = entity;
@@ -249,7 +255,6 @@ function(HostApp, Core, APICalls, URI) {
 			APICalls.get(url, {callback: function(resp) {
 
 				var json = JSON.parse(resp.responseText);
-				debug(json)
 				var count = json.posts.length;
 
 				if (count > 0) {

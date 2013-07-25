@@ -3,16 +3,14 @@ define([
     "helper/APICalls",
     "lib/URI",
     "helper/HostApp",
-    "lib/Showdown",
     "lib/Timeago",
     "lib/SingleDoubleClick"
 ],
 
-function(jQuery, APICalls, URI, HostApp, Showdown) {
+function(jQuery, APICalls, URI, HostApp) {
 
     function Core() {
         this.saveScrollTop = 0;
-        this.markdown = new Showdown.converter();
     }
 
 
@@ -669,13 +667,13 @@ function(jQuery, APICalls, URI, HostApp, Showdown) {
 
     Core.prototype.replaceURLWithHTMLLinks = function(text, entities, message_node) {
         // FIXME: this has to be done better so one can nest that stuff and escape with \
-        return text.replace(/_([^_]+)_/g, "<em>$1</em> ")
-            .replace(/\*([^\*]+)\*/g, "<strong>$1</strong> ")
-            .replace(/`([^`]+)`/g, "<code>$1</code> ")
-            .replace(/~([^~]+)~/g, "<del>$1</del> ")
-            .replace(/\#[^\s]+/, "<a href='javascript:controller.search(\'$1\')'>#$1</a>")
-            .replace(/[^\^]\[([^\]]+)\]\(([^\)]+)\)/g, "<a href='$2'>$1</a> ")
-            .replace(/\^\[([^\]]+)\]\(([^\)]+)\)/g, "<a class='name' href='javascript:controller.showEntity(this, $2);'>$1</a> ");
+        return text.replace(/_([^_]+)_/g, "<em>$1</em>")
+            .replace(/\*([^\*]+)\*/g, "<strong>$1</strong>")
+            .replace(/`([^`]+)`/g, "<code>$1</code>")
+            .replace(/~([^~]+)~/g, "<del>$1</del>")
+            .replace(/\#([^\s]+)/g, "<a class='hash' href=\"javascript:bungloo.search.searchFor('$1')\">#$1</a>")
+            .replace(/(^|[^\^])\[([^\]]+)\]\(([^\)]+)\)/g, "<a class='link' href='javascript:controller.openURL(\"$3\");'>$2</a>")
+            .replace(/\^\[([^\]]+)\]\(([^\)]+)\)/g, "<a class='name' href='#' onclick='bungloo.entityProfile.showEntity(this, $2); return false;'>$1</a>");
     }
 
     Core.prototype.parseForMedia = function(text, images) {
@@ -849,17 +847,19 @@ function(jQuery, APICalls, URI, HostApp, Showdown) {
 
     Core.prototype.afterChangingTextinMessageHTML = function(message_node) {                
         // adding show search on click hash
+        /*
         $(message_node).find("a.hash").click(function(e) {
 
             if(bungloo.search) bungloo.search.searchFor(e.target.innerHTML);
             return false;
         });
-
+        */
         // adding show profile on click
+        /*
         $(message_node).find("a.name").click(function(e) {
             HostApp.showProfileForEntity(e.target.title);
             return false;
-        });
+        });*/
     }
 
 

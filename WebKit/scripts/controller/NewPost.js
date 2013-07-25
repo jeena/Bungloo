@@ -277,28 +277,31 @@ function(APICalls, HostApp) {
         };
 
         var mentions = [];
-        if (this.status) {
-        	mentions.push({
-        		entity: this.status.entity,
-        		post: this.status.id,
-        		type: this.status.type
-        	});
-        }
-
         for (var i = 0; i < this.mentions.length; i++) {
         	var mention = this.mentions[i];
-        	mentions.push({
-        		entity: mention.entity
-        	});
+        	if(this.status && this.status.entity == mention.entity) {
+				mentions.push({
+					entity: this.status.entity,
+					post: this.status.id,
+					type: this.status.type
+				});
+        	} else {
+				mentions.push({
+					entity: mention.entity
+				});        		
+        	}
         }
 
         data.mentions = mentions;
+
+        debug(data.mentions)
 
         // Make tent flavored markdown mentions
         for (var i = 0; i < this.mentions.length; i++) {
         	var mention = this.mentions[i];
         	data.content.text = this.replaceAll(data.content.text, mention.name, "^[" + mention.name + "](" + i + ")")
         }
+        debug(data.content.text)
 
         APICalls.post(HostApp.serverUrl("new_post"), JSON.stringify(data), {
             content_type: data.type,
