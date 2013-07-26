@@ -132,11 +132,6 @@ function(Core, APICalls, HostApp, URI) {
             uri.addSearch("max_refs", 20);
             uri.addSearch("profiles", "entity");
 
-            if(this.since_id  && !append) {
-                uri.addSearch("since_id", this.since_id);
-                uri.addSearch("since_id_entity", this.since_id_entity);
-            }
-
             for (key in add_to_search) {
                 uri.addSearch(key, add_to_search[key]);
             }
@@ -147,12 +142,12 @@ function(Core, APICalls, HostApp, URI) {
             url += query;
         }
 
-        var data = null;
-
         if (HostApp.stringForKey("user_access_token")) {
 
             if (!this.reload_blocked) {
                 this.reload_blocked = true;
+
+                debug(url)
                 
                 APICalls.get(url, { callback: function(resp) {
 

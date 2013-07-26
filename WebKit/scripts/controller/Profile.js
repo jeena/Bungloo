@@ -2,19 +2,18 @@ define([
 	"helper/HostApp",
 	"helper/Core",
 	"helper/APICalls",
-	"lib/URI"
+	"lib/URI",
+	"controller/Timeline"
 ],
 
-function(HostApp, Core, APICalls, URI) {
+function(HostApp, Core, APICalls, URI, Timeline) {
 
 
 	function Profile() {
 
-		Core.call(this);
+		Timeline.call(this);
 
 		this.action = "profile";
-
-		this.posts_limit = 25;
 
 		this.container = document.createElement("div");
 		this.container.className = this.action;
@@ -22,12 +21,9 @@ function(HostApp, Core, APICalls, URI) {
 
 		this.initProfileTemplate();
 		this.hide();
-
-		//var _this = this;
-		//setTimeout(function() { _this.showProfileForEntity() }, 500); // Load users profile on start
 	}
 
-	Profile.prototype = Object.create(Core.prototype);
+	Profile.prototype = Object.create(Timeline.prototype);
 	
 
 	Profile.prototype.show = function() {
@@ -61,6 +57,8 @@ function(HostApp, Core, APICalls, URI) {
 			entity = HostApp.stringForKey("entity");
 		}
 
+		debug(entity)
+
 		this.clear();
 		this.entity = entity;
 		this.following = null;
@@ -70,6 +68,7 @@ function(HostApp, Core, APICalls, URI) {
 
 		this.getProfile();
 		this.getFollowing();
+		this.getStatuses();
 	}
 
 	Profile.prototype.initProfileTemplate = function() {
@@ -322,8 +321,10 @@ function(HostApp, Core, APICalls, URI) {
 
 		if (profile) {
 			this.profile = profile;
+
+			// FIXME
 			this.getMeta(this.profile);
-			//this.getStatuses(this.server);
+			this.getStatuses();
 		}
 	}
 
@@ -338,14 +339,13 @@ function(HostApp, Core, APICalls, URI) {
 	Profile.prototype.getMeta = function(profile) {
 
 		// FIXME!
-		return;
 
 		var _this = this;
-
-		var url = HostApp.serverUrl("posts_feed") + "?entities=" + encodeURIComponent(this.entity) + "&types=" + encodeURIComponent("https://tent.io/types/relationship/v0#follower");
+/*
+		var url = HostApp.serverUrl("posts_feed") + "?entities=" + encodeURIComponent(this.entity) + "&types=" + encodeURIComponent("https://tent.io/types/subscription/v0#");
 		APICalls.head(url, {
 			callback: function(resp) {
-				_this.populate(_this.profile_template.followed, APICalls.getCount(resp)+" ");
+				_this.populate(_this.profile_template.followed, APICalls.getCount(resp) + " ");
 			}
 		});      
 
@@ -356,11 +356,47 @@ function(HostApp, Core, APICalls, URI) {
 			}
 		});  
 
+		var url = HostApp.serverUrl("posts_feed") + "?entities=" + encodeURIComponent(this.entity) + "&types=" + encodeURIComponent("https://tent.io/types/status/v0#");
+		APICalls.head(url, {
+			callback: function(resp) {
+				_this.populate(_this.profile_template.posts, APICalls.getCount(resp) + " ");
+			}
+		});  
+*/
+
+		// is following you
+		// FIXME: should use HEAD
+		var url = HostApp.serverUrl("posts_feed") + "?entities=" + encodeURIComponent(this.entity) + "&types=" + encodeURIComponent("https://tent.io/types/subscription/v0#https://tent.io/types/status/v0") + "&mentions=" + encodeURIComponent(HostApp.stringForKey("entity"));
+		APICalls.get(url, {
+			callback: function(resp) {
+				var json = JSON.parse(resp.responseText);
+				if (json.posts.length > 0) {
+					_this.relationships.following_you = true;
+				} else {
+					_this.relationships.following_you = false;
+				}
+				_this.setRelationships();
+			}
+		}); 
+
+		// is followed by you
+		// FIXME: should use HEAD
+		var url = HostApp.serverUrl("posts_feed") + "?mentions=" + encodeURIComponent(this.entity) + "&types=" + encodeURIComponent("https://tent.io/types/subscription/v0#https://tent.io/types/status/v0");
+		APICalls.get(url, {
+			callback: function(resp) {
+				var json = JSON.parse(resp.responseText);
+				debug(json)
+				if (json.posts.length > 0) {
+					_this.relationships.followed_by_you = true;
+				} else {
+					_this.relationships.followed_by_you = false;
+				}
+				_this.setRelationships();
+			}
+		}); 
+
 		return;
-
-
-
-
+/*
 
 
 		if (this.entity != HostApp.stringForKey("entity")) {
@@ -395,7 +431,7 @@ function(HostApp, Core, APICalls, URI) {
 		APICalls.http_call(url.toString(), "GET", function(resp) {
 
 			_this.populate(_this.profile_template.posts, resp.responseText);
-		}, null, false);
+		}, null, false);*/
 	}
 
 	Profile.prototype.setRelationships = function() {
@@ -415,93 +451,9 @@ function(HostApp, Core, APICalls, URI) {
 	}
 
 
-	Profile.prototype.getStatuses = function(root_url, add_search, append) {
-		var _this = this;
+	Profile.prototype.getStatuses = function() {
 
-		add_search = add_search || {};
-
-		var url = URI(root_url + "/posts");
-		url.addSearch("limit", this.posts_limit);
-
-		var post_types = [
-			"https://tent.io/types/post/repost/v0.1.0",
-			"https://tent.io/types/post/status/v0.1.0",
-			"https://tent.io/types/post/photo/v0.1.0"
-		];
-		url.addSearch("post_types", post_types.join(","));
-
-		for(var key in add_search) {
-			url.addSearch(key, add_search[key]);
-		}
-
-		APICalls.http_call(url.toString(), "GET", function(resp) {
-
-			var statuses = JSON.parse(resp.responseText);
-
-			_this.newStatus(statuses, append);
-
-		}, null, false);
-	}
-
-
-	Profile.prototype.newStatus = function(statuses, append) {
-
-		if(statuses != null && statuses.length > 0) {
-
-			this.before.loading = false;
-
-			if (append) statuses = statuses.reverse();
-
-			for(var i = statuses.length-1, c=0; i>=c; --i) {
-
-				var status = statuses[i];
-
-				if (status.type == "https://tent.io/types/post/status/v0.1.0" || status.type == "https://tent.io/types/post/photo/v0.1.0") {
-
-					var new_node = this.getStatusDOMElement(status);
-
-					if(!append && this.body.childNodes.length > 0) {
-
-						if(this.body.childNodes.length > this.max_length) {
-
-							this.body.removeChild(this.body.lastChild);
-						}
-
-						this.body.insertBefore(new_node, this.body.firstChild);
-
-					} else {
-
-						this.body.appendChild(new_node);
-					}
-
-				} else if (status.type == "https://tent.io/types/post/delete/v0.1.0") {
-
-					var li = document.getElementById("post-" + status.content.id + "-" + this.action);
-					if (li) {
-						this.body.removeChild(li);
-					}
-				} else if (status.type == "https://tent.io/types/post/repost/v0.1.0") {
-
-					this.getRepost(status, this.body.firstChild);
-				}
-
-			}
-		}
-	}
-
-	Profile.prototype.getMoreStatusPosts = function() {
-		if (!this.before.loading) {
-			this.before.loading = true;
-			var add_search = {
-				"before_id": this.body.lastChild.status.id,
-				"before_id_entity": this.body.lastChild.status.entity
-			}
-			this.getStatuses(this.server, add_search, true);            
-		}
-	}
-
-	Profile.prototype.mention = function() {
-
+		Timeline.prototype.getNewData.call(this, {entities: this.entity});
 	}
 
 	Profile.prototype.setFollowingButton = function(following) {
@@ -533,6 +485,7 @@ function(HostApp, Core, APICalls, URI) {
 				} else {
 					_this.setFollowingButton(true);
 				}
+				_this.getMeta();
 			}});
 
 		} else {
@@ -561,6 +514,7 @@ function(HostApp, Core, APICalls, URI) {
 					} else {
 						_this.setFollowingButton(false);
 					}
+					_this.getMeta();
 				}
 			});
 		}
