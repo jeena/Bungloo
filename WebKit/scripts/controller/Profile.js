@@ -57,8 +57,6 @@ function(HostApp, Core, APICalls, URI, Timeline) {
 			entity = HostApp.stringForKey("entity");
 		}
 
-		debug(entity)
-
 		this.clear();
 		this.entity = entity;
 		this.following = null;
@@ -385,7 +383,6 @@ function(HostApp, Core, APICalls, URI, Timeline) {
 		APICalls.get(url, {
 			callback: function(resp) {
 				var json = JSON.parse(resp.responseText);
-				debug(json)
 				if (json.posts.length > 0) {
 					_this.relationships.followed_by_you = true;
 				} else {
@@ -503,6 +500,9 @@ function(HostApp, Core, APICalls, URI, Timeline) {
 				}],
 				type: "https://tent.io/types/subscription/v0#https://tent.io/types/status/v0"
 			};
+
+			debug(data)
+			debug(url)
 
 			APICalls.post(url, JSON.stringify(data), {
 				content_type: data.type,
