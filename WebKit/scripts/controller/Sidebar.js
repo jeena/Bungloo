@@ -1,15 +1,12 @@
 define([
     "helper/HostApp",
-    "helper/Paths",
-    "helper/Cache"
+    "helper/APICalls",
 ],
 
-function(HostApp, Paths, Cache) {
+function(HostApp, APICalls) {
 
 
     function Sidebar() {
-
-        this.cache = new Cache();
 
         this.body = document.createElement("ul");
         this.body.class = "sidebar";
@@ -84,57 +81,39 @@ function(HostApp, Paths, Cache) {
         var entity = HostApp.stringForKey("entity");
         this.menu.user.title = entity;
 
-        var img = this.menu.user.getElementsByTagName("img")[0];
-
+        var avatar = this.menu.user.getElementsByTagName("img")[0];
         var _this = this;
 
-        var profile_callback = function(p) {
+        var url = HostApp.serverUrl("posts_feed") + "?types=" + encodeURIComponent("https://tent.io/types/meta/v0") + "&entities=" + encodeURIComponent(entity);
+        APICalls.get(url, { callback: function(resp) {
+            var profiles = JSON.parse(resp.responseText);
 
-            var basic = p["https://tent.io/types/info/basic/v0.1.0"];
+            if(profiles.posts.length < 1) return;
+            var profile = profiles.posts[0];
+            bungloo.cache.profiles[entity] = profile;
 
-            if (p && basic) {
-                if(basic.name) {
-                    _this.menu.user.title = basic.name;
-                }
-                if(basic.avatar_url) {
+            // Find and apply avatar
+            if(profile.attachments) {
 
-                    img.onerror = function() {
-                        img.src = "img/sidebar/user.png";
-                        img.src_inactive = img.src;
-                        img.src_active = img.src;
+                var digest = null;
+                for (var i = 0; i < profile.attachments.length; i++) {
+                    var attachment = profile.attachments[i];
+                    if(attachment.category == "avatar") {
+                        digest = attachment.digest;
+                        break;
                     }
+                }
 
-                    img.src = basic.avatar_url;
-                    img.src_inactive = basic.avatar_url;
-                    img.src_active = basic.avatar_url;
-
+                if(digest) {
+                    var _this = this;
+                    avatar.onerror = function() { avatar.src = 'img/default-avatar.png' };
+                    var avatar_url = profile.content.servers[0].urls.attachment.replace(/\{entity\}/, encodeURIComponent(profile.entity));
+                    avatar.src = avatar_url.replace(/\{digest\}/, digest);
+                    avatar.src_inactive = avatar.src;
+                    avatar.src_active = avatar.src;
                 }
             }
-
-        }
-
-        var p = this.cache.profiles.getItem(entity);
-
-        if (p && p != "null") {
-
-            profile_callback(p);
-
-        } else {
-
-            Paths.findProfileURL(entity, function(profile_url) {
-
-                if (profile_url) {
-                    Paths.getURL(profile_url, "GET", function(resp) {
-                        var p = JSON.parse(resp.responseText);
-                        if (p && p != "null") {
-                            _this.cache.profiles.setItem(entity, p);
-                            profile_callback(p);
-                        }
-
-                    }, null, false); // do not send auth-headers
-                }
-            });
-        }
+        }});
     }
 
     Sidebar.prototype.removeEntityAvatar = function() {

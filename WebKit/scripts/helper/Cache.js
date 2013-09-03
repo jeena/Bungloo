@@ -40,12 +40,12 @@ function(URI, CacheStorage, require) {
             }
         }
 
-        var url = URI(require("helper/Paths").mkApiRootPath("/followings"));
+        var url = URI(require("helper/APICalls").mkApiRootPath("/followings"));
         if (this.followings_before_id) {
             url.addSearch("before_id", this.followings_before_id);
         }
 
-        require("helper/Paths").getURL(url, "GET", callback);
+        require("helper/APICalls").getURL(url, "GET", callback);
     }
 
     Cache.prototype.periodicallyGetFollowings = function() {

@@ -7,7 +7,7 @@ function(URI, CryptoJS) {
 
     var Hmac = {};
 
-    Hmac.makeAuthHeader = function(url, http_method, mac_key, mac_key_id) {
+    Hmac.makeHawkAuthHeader = function(url, http_method, hawk_id, key, app_id) {
 
         url = URI(url);
         var nonce = Hmac.makeid(8);
@@ -18,25 +18,46 @@ function(URI, CryptoJS) {
             port = url.protocol() == "https" ? "443" : "80";
         }
 
-        var normalizedRequestString = ""
-                                    + time_stamp + '\n'
-                                    + nonce + '\n'
-                                    + http_method + '\n'
-                                    + url.path() + url.search() + url.hash() + '\n'
-                                    + url.hostname() + '\n'
-                                    + port + '\n'
-                                    + '\n' ;
+        var normalizedRequestString = "hawk.1.header\n" // header
+                                    + time_stamp + '\n' // ts
+                                    + nonce + '\n' // nonce
+                                    + http_method.toUpperCase() + '\n' // method
+                                    + url.path() + url.search() + url.hash() + '\n' // request uri
+                                    + url.hostname().toLowerCase() + '\n' // host
+                                    + port + '\n' // port
+                                    + '\n' // Hmac.calculatePayloadHash(payload) + '\n' // hash // FIXME implement payload validation
+                                    + '\n' // ext (we don't use it)
 
-        var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, mac_key);
+        var app = "";
+
+        if(app_id) {
+            app = ', app="' + app_id + "'";
+            normalizedRequestString +=  app_id + "\n" + // app
+                                        '\n'; // dlg should be empty
+        }
+
+        var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, key);
         hmac.update(normalizedRequestString);
         var hash = hmac.finalize();
         var mac = hash.toString(CryptoJS.enc.Base64);
 
-        return 'MAC id="' + mac_key_id +
+        return 'Hawk id="' + hawk_id +
+                '", mac="' + mac +
                 '", ts="' + time_stamp +
-                '", nonce="' + nonce +
-                '", mac="' + mac + '"';
+                '", nonce="' + nonce + '"' +
+                app
     }
+
+    Hmac.calculatePayloadHash = function (payload) {
+        if (!payload) return "";
+
+        var hash = CryptoJS.algo.SHA256.create();
+        hash.update('hawk.1.payload\n');
+        hash.update('application/vnd.tent.post.v0+json\n');
+        hash.update(payload || '');
+        hash.update('\n');
+        return hash.finalize().toString(CryptoJS.enc.Base64);
+    },
 
     Hmac.makeid = function(len) {
         var text = "";

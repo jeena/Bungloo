@@ -1,17 +1,15 @@
 define([
     "jquery",
-    "helper/Paths",
+    "helper/APICalls",
     "lib/URI",
     "helper/HostApp",
-    "helper/Cache",
     "lib/Timeago",
     "lib/SingleDoubleClick"
 ],
 
-function(jQuery, Paths, URI, HostApp, Cache) {
+function(jQuery, APICalls, URI, HostApp) {
 
     function Core() {
-        this.cache = new Cache();
         this.saveScrollTop = 0;
     }
 
@@ -69,6 +67,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         image.className = "image";
         image.src = "img/default-avatar.png";
         image.onmousedown = function(e) { e.preventDefault(); };
+        image.onerror = function() { this.src = 'img/default-avatar.png' };
         item.appendChild(image);
 
         var image_username = a.cloneNode();
@@ -162,7 +161,28 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     }
 
     Core.prototype.getStatusDOMElement = function(status) {
-
+        /*
+{
+  "app": {
+    "id": "P8FJjaiRv0AKXfjUMd_4YQ",
+    "name": "Bungloo on Linux",
+    "url": "http:\/\/jabs.nu\/bungloo\/"
+  },
+  "content": {
+    "text": "jeena test"
+  },
+  "entity": "http:\/\/155969d81672.alpha.attic.is",
+  "id": "HlSXe8MREzU4h2fGLGSnCA",
+  "published_at": 1369566009,
+  "received_at": 1369566008799,
+  "type": "https:\/\/tent.io\/types\/status\/v0#",
+  "version": {
+    "id": "a2f702b4615c7d7dd0f98c73d7b55749880bf6e437a77349454ff10745d134c6",
+    "published_at": 1369566009,
+    "received_at": 1369566008799
+  }
+}
+        */
         var _this = this;
 
         var template = this.getTemplate();
@@ -191,7 +211,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         template.reply_to.onclick = function() {
 
             var mentions = [];
-            var status_mentions = status.mentions.slice(0);
+            var status_mentions = [];
+            if(status.mentions) status_mentions = status.mentions.slice(0);
 
             if (typeof status.__repost != "undefined") {
                 status_mentions.push({entity:status.__repost.entity});
@@ -202,7 +223,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     mentions.push(mention);
             }
 
-            _this.replyTo(status.entity, status.id, mentions, (status && status.permissions && !status.permissions.public));
+            _this.replyTo(status);
             return false;
         }
 
@@ -212,7 +233,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             return false;
         }
 
-        template.username.innerText = status.entity;
+        if(bungloo.cache.profiles[status.entity].name) template.username.innerText = bungloo.cache.profiles[status.entity].name;
+        else template.username.innerText = status.entity;
         template.username.href = status.entity;
         template.username.title = status.entity;
         template.username.onclick = function() {
@@ -220,47 +242,12 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             return false;
         }
 
+        if(bungloo.cache.profiles[status.entity].avatar_digest) {
+            template.image.src = HostApp.serverUrl("attachment").replace(/\{entity\}/, encodeURIComponent(status.entity)).replace(/\{digest\}/, bungloo.cache.profiles[status.entity].avatar_digest);
+        }
+
         template.image.onclick = template.username.onclick;
 
-        var profile_callback = function(p) {
-
-            var basic = p["https://tent.io/types/info/basic/v0.1.0"];
-
-            if (p && basic) {
-                if(basic.name) {
-                    template.username.title = template.username.innerText;
-                    template.username.innerText = basic.name;
-                }
-                if(basic.avatar_url) {
-                    template.image.onerror = function() { template.image.src = 'img/default-avatar.png' };
-                    template.image.src = basic.avatar_url;
-                }
-            }
-
-        }
-
-        var p = this.cache.profiles.getItem(status.entity);
-
-        if (p && p != "null") {
-
-            profile_callback(p);
-
-        } else {
-
-            Paths.findProfileURL(status.entity, function(profile_url) {
-
-                if (profile_url) {
-                    Paths.getURL(profile_url, "GET", function(resp) {
-                        var p = JSON.parse(resp.responseText);
-                        if (p && p != "null") {
-                            _this.cache.profiles.setItem(status.entity, p);
-                            profile_callback(p);
-                        }
-
-                    }, null, false); // do not send auth-headers
-                }
-            });
-        }
 
         if (status && status.permissions && !status.permissions.public) {
             template.is_private.style.display = '';
@@ -290,6 +277,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message);
         this.afterChangingTextinMessageHTML(template.message)
 
+        /*
         if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
 
             for (var i = 0; i < status.attachments.length; i++) {
@@ -308,18 +296,19 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                     }
 
                     if (status.entity == HostApp.stringForKey("entity")) {
-                        var url = Paths.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
-                        Paths.getURL(url, "GET", callback, null, null, attachment.type);
+                        var url = APICalls.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
+                        APICalls.http_call(url, "GET", callback, null, null, attachment.type);
                     } else {
-                        var url = Paths.mkApiRootPath("/posts/" + encodeURIComponent(status.entity) + "/" + status.id + "/attachments/" + attachment.name);
-                        Paths.getURL(url, "GET", callback, null, null, attachment.type);
+                        var url = APICalls.mkApiRootPath("/posts/" + encodeURIComponent(status.entity) + "/" + status.id + "/attachments/" + attachment.name);
+                        APICalls.http_call(url, "GET", callback, null, null, attachment.type);
                     }
                 })();
             }
         }
-
+        */
         this.findMentions(template.message, status.mentions);
 
+/*
         for (var i = 0; i < status.mentions.length; i++) {
             var mention = status.mentions[i];
             if (mention.entity == HostApp.stringForKey("entity")) {
@@ -327,10 +316,10 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 break;
             }
         }
-
-        var published_at = typeof status.__repost == "undefined" ? status.published_at : status.__repost.published_at;
+*/
+        var published_at = typeof status.__repost == "undefined" ? status.version.published_at : status.__repost.published_at;
         var time = document.createElement("abbr");
-        time.innerText = this.ISODateString(new Date(published_at * 1000));
+        time.innerText = this.ISODateString(new Date(published_at));
         time.title = time.innerText;
         time.className = "timeago";
         jQuery(time).timeago();
@@ -366,9 +355,11 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             template.source.innerHTML = status.__repost.app.name;
             template.source.title = status.__repost.app.url;
         } else {
-            template.source.href = status.app.url;
-            template.source.innerHTML = status.app.name;
-            template.source.title = status.app.url;
+            if(status.app) {
+                template.source.href = status.app.url;
+                template.source.innerHTML = status.app.name;
+                template.source.title = status.app.url;
+            }
         }
 
         return template.item;
@@ -431,9 +422,9 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             });
 
             var _this = this;
-            Paths.findProfileURL(repost.entity, function(profile_url) {
+            APICalls.findProfileURL(repost.entity, function(profile_url) {
                 if (profile_url) {
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    APICalls.http_call(profile_url, "GET", function(resp) {
                         if (resp.status >= 200 && resp.status < 400) {
                             var _p = JSON.parse(resp.responseText);
                             _this.cache.profiles.setItem(repost.entity, _p);
@@ -460,14 +451,14 @@ function(jQuery, Paths, URI, HostApp, Cache) {
                 }
             }
 
-            Paths.findProfileURL(repost.content.entity, function(profile_url) {
+            APICalls.findProfileURL(repost.content.entity, function(profile_url) {
                 if (profile_url) {
 
-                    Paths.getURL(profile_url, "GET", function(resp) {
+                    APICalls.http_call(profile_url, "GET", function(resp) {
 
                         var profile = JSON.parse(resp.responseText);
                         var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
-                        Paths.getURL(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
+                        APICalls.http_call(URI(server + "/posts/" + repost.content.id).toString(), "GET", callback, null, false);
 
                     }, null, false); // do not send auth-headers
                 }
@@ -475,55 +466,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }
     }
 
-    Core.prototype.sendNewMessage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
-
-        if (image_data_uri) {
-
-            this.sendNewMessageWithImage(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback);
-
-        } else {
-
-            var url = URI(Paths.mkApiRootPath("/posts"));
-
-            var http_method = "POST";
-
-            var data = {
-                "type": "https://tent.io/types/post/status/v0.1.0",
-                "published_at": parseInt(new Date().getTime() / 1000, 10),
-                "permissions": {
-                    "public": !is_private
-                },
-                "content": {
-                    "text": content,
-                },
-            };
-
-            if (location) {
-                data["content"]["location"] = { "type": "Point", "coordinates": location }
-            }
-
-            var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
-
-            if (mentions.length > 0) {
-                data["mentions"] = mentions;
-                if (is_private) {
-                    var entities = {};
-                    for (var i = 0; i < mentions.length; i++) {
-                        var entity = mentions[i]["entity"]
-                        entities[entity] = true;
-                    };
-
-                    data["permissions"]["entities"] = entities;
-                }
-            }
-
-            Paths.getURL(url.toString(), http_method, callback, JSON.stringify(data));
-        }
-    }
-
-
     Core.prototype.repost = function(id, entity, callback) {
-        var url = URI(Paths.mkApiRootPath("/posts"));
+        var url = URI(APICalls.mkApiRootPath("/posts"));
 
         var data = {
             "type": "https://tent.io/types/post/repost/v0.1.0",
@@ -549,88 +493,14 @@ function(jQuery, Paths, URI, HostApp, Cache) {
             _this.highlight(id);
         }
 
-        Paths.getURL(url.toString(), "POST", new_callback, JSON.stringify(data));
-    }
-
-    Core.prototype.sendNewMessageWithImage = function(content, in_reply_to_status_id, in_reply_to_entity, location, image_data_uri, is_private, callback) {
-
-        var url = URI(Paths.mkApiRootPath("/posts"));
-
-        var data = {
-            "type": "https://tent.io/types/post/photo/v0.1.0",
-            "published_at": parseInt(new Date().getTime() / 1000, 10),
-            "permissions": {
-                "public": !is_private
-            },
-            "content": {
-                "caption": content,
-            },
-        };
-
-        if (location) {
-            data["content"]["location"] = { "type": "Point", "coordinates": location }
-        }
-
-        var mentions = this.parseMentions(content, in_reply_to_status_id, in_reply_to_entity);
-        if (mentions.length > 0) {
-            data["mentions"] = mentions;
-            if (is_private) {
-                var entities = {};
-                for (var i = 0; i < mentions.length; i++) {
-                    var entity = mentions[i]["entity"]
-                    entities[entity] = true;
-                };
-
-                data["permissions"]["entities"] = entities;
-            }
-        }
-
-        var data_string = JSON.stringify(data);
-
-        var boundary = "TentAttachment----------TentAttachment";
-        var post = "--" + boundary + "\r\n";
-
-        post += 'Content-Disposition: form-data; name="post"; filename="post.json"\r\n';
-        post += 'Content-Length: ' + data_string.length + '\r\n';
-        post += 'Content-Type: application/vnd.tent.v0+json\r\n';
-        post += 'Content-Transfer-Encoding: binary\r\n\r\n';
-        post += data_string;
-
-        post += "\r\n--" + boundary + "\r\n";
-
-        var blob_string = image_data_uri.split(',')[1];
-        var mime_type = image_data_uri.split(',')[0].split(':')[1].split(';')[0];
-        var ext = "png";
-        if (mime_type == "image/jpeg") {
-            ext = "jpeg";
-        } else if (mime_type == "image/gif") {
-            ext = "gif";
-        }
-
-
-        post += 'Content-Disposition: form-data; name="photos[0]"; filename="photo.' + ext + '"\r\n';
-        post += 'Content-Length: ' + blob_string.length + "\r\n";
-        post += 'Content-Type: ' + mime_type + "\r\n";
-        post += 'Content-Transfer-Encoding: base64\r\n\r\n';
-        post += blob_string;
-        post += "\r\n--" + boundary + "--\r\n";
-
-        var newCallback = function(resp) {
-            if (resp.status == 403) {
-                var err = JSON.parse(resp.responseText);
-                HostApp.alertTitleWithMessage(resp.statusText, err.error);
-            }
-            callback(resp);
-        }
-
-        Paths.postMultipart(url.toString(), newCallback, post, boundary);
+        APICalls.http_call(url.toString(), "POST", new_callback, JSON.stringify(data));
     }
 
     Core.prototype.remove = function(id, callback, type) {
         type = type || "post";
         if (confirm("Really delete this " + type + "?")) {
-            var url = URI(Paths.mkApiRootPath("/posts/" + id));
-            Paths.getURL(url.toString(), "DELETE", callback);
+            var url = URI(APICalls.mkApiRootPath("/posts/" + id));
+            APICalls.http_call(url.toString(), "DELETE", callback);
         }
     }
 
@@ -738,9 +608,9 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
                 } else {
 
-                    Paths.findProfileURL(mention.entity, function(profile_url) {
+                    APICalls.findProfileURL(mention.entity, function(profile_url) {
                         if (profile_url) {
-                            Paths.getURL(profile_url, "GET", function(resp) {
+                            APICalls.http_call(profile_url, "GET", function(resp) {
                                 if (resp.status >= 200 && resp.status < 400) {
                                     var p = JSON.parse(resp.responseText);
                                     _this.cache.profiles.setItem(mention.entity, p);
@@ -796,27 +666,14 @@ function(jQuery, Paths, URI, HostApp, Cache) {
     }
 
     Core.prototype.replaceURLWithHTMLLinks = function(text, entities, message_node) {
-
-        var callback = function(url) {
-
-            var result;
-
-            if (entities && entities.some(function(x) { return x == url })) {
-                result = url;
-            } else {
-
-                result = url;
-                if (url.startsWith("http://") || url.startsWith("https://")) {
-                    result = '<a href="' + url + '">' + url + '</a>';    
-                }
-            }
-
-            return result;
-        }
-
-        var hash = /(^|\s)(#)(\w+)/ig;
-
-        return URI.withinString(text, callback).replace(hash, "$1<a class='hash' href='https://skate.io/search?q=%23$3'>$2$3</a>");
+        // FIXME: this has to be done better so one can nest that stuff and escape with \
+        return text.replace(/_([^_]+)_/g, "<em>$1</em>")
+            .replace(/\*([^\*]+)\*/g, "<strong>$1</strong>")
+            .replace(/`([^`]+)`/g, "<code>$1</code>")
+            .replace(/~([^~]+)~/g, "<del>$1</del>")
+            .replace(/\#([^\s]+)/g, "<a class='hash' href=\"javascript:bungloo.search.searchFor('$1')\">#$1</a>")
+            .replace(/(^|[^\^])\[([^\]]+)\]\(([^\)]+)\)/g, "<a class='link' href='javascript:controller.openURL(\"$3\");'>$2</a>")
+            .replace(/\^\[([^\]]+)\]\((\d+)\)/g, "<a class='name' href='#' onclick='bungloo.entityProfile.showEntity(this, $2); return false;'>$1</a>");
     }
 
     Core.prototype.parseForMedia = function(text, images) {
@@ -838,7 +695,7 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
                 } else if(word.startsWith("http://youtube.com/") || word.startsWith("http://www.youtube.com/") || word.startsWith("https://youtube.com/") || word.startsWith("https://www.youtube.com/")) {
                     
-                    var v = Paths.getUrlVars(word)["v"];
+                    var v = APICalls.getUrlVars(word)["v"];
                     this.addYouTube(v, images);
 
                 } else if (word.startsWith("http://youtu.be/") || word.startsWith("https://youtu.be/")) {
@@ -890,19 +747,8 @@ function(jQuery, Paths, URI, HostApp, Cache) {
         }
     }
 
-    Core.prototype.replyTo = function(entity, status_id, mentions, is_private) {
-
-        var string = "^" + entity.replace("https://", "") + " ";
-        
-        var ms = "";
-        for (var i = 0; i < mentions.length; i++) {
-          var e = mentions[i].entity.replace("https://", "");
-          if(string.indexOf(e) == -1) ms += " ^" + e;
-        }
-
-        if(ms.length > 0) string += "\n\n/cc" + ms;
-
-        HostApp.openNewMessageWidow(entity, status_id, string, is_private);
+    Core.prototype.replyTo = function(status) {
+        HostApp.openNewMessageWidow(status);
     }
 
     Core.prototype.postDeleted = function(post_id, entity) {
@@ -1001,19 +847,20 @@ function(jQuery, Paths, URI, HostApp, Cache) {
 
     Core.prototype.afterChangingTextinMessageHTML = function(message_node) {                
         // adding show search on click hash
+        /*
         $(message_node).find("a.hash").click(function(e) {
 
             if(bungloo.search) bungloo.search.searchFor(e.target.innerHTML);
             return false;
         });
-
+        */
         // adding show profile on click
+        /*
         $(message_node).find("a.name").click(function(e) {
             HostApp.showProfileForEntity(e.target.title);
             return false;
-        });
+        });*/
     }
-
 
 
     return Core;

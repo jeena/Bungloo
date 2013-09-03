@@ -1,11 +1,11 @@
 define([
     "helper/Core",
-    "helper/Paths",
+    "helper/APICalls",
     "helper/HostApp",
     "lib/URI"
 ],
 
-function(Core, Paths, HostApp, URI) {
+function(Core, APICalls, HostApp, URI) {
 
     function Timeline() {
 
@@ -20,6 +20,8 @@ function(Core, Paths, HostApp, URI) {
         this.since_id = null;
         this.since_id_entity = null;
         this.since_time = 0;
+
+        this.pages = {};
 
         this.before = {id: null, entity: null, loading: false};
 
@@ -46,8 +48,19 @@ function(Core, Paths, HostApp, URI) {
     }
     
 
-    Timeline.prototype.newStatus = function(statuses, append) {
+    Timeline.prototype.newStatus = function(_statuses, append) {
 
+        for (var entity in _statuses.profiles) {
+            if (_statuses.profiles[entity] != null) {
+                bungloo.cache.profiles[entity] = _statuses.profiles[entity];
+            } else {
+                bungloo.cache.profiles[entity] = {};
+            }
+        }
+
+        this.pages = _statuses.pages;
+
+        statuses = _statuses.posts;
         if(statuses != null && statuses.length > 0) {
 
             this.before.loading = false;
@@ -62,7 +75,7 @@ function(Core, Paths, HostApp, URI) {
                     this.since_id_entity = status.entity;                    
                 }
 
-                if (status.type == "https://tent.io/types/post/status/v0.1.0" || status.type == "https://tent.io/types/post/photo/v0.1.0") {
+                if (status.type == "https://tent.io/types/status/v0#") {
 
                     var new_node = this.getStatusDOMElement(status);
 
@@ -95,68 +108,69 @@ function(Core, Paths, HostApp, URI) {
         }
     }
 
-    Timeline.prototype.getNewData = function(add_to_search, append) {
+    Timeline.prototype.getNewData = function(add_to_search, append, query) {
 
         add_to_search = add_to_search || {};
 
         var those = this;
-        var url = URI(Paths.mkApiRootPath("/posts"));
+        var url = HostApp.serverUrl("posts_feed");
 
-        var post_types = [
-            "https://tent.io/types/post/repost/v0.1.0",
-            "https://tent.io/types/post/status/v0.1.0",
-            "https://tent.io/types/post/delete/v0.1.0",
-            "https://tent.io/types/post/photo/v0.1.0"
-        ];
-        url.addSearch("post_types", post_types.join(","));
-        //url.addSearch("sort_by", "published_at");
-        url.addSearch("limit", this.posts_limit);
+        if(!query) {
 
-        if(this.since_id  && !append) {
-            url.addSearch("since_id", this.since_id);
-            url.addSearch("since_id_entity", this.since_id_entity);
-        }
+            var uri = URI(url);
 
-        for (key in add_to_search) {
-            url.addSearch(key, add_to_search[key]);
-        }
+            var post_types = [
+                "https://tent.io/types/status/v0#",
+                "https://tent.io/types/status/v0#reply",
+                "https://tent.io/types/repost/v0#",
+                "https://tent.io/types/delete/v0#",
+                //"https://tent.io/types/post/photo/v0.1.0"
+            ];
+            uri.addSearch("types", post_types.join(","));
+            //uri.addSearch("sort_by", "published_at");
+            uri.addSearch("limit", this.posts_limit);
+            uri.addSearch("max_refs", 20);
+            uri.addSearch("profiles", "entity");
 
-        var http_method = "GET";
-        var callback = function(resp) {
-
-            those.reload_blocked = false;
-
-            try {
-
-                var json = JSON.parse(resp.responseText);
-                those.newStatus(json, append);
-
-            } catch (e) {
-                console.error(url + " JSON parse error");
-                throw e;
+            for (key in add_to_search) {
+                uri.addSearch(key, add_to_search[key]);
             }
-        }
 
-        var data = null;
+            url = uri.toString();
+
+        } else {
+            url += query;
+        }
 
         if (HostApp.stringForKey("user_access_token")) {
 
             if (!this.reload_blocked) {
                 this.reload_blocked = true;
-                Paths.getURL(url.toString(), http_method, callback, data); // FIXME: error callback
+
+                APICalls.get(url, { callback: function(resp) {
+                    // FIXME this is getting data when it shouldn't debug(resp.responseText)
+
+                    those.reload_blocked = false;
+
+                    try {
+                        var json = JSON.parse(resp.responseText);
+                        those.newStatus(json, append);
+
+                    } catch (e) {
+                        console.error(url + " JSON parse error");
+                        throw e;
+                    }
+                } });
             }
         }
     }
 
     Timeline.prototype.getMoreStatusPosts = function() {
         if (!this.before.loading) {
-            this.before.loading = true;
-            var add_search = {
-                "before_id": this.body.lastChild.status.id,
-                "before_id_entity": this.body.lastChild.status.entity
+            if (this.pages.next) {
+                this.before.loading = true;
+                this.getNewData({}, true, this.pages.next);
             }
-
-            this.getNewData(add_search, true);            
         }
     }
 

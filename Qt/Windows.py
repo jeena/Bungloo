@@ -9,7 +9,7 @@ class Preferences:
 
 		# window
 		self.window = QtGui.QMainWindow()
-		self.window.setWindowTitle("Preferences")
+		self.window.setWindowTitle("Login")
 		self.window.resize(480, 186)
 		self.window.setMinimumSize(480, 186)
 		self.window.setMaximumSize(480, 186)
@@ -242,7 +242,7 @@ class Oauth:
 		new_manager.sslErrors.connect(lambda reply, errors: self.handleSslErrors(reply, errors))
 		self.auth_view.page().setNetworkAccessManager(new_manager)
 		self.auth_view.show()
-
+		print url
 		self.auth_view.load_url(url)
 		return False
 
@@ -329,25 +329,29 @@ class FindEntity(QtGui.QDialog):
 		
 
 class NewPost(Helper.RestorableWindow):
-	def __init__(self, app):
+	def __init__(self, app, status_string):
 		self.app = app
+		self.status_string = status_string
+
 		Helper.RestorableWindow.__init__(self, "newpost", self.app)
+		self.activateWindow()
+		self.raise_()
 
 		self.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
 
-		self.textInput = QtGui.QPlainTextEdit(self)
-		self.setCentralWidget(self.textInput)
-		self.textInput.textChanged.connect(self.onChanged)
+		self.webView = Helper.WebViewCreator(self.app, True, self)
+		self.webView.load_local(self.load_finished)
+		self.setCentralWidget(self.webView)
+
+		self.initUI()
+
+		self.webView.triggerPageAction(QtWebKit.QWebPage.InspectElement)
+		frame = self.webView.page().mainFrame()
+		frame.addToJavaScriptWindowObject("new_post_window", self)
 
 		self.setWindowTitle("New Post")
 		self.resize(300, 150)
 		self.setMinimumSize(100, 100)
-		self.initUI()
-
-		self.setIsPrivate(False)
-		self.status_id = None
-		self.reply_to_entity = None
-		self.imageFilePath = None
 
 	def initUI(self):
 		newPostAction = QtGui.QAction("&New Post", self)
@@ -396,89 +400,38 @@ class NewPost(Helper.RestorableWindow):
 		aboutAction.setStatusTip("Open about page in Webbrowser")
 		aboutAction.triggered.connect(self.app.open_about)
 
+		developerExtrasAction = QtGui.QAction("&Developer Extras", self)
+		developerExtrasAction.setStatusTip("Activate webkit inspector")
+		developerExtrasAction.triggered.connect(self.developer_extras)
+
 		helpMenu = menubar.addMenu("&Help")
 		helpMenu.addAction(aboutAction)
+		helpMenu.addAction(developerExtrasAction)
 
-
-		self.statusBar().showMessage('256')
-
-		self.addButton = QtGui.QToolButton()
-		self.addButton.setToolTip("Add photo")
-		self.addButton.clicked.connect(self.openFileDialog)
-		self.addButton.setAutoRaise(True)
-		#addIcon = QtGui.QIcon.fromTheme("insert-image", QtGui.QIcon(self.app.resources_path() + "/images/Actions-insert-image-icon.png"))
-		addIcon = QtGui.QIcon(self.app.resources_path() + "/images/glyphicons_138_picture.png")
-		self.addButton.setIcon(addIcon)
-		self.statusBar().addPermanentWidget(self.addButton)
-
-		self.isPrivateButton = QtGui.QToolButton()
-		self.isPrivateButton.setToolTip("Make private")
-		self.isPrivateButton.clicked.connect(self.toggleIsPrivate)
-		self.isPrivateButton.setAutoRaise(True)
-		#self.isPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/Lock-Lock-icon.png")
-		self.isPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/glyphicons_203_lock.png")
-		#self.isNotPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/Lock-Unlock-icon.png")
-		self.isNotPrivateIcon = QtGui.QIcon(self.app.resources_path() + "/images/glyphicons_204_unlock.png")
-		self.isPrivateButton.setIcon(self.isNotPrivateIcon)
-		self.statusBar().addPermanentWidget(self.isPrivateButton)
-
-		self.sendButton = QtGui.QToolButton()
-		self.sendButton.setToolTip("Send")
-		self.sendButton.clicked.connect(self.sendMessage)
-		self.sendButton.setAutoRaise(True)
-		#sendIcon = QtGui.QIcon.fromTheme("mail-send", QtGui.QIcon(self.app.resources_path() + "/images/send-icon.png"))
-		sendIcon = QtGui.QIcon(self.app.resources_path() + "/images/glyphicons_123_message_out.png")
-		self.sendButton.setIcon(sendIcon)
-		self.statusBar().addPermanentWidget(self.sendButton)
-
-	def setIsPrivate(self, is_private):
-		self.isPrivate = is_private
-		icon = self.isNotPrivateIcon
-		if self.isPrivate:
-			icon = self.isPrivateIcon
-
-		self.isPrivateButton.setIcon(icon)
+	def load_finished(self, widget):
+		callback = "function() { bungloo.newpost.setStatus('%s'); }" % (self.status_string)
+		script = "function HostAppGo() { start('newpost', " + callback + "); }"
+		self.webView.page().mainFrame().evaluateJavaScript(script)
+		self.webView.setFocus()
 
 	def toggleIsPrivate(self):
-		self.setIsPrivate(not self.isPrivate)
-
-	def setString(self, string):
-		self.inReplyToStatusIdWithString(None, None, string)
-
-	def inReplyToStatusIdWithString(self, reply_to, status_id, string):
-		self.reply_to_entity = reply_to
-		self.status_id = status_id
-		self.textInput.setPlainText(string)
-
-		cursor = self.textInput.textCursor()
-		cursor.movePosition(QtGui.QTextCursor.End, QtGui.QTextCursor.MoveAnchor)
-		cursor.movePosition(QtGui.QTextCursor.Start, QtGui.QTextCursor.KeepAnchor)
-		cursor.movePosition(QtGui.QTextCursor.EndOfLine, QtGui.QTextCursor.KeepAnchor)
-		self.textInput.setTextCursor(cursor)
-
-	def onChanged(self):
-		count = 256 - len(self.textInput.toPlainText())
-		self.statusBar().showMessage(str(count))
+		script = "bungloo.newpost.toggleIsPrivate();"
+		self.webView.page().mainFrame().evaluateJavaScript(script)
 
 	def sendMessage(self):
-		count = len(self.textInput.toPlainText())
-		if count > 0 and count <= 256:
-			message = Helper.PostModel()
-			message.text = unicode(self.textInput.toPlainText().toUtf8(), "utf-8")
-			message.inReplyTostatusId = self.status_id
-			message.inReplyToEntity = self.reply_to_entity
-			message.location = None
-			message.imageFilePath = self.imageFilePath
-			message.isPrivate = self.isPrivate
-			self.app.controller.sendMessage(message)
-			self.close()
-		else:
-			 QtGui.qApp.beep()
+		script = "bungloo.newpost.send()"
+		self.webView.page().mainFrame().evaluateJavaScript(script)
+
+	def developer_extras(self, widget):
+		QtWebKit.QWebSettings.globalSettings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
 
 	def openFileDialog(self):
-		fileNamePath = QtGui.QFileDialog.getOpenFileName(self, "Choose a image", "", "Images (*.png *.gif *.jpg *.jpeg)")
-		if len(fileNamePath) > 0:
-			self.imageFilePath = str(fileNamePath)
-		else:
-			self.imageFilePath = None
+		print "openFileDialog Not implemented yet"
 
+	@QtCore.pyqtSlot()
+	def closeWindow(self):
+		self.close()
+
+	@QtCore.pyqtSlot()
+	def beep(self):
+		QtGui.qApp.beep()

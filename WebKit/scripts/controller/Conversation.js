@@ -1,11 +1,11 @@
 define([
     "helper/HostApp",
     "helper/Core",
-    "helper/Paths",
+    "helper/APICalls",
     "lib/URI"
 ],
 
-function(HostApp, Core, Paths, URI) {
+function(HostApp, Core, APICalls, URI) {
 
 
     function Conversation(standalone) {
@@ -86,15 +86,15 @@ function(HostApp, Core, Paths, URI) {
 
         function getRemoteStatus(profile) {
             var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
-            Paths.getURL(URI(server + "/posts/" + id).toString(), "GET", callback, null, false);
+            APICalls.http_call(URI(server + "/posts/" + id).toString(), "GET", callback, null, false);
         }
 
         var profile = this.cache.profiles.getItem(entity);
 
         if (entity == HostApp.stringForKey("entity")) {
 
-            var url = URI(Paths.mkApiRootPath("/posts/" + id));
-            Paths.getURL(url.toString(), "GET", callback, null);
+            var url = URI(APICalls.mkApiRootPath("/posts/" + id));
+            APICalls.http_call(url.toString(), "GET", callback, null);
 
         } else if(profile) {
 
@@ -102,7 +102,7 @@ function(HostApp, Core, Paths, URI) {
 
         } else {
 
-            Paths.findProfileURL(entity, function(profile_url) {
+            APICalls.findProfileURL(entity, function(profile_url) {
 
                 if (profile_url) {
 
@@ -113,7 +113,7 @@ function(HostApp, Core, Paths, URI) {
 
                     } else {
 
-                        Paths.getURL(profile_url, "GET", function(resp) {
+                        APICalls.http_call(profile_url, "GET", function(resp) {
 
                             var profile = JSON.parse(resp.responseText)
                             this.cache.profiles.setItem(entity, profile);
@@ -128,7 +128,7 @@ function(HostApp, Core, Paths, URI) {
 
     Conversation.prototype.appendMentioned = function(id, entity, node) {
 
-        var url = URI(Paths.mkApiRootPath("/posts"));
+        var url = URI(APICalls.mkApiRootPath("/posts"));
         url.addSearch("mentioned_post", id);
         url.addSearch("post_types", "https%3A%2F%2Ftent.io%2Ftypes%2Fpost%2Fstatus%2Fv0.1.0");
 
@@ -147,7 +147,7 @@ function(HostApp, Core, Paths, URI) {
             }
         }
 
-        Paths.getURL(url.toString(), "GET", callback);
+        APICalls.http_call(url.toString(), "GET", callback);
 
     }
 

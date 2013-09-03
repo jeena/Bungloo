@@ -107,15 +107,12 @@ class Controller(QtCore.QObject):
 		QtCore.QObject.__init__(self)
 		self.app = app
 
-		oldpath = os.path.expanduser('~/.bungloo/')
-		if os.path.isdir(oldpath):
-			shutil.copytree(oldpath, os.path.expanduser('~/.config/bungloo/'))
-			shutil.rmtree(os.path.expanduser('~/.bungloo/'))
+		name = "bungloo2"
 
-		if not os.path.exists(os.path.expanduser("~/.config/bungloo/")):
-			os.makedirs(os.path.expanduser("~/.config/bungloo/"))
+		if not os.path.exists(os.path.expanduser("~/.config/" + name + "/")):
+			os.makedirs(os.path.expanduser("~/.config/" + name + "/"))
 		
-		self.config_path = os.path.expanduser('~/.config/bungloo/bungloo.cfg')
+		self.config_path = os.path.expanduser('~/.config/' + name + '/bungloo.cfg')
 
 		if os.access(self.config_path, os.R_OK):
 			with open(self.config_path, 'r') as f:
@@ -173,22 +170,18 @@ class Controller(QtCore.QObject):
 			except OSError:
 				pass
 
-	@QtCore.pyqtSlot(str)
-	def openNewMessageWidow(self, is_private=False, string=""):
-		string = str(string)
-		self.openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(None, None, string, is_private)
+	@QtCore.pyqtSlot()
+	def openNewMessageWidow(self):
+		self.openNewMessageWindowInReplyToStatus("")
 
-	@QtCore.pyqtSlot(str, str, str, bool)
-	def openNewMessageWindowInReplyTostatusIdwithStringIsPrivate(self, entity, status_id, string, is_private):
-		new_message_window = Windows.NewPost(self.app)
-		new_message_window.inReplyToStatusIdWithString(entity, status_id, string)
-		new_message_window.setIsPrivate(is_private)
+	@QtCore.pyqtSlot(str)
+	def openNewMessageWindowInReplyToStatus(self, status_string):
+		new_message_window = Windows.NewPost(self.app, status_string)
 		new_message_window.show()
 		new_message_window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 		self.app.new_message_windows.append(new_message_window)
 		new_message_window.activateWindow()
 		new_message_window.setFocus()
-		new_message_window.textInput.setFocus()
 		new_message_window.show()
 		new_message_window.raise_()
 
@@ -268,6 +261,16 @@ class Controller(QtCore.QObject):
 		msgBox.setInformativeText(message)
 		msgBox.exec_()
 
+	@QtCore.pyqtSlot(result=str)
+	def getCachedProfiles(self):
+		entities = self.app.timeline.evaluateJavaScript("JSON.stringify(bungloo.cache.profiles);")
+		return entities.toString()
+
+	@QtCore.pyqtSlot()
+	def getNewData(self):
+		func = "bungloo.timeline.getNewData()"
+		self.app.timeline.evaluateJavaScript(func)
+
 	def logout(self, sender):
 		print "logout is not implemented yet"
 
@@ -297,7 +300,7 @@ class Console(QtCore.QObject):
 
 if __name__ == "__main__":
 
-	key = 'BUNGLOO'
+	key = 'BUNGLOO2'
 
 	if len(sys.argv) > 1 and sys.argv[1] == "--help":
 		print """
