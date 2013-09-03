@@ -75,7 +75,7 @@ function(Core, APICalls, HostApp, URI) {
                     this.since_id_entity = status.entity;                    
                 }
 
-                if (status.type == "https://tent.io/types/status/v0#") {
+                if (status.type == "https://tent.io/types/status/v0#" || status.type == "https://tent.io/types/status/v0#reply") {
 
                     var new_node = this.getStatusDOMElement(status);
 
