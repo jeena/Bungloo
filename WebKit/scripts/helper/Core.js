@@ -672,7 +672,7 @@ function(jQuery, APICalls, URI, HostApp) {
             .replace(/`([^`]+)`/g, "<code>$1</code>")
             .replace(/~([^~]+)~/g, "<del>$1</del>")
             .replace(/\#([^\s]+)/g, "<a class='hash' href=\"javascript:bungloo.search.searchFor('$1')\">#$1</a>")
-            .replace(/(^|[^\^])\[([^\]]+)\]\(([^\)]+)\)/g, "<a class='link' href='javascript:controller.openURL(\"$3\");'>$2</a>")
+            .replace(/(^|[^\^])\[([^\]]+)\]\(([^\)]+)\)/g, "$1<a class='link' href='javascript:controller.openURL(\"$3\");'>$2</a>")
             .replace(/\^\[([^\]]+)\]\((\d+)\)/g, "<a class='name' href='#' onclick='bungloo.entityProfile.showEntity(this, $2); return false;'>$1</a>");
     }
 
