@@ -146,9 +146,9 @@ function(Core, APICalls, HostApp, URI) {
 
             if (!this.reload_blocked) {
                 this.reload_blocked = true;
-                debug(url)
+
                 APICalls.get(url, { callback: function(resp) {
-                    debug(resp.responseText)
+                    // FIXME this is getting data when it shouldn't debug(resp.responseText)
 
                     those.reload_blocked = false;
 

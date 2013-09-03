@@ -35,7 +35,8 @@ function(HostApp, APICalls, Hmac) {
                         "https://tent.io/types/photo/v0",
                         "https://tent.io/types/cursor/v0"
                     ]
-                }
+                },
+                "scopes": ["permissions"]
             },
             "permissions": {
                 "public": false

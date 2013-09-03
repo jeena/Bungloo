@@ -16,6 +16,7 @@ function(APICalls, HostApp) {
 
 		this.mentions = [];
 		document.body.className = "new_post";
+		this.is_private = false;
 
 		// Textarea
 
