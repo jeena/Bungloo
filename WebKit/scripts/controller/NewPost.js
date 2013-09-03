@@ -89,7 +89,7 @@ function(APICalls, HostApp) {
 				var entity = status.mentions[i].entity;
 
 				// Sometimes there are mentions without entity, don't know why
-				if(entity) {
+				if(entity && entity != HostApp.stringForKey("entity")) {
 					// fix broken profiles
 					var profile = this.profiles[entity];
 					if(!profile) {
