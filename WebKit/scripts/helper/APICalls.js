@@ -35,14 +35,13 @@ function(jQuery, HostApp, Hmac, Cache) {
         if((options.http_method == "POST" || options.http_method == "PUT") && !options.content_type) {
             console.error("No content type for " + options.url);
             return;
-        } else if(options.content_type != "AAA") {
+
+        } else {
             if(options.content_type == "application/json") {
                 content_type = "application/json";
             } else if(options.content_type) {
                 content_type = "application/vnd.tent.post.v0+json; charset=UTF-8; type=\"" + options.content_type + "\"";
             }
-        } else {
-            content_type = 'application/vnd.tent.post.v0+json; charset=UTF-8; type="https://tent.io/types/status/v0#"';
         }
 
         var settings = {

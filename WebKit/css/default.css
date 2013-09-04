@@ -286,6 +286,10 @@ aside {
 	visibility: hidden;
 }
 
+.repost, .remove {
+	display: none; /* FIXME: remove this; */
+}
+
 li:hover aside .reply_to, li:hover aside .repost, li:hover aside .remove, li:hover aside .ago:before {
 	visibility: visible;
 }

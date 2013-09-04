@@ -23,6 +23,15 @@ function(HostApp, Core, APICalls, URI) {
 
         document.getElementById("content").appendChild(this.container);
         if(!this.standalone) this.hide();
+
+        // Stop loading if ESC is pressed
+        this.stopLoading = false;
+        var _this = this;
+        $(document).keydown(function(e) {
+            if (e.keyCode == 27) { // Esc
+                _this.stopLoading = true;
+            }
+        });
     }
 
     Conversation.prototype = Object.create(Core.prototype);
@@ -57,103 +66,91 @@ function(HostApp, Core, APICalls, URI) {
 
     Conversation.prototype.append = function(id, entity, node, add_after) {
 
+        if(this.stopLoading) return;
+
         var _this = this;
 
         var callback = function(resp) {
 
-            var status = JSON.parse(resp.responseText);
+            var _statuses = JSON.parse(resp.responseText);
+
+            for (var entity in _statuses.profiles) {
+                if (_statuses.profiles[entity] != null) {
+                    bungloo.cache.profiles[entity] = _statuses.profiles[entity];
+                } else {
+                    bungloo.cache.profiles[entity] = {};
+                }
+            }
+
+            var status = _statuses.post;
 
             var dom_element = _this.getStatusDOMElement(status);
 
             if (node) {
-
-                node.parentNode.insertBefore(dom_element, node);
+                if(add_after) {
+                    node.parentNode.insertBefore(dom_element, node.nextSibling);
+                } else {
+                    node.parentNode.insertBefore(dom_element, node);
+                }
 
             } else {
                 dom_element.className = "highlight";
                 _this.body.appendChild(dom_element);
-
-                _this.appendMentioned(id, entity, dom_element);
             }
 
-            for (var i = 0; i < status.mentions.length; i++) {
-                var mention = status.mentions[i];
-                if(mention.post) {
-                    _this.append(mention.post, mention.entity, dom_element);
-                }
-            }
-        }
-
-        function getRemoteStatus(profile) {
-            var server = profile["https://tent.io/types/info/core/v0.1.0"].servers[0];
-            APICalls.http_call(URI(server + "/posts/" + id).toString(), "GET", callback, null, false);
-        }
-
-        var profile = this.cache.profiles.getItem(entity);
-
-        if (entity == HostApp.stringForKey("entity")) {
-
-            var url = URI(APICalls.mkApiRootPath("/posts/" + id));
-            APICalls.http_call(url.toString(), "GET", callback, null);
-
-        } else if(profile) {
-
-            getRemoteStatus(profile);
-
-        } else {
-
-            APICalls.findProfileURL(entity, function(profile_url) {
-
-                if (profile_url) {
-
-                    var profile = this.cache.profiles.getItem(entity);
-                    if (profile) {
-
-                        getRemoteStatus(profile);
-
-                    } else {
-
-                        APICalls.http_call(profile_url, "GET", function(resp) {
-
-                            var profile = JSON.parse(resp.responseText)
-                            this.cache.profiles.setItem(entity, profile);
-                            getRemoteStatus(profile);
-
-                        }, null, false); // do not send auth-headers
+            // child posts
+            _this.appendMentioned(id, entity, dom_element);
+            
+            // parent posts
+            if(status.mentions) {
+                for (var i = 0; i < status.mentions.length; i++) {
+                    var mention = status.mentions[i];
+                    if(mention.post) {
+                        // don't load if it is already there
+                        if(!document.getElementById("post-" + mention.post + "-" + _this.action)) {
+                            _this.append(mention.post, mention.entity, dom_element);
+                        }
                     }
                 }
-            });
+            }
         }
+
+        var url = HostApp.serverUrl("post")
+            .replace(/\{entity\}/, encodeURIComponent(entity))
+            .replace(/\{post\}/, id)
+            + "?profiles=entity";
+
+        APICalls.get(url, { callback: callback });
     }
 
     Conversation.prototype.appendMentioned = function(id, entity, node) {
 
-        var url = URI(APICalls.mkApiRootPath("/posts"));
-        url.addSearch("mentioned_post", id);
-        url.addSearch("post_types", "https%3A%2F%2Ftent.io%2Ftypes%2Fpost%2Fstatus%2Fv0.1.0");
-
         var _this = this;
         var callback = function(resp) {
 
-            var statuses = JSON.parse(resp.responseText);
+            var statuses = JSON.parse(resp.responseText).mentions;
 
             for (var i = 0; i < statuses.length; i++) {
 
                 var status = statuses[i];
-                var dom_element = _this.getStatusDOMElement(status);
-                _this.body.appendChild(dom_element);
 
-                _this.appendMentioned(status.id, status.entity, dom_element);
+                // don't load if it is already there
+                if(!document.getElementById("post-" + status.post + "-" + _this.action)) {
+                    _this.append(status.post, status.entity ,node, true);
+                }
             }
         }
 
-        APICalls.http_call(url.toString(), "GET", callback);
+        var url = HostApp.serverUrl("post")
+            .replace(/\{entity\}/, encodeURIComponent(entity))
+            .replace(/\{post\}/, id);
+
+        APICalls.get(url, {
+            callback: callback,
+            accept: "application/vnd.tent.post-mentions.v0+json"
+        });
 
     }
-
-    // /posts?limit=10&mentioned_post=gnqqyt&post_types=https%3A%2F%2Ftent.io%2Ftypes%2Fpost%2Fstatus%2Fv0.1.0,https%3A%2F%2Ftent.io%2Ftypes%2Fpost%2Frepost%2Fv0.1.0 HTTP/1.1" 200 - 0.0582
-
-
 
     return Conversation;
 

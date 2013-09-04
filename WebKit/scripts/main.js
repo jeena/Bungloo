@@ -139,7 +139,7 @@ function loadCssPlugin(css_url) {
 function debug(string) {
 
     if (typeof string != "string") {
-        string = JSON.stringify(string);            
+        string = JSON.stringify(string, null, '  ');            
     }
 
     console.debug(string);

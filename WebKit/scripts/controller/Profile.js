@@ -12,6 +12,7 @@ function(HostApp, Core, APICalls, URI, Timeline) {
 	function Profile() {
 
 		Timeline.call(this);
+		clearTimeout(this.reloadIntervall); // FIXME: reload for new data instead
 
 		this.action = "profile";
 

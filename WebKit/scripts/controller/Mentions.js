@@ -78,9 +78,11 @@ function(HostApp, Timeline, URI, APICalls, Core) {
     Mentions.prototype.setAllMentionsRead = function() {
         this.unread_mentions = 0;
         HostApp.unreadMentions(this.unread_mentions);
-        this.updateLatestMentionRead();
+        //this.updateLatestMentionRead();
     }
 
+    // FIXME: those two functions need to be rewritten
+    /*
     Mentions.prototype.updateLatestMentionRead = function() {
 
         for (var i = 0; i < this.body.childNodes.length; i++) {
@@ -142,7 +144,7 @@ function(HostApp, Timeline, URI, APICalls, Core) {
             APICalls.http_call(url.toString(), "GET", callback); // FIXME: error callback
         });
     }
-
+    */
 
     return Mentions;
 

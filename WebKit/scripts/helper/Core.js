@@ -233,7 +233,7 @@ function(jQuery, APICalls, URI, HostApp) {
             return false;
         }
 
-        if(bungloo.cache.profiles[status.entity].name) template.username.innerText = bungloo.cache.profiles[status.entity].name;
+        if(bungloo.cache.profiles[status.entity] && bungloo.cache.profiles[status.entity].name) template.username.innerText = bungloo.cache.profiles[status.entity].name;
         else template.username.innerText = status.entity;
         template.username.href = status.entity;
         template.username.title = status.entity;
@@ -552,13 +552,15 @@ function(jQuery, APICalls, URI, HostApp) {
                 if (e.substring(0,7) != "http://" && e.substring(0,8) != "https://") {
                   e = "https://" + e;
                 }
-                for (var j = 0; j < mentions.length; j++) {
-                    var m = mentions[j];
-                    if(m.entity.startsWith(e)) {
-                        mentions_in_text.push({
-                            entity: m.entity,
-                            text: name
-                        });
+                if(mentions) {
+                    for (var j = 0; j < mentions.length; j++) {
+                        var m = mentions[j];
+                        if(m.entity.startsWith(e)) {
+                            mentions_in_text.push({
+                                entity: m.entity,
+                                text: name
+                            });
+                        }
                     }
                 }
             }
@@ -601,25 +603,17 @@ function(jQuery, APICalls, URI, HostApp) {
                     }
                 }
 
-                var p = _this.cache.profiles.getItem(mention.entity);
-                if (p) {
-
-                    profile(p);
-
-                } else {
-
-                    APICalls.findProfileURL(mention.entity, function(profile_url) {
-                        if (profile_url) {
-                            APICalls.http_call(profile_url, "GET", function(resp) {
-                                if (resp.status >= 200 && resp.status < 400) {
-                                    var p = JSON.parse(resp.responseText);
-                                    _this.cache.profiles.setItem(mention.entity, p);
-                                    profile(p)
-                                }
-                            }, null, false); // do not send auth-headers
-                        }
-                    });
-                }
+                APICalls.findProfileURL(mention.entity, function(profile_url) {
+                    if (profile_url) {
+                        APICalls.http_call(profile_url, "GET", function(resp) {
+                            if (resp.status >= 200 && resp.status < 400) {
+                                var p = JSON.parse(resp.responseText);
+                                _this.cache.profiles.setItem(mention.entity, p);
+                                profile(p)
+                            }
+                        }, null, false); // do not send auth-headers
+                    }
+                });
 
             })(mention);
         }
