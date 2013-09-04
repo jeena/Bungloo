@@ -555,7 +555,7 @@ function(jQuery, APICalls, URI, HostApp) {
                 if(mentions) {
                     for (var j = 0; j < mentions.length; j++) {
                         var m = mentions[j];
-                        if(m.entity.startsWith(e)) {
+                        if(m && m.entity && m.entity.startsWith(e)) {
                             mentions_in_text.push({
                                 entity: m.entity,
                                 text: name
