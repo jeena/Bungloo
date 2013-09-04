@@ -266,8 +266,6 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
 
         this.parseForMedia(text, template.images);
 
-        text = text.escapeHTML().replace(/\n/g, "<br>");
-
         var entities = [status.entity];
         if (status.mentions) {
             status.mentions.map(function (mention) {

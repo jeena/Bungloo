@@ -403,6 +403,10 @@ li.mentioned {
 	font-weight: bold;
 }
 
+.name + .name:before {
+	content: ", ";
+}
+
 .message {
 	clear: right;
 }
