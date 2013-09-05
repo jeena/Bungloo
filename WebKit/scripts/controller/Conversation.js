@@ -135,7 +135,8 @@ function(HostApp, Core, APICalls, URI) {
                 var status = statuses[i];
 
                 // don't load if it is already there
-                if(!document.getElementById("post-" + status.post + "-" + _this.action)) {
+                var not_already_there = !document.getElementById("post-" + status.post + "-" + _this.action);
+                if(not_already_there && status.type.startsWith("https://tent.io/types/status/v0")) {
                     _this.append(status.post, status.entity ,node, true);
                 }
             }
