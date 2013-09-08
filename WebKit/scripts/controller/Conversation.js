@@ -2,10 +2,11 @@ define([
     "helper/HostApp",
     "helper/Core",
     "helper/APICalls",
-    "lib/URI"
+    "lib/URI",
+    "helper/ConversationNode"
 ],
 
-function(HostApp, Core, APICalls, URI) {
+function(HostApp, Core, APICalls, URI, ConversationNode) {
 
 
     function Conversation(standalone) {
@@ -30,6 +31,7 @@ function(HostApp, Core, APICalls, URI) {
         $(document).keydown(function(e) {
             if (e.keyCode == 27) { // Esc
                 _this.stopLoading = true;
+                _this.makeTree();
             }
         });
     }
@@ -46,7 +48,6 @@ function(HostApp, Core, APICalls, URI) {
     
 
     Conversation.addStatus = function(status) {
-
         this.body.appendChild(this.getStatusDOMElement(status));
     }
 
@@ -54,6 +55,7 @@ function(HostApp, Core, APICalls, URI) {
     Conversation.prototype.showStatus = function(id, entity) {
 
         this.body.innerHTML = "";
+        this.rootNode = null;
         this.current_post_id = id;
         this.current_entity = entity;
         this.append(id, entity);
@@ -85,17 +87,23 @@ function(HostApp, Core, APICalls, URI) {
             var status = _statuses.post;
 
             var dom_element = _this.getStatusDOMElement(status);
+            var cNode = new ConversationNode(dom_element);
+            dom_element.cNode = cNode;
 
             if (node) {
-                if(add_after) {
+                if(add_after) { // is a child of node
                     node.parentNode.insertBefore(dom_element, node.nextSibling);
-                } else {
+                    node.cNode.addChild(cNode);
+                } else { // is a parent of node
                     node.parentNode.insertBefore(dom_element, node);
+                    cNode.addChild(node.cNode);
                 }
 
-            } else {
+            } else { // is start node (doesn't have to be root, can have parents)
                 dom_element.className = "highlight";
                 _this.body.appendChild(dom_element);
+
+                _this.rootNode = cNode;
             }
 
             // child posts
@@ -113,6 +121,10 @@ function(HostApp, Core, APICalls, URI) {
                     }
                 }
             }
+        }
+
+        if(!entity) {
+            entity = node.status.entity
         }
 
         var url = HostApp.serverUrl("post")
@@ -137,7 +149,7 @@ function(HostApp, Core, APICalls, URI) {
                 // don't load if it is already there
                 var not_already_there = !document.getElementById("post-" + status.post + "-" + _this.action);
                 if(not_already_there && status.type.startsWith("https://tent.io/types/status/v0")) {
-                    _this.append(status.post, status.entity ,node, true);
+                    _this.append(status.post, status.entity, node, true);
                 }
             }
         }
@@ -152,6 +164,34 @@ function(HostApp, Core, APICalls, URI) {
         });
 
     }
+
+    Conversation.prototype.makeTree = function() {
+        var root_ul = document.createElement("ol");
+        root_ul.id = "conversation-tree";
+        var root_li = this.body.firstChild;
+        root_ul.appendChild(root_li);
+
+        function addChildren(node) {
+            var ul = document.createElement("ol");
+            node.appendChild(ul);
+            var children = node.cNode.children;
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i].dom_node;
+                ul.appendChild(child);
+                addChildren(child);
+            };
+        }
+
+        addChildren(root_li);
+
+        this.body.parentNode.replaceChild(root_ul, this.body);
+        this.body = root_ul;
+
+        var lis = this.body.querySelectorAll("li");
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].className += " " + (i % 2 == 0 ? "odd" : "even");
+        };
+    };
 
     return Conversation;
 

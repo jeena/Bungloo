@@ -92,7 +92,7 @@ ol {
 	padding: 0;
 }
 
-ol li, .error, header.profile {
+ol li .post, .error, header.profile {
 	clear: both;
 	padding: 8px;
 	background: #eee;
@@ -109,37 +109,33 @@ ol li, .error, header.profile {
 	color: red;
 }
 
-#content ol > li {
-
-}
-
-#content ol > li:first-child {
+#content ol > li:first-child > .post {
 	border-top: 0;
 }
 
-#content ol > li:nth-child(odd), .error, header.profile {
+#content ol > li:nth-child(odd) > .post, .error, header.profile, #content #conversation-tree li.odd > .post {
 	background: #fafafa;
 }
 
-#content ol > li:nth-child(even) {
+#content ol > li:nth-child(even) > .post, #content #conversation-tree li.even > .post {
 	background: #f2f2f2;
 }
 
-#content ol > li:hover {
-	background: #dedede;
+#content ol > li > .post:hover {
+	background: #dedede !important;
 }
 
-#content ol > li.highlighteffect {
+#content ol > li.highlighteffect > .post {
 	background-color: #FFFBD0;
 	-webkit-transition: background-color 200ms linear;
 }
 
-#content ol > li.highlighteffect-after {
+#content ol > li.highlighteffect-after > .post {
 	-webkit-transition: background-color 1000ms linear;
 }
 
 
-#content ol > li:after, header.profile:after {
+#content ol > li .post:after, header.profile:after {
     content: ".";
     display: block;
     clear: both;
@@ -171,7 +167,7 @@ header.profile h1 + p {
 	margin-bottom: 10px;
 }
 
-.highlight {
+.highlight > .post {
 	border-right: 5px solid #f17779;
 }
 
@@ -237,11 +233,11 @@ p {
 	font-weight: bold;
 }
 
-li:hover .from {
+li .post:hover .from {
 	display: block;
 }
 
-li .from {
+li .post .from {
     position: absolute;
     right: 3.5em;
     display: none;
@@ -260,7 +256,7 @@ li .from {
     border-top: 0;
 }
 
-li:last-child:hover .from {
+li:last-child:not(:first-child) .post:hover .from {
     top: -1.8em;
     bottom: auto;
     -webkit-border-top-left-radius: 8px;
@@ -290,7 +286,7 @@ aside {
 	display: none; /* FIXME: remove this; */
 }
 
-li:hover aside .reply_to, li:hover aside .repost, li:hover aside .remove, li:hover aside .ago:before {
+li .post:hover > aside .reply_to, li .post:hover > aside .repost, li .post:hover > aside .remove, li .post:hover > aside .ago:before {
 	visibility: visible;
 }
 
@@ -317,11 +313,11 @@ li:hover aside .reply_to, li:hover aside .repost, li:hover aside .remove, li:hov
 	background-position: -128px 0;
 }
 
-li.mentioned {
+li.mentioned .post {
 	border-right: 5px solid #00317a;
 }
 
-.mentions li.mentioned {
+.mentions li.mentioned .post {
 	border-right: 0;
 }
 
@@ -483,3 +479,16 @@ p.noresult {
 #status_bar p { float: right; margin: 0; padding: 0; }
 #status_bar span { display: inline-block; margin: 4px 5px 0 5px; }
 
+#conversation-tree ol {
+	border-left: 1px solid #c9c9c9;
+	clear: both;
+}
+
+#conversation-tree ol li {
+	clear: both !important;
+	padding-left: 14px;
+}
+
+#conversation-tree ol li .post {
+	border-left: 1px solid #c9c9c9;
+}

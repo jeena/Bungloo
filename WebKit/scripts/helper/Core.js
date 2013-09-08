@@ -37,7 +37,11 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
 
         var a = document.createElement("a");
 
-        var item = document.createElement("li");
+        var li = document.createElement("li");
+        
+        var item = document.createElement("div");
+        item.className = "post";
+        li.appendChild(item);
 
         var aside = document.createElement("aside");
         item.appendChild(aside);
@@ -143,6 +147,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
         from.appendChild(source)
 
         this.template = {
+            li: li,
             item: item,
             reply_to: reply_to,
             is_private: is_private,
@@ -188,8 +193,8 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
 
         var template = this.getTemplate();
 
-        template.item.id = "post-" + status.id + "-" + this.action;
-        template.item.status = status;
+        template.li.id = "post-" + status.id + "-" + this.action;
+        template.li.status = status;
 
         if (HostApp.stringForKey("entity") == status.entity && typeof status.__repost == "undefined") {
             template.remove.onclick = function() {
@@ -206,7 +211,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
         }
 
         if (HostApp.stringForKey("entity") == status.entity) {
-            template.item.className += " own";
+            template.li.className += " own";
         }
 
         template.reply_to.onclick = function() {
@@ -361,7 +366,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
             }
         }
 
-        return template.item;
+        return template.li;
     }
 
 

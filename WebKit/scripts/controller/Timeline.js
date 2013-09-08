@@ -19,7 +19,7 @@ function(Core, APICalls, HostApp, URI) {
         this.timeout = 10 * 1000; // every 10 seconds
         this.since_id = null;
         this.since_id_entity = null;
-        this.since_time = 0;
+        this.since_time = null;
 
         this.pages = {};
 
@@ -59,8 +59,9 @@ function(Core, APICalls, HostApp, URI) {
         }
 
         this.pages = _statuses.pages;
-
+        
         statuses = _statuses.posts;
+
         if(statuses != null && statuses.length > 0) {
 
             this.before.loading = false;
@@ -72,7 +73,8 @@ function(Core, APICalls, HostApp, URI) {
                 var status = statuses[i];
                 if(!append) {
                     this.since_id = status.id;
-                    this.since_id_entity = status.entity;                    
+                    this.since_id_entity = status.entity;
+                    this.since_time = status.received_at;
                 }
 
                 if (status.type == "https://tent.io/types/status/v0#" || status.type == "https://tent.io/types/status/v0#reply") {
@@ -131,6 +133,10 @@ function(Core, APICalls, HostApp, URI) {
             uri.addSearch("limit", this.posts_limit);
             uri.addSearch("max_refs", 20);
             uri.addSearch("profiles", "entity");
+
+            if(this.since_time) {
+                uri.addSearch("since", this.since_time);
+            }
 
             for (key in add_to_search) {
                 uri.addSearch(key, add_to_search[key]);
