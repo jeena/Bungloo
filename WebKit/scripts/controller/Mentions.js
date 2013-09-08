@@ -36,22 +36,17 @@ function(HostApp, Timeline, URI, APICalls, Core) {
     Mentions.prototype.newStatus = function(statuses, append) {
 
         Timeline.prototype.newStatus.call(this, statuses, append);
-/*
+
         if(this.is_not_init) {
+            for (var i = 0; i < statuses.posts.length; i++) {
+                
+                var status = statuses.posts[i];
+                var name = bungloo.cache.profiles[status.entity] ? bungloo.cache.profiles[status.entity].name : status.entity
 
-            for (var i = 0; i < statuses.length; i++) {
-                var status = statuses[i];
-
-                var name;
-                var profile = this.cache.profiles.getItem(status.entity);
-                if(profile) {
-                    name = profile["https://tent.io/types/info/basic/v0.1.0"].name;
-                }
-
-                if(!append) HostApp.notificateUserAboutMention(status.content.text, name || status.entity, status.id, status.entity);
+                if(!append) HostApp.notificateUserAboutMention(status.content.text, name, status.id, status.entity);
             }
         }
-*/
+
         this.is_not_init = true;
     }
 
