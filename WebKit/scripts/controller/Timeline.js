@@ -14,7 +14,7 @@ function(Core, APICalls, HostApp, URI) {
         this.action = "timeline";
         this.reload_blocked = false;
 
-        this.posts_limit = 25;
+        this.posts_limit = 50;
         this.max_length = 200;
         this.timeout = 10 * 1000; // every 10 seconds
         this.since_id = null;

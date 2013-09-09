@@ -450,7 +450,7 @@ function(HostApp, Core, APICalls, URI, Timeline) {
 
 
 	Profile.prototype.getStatuses = function() {
-
+		this.since_time = null;
 		Timeline.prototype.getNewData.call(this, {entities: this.entity});
 	}
 
@@ -501,9 +501,6 @@ function(HostApp, Core, APICalls, URI, Timeline) {
 				}],
 				type: "https://tent.io/types/subscription/v0#https://tent.io/types/status/v0"
 			};
-
-			debug(data)
-			debug(url)
 
 			APICalls.post(url, JSON.stringify(data), {
 				content_type: data.type,

@@ -20,14 +20,14 @@ function(HostApp, APICalls) {
         this.menu.mentions = this.createItem("Mentions", function() { _this.onMentions(); return false; }, "img/sidebar/mentions.png", "img/sidebar/mentions_active.png");        
         this.menu.conversation = this.createItem("Conversation", function() { _this.onConversation(); return false; }, "img/sidebar/conversation.png", "img/sidebar/conversation_active.png");
         this.menu.entityProfile = this.createItem("Profile", function() { _this.onEntityProfile(); return false; }, "img/sidebar/profile.png", "img/sidebar/profile_active.png");
-        this.menu.search = this.createItem("Search", function() { _this.onSearch(); return false; }, "img/sidebar/search.png", "img/sidebar/search_active.png")
+        // FIXME when skate.io is available again: this.menu.search = this.createItem("Search", function() { _this.onSearch(); return false; }, "img/sidebar/search.png", "img/sidebar/search_active.png")
 
         this.body.appendChild(this.menu.user);
         this.body.appendChild(this.menu.timeline);
         this.body.appendChild(this.menu.mentions);
         this.body.appendChild(this.menu.conversation);
         this.body.appendChild(this.menu.entityProfile);
-        this.body.appendChild(this.menu.search);
+        //this.body.appendChild(this.menu.search);
 
         this.unreadMentionsSpan = document.createElement("span");
         this.unreadMentionsSpan.className = "unread_mentions";
