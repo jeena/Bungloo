@@ -282,7 +282,7 @@ aside {
 	visibility: hidden;
 }
 
-.repost, .remove {
+.repost {
 	display: none; /* FIXME: remove this; */
 }
 

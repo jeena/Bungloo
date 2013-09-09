@@ -77,7 +77,7 @@ function(Core, APICalls, HostApp, URI) {
                     this.since_time = status.received_at;
                 }
 
-                if (status.type == "https://tent.io/types/status/v0#" || status.type == "https://tent.io/types/status/v0#reply") {
+                if (status.type.startsWith("https://tent.io/types/status/v0#")) {
 
                     var new_node = this.getStatusDOMElement(status);
 
@@ -97,9 +97,9 @@ function(Core, APICalls, HostApp, URI) {
                         }
                     }
 
-                } else if (status.type == "https://tent.io/types/post/delete/v0.1.0") {
+                } else if (status.type == "https://tent.io/types/delete/v0#") {
 
-                    HostApp.notificateViewsAboutDeletedPost(status.content.id, status.entity);
+                    HostApp.notificateViewsAboutDeletedPost(status.refs[0].post, status.entity);
 
                 } else if (status.type == "https://tent.io/types/post/repost/v0.1.0") {
 

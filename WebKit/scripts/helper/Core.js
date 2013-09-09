@@ -503,8 +503,13 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
     Core.prototype.remove = function(id, callback, type) {
         type = type || "post";
         if (confirm("Really delete this " + type + "?")) {
-            var url = URI(APICalls.mkApiRootPath("/posts/" + id));
-            APICalls.http_call(url.toString(), "DELETE", callback);
+
+            var entity = HostApp.stringForKey("entity");
+            var url = HostApp.serverUrl("post")
+                .replace(/\{entity\}/, encodeURIComponent(entity))
+                .replace(/\{post\}/, id);
+
+            APICalls.delete(url, { callback: callback });
         }
     }
 

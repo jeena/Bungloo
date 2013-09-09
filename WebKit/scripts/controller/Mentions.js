@@ -43,7 +43,9 @@ function(HostApp, Timeline, URI, APICalls, Core) {
 				var status = statuses.posts[i];
 				var name = bungloo.cache.profiles[status.entity] ? bungloo.cache.profiles[status.entity].name : status.entity
 
-				if(!append) HostApp.notificateUserAboutMention(status.content.text, name, status.id, status.entity);
+				if(!append && status.type.startsWith("https://tent.io/types/status/v0#")) {
+					HostApp.notificateUserAboutMention(status.content.text, name, status.id, status.entity);
+				}
 			}
 		}
 
