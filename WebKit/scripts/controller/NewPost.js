@@ -38,7 +38,7 @@ function(APICalls, HostApp) {
 		var buttons = $(
 			"<p>" +	
 			//"<button id='images'><img src='images/images.png'></button>" +
-			"<button id='private'><img src='img/public.png'></button>" +
+			"<button id='private'><img src='img/public.png'></button> " +
 			"<button id='send'><img src='img/send.png'></button>" +
 			"</p>");
 		
@@ -267,9 +267,8 @@ function(APICalls, HostApp) {
 
 		var content = this.textarea.val();
 
-        var type = "https://tent.io/types/status/v0#";
         var data = {
-            type: type,
+            type: "https://tent.io/types/status/v0#",
             content: {
                 text: content
             },

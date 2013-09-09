@@ -131,7 +131,7 @@ function(Core, APICalls, HostApp, URI) {
             uri.addSearch("types", post_types.join(","));
             //uri.addSearch("sort_by", "published_at");
             uri.addSearch("limit", this.posts_limit);
-            uri.addSearch("max_refs", 20);
+            //uri.addSearch("max_refs", 20);
             uri.addSearch("profiles", "entity");
 
             if(this.since_time) {
