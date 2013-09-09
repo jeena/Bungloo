@@ -247,13 +247,13 @@ function(APICalls, HostApp) {
 		// re-inject the processed text into the div
 		this.highlighter.html(text);
 
-		var count = 256 - this.textarea.val().length + (this.mentions.length * 6);
+		var count = 256 - (this.textarea.val().length + (this.mentions.length * 6));
 		this.counter.html(count);
 	}
 
 	NewPost.prototype.send = function() {
 
-		var count = 256 - this.textarea.val().length + (this.mentions.length * 6);
+		var count = 256 - (this.textarea.val().length + (this.mentions.length * 6));
 		if(count >= 0 && count <= 256) {
 			this.sendNewMessage();
 			return true;
