@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Bungloo"
-#define MyAppVersion "1.4.3"
+#define MyAppVersion "2.0.0"
 #define MyAppPublisher "Jabs Nu"
 #define MyAppURL "http://jabs.nu/bungloo"
 #define MyAppExeName "Bungloo.exe"

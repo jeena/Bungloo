@@ -22,7 +22,7 @@ files += [('imageformats', imageformats)]
 
 setup(
     name = "Bungloo",
-    version = "1.4.3",
+    version = "2.0.0",
     author = "Jeena Paradies",
     author_email = "spam@jeenaparadies.net",
     url = "http://jabs.nu/bungloo",
