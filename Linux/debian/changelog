@@ -1,3 +1,10 @@
+bungloo (2.0.0) raring; urgency=high
+
+  [Jeena Paradies]
+  * Nearly complete rewrite to be compatible with Tent 0.3
+
+ -- Jeena Paradies <spam@jeenaparadies.net>  Tue, 09 Sep 2013 10:25:00 +0100  
+
 bungloo (1.4.3) raring; urgency=high
 
   [ Jeena Paradies ]
