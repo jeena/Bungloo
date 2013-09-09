@@ -282,10 +282,6 @@ aside {
 	visibility: hidden;
 }
 
-.repost {
-	display: none; /* FIXME: remove this; */
-}
-
 li .post:hover > aside .reply_to, li .post:hover > aside .repost, li .post:hover > aside .remove, li .post:hover > aside .ago:before {
 	visibility: visible;
 }

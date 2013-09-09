@@ -258,7 +258,6 @@ function(APICalls, HostApp) {
 			this.sendNewMessage();
 			return true;
 		} else {
-			debug("BEEP");
 			return false;
 		}
 	}

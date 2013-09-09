@@ -101,9 +101,10 @@ function(Core, APICalls, HostApp, URI) {
 
                     HostApp.notificateViewsAboutDeletedPost(status.refs[0].post, status.entity);
 
-                } else if (status.type == "https://tent.io/types/post/repost/v0.1.0") {
-
+                } else if (status.type.startsWith("https://tent.io/types/repost/v0#")) {
+                    
                     this.getRepost(status, append ? this.body.lastChild : this.body.firstChild, append);
+
                 }
 
             }
@@ -124,7 +125,7 @@ function(Core, APICalls, HostApp, URI) {
             var post_types = [
                 "https://tent.io/types/status/v0#",
                 "https://tent.io/types/status/v0#reply",
-                "https://tent.io/types/repost/v0#",
+                "https://tent.io/types/repost/v0#https://tent.io/types/status/v0",
                 "https://tent.io/types/delete/v0#",
                 //"https://tent.io/types/post/photo/v0.1.0"
             ];

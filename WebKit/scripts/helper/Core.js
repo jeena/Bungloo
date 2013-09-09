@@ -127,7 +127,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
 
         head.appendChild(reposted_by)
 
-        var message = document.createElement("p");
+        var message = document.createElement("div");
         message.className = "message";
         data.appendChild(message);
 
@@ -167,28 +167,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
     }
 
     Core.prototype.getStatusDOMElement = function(status) {
-        /*
-{
-  "app": {
-    "id": "P8FJjaiRv0AKXfjUMd_4YQ",
-    "name": "Bungloo on Linux",
-    "url": "http:\/\/jabs.nu\/bungloo\/"
-  },
-  "content": {
-    "text": "jeena test"
-  },
-  "entity": "http:\/\/155969d81672.alpha.attic.is",
-  "id": "HlSXe8MREzU4h2fGLGSnCA",
-  "published_at": 1369566009,
-  "received_at": 1369566008799,
-  "type": "https:\/\/tent.io\/types\/status\/v0#",
-  "version": {
-    "id": "a2f702b4615c7d7dd0f98c73d7b55749880bf6e437a77349454ff10745d134c6",
-    "published_at": 1369566009,
-    "received_at": 1369566008799
-  }
-}
-        */
+
         var _this = this;
 
         var template = this.getTemplate();
@@ -235,7 +214,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
 
         template.repost.onclick = function() {
             $(template.repost).hide();
-            _this.repost(status.id, status.entity);
+            _this.repost(status);
             return false;
         }
 
@@ -248,7 +227,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
             return false;
         }
 
-        if(bungloo.cache.profiles[status.entity].avatar_digest) {
+        if(bungloo.cache.profiles[status.entity] && bungloo.cache.profiles[status.entity].avatar_digest) {
             template.image.src = HostApp.serverUrl("attachment").replace(/\{entity\}/, encodeURIComponent(status.entity)).replace(/\{digest\}/, bungloo.cache.profiles[status.entity].avatar_digest);
         }
 
@@ -261,7 +240,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
 
         var text = "";
 
-        if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
+        if (status.type == "https://tent.io/types/post/photo/v0.1.0") { // FIXME
             text = status.content.caption;
         } else {
             if (status.content && status.content.text) {
@@ -372,7 +351,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
 
     Core.prototype.getRepost = function(repost, before_node, append) {
 
-        var post = document.getElementById("post-" + repost.content.id + "-" + this.action);
+        var post = document.getElementById("post-" + repost.refs[0].post + "-" + this.action);
 
         if (post) {
 
@@ -425,25 +404,47 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
                 return false;
             });
 
-            var _this = this;
-            APICalls.findProfileURL(repost.entity, function(profile_url) {
-                if (profile_url) {
-                    APICalls.http_call(profile_url, "GET", function(resp) {
-                        if (resp.status >= 200 && resp.status < 400) {
-                            var _p = JSON.parse(resp.responseText);
-                            _this.cache.profiles.setItem(repost.entity, _p);
-
-                            var basic = _p["https://tent.io/types/info/basic/v0.1.0"];
-                            if (basic && basic.name) {
-                                a.html(basic.name);
-                            }
-
-                        }
-                    }, null, false); // do not send auth-headers
-                }
-            });
+            var name = bungloo.cache.profiles[repost.entity] ? bungloo.cache.profiles[repost.entity].name : repost.entity;
+            a.html(name);
 
         } else {
+
+            var entity = repost.refs[0].entity ? repost.refs[0].entity : HostApp.stringForKey("entity");
+            var id = repost.refs[0].post;
+            
+            var url = HostApp.serverUrl("post")
+                .replace(/\{entity\}/, encodeURIComponent(entity))
+                .replace(/\{post\}/, id)
+                + "?profiles=entity";
+
+            var _this = this;
+
+            APICalls.get(url, { callback: function(resp) {
+
+                if (resp.status >= 200 && resp.status < 300 && before_node) {
+                    var _statuses = JSON.parse(resp.responseText);
+
+                    for (var entity in _statuses.profiles) {
+                        if (_statuses.profiles[entity] != null) {
+                            bungloo.cache.profiles[entity] = _statuses.profiles[entity];
+                        } else {
+                            bungloo.cache.profiles[entity] = {};
+                        }
+                    }
+
+                    var status = _statuses.post;
+
+                    status.__repost = repost;
+                    var li = _this.getStatusDOMElement(status);
+                    if(!document.getElementById(li.id)) before_node.parentNode.insertBefore(li, before_node);
+                    _this.getRepost(repost, before_node); // call this recursive because we now have the repost
+                }
+
+
+            }});
+
+            /*
+
             var _this = this;
             var callback = function(resp) {
                 if (resp.status >= 200 && resp.status < 300 && before_node) {
@@ -466,11 +467,48 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
 
                     }, null, false); // do not send auth-headers
                 }
-            });
+            });*/
         }
     }
 
-    Core.prototype.repost = function(id, entity, callback) {
+    Core.prototype.repost = function(status, callback) {
+        var type = status.type;
+        var id = status.id;
+        var entity = status.entity;
+        var url = HostApp.serverUrl("new_post");
+        var data = {
+            type: "https://tent.io/types/repost/v0#" + type.split("#")[0],
+            refs: [
+                {
+                    post: id,
+                    entity: entity
+                }
+            ],
+            mentions: [
+                {
+                    post: id,
+                    type: type,
+                    entity: entity
+                }
+
+            ]
+        }
+
+        APICalls.post(url, JSON.stringify(data), {
+            content_type: data.type,
+            accept: 'application/vnd.tent.post.v0+json; type="https://tent.io/types/repost/v0#"',
+            callback: function(resp) {
+                if (resp.status >= 200 < 300) {
+                    controller.getNewData();
+                    if(callback) callback(resp);
+                } else {
+                    debug(resp)
+                }
+            }
+
+        })
+
+        /*
         var url = URI(APICalls.mkApiRootPath("/posts"));
 
         var data = {
@@ -497,7 +535,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
             _this.highlight(id);
         }
 
-        APICalls.http_call(url.toString(), "POST", new_callback, JSON.stringify(data));
+        APICalls.http_call(url.toString(), "POST", new_callback, JSON.stringify(data));*/
     }
 
     Core.prototype.remove = function(id, callback, type) {
