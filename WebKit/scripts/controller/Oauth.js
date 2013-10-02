@@ -48,7 +48,7 @@ function(HostApp, APICalls, Hmac) {
     }
 
     Oauth.prototype.isAuthenticated = function() {
-        return HostApp.stringForKey("user_access_token") != null;
+        return !!HostApp.stringForKey("user_access_token");
     }
 
     Oauth.prototype.authenticate = function() {
@@ -70,11 +70,11 @@ function(HostApp, APICalls, Hmac) {
     }
 
     Oauth.prototype.requestProfileURL = function (entity) {
-        var those = this;
+        var _this = this;
         APICalls.findProfileURL(entity,
             function(profile_url) {
                 if (profile_url && (profile_url.startsWith("http://") || profile_url.startsWith("https://"))) {
-                    those.register(profile_url);
+                    _this.register(profile_url);
                 } else {
                     HostApp.authentificationDidNotSucceed("Could not find profile for: " + entity);
                 }
@@ -87,17 +87,17 @@ function(HostApp, APICalls, Hmac) {
     }
 
     Oauth.prototype.register = function (url) {
-        var those = this;
+        var _this = this;
 
         APICalls.get(url, {
             no_auth: true,
             callback: function(resp) {
 
-            those.profile = JSON.parse(resp.responseText).post;
-            those.entity = those.profile.content.entity;
-            HostApp.setStringForKey(those.entity, "entity")
-            HostApp.setServerUrls(those.profile.content.servers[0].urls);
-            APICalls.post(HostApp.serverUrl("new_post"), JSON.stringify(those.app_info), {
+            _this.profile = JSON.parse(resp.responseText).post;
+            _this.entity = _this.profile.content.entity;
+            HostApp.setStringForKey(_this.entity, "entity")
+            HostApp.setServerUrls(_this.profile.content.servers[0].urls);
+            APICalls.post(HostApp.serverUrl("new_post"), JSON.stringify(_this.app_info), {
                 content_type: "https://tent.io/types/app/v0#",
                 no_auth: true,
                 callback: function(resp) {
@@ -111,7 +111,7 @@ function(HostApp, APICalls, Hmac) {
                         no_auth: true,
                         callback: function(resp) {
                             var data = JSON.parse(resp.responseText);
-                            those.authRequest(data.post, app_id);                  
+                            _this.authRequest(data.post, app_id);                  
                         }
                     });
             }});
