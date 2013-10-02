@@ -174,7 +174,7 @@ class Controller(QtCore.QObject):
 				pass
 
 	@QtCore.pyqtSlot()
-	def openNewMessageWidow(self, text=""):
+	def openNewMessageWidow(self):
 		self.openNewMessageWindowInReplyToStatus("") # FIXME: create a status_string with this content
 
 	@QtCore.pyqtSlot(str)
