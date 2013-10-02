@@ -6,7 +6,7 @@ define([
 function(APICalls, HostApp) {
 
 	function NewPost() {
-
+		
 		this.profiles = JSON.parse(controller.getCachedProfiles());
 		for (var key in this.profiles) {
 			var item = this.profiles[key];
@@ -26,8 +26,10 @@ function(APICalls, HostApp) {
 
 		$(document.body).append(this.container);
 
-		this.textarea.keyup(this.keyup.bind(this));
-		this.textarea.keydown(this.keydown.bind(this));
+		var _this = this;
+
+		this.textarea.keyup(function(e) { _this.keyup(e) });
+		this.textarea.keydown(function(e) { _this.keydown(e) });
 
 		this.suggestions = $("<ul id='suggestions'></ul>");
 
@@ -49,8 +51,9 @@ function(APICalls, HostApp) {
 		}
 
 		//this.buttons.images.bind("click", this.addImage.bind(this));
-		this.buttons.is_private.bind("click", this.toggleIsPrivate.bind(this));
-		this.buttons.send.bind("click", this.send.bind(this));
+
+		this.buttons.is_private.bind("click", function(e) { _this.toggleIsPrivate(e) ; } );
+		this.buttons.send.bind("click", function (e) { _this.send(e); });
 
 		this.container.find("#status_bar").append(this.counter);
 		this.container.find("#status_bar").append(buttons);

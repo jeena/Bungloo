@@ -414,6 +414,7 @@ class NewPost(Helper.RestorableWindow):
 	def load_finished(self, widget):
 		callback = "function() { bungloo.newpost.setStatus(\"%s\"); }" % (self.status_string)
 		script = "function HostAppGo() { start('newpost', " + callback + "); }"
+		script = "function HostAppGo() { start('newpost'); }"
 		self.webView.page().mainFrame().evaluateJavaScript(script)
 		self.webView.setFocus()
 
