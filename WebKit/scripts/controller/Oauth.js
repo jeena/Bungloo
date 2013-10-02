@@ -157,6 +157,10 @@ function(HostApp, APICalls, Hmac) {
                     content_type: "application/json",
                     auth_header: auth_header,
                     callback: function(resp) {
+                        debug(url)
+                        debug(requestBody)
+                        debug(auth_header)
+                        debug(resp.responseText)
                         those.requestAccessTokenTicketFinished(resp.responseText);
                 }});
 

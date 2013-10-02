@@ -233,6 +233,9 @@ class Oauth:
 		self.core.page().mainFrame().evaluateJavaScript(script)
 
 	def handle_authentication(self, url):
+		self.app.controller.openURL(url)
+		return False
+		
 		self.auth_view = Helper.WebViewCreator(self.app)
 		self.auth_view.setWindowTitle("Authentication")
 
@@ -242,7 +245,7 @@ class Oauth:
 		new_manager.sslErrors.connect(lambda reply, errors: self.handleSslErrors(reply, errors))
 		self.auth_view.page().setNetworkAccessManager(new_manager)
 		self.auth_view.show()
-		print url
+
 		self.auth_view.load_url(url)
 		return False
 

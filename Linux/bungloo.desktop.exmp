@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version={VERSION}
-Comment=Tent is a distributed social network protocol and Bungloo is one of the clients using it.
-Exec=/usr/bin/bungloo
+Comment=Tent is a distributed social network protocol and Bungloo is one of the microbloging clients using it.
+Exec=bungloo %U
 GenericName=Tent Client
 Icon=bungloo
 Name=Bungloo
@@ -10,3 +10,4 @@ StartupNotify=true
 Terminal=false
 Type=Application
 Categories=Network;Qt
+MimeType=x-scheme-handler/bungloo;

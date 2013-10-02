@@ -97,7 +97,10 @@ class Bungloo():
 		argv = json.loads(str(args))
 		if len(argv) > 0:
 			if argv[0] == "--new-message":
-				self.controller.openNewMessageWidow(" ".join(argv[1:]))
+				text = " ".join(argv[1:])
+				self.controller.openNewMessageWidow(text)
+			elif argv[0].startswith("bungloo://oauthtoken"):
+				self.oauth_implementation.bungloo_callback(QtCore.QUrl(argv[0].encode("utf-8"), QtCore.QUrl.TolerantMode))
 
 				
 
@@ -171,8 +174,8 @@ class Controller(QtCore.QObject):
 				pass
 
 	@QtCore.pyqtSlot()
-	def openNewMessageWidow(self):
-		self.openNewMessageWindowInReplyToStatus("")
+	def openNewMessageWidow(self, text=""):
+		self.openNewMessageWindowInReplyToStatus("") # FIXME: create a status_string with this content
 
 	@QtCore.pyqtSlot(str)
 	def openNewMessageWindowInReplyToStatus(self, status_string):
@@ -323,6 +326,7 @@ Usage: bungloo [option [text]]
 
 	app = SingleApplication.SingleApplicationWithMessaging(sys.argv, key)
 	if app.isRunning():
+		print json.dumps(sys.argv[1:]) 
 		app.sendMessage(json.dumps(sys.argv[1:]))
 		sys.exit(1)
 
