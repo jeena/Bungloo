@@ -200,3 +200,7 @@ String.prototype.escapeSpecialChars = function() {
         .replace(/[\r]/g, '\\r')
         .replace(/[\t]/g, '\\t');
 }
+
+String.prototype.escapeRegExp = function() {
+  return this.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}

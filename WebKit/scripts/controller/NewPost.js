@@ -189,7 +189,7 @@ function(APICalls, HostApp) {
 	}
 
 	NewPost.prototype.replaceAll = function(txt, replace, with_this) {
-		return txt.replace(new RegExp(replace, 'g'),with_this);
+		return txt.replace(new RegExp(replace, 'g'), with_this);
 	}
 
 	NewPost.prototype.replaceWithName = function(txt, with_item) {
@@ -228,7 +228,7 @@ function(APICalls, HostApp) {
 		// parse the text:
 		// replace all the line braks by <br/>, and all the double spaces by the html version &nbsp;
 		text = this.replaceAll(text,'\n','<br/>');
-		text = this.replaceAll(text,'  ','&nbsp;&nbsp;');
+		//text = this.replaceAll(text,'  ','&nbsp;&nbsp;');
 
 		// replace the words by a highlighted version of the words
 

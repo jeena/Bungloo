@@ -318,12 +318,12 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
             return false;
         });
 
-        // {"type":"Point","coordinates":[57.10803113,12.25854746]}
-        if (status.content && status.content.location && (typeof status.content.location.type == "undefined" || status.content.location.type == "Point")) {
-            var lat = status.content.location.coordinates[0];
-            var lng = status.content.location.coordinates[1];
+        if (status.content && status.content.location) {
+            var lat = status.content.location.latitude;
+            var lng = status.content.location.longitude;
 
             if (typeof lat != "undefined" && typeof lng != "undefined" && lat > 0 && lng > 0) {
+
                 var href = this.mapHref(lat, lng);
                 template.geo.href = href;
                 template.geo.style.display = "";
