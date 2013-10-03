@@ -838,7 +838,6 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
                    a.href = self.mapHref(lat, lng);
                    var img = document.createElement("img");
                    img.src = self.mapSrc(lat, lng);
-                   debug(img.src)
                    a.appendChild(img);
                    images.appendChild(a);
         }, 200);

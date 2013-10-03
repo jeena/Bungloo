@@ -22,6 +22,7 @@ function(Core, APICalls, HostApp, URI) {
         this.since_time = null;
 
         this.pages = {};
+        this.next = null;
 
         this.before = {id: null, entity: null, loading: false};
 
@@ -47,7 +48,6 @@ function(Core, APICalls, HostApp, URI) {
         Core.prototype.hide.call(this, this.container);
     }
     
-
     Timeline.prototype.newStatus = function(_statuses, append) {
 
         for (var entity in _statuses.profiles) {
@@ -59,12 +59,13 @@ function(Core, APICalls, HostApp, URI) {
         }
 
         this.pages = _statuses.pages;
+        if(_statuses.pages.next) this.next = _statuses.pages.next;
         
         statuses = _statuses.posts;
 
-        if(statuses != null && statuses.length > 0) {
+        this.before.loading = false;
 
-            this.before.loading = false;
+        if(statuses != null && statuses.length > 0) {
 
             if (append) statuses = statuses.reverse();
 
@@ -174,9 +175,9 @@ function(Core, APICalls, HostApp, URI) {
 
     Timeline.prototype.getMoreStatusPosts = function() {
         if (!this.before.loading) {
-            if (this.pages.next) {
+            if (this.next) {
                 this.before.loading = true;
-                this.getNewData({}, true, this.pages.next);
+                this.getNewData({}, true, this.next);
             }
         }
     }
