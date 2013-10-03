@@ -322,7 +322,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
             var lat = status.content.location.latitude;
             var lng = status.content.location.longitude;
 
-            if (typeof lat != "undefined" && typeof lng != "undefined" && lat > 0 && lng > 0) {
+            if (typeof lat != "undefined" && typeof lng != "undefined") {
 
                 var href = this.mapHref(lat, lng);
                 template.geo.href = href;
@@ -822,12 +822,12 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
     }
 
     Core.prototype.mapHref = function(lat, lng) {
-        return "http://www.openstreetmap.org/?mlat=" + lat + "&mlon=" + lng + "&zoom=12";
+        return "http://www.openstreetmap.org/?mlat=" + lat.toString() + "&mlon=" + lng.toString() + "&zoom=12";
     }
 
     Core.prototype.mapSrc = function(lat, lng) {
-        var width = $("div:visible p.message").width();
-        return "http://staticmap.openstreetmap.de/staticmap.php?center=" + lat + "," + lng + "&zoom=3&size=" + width + "x75&markers=" + lat + "," + lng + ",red-pushpin";
+        var width = $("div:visible div.message").width();
+        return "http://staticmap.openstreetmap.de/staticmap.php?center=" + lat.toString() + "," + lng.toString() + "&zoom=3&size=" + width + "x75&markers=" + lat + "," + lng + ",red-pushpin";
     }
 
     Core.prototype.addMap = function(lat, lng, images) {
@@ -838,6 +838,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
                    a.href = self.mapHref(lat, lng);
                    var img = document.createElement("img");
                    img.src = self.mapSrc(lat, lng);
+                   debug(img.src)
                    a.appendChild(img);
                    images.appendChild(a);
         }, 200);
