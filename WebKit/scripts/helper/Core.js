@@ -166,7 +166,7 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
         return jQuery.extend(true, {}, this.template);;
     }
 
-    Core.prototype.getStatusDOMElement = function(status) {
+    Core.prototype.getStatusDOMElement = function(status, refs) {
 
         var _this = this;
 
@@ -260,35 +260,32 @@ function(jQuery, APICalls, URI, HostApp, Markdown) {
         template.message.innerHTML = this.replaceURLWithHTMLLinks(text, entities, template.message);
         this.afterChangingTextinMessageHTML(template.message)
 
-        /*
-        if (status.type == "https://tent.io/types/post/photo/v0.1.0") {
-
-            for (var i = 0; i < status.attachments.length; i++) {
-                // closure needed for the callback
-                (function() {
-
-                    var attachment = status.attachments[i];
-
-                    var img = new Image();
-
-                    img.className = "photo";
-                    template.images.appendChild(img);
-
-                    var callback = function(resp) {
-                        img.src = "data:" + attachment.type + ";base64," + resp.responseText;
+        if(status.refs) {
+            for (var i = 0; i < status.refs.length; i++) {
+                var ref = status.refs[i];
+                if(ref.type == "https://tent.io/types/photo/v0#") {
+                    if(refs) {
+                        for (var j = 0; j < refs.length; j++) {
+                            var r = refs[j];
+                            if(ref.post == r.id) {
+                                for (var k = 0; k < r.attachments.length; k++) {
+                                    var attachment = r.attachments[k];
+                                    var a = document.createElement("a");
+                                    var img = document.createElement("img");
+                                    img.src = HostApp.serverUrl("attachment")
+                                                .replace(/\{entity\}/, encodeURIComponent(r.entity))
+                                                .replace(/\{digest\}/, attachment.digest);
+                                    a.appendChild(img);
+                                    a.href = img.src;
+                                    template.images.appendChild(a);
+                                }
+                            }
+                        }
                     }
-
-                    if (status.entity == HostApp.stringForKey("entity")) {
-                        var url = APICalls.mkApiRootPath("/posts/" + status.id + "/attachments/" + attachment.name);
-                        APICalls.http_call(url, "GET", callback, null, null, attachment.type);
-                    } else {
-                        var url = APICalls.mkApiRootPath("/posts/" + encodeURIComponent(status.entity) + "/" + status.id + "/attachments/" + attachment.name);
-                        APICalls.http_call(url, "GET", callback, null, null, attachment.type);
-                    }
-                })();
-            }
+                }
+            }            
         }
-        */
+
         this.findMentions(template.message, status.mentions);
 
 /*

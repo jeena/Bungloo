@@ -86,7 +86,7 @@ function(HostApp, Core, APICalls, URI, ConversationNode) {
 
             var status = _statuses.post;
 
-            var dom_element = _this.getStatusDOMElement(status);
+            var dom_element = _this.getStatusDOMElement(status, _statuses.refs);
             var cNode = new ConversationNode(dom_element);
             dom_element.cNode = cNode;
 
@@ -130,7 +130,7 @@ function(HostApp, Core, APICalls, URI, ConversationNode) {
         var url = HostApp.serverUrl("post")
             .replace(/\{entity\}/, encodeURIComponent(entity))
             .replace(/\{post\}/, id)
-            + "?profiles=entity";
+            + "?profiles=entity&max_refs=20";
 
         APICalls.get(url, { callback: callback });
     }
@@ -141,15 +141,16 @@ function(HostApp, Core, APICalls, URI, ConversationNode) {
         var callback = function(resp) {
 
             var statuses = JSON.parse(resp.responseText).mentions;
+            if (statuses) {
+                for (var i = 0; i < statuses.length; i++) {
 
-            for (var i = 0; i < statuses.length; i++) {
+                    var status = statuses[i];
 
-                var status = statuses[i];
-
-                // don't load if it is already there
-                var not_already_there = !document.getElementById("post-" + status.post + "-" + _this.action);
-                if(not_already_there && status.type.startsWith("https://tent.io/types/status/v0")) {
-                    _this.append(status.post, status.entity, node, true);
+                    // don't load if it is already there
+                    var not_already_there = !document.getElementById("post-" + status.post + "-" + _this.action);
+                    if(not_already_there && status.type.startsWith("https://tent.io/types/status/v0")) {
+                        _this.append(status.post, status.entity, node, true);
+                    }
                 }
             }
         }

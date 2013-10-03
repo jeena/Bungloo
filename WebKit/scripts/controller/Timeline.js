@@ -77,10 +77,13 @@ function(Core, APICalls, HostApp, URI) {
                     this.since_id_entity = status.entity;
                     this.since_time = status.received_at;
                 }
+                
+                // if(status.id == "vBf0UALAJ97LnvJN4f6sBw") debug(status);
+
 
                 if (status.type.startsWith("https://tent.io/types/status/v0#")) {
 
-                    var new_node = this.getStatusDOMElement(status);
+                    var new_node = this.getStatusDOMElement(status, _statuses.refs);
 
                     if (!document.getElementById(new_node.id)) {
                         if(!append && this.body.childNodes.length > 0) {
@@ -133,7 +136,7 @@ function(Core, APICalls, HostApp, URI) {
             uri.addSearch("types", post_types.join(","));
             //uri.addSearch("sort_by", "published_at");
             uri.addSearch("limit", this.posts_limit);
-            //uri.addSearch("max_refs", 20);
+            uri.addSearch("max_refs", 20);
             uri.addSearch("profiles", "entity");
 
             if(this.since_time) {
