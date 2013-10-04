@@ -16,6 +16,7 @@ class Preferences:
 
 		# image view
 		image = QtGui.QPixmap(self.app.resources_path() + "/images/Icon.png")
+		print self.app.resources_path() + "/images/Icon.png"
 		image_view = QtGui.QLabel(self.window)
 		image_view.setGeometry(20, 20, 146, 146)
 		image_view.setPixmap(image)

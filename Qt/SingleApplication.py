@@ -3,9 +3,11 @@
 # from http://stackoverflow.com/questions/8786136/pyqt-how-to-detect-and-close-ui-if-its-already-running
 
 from PyQt4 import QtGui, QtCore, QtNetwork
+import json
 
 class SingleApplication(QtGui.QApplication):
     def __init__(self, argv, key):
+        self.bungloo = None
         QtGui.QApplication.__init__(self, argv)
         self._memory = QtCore.QSharedMemory(self)
         self._memory.setKey(key)
@@ -53,6 +55,13 @@ class SingleApplicationWithMessaging(SingleApplication):
             socket.disconnectFromServer()
             return True
         return False
+
+    def event(self, event):
+        if isinstance(event, QtGui.QFileOpenEvent):
+            url = str(event.url().toString())
+            args = json.dumps([url])
+            self.bungloo.handleMessage(args)
+        return True
 
 class Window(QtGui.QWidget):
     def __init__(self):

@@ -4,17 +4,21 @@ from PyQt4.QtCore import QTimer, QVariant, SIGNAL
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply, QSslSocket
 from PyQt4.QtWebKit import QWebView
+from sys import platform as _platform
 
 import os, sys
 
 import array
 
 class Helper:
-    @classmethod
-    def get_resource_path(cls):
-    	if os.name == "nt":
+	@classmethod
+	def get_resource_path(cls):
+		
+		if os.name == "nt":
 			return os.path.dirname(sys.argv[0])
-    	else:
+		elif _platform == "darwin":
+			return os.path.dirname(sys.argv[0])
+		else:
 			return os.path.dirname(__file__)
 
 class WebPage(QtWebKit.QWebPage):
@@ -93,6 +97,8 @@ class WebViewCreator(QtWebKit.QWebView):
 			os_type = "linux"
 			if os.name == "nt":
 				os_type = "windows"
+			elif _platform == "darwin":
+				os_type = "osx"
 			frame.evaluateJavaScript("var OS_TYPE = '" + os_type + "';")
 
 			js_plugin_path = os.path.expanduser('~/.config/bungloo/Plugin.js')

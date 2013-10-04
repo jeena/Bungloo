@@ -2,9 +2,11 @@
 
 import os, sys, pickle, subprocess, shutil, json
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
+from sys import platform as _platform
 
 RUNNING_LOCAL = os.path.basename(sys.argv[0]) == "Bungloo.py"
 RUNNING_ON_WINDOWS = os.name == "nt"
+RUNNING_ON_OSX = _platform == "darwin"
 
 if RUNNING_LOCAL or RUNNING_ON_WINDOWS:
 	import Windows, Helper, SingleApplication
@@ -33,7 +35,7 @@ class Bungloo():
 			self.authentification_succeded()
 
 	def resources_path(self):
-		if RUNNING_LOCAL:
+		if RUNNING_LOCAL and not RUNNING_ON_OSX:
 			return os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 		else:
 			return Helper.Helper.get_resource_path()
@@ -95,6 +97,7 @@ class Bungloo():
 	def handleMessage(self, args):
 		# argv is just a array of words which you can get in from the outside
 		argv = json.loads(str(args))
+		print args
 		if len(argv) > 0:
 			if argv[0] == "--new-message":
 				text = " ".join(argv[1:])
@@ -308,10 +311,10 @@ if __name__ == "__main__":
 	if len(sys.argv) > 1 and sys.argv[1] == "--help":
 		print """
 Usage: bungloo [option [text]]
-	
-	Options:
-	--new-message [text]	Opens new message window with text
-	--search text		Opens search with text
+
+Options:
+--new-message [text]	Opens new message window with text
+--search text		Opens search with text
 			"""
 		sys.exit(1)
 
@@ -330,7 +333,7 @@ Usage: bungloo [option [text]]
 		app.sendMessage(json.dumps(sys.argv[1:]))
 		sys.exit(1)
 
-	bungloo = Bungloo()
-	app.connect(app, QtCore.SIGNAL('messageAvailable'), bungloo.handleMessage)
+	app.bungloo = Bungloo()
+	app.connect(app, QtCore.SIGNAL('messageAvailable'), app.bungloo.handleMessage)
 
 	sys.exit(app.exec_())
