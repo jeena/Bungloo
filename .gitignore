@@ -1,5 +1,4 @@
-Mac/build/
-Mac/Bungloo.xcodeproj/project.xcworkspace/xcuserdata/jeena.xcuserdatad/UserInterfaceState.xcuserstate
+Mac/bungloo
 dsa_priv.pem
 *.pyc
 .DS_Store
