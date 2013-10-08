@@ -6,20 +6,33 @@ from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkRepl
 from PyQt4.QtWebKit import QWebView
 from sys import platform as _platform
 
-import os, sys
-
-import array
+import os, sys, array
 
 class Helper:
 	@classmethod
 	def get_resource_path(cls):
-		
-		if os.name == "nt":
+		if Helper.is_windows():
 			return os.path.dirname(sys.argv[0])
-		elif _platform == "darwin":
+		elif Helper.is_mac():
 			return os.path.dirname(sys.argv[0])
 		else:
 			return os.path.dirname(__file__)
+
+	@classmethod
+	def is_local(cls):
+		return os.path.basename(sys.argv[0]) == "Bungloo.py"
+
+	@classmethod
+	def is_mac(cls):
+		return _platform == "darwin"
+
+	@classmethod
+	def is_windows(cls):
+		return os.name == "nt"
+
+	@classmethod
+	def is_linux(cls):
+		return not (Helper.is_windows() or Helper.is_mac())
 
 class WebPage(QtWebKit.QWebPage):
 	def __init__(self, parent=0, app=None):
@@ -95,9 +108,9 @@ class WebViewCreator(QtWebKit.QWebView):
 		frame = self.page().mainFrame()
 		if self.is_local:
 			os_type = "linux"
-			if os.name == "nt":
+			if Helper.is_windows:
 				os_type = "windows"
-			elif _platform == "darwin":
+			elif Helper.is_mac:
 				os_type = "osx"
 			frame.evaluateJavaScript("var OS_TYPE = '" + os_type + "';")
 
@@ -115,7 +128,7 @@ class WebViewCreator(QtWebKit.QWebView):
 			callback(ok)
 
 	def handleSslErrors(self, reply, errors):
-		if os.name == "nt": # ignore SSL errors on Windows (yes a uggly workaround, don't know how to fix it yet)
+		if Helper.is_windows: # ignore SSL errors on Windows (yes a uggly workaround, don't know how to fix it yet)
 			for error in errors:
 				print error.errorString()
 			reply.ignoreSslErrors(errors)

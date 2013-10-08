@@ -16,13 +16,13 @@ class Preferences:
 
 		# image view
 		image = QtGui.QPixmap(self.app.resources_path() + "/images/Icon.png")
-		print self.app.resources_path() + "/images/Icon.png"
 		image_view = QtGui.QLabel(self.window)
 		image_view.setGeometry(20, 20, 146, 146)
 		image_view.setPixmap(image)
 		image_view.setScaledContents(True)
 
-		self.window.setWindowIcon(QtGui.QIcon(image))
+		if not Helper.Helper.is_mac():
+			self.window.setWindowIcon(QtGui.QIcon(image))
 
 		# info text
 		info_text = QtGui.QLabel(self.window)
@@ -85,7 +85,9 @@ class Timeline:
 
 		self.window = Helper.RestorableWindow(action, self.app)
 		self.window.setWindowTitle(title)
-		self.window.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
+
+		if not Helper.Helper.is_mac():
+			self.window.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
 
 		self.webView = Helper.WebViewCreator(self.app, True, self.window)
 		self.webView.load_local(self.load_finished)
@@ -341,7 +343,8 @@ class NewPost(Helper.RestorableWindow):
 		self.activateWindow()
 		self.raise_()
 
-		self.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
+		if not Helper.Helper.is_mac():
+			self.setWindowIcon(QtGui.QIcon(self.app.resources_path() + "/images/Icon.png"))
 
 		self.webView = Helper.WebViewCreator(self.app, True, self)
 		self.webView.load_local(self.load_finished)

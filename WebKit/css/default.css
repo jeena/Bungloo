@@ -403,6 +403,10 @@ li.mentioned .post {
 	clear: right;
 }
 
+.message a:not(.name) {
+	text-decoration: underline;
+}
+
 header.profile button {
 	background: #09F;
 	float: right;

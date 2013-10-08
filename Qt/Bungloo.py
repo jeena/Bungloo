@@ -4,15 +4,9 @@ import os, sys, pickle, subprocess, shutil, json
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 from sys import platform as _platform
 
-RUNNING_LOCAL = os.path.basename(sys.argv[0]) == "Bungloo.py"
-RUNNING_ON_WINDOWS = os.name == "nt"
-RUNNING_ON_OSX = _platform == "darwin"
-
-print sys.argv[0]
-
-if RUNNING_LOCAL or RUNNING_ON_WINDOWS:
+try:
 	import Windows, Helper, SingleApplication
-else:
+except:
 	from bungloo import Windows, Helper, SingleApplication
 
 class Bungloo():
@@ -37,7 +31,7 @@ class Bungloo():
 			self.authentification_succeded()
 
 	def resources_path(self):
-		if RUNNING_LOCAL and not RUNNING_ON_OSX:
+		if Helper.Helper.is_local() and not Helper.Helper.is_mac():
 			return os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 		else:
 			return Helper.Helper.get_resource_path()
@@ -320,7 +314,7 @@ Options:
 			"""
 		sys.exit(1)
 
-	if RUNNING_ON_WINDOWS and not RUNNING_LOCAL:
+	if Helper.Helper.is_windows() and not Helper.Helper.is_local():
 		import sys
 		from os import path, environ, makedirs
 		appdata = path.join(environ["TMP"], key)

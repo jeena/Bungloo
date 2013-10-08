@@ -1,16 +1,20 @@
 #!/bin/bash
 
+HERE=`pwd`
+TMP="/tmp"
+
 rm -rf Bungloo.app
-rm -rf bungloo
-mkdir bungloo
-cp -r ../Qt/* bungloo
-cp -r ../WebKit bungloo
-cp -r ../images bungloo
-cp Icon.icns bungloo/images
-cp setup.py bungloo
-cp Info.plist bungloo
-cd bungloo
+rm -rf $TMP/bungloo
+mkdir $TMP/bungloo
+cp -r ../Qt/* $TMP/bungloo
+cp -r ../WebKit $TMP/bungloo
+cp -r ../images $TMP/bungloo
+cp Icon.icns $TMP/bungloo/images
+cp setup.py $TMP/bungloo
+cp Info.plist $TMP/bungloo
+cd $TMP/bungloo
 python setup.py py2app
-mv dist/Bungloo.app ..
-cd ..
-rm -rf bungloo
+mv $TMP/bungloo/dist/Bungloo.app $HERE
+cd $HERE
+rm -rf $TMP/bungloo
+Bungloo.app/Contents/MacOS/Bungloo
