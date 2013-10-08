@@ -47,5 +47,3 @@ setup(
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
 )
-
-print os.path.dirname(PyQt4.__file__)

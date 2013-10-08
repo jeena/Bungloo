@@ -8,6 +8,8 @@ RUNNING_LOCAL = os.path.basename(sys.argv[0]) == "Bungloo.py"
 RUNNING_ON_WINDOWS = os.name == "nt"
 RUNNING_ON_OSX = _platform == "darwin"
 
+print sys.argv[0]
+
 if RUNNING_LOCAL or RUNNING_ON_WINDOWS:
 	import Windows, Helper, SingleApplication
 else:

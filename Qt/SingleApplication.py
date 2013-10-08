@@ -8,6 +8,7 @@ import json
 class SingleApplication(QtGui.QApplication):
     def __init__(self, argv, key):
         self.bungloo = None
+        QtGui.QApplication.setGraphicsSystem("raster")
         QtGui.QApplication.__init__(self, argv)
         self._memory = QtCore.QSharedMemory(self)
         self._memory.setKey(key)
