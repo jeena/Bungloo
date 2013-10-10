@@ -188,6 +188,10 @@ p {
 	word-wrap: break-word;
 }
 
+p + p {
+	padding-top: 0.5em;
+}
+
 .image {
 	float: left;
 	margin-left: 2px;
