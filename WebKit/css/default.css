@@ -397,10 +397,7 @@ li.mentioned .post {
 
 .name {
 	font-weight: bold;
-}
-
-.name + .name:before {
-	content: ", ";
+	border-bottom: 1px dotted ;
 }
 
 .message {
